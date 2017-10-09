@@ -1,0 +1,169 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<title>Login Register | Jeevandeep Prakashan Pvt. Ltd.</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="shortcut icon" type="image/x-icon" href="images/jeevandeep-favicon.ico">
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/developer.css">
+
+<script type="text/javascript" src="js/jquery.min.js"></script> 
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+<!-- Start Header -->
+<div class="header">
+	<div class="wrapper cf">
+		<div class="logo">
+			<a href="index.html">JEEVANDEEP PRAKASHAN PVT. LTD.</a><span>enlightening minds for a brighter tomorrow</span>
+		</div>
+		<div class="menu">
+			<ul class="cf">
+				<li><a href="index.html">jeevandeep</a></li>
+				<li><a href="our-story.html">our story</a></li>
+				<li><a href="what-we-do.html">what we do</a></li>
+				<li><a href="lets-connect.html">lets connect</a></li>
+				<li><a href="work-with-us.html">work with us</a></li>
+				<li><a href="write-for-us.html">write for us</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- End Header --> 
+<!-- Start Wrapper -->
+<div class="wrapper content cf">
+	<!-- Start Select School -->
+    <div class="enquire login-register cf">
+    	<h2><i class="fa fa-book"></i>Online Store</h2>
+        <div class="select-div">Login | Register</div>
+        <div class="please-select">Please login if you are a returning user, else register if you are here for the first time.</div>
+        <div class="cf">
+        	<form class="loginForm cf">
+                <div class="form-sub-title"><span>LOGIN</span> if you are a returning user</div>
+                <li class="form-group">
+                    <label>EMAIL ID</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-sign-in"></i></span>
+                        <div class="icon-addon">
+                            <input placeholder="PLEASE ENTER YOUR EMAIL ID" class="form-control" id="" type="text">
+                        </div>
+                    </div>
+                </li>
+                <li class="form-group">
+                    <label>PASSWORD</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                        <div class="icon-addon">
+                            <input placeholder="PLEASE ENTER YOUR PASSWORD" class="form-control" id="" type="text">
+                        </div>
+                    </div>
+                </li>
+                <li><button type="submit" class="btn btnS"><i class="fa fa-link"></i>LOGIN</button></li>
+                <li class="forgot"><i class="fa fa-link"></i><a href="#">Forgot Password</a></li>
+            </form>
+            <form class="loginForm cf">
+                <div class="form-sub-title"><span>Register</span> if you are a returning user</div>
+                <li class="form-group">
+                    <label>EMAIL ID</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user-plus"></i></span>
+                        <div class="icon-addon">
+                            <input placeholder="PLEASE ENTER YOUR EMAIL ID" class="form-control" id="" type="text">
+                        </div>
+                    </div>
+                </li>
+                <li><button type="submit" class="btn btnS"><i class="fa fa-link"></i>REGISTER</button></li>
+            </form>
+        </div>
+    </div>
+    <!-- End Select School -->
+</div>
+<!-- End wrapper -->
+<!-- Start Footer -->
+<div class="footer">
+	<div class="wrapper cf">
+		<div class="footer-link">
+			<ul class="cf">
+				<li><a href="index.html">jeevandeep</a></li>
+				<li><a href="our-story.html">our story</a></li>
+				<li><a href="what-we-do.html">what we do</a></li>
+				<li><a href="lets-connect.html">lets connect</a></li>
+				<li><a href="work-with-us.html">work with us</a></li>
+				<li><a href="write-for-us.html">write for us</a></li>
+			</ul>
+		</div>
+		<div class="footer-logo">
+			<li><span><img src="images/jppl.svg" width="83" height="76" alt=""></span></li>
+			<li><span><img src="images/infomedia.svg" width="151" height="35" alt=""></span></li>
+			<li><span><img src="images/periwinkle-logo.svg" width="82" height="64" alt=""></span></li>
+		</div>
+		<div class="footer-contact">
+			<ul class="cf">
+				<li><i class="fa fa-phone"></i> +91-22-24837700/1/2/3/4</li>
+				<li><a href="mailto:enquiries@jeevandeep.in"><i class="fa fa-envelope"></i> enquiries@jeevandeep.in</a></li>
+				<li><a href="images/jeevandeep_publications-catalogue-2017.pdf" target="_blank"><i class="fa fa-list"></i> Download our catalogue</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="footer-bottom">
+	<div class="wrapper cf">
+		<div class="al">&copy; 2016 All Rights Reserved. Jeevandeep Prakashan Pvt. Ltd.</div>
+		<div class="ar">Designed & Developed  by studio1one2</div>
+	</div>
+</div>
+<!-- End Footer -->
+<script>
+$(document).ready(function () {
+    $(".btn-select").each(function (e) {
+        var value = $(this).find("ul li.selected").html();
+        if (value != undefined) {
+            $(this).find(".btn-select-input").val(value);
+            $(this).find(".btn-select-value").html(value);
+        }
+    });
+});
+
+$(document).on('click', '.btn-select', function (e) {
+    e.preventDefault();
+    var ul = $(this).find("ul");
+    if ($(this).hasClass("active")) {
+        if (ul.find("li").is(e.target)) {
+            var target = $(e.target);
+            target.addClass("selected").siblings().removeClass("selected");
+            var value = target.html();
+            $(this).find(".btn-select-input").val(value);
+            $(this).find(".btn-select-value").html(value);
+        }
+        ul.hide();
+        $(this).removeClass("active");
+    }
+    else {
+        $('.btn-select').not(this).each(function () {
+            $(this).removeClass("active").find("ul").hide();
+        });
+        ul.slideDown(300);
+        $(this).addClass("active");
+    }
+});
+
+$(document).on('click', function (e) {
+    var target = $(e.target).closest(".btn-select");
+    if (!target.length) {
+        $(".btn-select").removeClass("active").find("ul").hide();
+    }
+});
+
+</script>
+</body>
+</html>
