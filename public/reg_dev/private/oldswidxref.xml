@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SWCONFIG>
+	<SWIDXREF>
+		<QCT>0</QCT>
+		<QCD>1</QCD>
+		<DEM>2</DEM>
+		<SQC>3</SQC>
+		<UPD>4</UPD>
+		<BAT>5</BAT>
+		<LIM>6</LIM>
+		<FUL>7</FUL>
+		<UPG>8</UPG>
+		<DSB>9</DSB>
+		<DSP>10</DSP>
+		<BGN>11</BGN>
+		<SBG>12</SBG>
+	</SWIDXREF>
+</SWCONFIG>

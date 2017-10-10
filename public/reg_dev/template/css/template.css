@@ -1,0 +1,51 @@
+@import url("header.css");
+
+/*These styles you can change, just in case you didn't realize */
+html,body {	
+background-image:url("https://store.graceframe.com/cart/skin/frontend/girly_store/default/images/background.jpg");	
+color:#444;	
+font-family: Arial, Helvetica, sans-serif;	
+font-size:12px;		
+margin:0px;
+}
+
+.wrapper {	
+margin:0px auto;	
+width:1090px;	
+overflow:hidden;
+}
+
+.float-container {
+overflow:hidden;
+}
+
+#inner {	
+padding:10px;	
+min-height:200px;	
+font-size:14px;	
+overflow:hidden;
+}
+
+.lfloat {	float:left; }
+.rfloat {	float:right; }
+
+a:link,a:visited {
+color:blue;
+text-decoration:none;
+}
+
+input[type="text"],input[type="password"] {
+padding:2px;
+height:15px;
+width:150px;
+margin:2px;
+}
+
+a:hover {color:red;text-decoration:underline;}
+hr {border:2px black solid;}
+.align-right {	text-align:right;}
+.align-left {	text-align:left;}
+.align-center {	text-align:center;}
+.error {  background:rgb(255, 239, 239);	border:1px rgb(197, 0, 0) solid;	font-size: 13px;	color:black;	padding: 5px;	width: auto;	text-align: left;	margin: 5px;}
+.warning {	background: rgb(255, 244, 186);	font-size: 13px;	color:black;	padding: 5px;	text-align:left;	margin:5px;	width: auto;}
+.success {	background:rgb(234, 255, 240);	font-size: 13px;	color:black;	padding: 5px;	width: auto;	text-align: left;	margin:5px;}

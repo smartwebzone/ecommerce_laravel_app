@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SWIDMAP>
+<!-- The following lists the pages, or product families -->
+    <PAGES>
+        <n0>00000000 QCT (s)</n0>
+        <n1>00000001 Beginnings</n1>
+        <n2>00000010 Design</n2>
+        <n3>00000011 QCT (ug)</n3>
+        <n4>11111111 Demo</n4>
+        <iCOUNT>5</iCOUNT>
+    </PAGES>
+
+<!-- The following lists the features sets that are contained within the pages (families) -->
+<!-- Like-feature sets may be shared across familes -->
+<!-- UPD (Update) is an example of this, as is SQC. -->
+
+    <n00000000>
+        <n0>UPD</n0>
+        <n1>QCT</n1>
+        <n2>FUL</n2>
+        <n3>LIM</n3>
+        <n4>UPG</n4>
+        <n5>SQC</n5>
+        <iCOUNT>6</iCOUNT>
+    </n00000000>
+    <n00000001>
+        <n0>UPD</n0>
+        <n1>QBG</n1>
+        <n2>UPD</n2>
+        <n3>SQB</n3>
+        <n4>QBU</n4>
+        <n5>SQC</n5>
+        <iCOUNT>6</iCOUNT>
+    </n00000001>
+    <n00000010>
+        <n0>UPD</n0>
+        <n1>QCD</n1>
+        <n2>DSB</n2>
+        <n3>DSP</n3>
+        <n4>SQD</n4>
+        <iCOUNT>5</iCOUNT>
+    </n00000010>
+    <n00000011>
+        <n0>UPD</n0>
+        <n1>QCT</n1>
+        <n2>FUL</n2>
+        <n3>QUG</n3>
+        <n4>SQC</n4>
+        <iCOUNT>5</iCOUNT>
+    </n00000011>
+    <n11111111>
+        <n0>UPD</n0>
+        <n1>DEM</n1>
+        <iCOUNT>2</iCOUNT>
+    </n11111111>
+</SWIDMAP>

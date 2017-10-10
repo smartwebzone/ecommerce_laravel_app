@@ -1,0 +1,108 @@
+.toppadding-sm{padding-top:30px}
+.toppadding{padding-top:50px;}
+.bottompadding-sm{padding-bottom:30px}
+.bottompadding{padding-bottom:50px;}
+.allpadding{padding:50px;}
+.allpadding-sm{padding:30px;}
+
+.col-centered{float:none;margin:0 auto;}
+.overlay-light{background-image:url('/images/grid-light.png');}
+
+.button:hover,.button-full:hover{text-decoration:none;}
+.compare{background-color:#F9F9F9;padding:20px 15px 5px 15px;}
+.accent,.heading-block .accent{color:#B14949;}
+.accent-blue,.heading-block .accent-blue{color:#48A0C4;}
+.bg-accent{background-color:#B14949;}
+.topborder-sm{border-top:2px solid #B14949;}
+.bottomborder-sm{border-bottom:2px solid #B14949;}
+.line{border-top:2px solid #DDD;}
+.feature-box{padding:0 0 0 110px;}
+.feature-box.fbox-right{padding:0 110px 0 0;text-align:right;}
+#content .de-emph{font-size:.85em;line-height:normal;}
+#content p.de-emph{margin-bottom:10px;}
+.feature-box .fbox-icon{width:100px;height:100px;}
+.feature-box .fbox-icon img{background-color:transparent;border:1px solid #48A0C4;}
+#content .feature-box p{line-height:1.4;color:rgb(85,85,85);}
+.alert_link:hover{color: #48A0C4 !important; text-decoration: underline !important;}
+
+#primary-menu ul li{ margin-left:2px !important;}
+.clear{ float: none; clear: both;}
+
+.product-title{ margin-bottom:0;}
+.product-title h3{ font-size:16px;}
+.product-price{ font-size:14px;}
+
+.secondary{color:#B14949;}
+.button-secondary{background-color:#B14949;}
+.heading-block .secondary {color:#B14949;}
+.bgcolor-second{background-color:#B14949;}
+
+.primary{color:#48A0C4;}
+.button-primary{background-color:#48A0C4;}
+.heading-block .primary {color:#48A0C4;}
+.bgcolor-primary{background-color:#48A0C4;}
+
+
+.primary-dark{color:#3D88A7;}
+.button-primary-dark{background-color:#3D88A7;}
+.heading-block .primary-dark {color:#3D88A7;}
+.bgcolor-primary-dark{background-color:#3D88A7;}
+
+
+.bottom-border{border-bottom: 2px solid #48a0c4;}
+.top-border{border-top: 2px solid #48a0c4;}
+
+@media screen and (max-width: 1565px) and (min-width: 991px) {
+body.stretched #header.full-header .container{ padding: 0 20px 0 10px;}
+#header.full-header #primary-menu > ul{ padding-right:3px; margin-right:0;}
+#primary-menu ul li > a{ padding-left: 10px !important; padding-right: 10px !important;}
+}
+@media screen and (max-width: 1375px) and (min-width: 991px) {
+#header.full-header.dark #header-wrap:not(.not-dark) #logo{ margin-right:0;}
+body.stretched #header.full-header .container{ padding:0 10px 0 0;}
+#header.full-header.dark #header-wrap:not(.not-dark) #logo{ margin-right:0;}
+#primary-menu ul li > a{ font-size: 12px !important; font-weight:normal !important;}
+
+}
+
+@media screen and (max-width: 1330px) and (min-width: 991px) {
+#primary-menu ul li{ max-width:none !important;}
+#primary-menu ul li > a{font-size: 11px !important; }    
+}
+
+@media screen and (max-width: 1280px) and (min-width: 991px) {
+#primary-menu ul li{ max-width:100px !important;}
+#primary-menu ul li > a{ height: 99px;}
+#primary-menu ul ul li{ max-width:100% !important;}
+#primary-menu ul ul li > a, #header.sticky-header:not(.static-sticky) #primary-menu > ul > li > a{ height: auto;}
+  
+}
+
+@media screen and (max-width: 1220px) and (min-width: 991px) {
+#page-menu nav li a{ padding:0 9px !important; margin:8px 3px !important;} 
+#portfolio-filter{ display:block !important;}
+#portfolio-filter.portfolio-filter li.activeFilter a{ padding:10px 7px; font-size:11px; line-height:12px;}
+}
+
+@media screen and (max-width: 1185px) and (min-width: 991px) {
+#header.full-header #primary-menu > ul{ margin-right:0; padding-right:5px;}    
+#header.full-header.dark #header-wrap:not(.not-dark) #logo{ margin-right: 0 !important;}
+#primary-menu ul li{ max-width:85px !important;}
+#primary-menu ul li > a{ padding-left: 5px !important; padding-right: 5px !important; font-size: 11px !important; }
+#primary-menu ul ul li{ max-width:100% !important;}
+#primary-menu ul ul li > a{font-size: 12px !important;}
+}
+
+@media screen and (max-width: 1140px) and (min-width: 991px) { 
+#primary-menu ul li{ margin-left:1px !important;}
+#primary-menu ul li > a{font-size: 10px !important; }
+} 
+
+@media screen and (max-width: 1024px) and (min-width: 991px) { 
+#primary-menu ul li{ max-width:80px !important;}
+#primary-menu ul ul li{ max-width:100% !important;}  
+}
+
+@media screen and (max-width: 768px) {
+#portfolio-filter{ display:block !important;} 
+}

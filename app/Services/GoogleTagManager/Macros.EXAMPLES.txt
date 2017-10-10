@@ -1,0 +1,705 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Phillip Madsen
+ * Date: 1/26/2017
+ * Time: 10:53 AM
+ */
+
+
+GoogleTagManager::macro('impression', function ($products) {
+	GoogleTagManager::set('ecommerce', [
+		'currencyCode' => 'USD',
+		'detail' => [
+			'product' => [ $product->getGoogleTagManagerData() ]
+		]
+	]);
+});
+
+//GoogleTagManager::macro('detail', function ($product) {
+//	GoogleTagManager::set('ecommerce', [
+//		'detail' => [
+//			'product' => [ $product->getGoogleTagManagerData() ]
+//		]
+//	]);
+//});
+
+
+//dataLayer.push({
+//        'ecommerce': {
+//			'detail': {
+//				'actionField': {'list': 'Apparel Gallery'},    // 'detail' actions have an optional list property.
+//                    'products': [{
+//			        'name': 'Triblend Android T-Shirt',         // Name or ID is required.
+//                    'id': '12345',
+//                    'price': '15.25',
+//                    'brand': 'Google',
+//                    'category': 'Apparel',
+//                    'variant': 'Gray'
+//                }]
+//            }
+//        }
+//    });
+// AFTER LOOP IS SETUP CORRECT WE PUT THIS IN THE PRODUCTCONTROLLER SHOW METHOD
+
+// GoogleTagManager::impression($product);
+
+
+
+// THIS PART IS THE LOOP MACRO
+GoogleTagManager::macro('impression', function ($product) {
+	GoogleTagManager::set('ecommerce', [
+		'currencyCode' => 'USD',
+		'detail' => [
+			'products' => [ $product->getGoogleTagManagerData() ]
+		]
+	]);
+});
+
+
+//AFTER LOOP IS SETUP CORRECT WE PUT THIS IN THE PRODUCTCONTROLLER SHOW METHOD
+
+//GoogleTagManager::impression($product);
+
+?>
+<script>
+// Measures product impressions and also tracks a standard
+// pageview for the tag configuration.
+// Product impressions are sent by pushing an impressions object
+// containing one or more impressionFieldObjects.
+dataLayer.push({
+  'ecommerce': {
+	'currencyCode': 'USD',                       // Local currency is optional.
+    'impressions': [
+     {
+	     'name': 'Triblend Android T-Shirt',       // Name or ID is required.
+       'id': '12345',
+       'price': '15.25',
+       'brand': 'Google',
+       'category': 'Apparel',
+       'variant': 'Gray',
+       'list': 'Search Results',
+       'position': 1
+     },
+     {
+	     'name': 'Donut Friday Scented T-Shirt',
+       'id': '67890',
+       'price': '33.75',
+       'brand': 'Google',
+       'category': 'Apparel',
+       'variant': 'Black',
+       'list': 'Search Results',
+       'position': 2
+     }]
+  }
+});
+</script>
+
+Measuring Product Clicks
+
+<script>
+    /**
+     *
+     *
+     * Call this function when a user clicks on a product link. This function uses the event
+     * callback datalayer variable to handle navigation after the ecommerce data has been sent
+     * to Google Analytics.
+     * @param {Object} productObj An object representing a product.
+     */
+    function(productObj) {
+        dataLayer.push({
+            'event': 'productClick',
+            'ecommerce': {
+                'click': {
+                    'actionField': {'list': 'Search Results'},      // Optional list property.
+                    'products': [{
+                        'name': productObj.name,                      // Name or ID is required.
+                        'id': productObj.id,
+                        'price': productObj.price,
+                        'brand': productObj.brand,
+                        'category': productObj.cat,
+                        'variant': productObj.variant,
+                        'position': productObj.position
+                    }]
+                }
+            },
+            'eventCallback': function() {
+                document.location = productObj.url
+            }
+        });
+    }
+</script>
+
+Measuring Views of Product Details
+
+<script>
+    // Measure a view of product details. This example assumes the detail view occurs on pageload,
+    // and also tracks a standard pageview of the details page.
+    dataLayer.push({
+        'ecommerce': {
+            'detail': {
+                'actionField': {'list': 'Apparel Gallery'},    // 'detail' actions have an optional list property.
+                'products': [{
+                    'name': 'Triblend Android T-Shirt',         // Name or ID is required.
+                    'id': '12345',
+                    'price': '15.25',
+                    'brand': 'Google',
+                    'category': 'Apparel',
+                    'variant': 'Gray'
+                }]
+            }
+        }
+    });
+</script>
+
+
+
+Adding a Product to a Shopping Cart
+
+// Measure adding a product to a shopping cart by using an 'add' actionFieldObject
+// and a list of productFieldObjects.
+dataLayer.push({
+'event': 'addToCart',
+'ecommerce': {
+'currencyCode': 'EUR',
+'add': {                                // 'add' actionFieldObject measures.
+'products': [{                        //  adding a product to a shopping cart.
+'name': 'Triblend Android T-Shirt',
+'id': '12345',
+'price': '15.25',
+'brand': 'Google',
+'category': 'Apparel',
+'variant': 'Gray',
+'quantity': 1
+}]
+}
+}
+});
+
+
+
+
+Removing a Product from a Shopping Cart
+
+// Measure the removal of a product from a shopping cart.
+dataLayer.push({
+'event': 'removeFromCart',
+'ecommerce': {
+'remove': {                               // 'remove' actionFieldObject measures.
+'products': [{                          //  removing a product to a shopping cart.
+'name': 'Triblend Android T-Shirt',
+'id': '12345',
+'price': '15.25',
+'brand': 'Google',
+'category': 'Apparel',
+'variant': 'Gray',
+'quantity': 1
+}]
+}
+}
+});
+
+
+Measuring Promotions
+
+Measuring Promotion Impressions
+
+Ecommerce Measurement: promoView
+Accepts Data: array of promoFieldObjects
+To measure a promotion impression, set the promoView key in your ecommerce data layer var to a promoFieldObject that describes the promotions displayed to users on the page:
+
+<script>
+    // An example of measuring promotion views. This example assumes that
+    // information about the promotions displayed is available when the page loads.
+    dataLayer.push({
+        'ecommerce': {
+            'promoView': {
+                'promotions': [                     // Array of promoFieldObjects.
+                    {
+                        'id': 'JUNE_PROMO13',            // ID or Name is required.
+                        'name': 'June Sale',
+                        'creative': 'banner1',
+                        'position': 'slot1'
+                    },
+                    {
+                        'id': 'FREE_SHIP13',
+                        'name': 'Free Shipping Promo',
+                        'creative': 'skyscraper1',
+                        'position': 'slot2'
+                    }]
+            }
+        }
+    });
+</script>
+
+
+Measuring a Checkout
+
+To measure each step in a checkout process you need to:
+
+Measure each step of the checkout process using the checkout action.
+If applicable, measure checkout options using the checkout_option action.
+Optionally set user-friendly step names for the checkout funnel report by configuring Ecommerce Settings in the Admin section of the web interface.
+
+
+
+1. Measuring Checkout Steps
+
+<script>
+    /**
+     * A function to handle a click on a checkout button. This function uses the eventCallback
+     * data layer variable to handle navigation after the ecommerce data has been sent to Google Analytics.
+     */
+    function onCheckout() {
+        dataLayer.push({
+            'event': 'checkout',
+            'ecommerce': {
+                'checkout': {
+                    'actionField': {'step': 1, 'option': 'Visa'},
+                    'products': [{
+                        'name': 'Triblend Android T-Shirt',
+                        'id': '12345',
+                        'price': '15.25',
+                        'brand': 'Google',
+                        'category': 'Apparel',
+                        'variant': 'Gray',
+                        'quantity': 1
+                    }]
+                }
+            },
+            'eventCallback': function() {
+                document.location = 'checkout.html';
+            }
+        });
+    }
+</script>
+
+
+
+Enhanced Ecommerce (UA) Developer Guide
+
+This guide describes how to implement Universal Analytics Enhanced Ecommerce features using Google Tag Manager on a website.
+
+Overview
+
+Google Analytics Enhanced Ecommerce enables product impression, promotion, and sales data to be sent with any of your Google Analytics pageviews and events. Use pageviews to track product impressions and product purchases; and use events to track checkout steps and product clicks.
+
+Before you Begin
+
+We recommend reviewing the Enhanced Ecommerce Data Types and Actions section of the Enhanced Ecommerce Dev Guide to help you plan your implementation. The guide will help you understand which fields are required and optional for each of the ecommerce interactions you want to measure.
+
+Enabling Enhanced Ecommerce
+
+In most implementations, you should enable Enhanced Ecommerce on each of your Universal Analytics pageview or event tags. You have two options for enabling Enhanced Ecommerce in the tag editor screen of the web interface:
+
+Implement using the Data Layer (Recommended)
+Implement using a Custom JavaScript Macro
+
+example of custom js macro is
+
+function() {
+var ecommerceData = {
+'ecommerce': {
+'purchase': {
+'actionField': {'id': 'T12345'},
+'products': [
+// List of productFieldObjects
+],
+... // Rest of the code should follow the data layer syntax.
+}
+};
+return ecommerceData;
+}
+
+
+Although both methods provide equivalent ecommerce functionality, we recommend all websites that support a data layer use the Data Layer method. This guide presents the Data Layer method as the default, while Using a Custom JavaScript Macro is documented at the end of this guide.
+
+Using the Data Layer
+
+The following sections will show you how to use the data layer to measure the following enhanced ecommerce activities:
+
+		Product Impressions
+		Product Clicks
+		Product Detail Impressions
+		Add / Remove from Cart
+		Promotion Impressions
+		Promotion Clicks
+		Checkout
+		Purchases
+		Refunds
+		Measuring Product Impressions
+
+Ecommerce Measurement: impressions
+Accepts Data: array of impressionFieldObjects
+Measure product impressions by using the impression action and one or more impressionFieldObjects. The following example assumes details about the products displayed on a page are known at the time the page loads:
+
+<script>
+    // Measures product impressions and also tracks a standard
+    // pageview for the tag configuration.
+    // Product impressions are sent by pushing an impressions object
+    // containing one or more impressionFieldObjects.
+    dataLayer.push({
+        'ecommerce': {
+            'currencyCode': 'USD',                       // Local currency is optional.
+            'impressions': [
+                {
+                    'name': 'Triblend Android T-Shirt',       // Name or ID is required.
+                    'id': '12345',
+                    'price': '15.25',
+                    'brand': 'Google',
+                    'category': 'Apparel',
+                    'variant': 'Gray',
+                    'list': 'Search Results',
+                    'position': 1
+                },
+                {
+                    'name': 'Donut Friday Scented T-Shirt',
+                    'id': '67890',
+                    'price': '33.75',
+                    'brand': 'Google',
+                    'category': 'Apparel',
+                    'variant': 'Black',
+                    'list': 'Search Results',
+                    'position': 2
+                }]
+        }
+    });
+</script>
+▸
+See the Tag Configuration for this Example
+
+Measuring Product Clicks
+
+Ecommerce Measurement: click
+Accepts Data: list, array of productFieldObjects
+Measure clicks on product links by pushing a click action to the data layer, along with a productFieldObject to represent the clicked product, as in this example:
+
+<script>
+    /**
+     * Call this function when a user clicks on a product link. This function uses the event
+     * callback datalayer variable to handle navigation after the ecommerce data has been sent
+     * to Google Analytics.
+     * @param {Object} productObj An object representing a product.
+     */
+    function(productObj) {
+        dataLayer.push({
+            'event': 'productClick',
+            'ecommerce': {
+                'click': {
+                    'actionField': {'list': 'Search Results'},      // Optional list property.
+                    'products': [{
+                        'name': productObj.name,                      // Name or ID is required.
+                        'id': productObj.id,
+                        'price': productObj.price,
+                        'brand': productObj.brand,
+                        'category': productObj.cat,
+                        'variant': productObj.variant,
+                        'position': productObj.position
+                    }]
+                }
+            },
+            'eventCallback': function() {
+                document.location = productObj.url
+            }
+        });
+    }
+</script>
+▸
+See the Tag Configuration for this Example
+
+Measuring Views of Product Details
+
+Ecommerce Measurement: detail
+Accepts Data: list, array of productFieldObjects
+Measure a view of product details by pushing a detail action to the data layer, along with one or more productFieldObjects representing the products being viewed:
+
+<script>
+    // Measure a view of product details. This example assumes the detail view occurs on pageload,
+    // and also tracks a standard pageview of the details page.
+    dataLayer.push({
+        'ecommerce': {
+            'detail': {
+                'actionField': {'list': 'Apparel Gallery'},    // 'detail' actions have an optional list property.
+                'products': [{
+                    'name': 'Triblend Android T-Shirt',         // Name or ID is required.
+                    'id': '12345',
+                    'price': '15.25',
+                    'brand': 'Google',
+                    'category': 'Apparel',
+                    'variant': 'Gray'
+                }]
+            }
+        }
+    });
+</script>
+▸
+See the Tag Configuration for this Example
+
+Measuring Additions or Removals from a Shopping Cart
+
+Ecommerce Measurement: add, remove
+Accepts Data: list, array of productFieldObjects
+Similarly, you can measure additions or removals from a shopping cart using an add or remove actionFieldObject and a list of productFieldObjects:
+
+Adding a Product to a Shopping Cart
+
+// Measure adding a product to a shopping cart by using an 'add' actionFieldObject
+// and a list of productFieldObjects.
+dataLayer.push({
+'event': 'addToCart',
+'ecommerce': {
+'currencyCode': 'EUR',
+'add': {                                // 'add' actionFieldObject measures.
+'products': [{                        //  adding a product to a shopping cart.
+'name': 'Triblend Android T-Shirt',
+'id': '12345',
+'price': '15.25',
+'brand': 'Google',
+'category': 'Apparel',
+'variant': 'Gray',
+'quantity': 1
+}]
+}
+}
+});
+▸
+See the Tag Configuration for this Example
+
+Removing a Product from a Shopping Cart
+
+// Measure the removal of a product from a shopping cart.
+dataLayer.push({
+'event': 'removeFromCart',
+'ecommerce': {
+'remove': {                               // 'remove' actionFieldObject measures.
+'products': [{                          //  removing a product to a shopping cart.
+'name': 'Triblend Android T-Shirt',
+'id': '12345',
+'price': '15.25',
+'brand': 'Google',
+'category': 'Apparel',
+'variant': 'Gray',
+'quantity': 1
+}]
+}
+}
+});
+▸
+See the Tag Configuration for this Example
+
+Measuring Promotions
+
+You can measure both impressions and clicks on internal site promotions, such as banners displayed on the site itself advertising a sale on a particular subset of products, or an offer for free shipping.
+
+Measuring Promotion Impressions
+
+Ecommerce Measurement: promoView
+Accepts Data: array of promoFieldObjects
+To measure a promotion impression, set the promoView key in your ecommerce data layer var to a promoFieldObject that describes the promotions displayed to users on the page:
+
+<script>
+    // An example of measuring promotion views. This example assumes that
+    // information about the promotions displayed is available when the page loads.
+    dataLayer.push({
+        'ecommerce': {
+            'promoView': {
+                'promotions': [                     // Array of promoFieldObjects.
+                    {
+                        'id': 'JUNE_PROMO13',            // ID or Name is required.
+                        'name': 'June Sale',
+                        'creative': 'banner1',
+                        'position': 'slot1'
+                    },
+                    {
+                        'id': 'FREE_SHIP13',
+                        'name': 'Free Shipping Promo',
+                        'creative': 'skyscraper1',
+                        'position': 'slot2'
+                    }]
+            }
+        }
+    });
+</script>
+▸
+See the Tag Configuration for this Example
+
+Note: Although it is acceptable to set an action with a promotion impression, the action cannot be a promoClick. If you intend to measure a promoClick action it should be done in a separate hit, after the promoView.
+Measuring Promotion Clicks
+
+To measure a click on a promotion, push the promoClick action to the data layer with an array containing a promoFieldObject describing the clicked promotion:
+
+<script>
+    /**
+     * Call this function when a user clicks on a promotion. This function uses the eventCallBack
+     * datalayer variable to handle navigation after the ecommerce data is sent to Google Analytics.
+     *
+     * @param {Object} promoObj An object representing an internal site promotion.
+     */
+    function onPromoClick(promoObj) {
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                        {
+                            'id': promoObj.id,                         // Name or ID is required.
+                            'name': promoObj.name,
+                            'creative': promoObj.creative,
+                            'position': promoObj.pos
+                        }]
+                }
+            },
+            'eventCallback': function() {
+                document.location = promoObj.destinationUrl;
+            }
+        });
+    }
+</script>
+▸
+See the Tag Configuration for this Example
+
+Note: Use a separate hit to send product data, do not include it with a promo click.
+Measuring a Checkout
+
+To measure each step in a checkout process you need to:
+
+Measure each step of the checkout process using the checkout action.
+If applicable, measure checkout options using the checkout_option action.
+Optionally set user-friendly step names for the checkout funnel report by configuring Ecommerce Settings in the Admin section of the web interface.
+1. Measuring Checkout Steps
+
+Ecommerce Measurement: checkout
+Accepts Data: step, array of productFieldObjects
+To measure the checkout process, which might include a checkout button and one or more checkout pages where users enter shipping and payment information, use the checkout action and the step field to indicate which stage of the checkout process is being measured. You can also use the option field to provide a piece of additional data about the page, such as the payment type that was selected by the user.
+
+<script>
+    /**
+     * A function to handle a click on a checkout button. This function uses the eventCallback
+     * data layer variable to handle navigation after the ecommerce data has been sent to Google Analytics.
+     */
+    function onCheckout() {
+        dataLayer.push({
+            'event': 'checkout',
+            'ecommerce': {
+                'checkout': {
+                    'actionField': {'step': 1, 'option': 'Visa'},
+                    'products': [{
+                        'name': 'Triblend Android T-Shirt',
+                        'id': '12345',
+                        'price': '15.25',
+                        'brand': 'Google',
+                        'category': 'Apparel',
+                        'variant': 'Gray',
+                        'quantity': 1
+                    }]
+                }
+            },
+            'eventCallback': function() {
+                document.location = 'checkout.html';
+            }
+        });
+    }
+</script>
+
+2. Measuring Checkout Options
+
+<script>
+    /**
+     * A function to handle a click leading to a checkout option selection.
+     */
+    function onCheckoutOption(step, checkoutOption) {
+        dataLayer.push({
+            'event': 'checkoutOption',
+            'ecommerce': {
+                'checkout_option': {
+                    'actionField': {'step': step, 'option': checkoutOption}
+                }
+            }
+        });
+    }
+</script>
+
+Measuring Purchases
+
+<script>
+    // Send transaction data with a pageview if available
+    // when the page loads. Otherwise, use an event when the transaction
+    // data becomes available.
+    dataLayer.push({
+        'ecommerce': {
+            'purchase': {
+                'actionField': {
+                    'id': 'T12345',                         // Transaction ID. Required for purchases and refunds.
+                    'affiliation': 'Online Store',
+                    'revenue': '35.43',                     // Total transaction value (incl. tax and shipping)
+                    'tax':'4.90',
+                    'shipping': '5.99',
+                    'coupon': 'SUMMER_SALE'
+                },
+                'products': [{                            // List of productFieldObjects.
+                    'name': 'Triblend Android T-Shirt',     // Name or ID is required.
+                    'id': '12345',
+                    'price': '15.25',
+                    'brand': 'Google',
+                    'category': 'Apparel',
+                    'variant': 'Gray',
+                    'quantity': 1,
+                    'coupon': ''                            // Optional fields may be omitted or set to empty string.
+                },
+                    {
+                        'name': 'Donut Friday Scented T-Shirt',
+                        'id': '67890',
+                        'price': '33.75',
+                        'brand': 'Google',
+                        'category': 'Apparel',
+                        'variant': 'Black',
+                        'quantity': 1
+                    }]
+            }
+        }
+    });
+</script>
+
+
+Combining Impressions and Actions
+
+The example below shows how to measure a product detail view with product impressions from a related products section:
+
+<script>
+    dataLayer.push({
+        'ecommerce': {
+            'impressions': [
+                {
+                    'name': 'Triblend Android T-Shirt',        // Name or ID is required.
+                    'id': '12345',
+                    'price': '15.25',
+                    'brand': 'Google',
+                    'category': 'Apparel',
+                    'variant': 'Gray',
+                    'list': 'Related Products',
+                    'position': 1
+                },
+                {
+                    'name': 'Donut Friday Scented T-Shirt',
+                    'id': '67890',
+                    'price': '33.75',
+                    'brand': 'Google',
+                    'category': 'Apparel',
+                    'variant': 'Black',
+                    'list': 'Related Products',
+                    'position': 2
+                }],
+            'detail': {
+                'actionField': {'list': 'Apparel Gallery'}  // 'detail' actions have an optional list property.
+                'products': [{
+                    'name': 'Triblend Android T-Shirt',       // Name or ID is required.
+                    'id': '12345',
+                    'price': '15.25',
+                    'brand': 'Google',
+                    'category': 'Apparel',
+                    'variant': 'Gray'
+                }]
+            }
+        }
+    });
+</script>
