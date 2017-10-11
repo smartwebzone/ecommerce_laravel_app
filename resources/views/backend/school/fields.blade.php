@@ -55,22 +55,12 @@
     {!! Form::label('zip', 'Zip:') !!}
     {!! Form::text('zip', null, ['class' => 'form-control','value' => old('zip'),'required' => true]) !!}
 </div>
-<!-- Email Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('payment_gateway', 'Payment Gateway:') !!}
-    {!! Form::text('payment_gateway', null, ['class' => 'form-control','value' => old('payment_gateway')]) !!}
-</div>
-<!-- Email Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('payment_gateway_key', 'Payment Gateway Key:') !!}
-    {!! Form::text('payment_gateway_key', null, ['class' => 'form-control','value' => old('payment_gateway_key')]) !!}
-</div>
 
 <!-- Show on Shop page Field -->
 <div class="form-group col-sm-2">
     {!! Form::label('status', 'Status:') !!}
     <label class="checkbox">
-        {!! Form::checkbox('status', 1, (isset($company->status))?$company->status:true,['data-toggle' => 'toggle', 'data-on' => 'Enabled', 'data-off'=>'Disabled', 'data-onstyle' => 'success', 'data-offstyle' => 'danger', 'value'=>Input::old('status')]) !!}
+        {!! Form::checkbox('status', 1, (isset($school->status))?$school->status:true,['data-toggle' => 'toggle', 'data-on' => 'Enabled', 'data-off'=>'Disabled', 'data-onstyle' => 'success', 'data-offstyle' => 'danger', 'value'=>Input::old('status')]) !!}
     </label>
 </div>
 
@@ -78,5 +68,5 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Save', ['class' => 'btn btn-primary','required' => true]) !!}
-    <a href="{!! route('admin.company') !!}" class="btn btn-default">Cancel</a>
+    <a href="{!! route('admin.school') !!}" class="btn btn-default">Cancel</a>
 </div>

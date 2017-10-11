@@ -16,7 +16,7 @@
         <td>{{ $company->phone }}</td>
         <td>{{ $company->email }}</td>
         <td>{{ $company->contact_person }}</td>
-        <td>{{ formatDate($company->add_date) }}</td>
+        <td>{{ formatDate($company->created_at) }}</td>
         <td class="text-center" nowrap="nowrap">
             {!! Form::open(['route' => ['admin.company.destroy', $company->id], 'method' => 'delete']) !!}
             <div class='btn-group'>

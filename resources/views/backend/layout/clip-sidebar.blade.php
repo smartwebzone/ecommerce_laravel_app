@@ -22,6 +22,11 @@
             <span class="title"> Companies </span><span class="selected"></span>
             </a>
         </li>
+        <li class="{{ setActive('admin/school*') }}">
+            <a href="{{ url(getLang() . '/admin/school') }}"><i class="fa fa-safari"></i>
+            <span class="title"> School </span><span class="selected"></span>
+            </a>
+        </li>
         <li class="{{ setActive('admin/logout*') }}">
             <a href="{{ url('/admin/logout') }}"> <i class="fa fa-sign-out"></i> <span class="title">Logout</span> </a>
         </li>
