@@ -12,6 +12,7 @@ use Flash;
 use Input;
 use View;
 use Redirect;
+use Sentinel;
 
 /**
  * Class CompanyController.
@@ -47,9 +48,9 @@ class CompanyController extends Controller {
      * @return Response
      */
     public function create() {
-
-
-        return view('backend.company.create', compact(''));
+         $state = \App\Models\State::lists('name','name')->toArray();
+        $state= array_merge(array(''=>'SELECT STATE'), $state);
+        return view('backend.company.create', compact('state'));
     }
 
     /**
@@ -59,7 +60,9 @@ class CompanyController extends Controller {
      */
     public function store() {
         try {
-            $this->company->create(Input::all());
+            $data=Input::all();
+            $data['added_by']=  Sentinel::getUser()->id;
+            $this->company->create($data);
             Flash::message('Company was successfully added');
 
             return Redirect::route('admin.company');
@@ -90,9 +93,9 @@ class CompanyController extends Controller {
      */
     public function edit($id) {
         $company = $this->company->find($id);
-
-
-        return view('backend.company.edit', compact('company'));
+        $state = \App\Models\State::lists('name','name')->toArray();
+        $state= array_merge(array(''=>'SELECT STATE'), $state);
+        return view('backend.company.edit', compact('company','state'));
     }
 
     /**
@@ -105,12 +108,13 @@ class CompanyController extends Controller {
     public function update($id) {
         try {
             $data = Input::all();
+            $data['updated_by']=  Sentinel::getUser()->id;
             $this->company->update($id, $data);
             Flash::message('Company was successfully updated');
 
             return Redirect::route('admin.company');
         } catch (ValidationException $e) {
-            return Redirect::route('admin.company.edit')->withInput()->withErrors($e->getErrors());
+            return Redirect::route('admin.company.edit',['id'=>$id])->withInput()->withErrors($e->getErrors());
         }
     }
 

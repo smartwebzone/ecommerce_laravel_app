@@ -78,8 +78,11 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
     // tags
     Route::get('/tag/{slug}', ['as' => 'dashboard.tag', 'uses' => 'TagController@index']);
 
-    // categories
+    // company
     Route::get('/company/{slug}', ['as' => 'dashboard.company', 'uses' => 'CompanyController@index']);
+    
+    // school
+    Route::get('/school/{slug}', ['as' => 'dashboard.school', 'uses' => 'SchoolController@index']);
 
     // page
     Route::get('/page', ['as' => 'dashboard.page', 'uses' => 'PageController@index']);
@@ -166,6 +169,18 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::get('/company/{id}/show', 'CompanyController@show');
         Route::post('/company/create', 'CompanyController@store');
         Route::post('/company/{id}/edit', 'CompanyController@edit');
+        
+        Route::get('school', ['as' => 'admin.school', 'uses' => 'SchoolController@index']);
+        Route::get('school/create', ['as' => 'admin.school.create', 'uses' => 'SchoolController@create']);
+        Route::delete('school/destroy/{id}', ['as' => 'admin.school.destroy', 'uses' => 'SchoolController@destroy']);
+        Route::get('school/show/{id}', ['as' => 'admin.school.show', 'uses' => 'SchoolController@show']);
+        Route::get('school/edit/{id}', ['as' => 'admin.school.edit', 'uses' => 'SchoolController@edit']);
+        Route::patch('school/update/{school}', ['as' => 'admin.school.update', 'uses' => 'SchoolController@update']);
+        
+        Route::get('/school/{id}/delete', 'SchoolController@delete');
+        Route::get('/school/{id}/show', 'SchoolController@show');
+        Route::post('/school/create', 'SchoolController@store');
+        Route::post('/school/{id}/edit', 'SchoolController@edit');
     });
 });
 
