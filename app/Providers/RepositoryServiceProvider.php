@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Article;
 use App\Models\Company;
+use App\Models\School;
 use App\Models\Faq;
 use App\Models\Menu;
 use App\Models\News;
@@ -18,6 +19,7 @@ use App\Models\Video;
 use App\Repositories\Article\ArticleRepository;
 use App\Repositories\Article\CacheDecorator as ArticleCacheDecorator;
 use App\Repositories\Company\CompanyRepository;
+use App\Repositories\School\SchoolRepository;
 use App\Repositories\Faq\CacheDecorator as FaqCacheDecorator;
 use App\Repositories\Faq\FaqRepository;
 use App\Repositories\Menu\CacheDecorator as MenuCacheDecorator;
@@ -76,13 +78,21 @@ class RepositoryServiceProvider extends ServiceProvider
             return $article;
         });
 
-        // category
+        // company
         $app->bind('App\Repositories\Company\CompanyInterface', function ($app) {
             $category = new CompanyRepository(
                 new Company()
             );
 
             return $category;
+        });
+        // school
+        $app->bind('App\Repositories\School\SchoolInterface', function ($app) {
+            $school = new SchoolRepository(
+                new School()
+            );
+
+            return $school;
         });
 
         // section
