@@ -47,7 +47,7 @@ class CompanyController extends Controller {
      * @return Response
      */
     public function create() {
-      
+
 
         return view('backend.company.create', compact(''));
     }
@@ -90,7 +90,7 @@ class CompanyController extends Controller {
      */
     public function edit($id) {
         $company = $this->company->find($id);
-       
+
 
         return view('backend.company.edit', compact('company'));
     }
@@ -105,7 +105,6 @@ class CompanyController extends Controller {
     public function update($id) {
         try {
             $data = Input::all();
-            
             $this->company->update($id, $data);
             Flash::message('Company was successfully updated');
 

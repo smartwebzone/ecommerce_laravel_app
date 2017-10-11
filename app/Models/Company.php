@@ -10,13 +10,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Company.
  *
  */
-class Company extends Model implements ModelInterface
-{
+class Company extends Model implements ModelInterface {
+
     use SoftDeletes;
 
-   
     protected $guarded = ['id'];
-
     public $table = 'company_master';
     public $timestamps = false;
 

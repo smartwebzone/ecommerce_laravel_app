@@ -108,13 +108,14 @@ function getStates() {
     ksort($states);
     return $states;
 }
+
 function getShippingAccount() {
     $account = array();
-    
+
     $account[''] = 'Select Account';
-    $account['FedEx']='FedEx';
-    $account['UPS']='UPS';
-    $account['OTHER']='OTHER';
+    $account['FedEx'] = 'FedEx';
+    $account['UPS'] = 'UPS';
+    $account['OTHER'] = 'OTHER';
     //ksort($account);
     return $account;
 }
@@ -154,18 +155,34 @@ function getIpSubnetMarkFromEmail($email) {
     }
 }
 
-function processText($string,$class=''){
+function processText($string, $class = '') {
     $string = trim($string);
-    if(!$string){
+    if (!$string) {
         return '';
     }
-    if($string != strip_tags($string)) {
+    if ($string != strip_tags($string)) {
         return $string;
-    }else{
-        return '<p class="'.$class.'">'.$string.'</p>';
+    } else {
+        return '<p class="' . $class . '">' . $string . '</p>';
     }
 }
 
-function getSubMenuDropdown(){
-    return array('' => '','menu_qnique' => 'Sewing Machines','menu_hand' => 'Hand Quilting','menu_machine' => 'Machine Frames','menu_qct' => 'Automation','menu_contact' => 'Contact');
+function getSubMenuDropdown() {
+    return array('' => '', 'menu_qnique' => 'Sewing Machines', 'menu_hand' => 'Hand Quilting', 'menu_machine' => 'Machine Frames', 'menu_qct' => 'Automation', 'menu_contact' => 'Contact');
+}
+
+function formatDate($date, $format = 'd/m/Y', $current_time = false) {
+    if (empty($date)) {
+        if ($current_time == true) {
+            return date($format);
+        } else {
+            return '';
+        }
+    }
+    $date = date('Y-m-d', strtotime($date));
+    if ($date != '0000-00-00') {
+        return date($format, strtotime($date));
+    } else {
+        return '';
+    }
 }

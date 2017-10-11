@@ -13,13 +13,12 @@ use View;
  * Class CompanyController.
  *
  */
-class CompanyController extends Controller
-{
+class CompanyController extends Controller {
+
     protected $category;
     protected $perPage;
 
-    public function __construct()
-    {
+    public function __construct() {
         View::share('active', 'cart');
     }
 
@@ -31,8 +30,7 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request, $slug)
-    {
+    public function index(Request $request, $slug) {
         $articles = $this->category->getArticlesBySlug($slug);
 
         $tags = $this->tag->all();
@@ -43,8 +41,7 @@ class CompanyController extends Controller
         return view('frontend.category.index', compact('articles', 'tags', 'categories'))->with('cart', 'total');
     }
 
-    public function show($id, Request $request)
-    {
+    public function show($id, Request $request) {
         $category = Company::find($id);
         if (strtoupper($request->sort) == 'NEWEST') {
             $products = $category->products()->orderBy('created_at', 'desc')->paginate(40);
@@ -59,4 +56,5 @@ class CompanyController extends Controller
 
         return view('frontend.category.show', compact('cart', 'total', 'category', 'products'));
     }
+
 }
