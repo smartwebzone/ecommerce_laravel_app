@@ -87,7 +87,7 @@
 
             <!-- start: COPYRIGHT -->
             <div class="copyright">
-                2014 &copy; JeevandeepAdmin.
+                2014 &copy; Jeevandeep Admin.
             </div>
             <!-- end: COPYRIGHT -->
         </div>

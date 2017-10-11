@@ -5,7 +5,7 @@
 <html class="no-js">
     <!--<![endif]-->
     <head>
-        <title>JeevandeepAdmin</title>
+        <title>Jeevandeep Admin</title>
         <link rel="shortcut icon" href="{!! asset('/clip/favicon.ico') !!}" />
         <!-- start: META -->
         <meta charset="utf-8" />
@@ -91,7 +91,7 @@
         <!-- start: FOOTER -->
         <div class="footer clearfix">
             <div class="footer-inner">
-                2016 &copy; JeevandeepAdmin .
+                2017 &copy; Jeevandeep Admin .
             </div>
             <div class="footer-items">
                 <span class="go-top"><i class="clip-chevron-up"></i></span>

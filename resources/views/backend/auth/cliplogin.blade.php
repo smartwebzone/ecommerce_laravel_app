@@ -52,7 +52,7 @@
             <!-- end: REGISTER BOX -->
             <!-- start: COPYRIGHT -->
             <div class="copyright">
-                2017 &copy; JeevandeepAdmin .
+                2017 &copy; Jeevandeep Admin .
             </div>
             <!-- end: COPYRIGHT -->
         </div>

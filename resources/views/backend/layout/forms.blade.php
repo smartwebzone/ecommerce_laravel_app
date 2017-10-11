@@ -6,7 +6,7 @@
     <!--<![endif]-->
     <!-- start: HEAD -->
     <head>
-        <title>JeevandeepAdmin</title>
+        <title>Jeevandeep Admin</title>
         <!-- start: META -->
         <meta charset="utf-8" />
          <meta name="_token" content="{!! csrf_token() !!}" />
@@ -155,7 +155,7 @@
         <!-- start: FOOTER -->
         <div class="footer clearfix">
             <div class="footer-inner">
-                2016 &copy; JeevandeepAdmin .
+                2017 &copy; Jeevandeep Admin .
             </div>
             <div class="footer-items">
                 <span class="go-top"><i class="clip-chevron-up"></i></span>
