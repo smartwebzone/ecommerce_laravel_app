@@ -2,7 +2,7 @@
 
 @section('topscripts-off')
 <script type="text/javascript">
-    (function($){});
+    (function ($) {});
 </script>
 @endsection
 
@@ -12,11 +12,12 @@
 
             <!-- start: PAGE TITLE & BREADCRUMB -->
             <ol class="breadcrumb">
-            <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">New Company</li>
+            <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>    
+            <li><a href="{!! url(getLang() . '/admin/company') !!}"><i class="fa fa-building"></i> Companies</a></li>
+            <li class="active">Add Company</li>
             </ol>
             <div class="page-header">
-                <h1> company <small> | New Company</small> </h1>
+                <h1> Add Company </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>
@@ -27,15 +28,12 @@
 {{-- <div class="container-fluid"> --}}
 <div class="row">
     {{-- <div class="col-sm-2"></div> --}}
-    <div class="col-sm-10">
+    <div class="col-sm-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="clip-stats"></i>
                 <div class="panel-tools">
                     <a class="btn btn-xs btn-link panel-collapse collapses" href="#"> </a>
-                    <a class="btn btn-xs btn-link panel-config" href="#panel-config" data-toggle="modal"> <i class="fa fa-wrench"></i> </a>
-                    <a class="btn btn-xs btn-link panel-refresh" href="#"> <i class="fa fa-refresh"></i> </a>
-                    <a class="btn btn-xs btn-link panel-close" href="#"> <i class="fa fa-times"></i> </a>
                 </div>
             </div>
             <div class="panel-body">
@@ -44,18 +42,11 @@
                     <div class="col-md-12">
 
                         <div class="clearfix"></div>
-                     {{--    @include('flash::message') --}}
-                     {{--    @include('adminlte-templates::common.errors') --}}
+{{--    @include('flash::message') --}}
+{{--    @include('adminlte-templates::common.errors') --}}
                         <div class="clearfix"></div>
 
-                        <div class="space12">
-                            <div class="btn-group btn-group-lg">
-                                <a class="btn btn-default" href="{!! url(getLang() . '/admin/company') !!}"> company </a>
-                                <a class="btn btn-default hidden-xs" href="{!! url(getLang() . '/admin/company/create') !!}"> <i class="fa fa-plus"></i> Add Company </a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-10">
+                        <div class="col-md-12">
                     {!! Form::open(['action' => 'Admin\CompanyController@store', 'method' => 'post', 'files' => true]) !!}
 
                         @include('backend.company.fields')

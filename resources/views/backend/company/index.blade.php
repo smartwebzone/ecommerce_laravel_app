@@ -14,10 +14,10 @@
             <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 
-            <li class="active">company</li>
+            <li class="active">Companies</li>
             </ol>
             <div class="page-header">
-                <h1>  company <small> | Control Panel</small> </h1>
+                <h1>  Companies <small> | Control Panel</small> </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>
@@ -36,9 +36,6 @@
                 <i class="clip-stats"></i>
                 <div class="panel-tools">
                     <a class="btn btn-xs btn-link panel-collapse collapses" href="#"> </a>
-                    <a class="btn btn-xs btn-link panel-config" href="#panel-config" data-toggle="modal"> <i class="fa fa-wrench"></i> </a>
-                    <a class="btn btn-xs btn-link panel-refresh" href="#"> <i class="fa fa-refresh"></i> </a>
-                    <a class="btn btn-xs btn-link panel-close" href="#"> <i class="fa fa-times"></i> </a>
                 </div>
             </div>
             <div class="panel-body">
@@ -52,8 +49,7 @@
 
                         <div class="space12">
                             <div class="btn-group btn-group-lg">
-                                <a class="btn btn-default" href="{!! url(getLang() . '/admin/company') !!}"> company</a>
-                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/company/create') !!}"> <i class="fa fa-plus"></i> Add  Company </a>
+                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/company/create') !!}"> <i class="fa fa-plus"></i> Add Company </a>
                             </div>
                         </div>
 

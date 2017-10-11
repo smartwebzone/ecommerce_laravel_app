@@ -32,11 +32,6 @@
 						<i class="clip-chevron-down"></i>
 					</a>
 					<ul class="dropdown-menu">
-						
-						<li><a href="javascript:void(0)"> <i class="clip-calendar"></i> &nbsp;My Calendar </a></li>
-						<li> <a href="javascript:void(0)"> <i class="clip-bubble-4"></i> &nbsp;My Messages (count) </a> </li>
-						<li class="divider"></li>
-						<li><a href="javascript:void(0)"><i class="clip-locked"></i> &nbsp;Lock Screen</a></li>
 						<li> <a href="{{ url('/admin/logout') }}" class="btn btn-default btn-flat"> <i class="clip-exit"></i> &nbsp;Log Out</a> </li>
 					</ul>
 				</li>
