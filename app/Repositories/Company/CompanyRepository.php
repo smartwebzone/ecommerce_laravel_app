@@ -80,7 +80,7 @@ class CompanyRepository extends RepositoryAbstract implements CompanyInterface, 
 
         $company = $query->skip($limit * ($page - 1))->take($limit)->where('lang', $this->getLang())->get();
 
-        $result->totalItems = $this->totalCategories();
+        $result->totalItems = $this->totalCompany();
         $result->items = $company->all();
 
         return $result;
@@ -130,30 +130,10 @@ class CompanyRepository extends RepositoryAbstract implements CompanyInterface, 
         $this->company = $this->find($id);
 
         if ($this->isValid($attributes, $rules)) {
-            $file = null;
-            if (isset($attributes['file'])) {
-                $file = $attributes['file'];
+            if (!isset($attributes['status'])) {
+                $attributes['status']=0;;
             }
-            if ($file) {
-                $destinationPath = public_path() . $this->imgDir;
-                $fileName = $file->getClientOriginalName();
-                $fileSize = $file->getClientSize();
-
-                $upload_success = $file->move($destinationPath, $fileName);
-
-                if ($upload_success) {
-                    Image::make($destinationPath . $fileName)
-                            ->resize($this->width, $this->height, function ($constraint) {
-                                $constraint->aspectRatio();
-                            })->save($destinationPath . $fileName);
-
-                    // delete old image
-                    File::delete($destinationPath . $this->company->banner);
-
-                    $this->company->banner = $fileName;
-                }
-            }
-          //  $this->company->resluggify();
+          
             $this->company->fill($attributes)->save();
 
             return true;
@@ -173,7 +153,7 @@ class CompanyRepository extends RepositoryAbstract implements CompanyInterface, 
     /**
      * @return mixed
      */
-    protected function totalCategories() {
+    protected function totalCompany() {
         return $this->company->where('lang', $this->getLang())->count();
     }
 

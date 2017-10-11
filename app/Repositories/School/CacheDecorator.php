@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Company;
+namespace App\Repositories\School;
 
 use App\Services\Cache\CacheInterface;
 
@@ -9,7 +9,7 @@ use App\Services\Cache\CacheInterface;
  *
  * @author Phillip Madsen <contact@affordableprogrammer.com>
  */
-class CacheDecorator extends AbstractCompanyDecorator
+class CacheDecorator extends AbstractSchoolDecorator
 {
     /**
      * @var \App\Services\Cache\CacheInterface
@@ -21,15 +21,15 @@ class CacheDecorator extends AbstractCompanyDecorator
      *
      * @var string
      */
-    protected $cacheKey = 'company';
+    protected $cacheKey = 'school';
 
     /**
-     * @param CompanyInterface $company
+     * @param SchoolInterface $school
      * @param CacheInterface    $cache
      */
-    public function __construct(CompanyInterface $company, CacheInterface $cache)
+    public function __construct(SchoolInterface $school, CacheInterface $cache)
     {
-        parent::__construct($company);
+        parent::__construct($school);
         $this->cache = $cache;
     }
 
@@ -46,11 +46,11 @@ class CacheDecorator extends AbstractCompanyDecorator
             return $this->cache->get($key);
         }
 
-        $company = $this->company->find($id);
+        $school = $this->school->find($id);
 
-        $this->cache->put($key, $company);
+        $this->cache->put($key, $school);
 
-        return $company;
+        return $school;
     }
 
     /**
@@ -58,17 +58,17 @@ class CacheDecorator extends AbstractCompanyDecorator
      */
     public function all()
     {
-        $key = md5(getLang().$this->cacheKey.'.all.company');
+        $key = md5(getLang().$this->cacheKey.'.all.categories');
 
         if ($this->cache->has($key)) {
             return $this->cache->get($key);
         }
 
-        $company = $this->company->all();
+        $categories = $this->school->all();
 
-        $this->cache->put($key, $company);
+        $this->cache->put($key, $categories);
 
-        return $company;
+        return $categories;
     }
 
     /**
@@ -87,7 +87,7 @@ class CacheDecorator extends AbstractCompanyDecorator
             return $this->cache->get($key);
         }
 
-        $paginated = $this->company->paginate($page, $limit, $all);
+        $paginated = $this->school->paginate($page, $limit, $all);
         $this->cache->put($key, $paginated);
 
         return $paginated;
