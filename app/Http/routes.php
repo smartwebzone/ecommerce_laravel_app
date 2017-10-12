@@ -83,6 +83,9 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
     
     // school
     Route::get('/school/{slug}', ['as' => 'dashboard.school', 'uses' => 'SchoolController@index']);
+    
+    // standard
+    Route::get('/standard/{slug}', ['as' => 'dashboard.standard', 'uses' => 'StandardController@index']);
 
     // page
     Route::get('/page', ['as' => 'dashboard.page', 'uses' => 'PageController@index']);
@@ -181,6 +184,18 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::get('/school/{id}/show', 'SchoolController@show');
         Route::post('/school/create', 'SchoolController@store');
         Route::post('/school/{id}/edit', 'SchoolController@edit');
+        
+        Route::get('standard', ['as' => 'admin.standard', 'uses' => 'StandardController@index']);
+        Route::get('standard/create', ['as' => 'admin.standard.create', 'uses' => 'StandardController@create']);
+        Route::delete('standard/destroy/{id}', ['as' => 'admin.standard.destroy', 'uses' => 'StandardController@destroy']);
+        Route::get('standard/show/{id}', ['as' => 'admin.standard.show', 'uses' => 'StandardController@show']);
+        Route::get('standard/edit/{id}', ['as' => 'admin.standard.edit', 'uses' => 'StandardController@edit']);
+        Route::patch('standard/update/{standard}', ['as' => 'admin.standard.update', 'uses' => 'StandardController@update']);
+        
+        Route::get('/standard/{id}/delete', 'StandardController@delete');
+        Route::get('/standard/{id}/show', 'StandardController@show');
+        Route::post('/standard/create', 'StandardController@store');
+        Route::post('/standard/{id}/edit', 'StandardController@edit');
     });
 });
 
