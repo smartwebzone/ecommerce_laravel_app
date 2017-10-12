@@ -33,19 +33,6 @@ class User extends EloquentUser {
         return Uuid::generate(3, $this->first_name . $this->last_name, Uuid::NS_DNS);
     }
 
-    public function newQuery() {
-        $query = parent::newQuery();
-        if (Sentinel::getUser()) {
-            $dealer = DealerUser::where(['user_id' => Sentinel::getUser()->id])->first();
-            if ($dealer) {
-                $query->whereHas('dealer', function ($qury) use($dealer) {
-                    $qury->where('dealer_user.dealer_id', '=', $dealer->dealer_id);
-                });
-            }
-        }
-        //dd($query);
-        return $query;
-    }
 
     public function get_fullname() {
         return $this->first_name . ' ' . $this->last_name;
@@ -56,10 +43,6 @@ class User extends EloquentUser {
      */
     public function cart() {
         return $this->hasMany(Cart::class);
-    }
-
-    public function dealer() {
-        return $this->belongsToMany(Dealer::class, 'dealer_user', 'user_id', 'dealer_id');
     }
 
     public function wishlist() {
@@ -104,21 +87,6 @@ class User extends EloquentUser {
 
     public function products() {
         return $this->hasMany(Product::class);
-    }
-
-    public function tier() {
-        return $this->belongsToMany(Tier::class, 'user_tier')->select(['id', 'tier_id', 'user_id', 'title']);
-    }
-
-    public function getisDealerAttribute() {
-        $tier_id = 0;
-        $role = $this->roles()->first();
-        if ($role && $role->slug == 'dealer') {
-
-            if ($this->tier()->first())
-                $tier_id = $this->tier()->first()->tier_id;
-        }
-        return ($tier_id) ? 1 : 0;
     }
 
 }
