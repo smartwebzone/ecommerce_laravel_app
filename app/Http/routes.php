@@ -89,6 +89,12 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
     
     // book
     Route::get('/book/{slug}', ['as' => 'dashboard.book', 'uses' => 'BookController@index']);
+    // order
+    Route::get('/order/{slug}', ['as' => 'dashboard.order', 'uses' => 'OrderController@index']);
+    // product
+    Route::get('/product/{slug}', ['as' => 'dashboard.product', 'uses' => 'ProductController@index']);
+    // email
+    Route::get('/email/{slug}', ['as' => 'dashboard.email', 'uses' => 'EmailController@index']);
 
     // page
     Route::get('/page', ['as' => 'dashboard.page', 'uses' => 'PageController@index']);
@@ -211,6 +217,42 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::get('/book/{id}/show', 'BookController@show');
         Route::post('/book/create', 'BookController@store');
         Route::post('/book/{id}/edit', 'BookController@edit');
+        
+        Route::get('order', ['as' => 'admin.order', 'uses' => 'OrderController@index']);
+        Route::get('order/create', ['as' => 'admin.order.create', 'uses' => 'OrderController@create']);
+        Route::delete('order/destroy/{id}', ['as' => 'admin.order.destroy', 'uses' => 'OrderController@destroy']);
+        Route::get('order/show/{id}', ['as' => 'admin.order.show', 'uses' => 'OrderController@show']);
+        Route::get('order/edit/{id}', ['as' => 'admin.order.edit', 'uses' => 'OrderController@edit']);
+        Route::patch('order/update/{order}', ['as' => 'admin.order.update', 'uses' => 'OrderController@update']);
+        
+        Route::get('/order/{id}/delete', 'OrderController@delete');
+        Route::get('/order/{id}/show', 'OrderController@show');
+        Route::post('/order/create', 'OrderController@store');
+        Route::post('/order/{id}/edit', 'OrderController@edit');
+        
+        Route::get('product', ['as' => 'admin.product', 'uses' => 'ProductController@index']);
+        Route::get('product/create', ['as' => 'admin.product.create', 'uses' => 'ProductController@create']);
+        Route::delete('product/destroy/{id}', ['as' => 'admin.product.destroy', 'uses' => 'ProductController@destroy']);
+        Route::get('product/show/{id}', ['as' => 'admin.product.show', 'uses' => 'ProductController@show']);
+        Route::get('product/edit/{id}', ['as' => 'admin.product.edit', 'uses' => 'ProductController@edit']);
+        Route::patch('product/update/{product}', ['as' => 'admin.product.update', 'uses' => 'ProductController@update']);
+        
+        Route::get('/product/{id}/delete', 'ProductController@delete');
+        Route::get('/product/{id}/show', 'ProductController@show');
+        Route::post('/product/create', 'ProductController@store');
+        Route::post('/product/{id}/edit', 'ProductController@edit');
+        
+        Route::get('email', ['as' => 'admin.email', 'uses' => 'EmailController@index']);
+        Route::get('email/create', ['as' => 'admin.email.create', 'uses' => 'EmailController@create']);
+        Route::delete('email/destroy/{id}', ['as' => 'admin.email.destroy', 'uses' => 'EmailController@destroy']);
+        Route::get('email/show/{id}', ['as' => 'admin.email.show', 'uses' => 'EmailController@show']);
+        Route::get('email/edit/{id}', ['as' => 'admin.email.edit', 'uses' => 'EmailController@edit']);
+        Route::patch('email/update/{email}', ['as' => 'admin.email.update', 'uses' => 'EmailController@update']);
+        
+        Route::get('/email/{id}/delete', 'EmailController@delete');
+        Route::get('/email/{id}/show', 'EmailController@show');
+        Route::post('/email/create', 'EmailController@store');
+        Route::post('/email/{id}/edit', 'EmailController@edit');
     });
 });
 

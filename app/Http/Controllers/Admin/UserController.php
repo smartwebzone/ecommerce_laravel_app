@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\UserInfo;
 use File;
 use Flash;
 use Illuminate\Http\Request;
@@ -20,7 +19,7 @@ use Carbon\Carbon;
 /**
  * Class UserController.
  *
- * @author Phillip Madsen <contact@affordableprogrammer.com>
+ 
  */
 class UserController extends Controller {
 
@@ -276,22 +275,13 @@ class UserController extends Controller {
     public function edit($id) {
         //$user = Sentinel::findUserById($id);
         $user = User::find($id);
-        $tier = \App\Models\Tier::lists('title', 'id');
-        $dealers = \App\Models\Dealer::lists('dealer', 'id');
-
-        $dealer = $user->dealer->first();
-        if ($dealer) {
-            $ownshipping = $dealer->shippingAccount;
-        }
-        $ownshipping = (@$ownshipping) ? $ownshipping : array();
-        //$user->isAdmin = $request->isAdmin;
-        $userInfo = $user->userInfo;
-        $userLocation = $user->location;
-        $billing = $userLocation->where('location_type', 'billing')->first();
-        $mailing = $userLocation->where('location_type', 'profile')->first();
-        //dd($billing);
-        $userRoles = $user->getRoles()->lists('name', 'id')->toArray();
-        $roles = Role::lists('name', 'id');
+//      
+//        $userLocation = $user->location;
+//        $billing = $userLocation->where('location_type', 'billing')->first();
+//        $mailing = $userLocation->where('location_type', 'profile')->first();
+//        //dd($billing);
+//        $userRoles = $user->getRoles()->lists('name', 'id')->toArray();
+//        $roles = Role::lists('name', 'id');
 
         return view('backend.user.edit', compact('user', 'roles', 'ownshipping', 'dealers', 'tier', 'userRoles', 'userInfo', 'userLocation', 'billing', 'mailing'))->with('active', 'user');
     }

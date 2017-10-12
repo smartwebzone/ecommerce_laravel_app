@@ -14,7 +14,7 @@ use View;
 /**
  * Class UserInfoController.
  *
- * @author Phillip Madsen <contact@affordableprogrammer.com>
+ 
  */
 class UserInfoController extends Controller
 {

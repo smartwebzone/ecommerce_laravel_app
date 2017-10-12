@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Exceptions\Validation\ValidationException;
 use App\Http\Controllers\Controller;
 use App\Models\Section;
-use App\Repositories\Book\BookInterface;
-use App\Repositories\Book\BookRepository as Book;
+use App\Repositories\Order\OrderInterface;
+use App\Repositories\Order\OrderRepository as Order;
 use App\Services\Pagination;
 use Flash;
 use Input;
@@ -15,17 +15,17 @@ use Redirect;
 use Sentinel;
 
 /**
- * Class BookController.
+ * Class OrderController.
  *
  
  */
-class BookController extends Controller {
+class OrderController extends Controller {
 
-    protected $book;
+    protected $order;
     protected $perPage;
 
-    public function __construct(BookInterface $book) {
-        $this->book = $book;
+    public function __construct(OrderInterface $order) {
+        $this->order = $order;
         View::share('active', 'blog');
         $this->perPage = 10;
     }
@@ -36,10 +36,10 @@ class BookController extends Controller {
      * @return Response
      */
     public function index() {
-        $pagiData = $this->book->paginate(Input::get('page', 1), $this->perPage, true);
-        $book = Pagination::makeLengthAware($pagiData->items, $pagiData->totalItems, $this->perPage);
+        $pagiData = $this->order->paginate(Input::get('page', 1), $this->perPage, true);
+        $order = Pagination::makeLengthAware($pagiData->items, $pagiData->totalItems, $this->perPage);
 
-        return view('backend.book.index', compact('book'));
+        return view('backend.order.index', compact('order'));
     }
 
     /**
@@ -53,7 +53,7 @@ class BookController extends Controller {
          
          $company = \App\Models\School::lists('name','id')->toArray();
          $company = [null=>'Please Select'] + $company;
-        return view('backend.book.create', compact('company','standard'));
+        return view('backend.order.create', compact('company','standard'));
     }
 
     /**
@@ -65,12 +65,12 @@ class BookController extends Controller {
         try {
             $data=Input::all();
             $data['added_by']=  Sentinel::getUser()->id;
-            $this->book->create($data);
-            Flash::message('Book was successfully added');
+            $this->order->create($data);
+            Flash::message('Order was successfully added');
 
-            return Redirect::route('admin.book');
+            return Redirect::route('admin.order');
         } catch (ValidationException $e) {
-            return Redirect::route('admin.book.create')->withInput()->withErrors($e->getErrors());
+            return Redirect::route('admin.order.create')->withInput()->withErrors($e->getErrors());
         }
     }
 
@@ -82,9 +82,9 @@ class BookController extends Controller {
      * @return Response
      */
     public function show($id) {
-        $book = $this->book->find($id);
+        $order = $this->order->find($id);
 
-        return view('backend.book.show', compact('book'));
+        return view('backend.order.show', compact('order'));
     }
 
     /**
@@ -95,13 +95,13 @@ class BookController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $book = $this->book->find($id);
+        $order = $this->order->find($id);
          $standard = \App\Models\Standard::lists('name','id')->toArray();
          $standard = [null=>'Please Select'] + $standard;
          
          $company = \App\Models\School::lists('name','id')->toArray();
          $company = [null=>'Please Select'] + $company;
-        return view('backend.book.edit', compact('book','standard','company'));
+        return view('backend.order.edit', compact('order','standard','company'));
     }
 
     /**
@@ -115,12 +115,12 @@ class BookController extends Controller {
         try {
             $data = Input::all();
             $data['updated_by']=  Sentinel::getUser()->id;
-            $this->book->update($id, $data);
-            Flash::message('Book was successfully updated');
+            $this->order->update($id, $data);
+            Flash::message('Order was successfully updated');
 
-            return Redirect::route('admin.book');
+            return Redirect::route('admin.order');
         } catch (ValidationException $e) {
-            return Redirect::route('admin.book.edit',['id'=>$id])->withInput()->withErrors($e->getErrors());
+            return Redirect::route('admin.order.edit',['id'=>$id])->withInput()->withErrors($e->getErrors());
         }
     }
 
@@ -132,10 +132,10 @@ class BookController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        $this->book->delete($id);
-        Flash::message('Book was successfully deleted');
+        $this->order->delete($id);
+        Flash::message('Order was successfully deleted');
 
-        return Redirect::route('admin.book');
+        return Redirect::route('admin.order');
     }
 
     /**
@@ -144,9 +144,9 @@ class BookController extends Controller {
      * @return mixed
      */
     public function confirmDestroy($id) {
-        $book = $this->book->find($id);
+        $order = $this->order->find($id);
 
-        return view('backend.book.confirm-destroy', compact('book'));
+        return view('backend.order.confirm-destroy', compact('order'));
     }
 
 }

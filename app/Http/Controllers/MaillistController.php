@@ -10,7 +10,7 @@ use Validator;
 /**
  * Class MaillistController.
  *
- * @author Phillip Madsen <contact@affordableprogrammer.com>
+ 
  */
 class MaillistController extends Controller
 {

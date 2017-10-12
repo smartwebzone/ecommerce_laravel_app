@@ -8,7 +8,7 @@ use App\Services\Stats;
 /**
  * Class DashboardController.
  *
- * @author Phillip Madsen <contact@affordableprogrammer.com>
+ 
  */
 class DashboardController extends Controller
 {

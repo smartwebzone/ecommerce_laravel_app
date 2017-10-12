@@ -17,7 +17,7 @@ use Sentinel;
 /**
  * Class StandardController.
  *
- * @author Phillip Madsen <contact@affordableprogrammer.com>
+ 
  */
 class StandardController extends Controller {
 

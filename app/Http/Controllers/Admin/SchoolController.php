@@ -17,7 +17,7 @@ use Sentinel;
 /**
  * Class SchoolController.
  *
- * @author Phillip Madsen <contact@affordableprogrammer.com>
+ 
  */
 class SchoolController extends Controller {
 

@@ -18,7 +18,7 @@ use DB;
 /**
  * Class PageController.
  *
- * @author Phillip Madsen <contact@affordableprogrammer.com>
+ 
  */
 class PageController extends Controller
 {

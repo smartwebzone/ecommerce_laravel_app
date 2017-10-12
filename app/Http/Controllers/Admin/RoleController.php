@@ -14,7 +14,7 @@ use View;
 /**
  * Class RoleController.
  *
- * @author Phillip Madsen <contact@affordableprogrammer.com>
+ 
  */
 class RoleController extends Controller
 {

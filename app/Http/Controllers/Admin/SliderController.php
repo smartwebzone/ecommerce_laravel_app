@@ -15,7 +15,7 @@ use View;
 /**
  * Class SliderController.
  *
- * @author Phillip Madsen <contact@affordableprogrammer.com>
+ 
  */
 class SliderController extends Controller
 {

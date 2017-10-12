@@ -17,7 +17,7 @@ use Sentinel;
 /**
  * Class CompanyController.
  *
- * @author Phillip Madsen <contact@affordableprogrammer.com>
+ 
  */
 class CompanyController extends Controller {
 

@@ -12,7 +12,7 @@ use View;
 /**
  * Class SettingController.
  *
- * @author Phillip Madsen <contact@affordableprogrammer.com>
+ 
  */
 class SettingController extends Controller
 {
