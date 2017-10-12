@@ -2,7 +2,7 @@
 
 @section('topscripts-off')
 <script type="text/javascript">
-    (function($){});
+    (function ($) {});
 </script>
 @endsection
 
@@ -13,11 +13,11 @@
             <!-- start: PAGE TITLE & BREADCRUMB -->
             <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>    
-            <li><a href="{!! url(getLang() . '/admin/standard') !!}"><i class="fa fa-building"></i> Standard</a></li>
-            <li class="active">Update Standard</li>
+            <li><a href="{!! url(getLang() . '/admin/product') !!}"><i class="fa fa-building"></i> Product</a></li>
+            <li class="active">Add Product</li>
             </ol>
             <div class="page-header">
-                <h1> Update Standard </h1>
+                <h1> Add Product </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>
@@ -25,7 +25,9 @@
 @endsection
 
 @section('content')
+{{-- <div class="container-fluid"> --}}
 <div class="row">
+    {{-- <div class="col-sm-2"></div> --}}
     <div class="col-sm-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -35,19 +37,21 @@
                 </div>
             </div>
             <div class="panel-body">
+
                 <div class="row">
                     <div class="col-md-12">
+
                         <div class="clearfix"></div>
-                    {{--    @include('flash::message') --}}
-                    {{--    @include('adminlte-templates::common.errors') --}}
+{{--    @include('flash::message') --}}
+{{--    @include('adminlte-templates::common.errors') --}}
                         <div class="clearfix"></div>
 
                         <div class="col-md-12">
-                            {!! Form::model($standard, ['route' => ['admin.standard.update', $standard->id], 'method' => 'patch', 'files'=>true]) !!}
+                    {!! Form::open(['action' => 'Admin\ProductController@store', 'method' => 'post', 'files' => true]) !!}
 
-                            @include('backend.standard.fields')
+                        @include('backend.product.fields')
 
-                            {!! Form::close() !!}
+                    {!! Form::close() !!}
                         </div>
 
                     </div>
@@ -56,10 +60,10 @@
         </div>
     </div>
 </div>
-
+{{-- </div> --}}
 @endsection
 
-@section('bottomscripts')
+@section('bottomscripts-off')
         <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 
 
@@ -67,5 +71,14 @@
 @endsection
 
 @section('clipinline')
-
+    $('input#slug').attr('disabled', 'disabled');
+    $("input#title").keyup(function(){
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        Text = Text.replace(/[^a-zA-Z0-9]+/g,'-');
+        $("input#slug").val(Text);
+    });
+    $("input#meta_description").blur(function () {
+        $('input#meta_description').val($('input#meta_description').val() + ' by The Jeevandeep Product');
+    });
 @endsection

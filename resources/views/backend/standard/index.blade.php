@@ -14,10 +14,10 @@
             <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 
-            <li class="active">Companies</li>
+            <li class="active">Standard</li>
             </ol>
             <div class="page-header">
-                <h1>  Companies <small> | Control Panel</small> </h1>
+                <h1>  Standard <small> | Control Panel</small> </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

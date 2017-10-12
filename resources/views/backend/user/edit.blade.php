@@ -44,7 +44,7 @@
     <div class="col-sm-12">
         <div class="tabbable">
             <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue" id="myTab4" data-tabs="tabs">
-                <li class="active">
+<!--                <li class="active">
                     <a data-toggle="tab" href="#panel_overview">
                         Overview
                     </a>
@@ -53,7 +53,7 @@
                     <a data-toggle="tab" href="#panel_user_locations">
                         Locations
                     </a>
-                </li>
+                </li>-->
                 <li>
                     <a data-toggle="tab" href="#panel_edit_account">
                         Edit Account
@@ -62,7 +62,7 @@
             </ul>
 
             <div class="tab-content">
-                <div id="panel_overview" class="tab-pane in active">
+<!--                <div id="panel_overview" class="tab-pane in active">
                     @include('backend.user.partials.overview')
                 </div>
                 {{-- @include('partials.user.myaccountedit') --}}
@@ -71,7 +71,7 @@
                     
                     @include('backend.user.partials.locations-fields')
                     
-                </div>
+                </div>-->
                 <div id="panel_edit_account" class="tab-pane">
                     @include('backend.user.partials.edit')
                 </div>

@@ -24,17 +24,41 @@
         </li>
         <li class="{{ setActive('admin/school*') }}">
             <a href="{{ url(getLang() . '/admin/school') }}"><i class="fa fa-university"></i>
-            <span class="title"> School </span><span class="selected"></span>
+            <span class="title"> Schools </span><span class="selected"></span>
             </a>
         </li>
         <li class="{{ setActive('admin/standard*') }}">
             <a href="{{ url(getLang() . '/admin/standard') }}"><i class="fa fa-paperclip"></i>
-            <span class="title"> Standard </span><span class="selected"></span>
+            <span class="title"> Standards </span><span class="selected"></span>
             </a>
         </li>
         <li class="{{ setActive('admin/book*') }}">
             <a href="{{ url(getLang() . '/admin/book') }}"><i class="fa fa-book"></i>
-            <span class="title"> Book </span><span class="selected"></span>
+            <span class="title"> Books </span><span class="selected"></span>
+            </a>
+        </li>
+        
+        <li class="{{ setActive('admin/product*') }}">
+            <a href="{{ url(getLang() . '/admin/product') }}"><i class="fa fa-shopping-bag"></i>
+            <span class="title"> Products </span><span class="selected"></span>
+            </a>
+        </li>
+        
+        <li class="{{ setActive('admin/user*') }}">
+            <a href="{{ url(getLang() . '/admin/user') }}"><i class="fa fa-users"></i>
+            <span class="title"> Users </span><span class="selected"></span>
+            </a>
+        </li>
+        
+        <li class="{{ setActive('admin/order*') }}">
+            <a href="{{ url(getLang() . '/admin/order') }}"><i class="fa fa-shopping-cart"></i>
+            <span class="title"> Orders </span><span class="selected"></span>
+            </a>
+        </li>
+        
+        <li class="{{ setActive('admin/email*') }}">
+            <a href="{{ url(getLang() . '/admin/email') }}"><i class="fa fa-envelope"></i>
+            <span class="title"> Email Templates </span><span class="selected"></span>
             </a>
         </li>
         <li class="{{ setActive('admin/logout*') }}">

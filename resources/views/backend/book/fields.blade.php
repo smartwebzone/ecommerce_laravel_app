@@ -56,7 +56,7 @@
     {!! Form::label('shipping_charges', 'Shipping charges:') !!}
     {!! Form::text('shipping_charges', null, ['class' => 'form-control','value' => old('shipping_charges'),'required' => true]) !!}
 </div>
-<!-- Email Field -->
+<!-- Standard Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('standard_id', 'Standard:') !!}
     {!! Form::select('standard_id', $standard, (@$book && isset($book->standard->first()->id))?$book->standard->first()->id:NULL, array('class' => 'form-control', 'value'=>Input::old('standard_id'))) !!}

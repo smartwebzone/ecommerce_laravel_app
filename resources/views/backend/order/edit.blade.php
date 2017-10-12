@@ -13,11 +13,11 @@
             <!-- start: PAGE TITLE & BREADCRUMB -->
             <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>    
-            <li><a href="{!! url(getLang() . '/admin/standard') !!}"><i class="fa fa-building"></i> Standard</a></li>
-            <li class="active">Update Standard</li>
+            <li><a href="{!! url(getLang() . '/admin/order') !!}"><i class="fa fa-building"></i> Order</a></li>
+            <li class="active">Update Order</li>
             </ol>
             <div class="page-header">
-                <h1> Update Standard </h1>
+                <h1> Update Order </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>
@@ -43,9 +43,9 @@
                         <div class="clearfix"></div>
 
                         <div class="col-md-12">
-                            {!! Form::model($standard, ['route' => ['admin.standard.update', $standard->id], 'method' => 'patch', 'files'=>true]) !!}
+                            {!! Form::model($order, ['route' => ['admin.order.update', $order->id], 'method' => 'patch', 'files'=>true]) !!}
 
-                            @include('backend.standard.fields')
+                            @include('backend.order.fields')
 
                             {!! Form::close() !!}
                         </div>

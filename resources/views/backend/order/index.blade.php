@@ -1,4 +1,4 @@
-@extends('backend/layout/create')
+@extends('backend/layout/clip')
 
 @section('topscripts-off')
 <script type="text/javascript">
@@ -12,12 +12,12 @@
 
             <!-- start: PAGE TITLE & BREADCRUMB -->
             <ol class="breadcrumb">
-            <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>    
-            <li><a href="{!! url(getLang() . '/admin/standard') !!}"><i class="fa fa-building"></i> Standard</a></li>
-            <li class="active">Update Standard</li>
+            <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+
+            <li class="active">Order</li>
             </ol>
             <div class="page-header">
-                <h1> Update Standard </h1>
+                <h1>  Order <small> | Control Panel</small> </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>
@@ -25,8 +25,12 @@
 @endsection
 
 @section('content')
+{{-- <div class="container-fluid"> --}}
 <div class="row">
-    <div class="col-sm-12">
+    {{--
+    <div class="col-sm-2"></div>
+    --}}
+    <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="clip-stats"></i>
@@ -35,19 +39,22 @@
                 </div>
             </div>
             <div class="panel-body">
+
                 <div class="row">
                     <div class="col-md-12">
+
                         <div class="clearfix"></div>
-                    {{--    @include('flash::message') --}}
-                    {{--    @include('adminlte-templates::common.errors') --}}
+                        @include('flash::message')
                         <div class="clearfix"></div>
+
+                        <div class="space12">
+                            <div class="btn-group btn-group-lg">
+                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/order/create') !!}"> <i class="fa fa-plus"></i> Add Order </a>
+                            </div>
+                        </div>
 
                         <div class="col-md-12">
-                            {!! Form::model($standard, ['route' => ['admin.standard.update', $standard->id], 'method' => 'patch', 'files'=>true]) !!}
-
-                            @include('backend.standard.fields')
-
-                            {!! Form::close() !!}
+   @include('backend.order.table')
                         </div>
 
                     </div>
@@ -56,16 +63,16 @@
         </div>
     </div>
 </div>
-
+{{-- </div> --}}
 @endsection
 
-@section('bottomscripts')
+@section('bottomscripts-off')
         <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 
 
         <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 @endsection
 
-@section('clipinline')
+@section('clipinline-off')
 
 @endsection

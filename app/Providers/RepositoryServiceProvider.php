@@ -16,6 +16,9 @@ use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\Tag;
 use App\Models\Book;
+use App\Models\Email;
+use App\Models\Product;
+use App\Models\Order;
 use App\Repositories\Article\ArticleRepository;
 use App\Repositories\Article\CacheDecorator as ArticleCacheDecorator;
 use App\Repositories\Company\CompanyRepository;
@@ -41,6 +44,12 @@ use App\Repositories\Tag\CacheDecorator as TagCacheDecorator;
 use App\Repositories\Tag\TagRepository;
 use App\Repositories\Book\CacheDecorator as BookCacheDecorator;
 use App\Repositories\Book\BookRepository;
+use App\Repositories\Product\CacheDecorator as ProductCacheDecorator;
+use App\Repositories\Product\ProductRepository;
+use App\Repositories\Order\CacheDecorator as OrderCacheDecorator;
+use App\Repositories\Order\OrderRepository;
+use App\Repositories\Email\CacheDecorator as EmailCacheDecorator;
+use App\Repositories\Email\EmailRepository;
 use App\Services\Cache\FullyCache;
 use Illuminate\Support\ServiceProvider;
 
@@ -214,6 +223,54 @@ class RepositoryServiceProvider extends ServiceProvider
             }
 
             return $book;
+        });
+
+        // order
+        $app->bind('App\Repositories\Order\OrderInterface', function ($app) {
+            $order = new OrderRepository(
+                new Order()
+            );
+
+            if ($app['config']->get('grace.cache') === true && $app['config']->get('is_admin', false) == false) {
+                $order = new OrderCacheDecorator(
+                    $order,
+                    new FullyCache($app['cache'], 'pages')
+                );
+            }
+
+            return $order;
+        });
+
+        // email
+        $app->bind('App\Repositories\Email\EmailInterface', function ($app) {
+            $email = new EmailRepository(
+                new Email()
+            );
+
+            if ($app['config']->get('grace.cache') === true && $app['config']->get('is_admin', false) == false) {
+                $email = new EmailCacheDecorator(
+                    $email,
+                    new FullyCache($app['cache'], 'pages')
+                );
+            }
+
+            return $email;
+        });
+
+        // product
+        $app->bind('App\Repositories\Product\ProductInterface', function ($app) {
+            $product = new ProductRepository(
+                new Product()
+            );
+
+            if ($app['config']->get('grace.cache') === true && $app['config']->get('is_admin', false) == false) {
+                $product = new ProductCacheDecorator(
+                    $product,
+                    new FullyCache($app['cache'], 'pages')
+                );
+            }
+
+            return $product;
         });
 
         // menu
