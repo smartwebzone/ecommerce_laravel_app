@@ -86,6 +86,9 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
     
     // standard
     Route::get('/standard/{slug}', ['as' => 'dashboard.standard', 'uses' => 'StandardController@index']);
+    
+    // book
+    Route::get('/book/{slug}', ['as' => 'dashboard.book', 'uses' => 'BookController@index']);
 
     // page
     Route::get('/page', ['as' => 'dashboard.page', 'uses' => 'PageController@index']);
@@ -196,6 +199,18 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::get('/standard/{id}/show', 'StandardController@show');
         Route::post('/standard/create', 'StandardController@store');
         Route::post('/standard/{id}/edit', 'StandardController@edit');
+        
+        Route::get('book', ['as' => 'admin.book', 'uses' => 'BookController@index']);
+        Route::get('book/create', ['as' => 'admin.book.create', 'uses' => 'BookController@create']);
+        Route::delete('book/destroy/{id}', ['as' => 'admin.book.destroy', 'uses' => 'BookController@destroy']);
+        Route::get('book/show/{id}', ['as' => 'admin.book.show', 'uses' => 'BookController@show']);
+        Route::get('book/edit/{id}', ['as' => 'admin.book.edit', 'uses' => 'BookController@edit']);
+        Route::patch('book/update/{book}', ['as' => 'admin.book.update', 'uses' => 'BookController@update']);
+        
+        Route::get('/book/{id}/delete', 'BookController@delete');
+        Route::get('/book/{id}/show', 'BookController@show');
+        Route::post('/book/create', 'BookController@store');
+        Route::post('/book/{id}/edit', 'BookController@edit');
     });
 });
 

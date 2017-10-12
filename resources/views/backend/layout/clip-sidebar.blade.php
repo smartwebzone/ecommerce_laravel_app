@@ -28,8 +28,13 @@
             </a>
         </li>
         <li class="{{ setActive('admin/standard*') }}">
-            <a href="{{ url(getLang() . '/admin/standard') }}"><i class="fa fa-book"></i>
+            <a href="{{ url(getLang() . '/admin/standard') }}"><i class="fa fa-paperclip"></i>
             <span class="title"> Standard </span><span class="selected"></span>
+            </a>
+        </li>
+        <li class="{{ setActive('admin/book*') }}">
+            <a href="{{ url(getLang() . '/admin/book') }}"><i class="fa fa-book"></i>
+            <span class="title"> Book </span><span class="selected"></span>
             </a>
         </li>
         <li class="{{ setActive('admin/logout*') }}">

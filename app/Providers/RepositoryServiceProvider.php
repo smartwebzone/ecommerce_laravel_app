@@ -15,7 +15,7 @@ use App\Models\Standard;
 use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\Tag;
-use App\Models\Video;
+use App\Models\Book;
 use App\Repositories\Article\ArticleRepository;
 use App\Repositories\Article\CacheDecorator as ArticleCacheDecorator;
 use App\Repositories\Company\CompanyRepository;
@@ -39,8 +39,8 @@ use App\Repositories\Slider\CacheDecorator as SliderCacheDecorator;
 use App\Repositories\Slider\SliderRepository;
 use App\Repositories\Tag\CacheDecorator as TagCacheDecorator;
 use App\Repositories\Tag\TagRepository;
-use App\Repositories\Video\CacheDecorator as VideoCacheDecorator;
-use App\Repositories\Video\VideoRepository;
+use App\Repositories\Book\CacheDecorator as BookCacheDecorator;
+use App\Repositories\Book\BookRepository;
 use App\Services\Cache\FullyCache;
 use Illuminate\Support\ServiceProvider;
 
@@ -200,20 +200,20 @@ class RepositoryServiceProvider extends ServiceProvider
             return $tag;
         });
 
-        // video
-        $app->bind('App\Repositories\Video\VideoInterface', function ($app) {
-            $video = new VideoRepository(
-                new Video()
+        // book
+        $app->bind('App\Repositories\Book\BookInterface', function ($app) {
+            $book = new BookRepository(
+                new Book()
             );
 
             if ($app['config']->get('grace.cache') === true && $app['config']->get('is_admin', false) == false) {
-                $video = new VideoCacheDecorator(
-                    $video,
+                $book = new BookCacheDecorator(
+                    $book,
                     new FullyCache($app['cache'], 'pages')
                 );
             }
 
-            return $video;
+            return $book;
         });
 
         // menu
