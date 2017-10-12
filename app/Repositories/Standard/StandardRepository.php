@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories\Company;
+namespace App\Repositories\Standard;
 
 use App\Exceptions\Validation\ValidationException;
-use App\Models\Company;
+use App\Models\Standard;
 use App\Models\Section;
 use App\Repositories\CrudableInterface;
 use App\Repositories\RepositoryAbstract;
@@ -13,23 +13,10 @@ use File;
 use Image;
 
 /**
- * Class CompanyRepository.
+ * Class StandardRepository.
  *
  */
-class CompanyRepository extends RepositoryAbstract implements CompanyInterface, CrudableInterface {
-
-    /**
-     * @var mixed
-     */
-    protected $width;
-    protected $height;
-    protected $thumbWidth;
-    protected $thumbHeight;
-
-    /**
-     * @var mixed
-     */
-    protected $imgDir;
+class StandardRepository extends RepositoryAbstract implements StandardInterface, CrudableInterface {
 
     /**
      * @var mixed
@@ -39,27 +26,27 @@ class CompanyRepository extends RepositoryAbstract implements CompanyInterface, 
     /**
      * @var mixed
      */
-    protected $company;
+    protected $standard;
 
     /**
      * @var array
      */
     protected static $rules = [
-        'name' => 'required|min:3|unique:company_master',
+        'name' => 'required|min:3|unique:standard_master',
     ];
 
     /**
-     * @param Company $company
+     * @param Standard $standard
      */
-    public function __construct(Company $company) {
-        $this->company = $company;
+    public function __construct(Standard $standard) {
+        $this->standard = $standard;
     }
 
     /**
      * @return mixed
      */
     public function all() {
-        return $this->company->orderBy('name', 'asc')->get();
+        return $this->standard->orderBy('name', 'asc')->get();
     }
 
     /**
@@ -76,12 +63,12 @@ class CompanyRepository extends RepositoryAbstract implements CompanyInterface, 
         $result->totalItems = 0;
         $result->items = [];
 
-        $query = $this->company->orderBy('name');
+        $query = $this->standard->orderBy('name');
 
-        $company = $query->skip($limit * ($page - 1))->take($limit)->get();
+        $standard = $query->skip($limit * ($page - 1))->take($limit)->get();
 
-        $result->totalItems = $this->totalCompany();
-        $result->items = $company->all();
+        $result->totalItems = $this->totalStandard();
+        $result->items = $standard->all();
 
         return $result;
     }
@@ -90,7 +77,7 @@ class CompanyRepository extends RepositoryAbstract implements CompanyInterface, 
      * @return mixed
      */
     public function lists() {
-        return $this->company->lists('name', 'id');
+        return $this->standard->lists('name', 'id');
     }
 
     /**
@@ -99,7 +86,7 @@ class CompanyRepository extends RepositoryAbstract implements CompanyInterface, 
      * @return mixed
      */
     public function find($id) {
-        return $this->company->findOrFail($id);
+        return $this->standard->findOrFail($id);
     }
 
 
@@ -108,51 +95,49 @@ class CompanyRepository extends RepositoryAbstract implements CompanyInterface, 
      */
     public function create($attributes) {
         if ($this->isValid($attributes)) {
-
-
-            $this->company->fill($attributes)->save();
+            $this->standard->fill($attributes)->save();
 
             return true;
 
-            //Event::fire('company.creating', $this->company);
+            //Event::fire('standard.creating', $this->standard);
         }
 
-        throw new ValidationException('Company validation failed', $this->getErrors());
+        throw new ValidationException('Standard validation failed', $this->getErrors());
     }
 
     /**
      * @TODO ADD UPLOAD AND NEW VALIDATION TO UPDATE LIKE WAS ADDED TO STORE:
      */
     public function update($id, $attributes) {
-        $rules = ['name' => 'required|min:3|unique:company_master,name,' . $id];
-        $this->company = $this->find($id);
+        $rules = ['name' => 'required|min:3|unique:standard_master,name,' . $id];
+        $this->standard = $this->find($id);
 
         if ($this->isValid($attributes, $rules)) {
             if (!isset($attributes['status'])) {
                 $attributes['status']=0;;
             }
           
-            $this->company->fill($attributes)->save();
+            $this->standard->fill($attributes)->save();
 
             return true;
         }
 
-        throw new ValidationException('Company validation failed', $this->getErrors());
+        throw new ValidationException('Standard validation failed', $this->getErrors());
     }
 
     /**
      * @param $id
      */
     public function delete($id) {
-        $this->company = $this->company->find($id);
-        $this->company->delete();
+        $this->standard = $this->standard->find($id);
+        $this->standard->delete();
     }
 
     /**
      * @return mixed
      */
-    protected function totalCompany() {
-        return $this->company->count();
+    protected function totalStandard() {
+        return $this->standard->count();
     }
 
 }

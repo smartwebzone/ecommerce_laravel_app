@@ -46,7 +46,7 @@ class SchoolRepository extends RepositoryAbstract implements SchoolInterface, Cr
      * @return mixed
      */
     public function all() {
-        return $this->school->where('lang', $this->getLang())->orderBy('name', 'asc')->get();
+        return $this->school->orderBy('name', 'asc')->get();
     }
 
     /**
@@ -65,7 +65,7 @@ class SchoolRepository extends RepositoryAbstract implements SchoolInterface, Cr
 
         $query = $this->school->orderBy('name');
 
-        $school = $query->skip($limit * ($page - 1))->take($limit)->where('lang', $this->getLang())->get();
+        $school = $query->skip($limit * ($page - 1))->take($limit)->get();
 
         $result->totalItems = $this->totalSchool();
         $result->items = $school->all();
@@ -77,7 +77,7 @@ class SchoolRepository extends RepositoryAbstract implements SchoolInterface, Cr
      * @return mixed
      */
     public function lists() {
-        return $this->school->where('lang', $this->getLang())->lists('name', 'id');
+        return $this->school->lists('name', 'id');
     }
 
     /**
@@ -97,7 +97,6 @@ class SchoolRepository extends RepositoryAbstract implements SchoolInterface, Cr
         if ($this->isValid($attributes)) {
 
 
-            $this->school->lang = $this->getLang();
 
             $this->school->fill($attributes)->save();
 
@@ -141,7 +140,7 @@ class SchoolRepository extends RepositoryAbstract implements SchoolInterface, Cr
      * @return mixed
      */
     protected function totalSchool() {
-        return $this->school->where('lang', $this->getLang())->count();
+        return $this->school->count();
     }
 
 }
