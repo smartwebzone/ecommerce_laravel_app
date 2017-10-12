@@ -11,7 +11,7 @@ use App\Models\News;
 use App\Models\Page;
 use App\Models\PhotoGallery;
 use App\Models\Project;
-use App\Models\Section;
+use App\Models\Standard;
 use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\Tag;
@@ -32,7 +32,7 @@ use App\Repositories\PhotoGallery\CacheDecorator as PhotoGalleryCacheDecorator;
 use App\Repositories\PhotoGallery\PhotoGalleryRepository;
 use App\Repositories\Project\CacheDecorator as ProjectCacheDecorator;
 use App\Repositories\Project\ProjectRepository;
-use App\Repositories\Section\SectionRepository;
+use App\Repositories\Standard\StandardRepository;
 use App\Repositories\Setting\CacheDecorator as SettingCacheDecorator;
 use App\Repositories\Setting\SettingRepository;
 use App\Repositories\Slider\CacheDecorator as SliderCacheDecorator;
@@ -95,13 +95,13 @@ class RepositoryServiceProvider extends ServiceProvider
             return $school;
         });
 
-        // section
-        $app->bind('App\Repositories\Section\SectionInterface', function ($app) {
-            $section = new SectionRepository(
-                new Section()
+        // standard
+        $app->bind('App\Repositories\Standard\StandardInterface', function ($app) {
+            $standard = new StandardRepository(
+                new Standard()
             );
 
-            return $section;
+            return $standard;
         });
 
         // page
