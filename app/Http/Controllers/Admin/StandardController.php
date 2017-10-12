@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Exceptions\Validation\ValidationException;
 use App\Http\Controllers\Controller;
 use App\Models\Section;
-use App\Repositories\School\SchoolInterface;
-use App\Repositories\School\SchoolRepository as School;
+use App\Repositories\Standard\StandardInterface;
+use App\Repositories\Standard\StandardRepository as Standard;
 use App\Services\Pagination;
 use Flash;
 use Input;
@@ -15,17 +15,17 @@ use Redirect;
 use Sentinel;
 
 /**
- * Class SchoolController.
+ * Class StandardController.
  *
  * @author Phillip Madsen <contact@affordableprogrammer.com>
  */
-class SchoolController extends Controller {
+class StandardController extends Controller {
 
-    protected $school;
+    protected $standard;
     protected $perPage;
 
-    public function __construct(SchoolInterface $school) {
-        $this->school = $school;
+    public function __construct(StandardInterface $standard) {
+        $this->standard = $standard;
         View::share('active', 'blog');
         $this->perPage = 10;
     }
@@ -36,10 +36,10 @@ class SchoolController extends Controller {
      * @return Response
      */
     public function index() {
-        $pagiData = $this->school->paginate(Input::get('page', 1), $this->perPage, true);
-        $school = Pagination::makeLengthAware($pagiData->items, $pagiData->totalItems, $this->perPage);
+        $pagiData = $this->standard->paginate(Input::get('page', 1), $this->perPage, true);
+        $standard = Pagination::makeLengthAware($pagiData->items, $pagiData->totalItems, $this->perPage);
 
-        return view('backend.school.index', compact('school'));
+        return view('backend.standard.index', compact('standard'));
     }
 
     /**
@@ -48,9 +48,9 @@ class SchoolController extends Controller {
      * @return Response
      */
     public function create() {
-         $state = \App\Models\State::lists('name','name')->toArray();
-         $state = [null=>'Please Select'] + $state;
-        return view('backend.school.create', compact('state'));
+         $school = \App\Models\School::lists('name','id')->toArray();
+         $school = [null=>'Please Select'] + $school;
+        return view('backend.standard.create', compact('school'));
     }
 
     /**
@@ -62,12 +62,12 @@ class SchoolController extends Controller {
         try {
             $data=Input::all();
             $data['added_by']=  Sentinel::getUser()->id;
-            $this->school->create($data);
-            Flash::message('School was successfully added');
+            $this->standard->create($data);
+            Flash::message('Standard was successfully added');
 
-            return Redirect::route('admin.school');
+            return Redirect::route('admin.standard');
         } catch (ValidationException $e) {
-            return Redirect::route('admin.school.create')->withInput()->withErrors($e->getErrors());
+            return Redirect::route('admin.standard.create')->withInput()->withErrors($e->getErrors());
         }
     }
 
@@ -79,9 +79,9 @@ class SchoolController extends Controller {
      * @return Response
      */
     public function show($id) {
-        $school = $this->school->find($id);
+        $standard = $this->standard->find($id);
 
-        return view('backend.school.show', compact('school'));
+        return view('backend.standard.show', compact('standard'));
     }
 
     /**
@@ -92,10 +92,10 @@ class SchoolController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $school = $this->school->find($id);
-        $state = \App\Models\State::lists('name','name')->toArray();
-        $state = [null=>'Please Select'] + $state;
-        return view('backend.school.edit', compact('school','state'));
+        $standard = $this->standard->find($id);
+        $school = \App\Models\School::lists('name','id')->toArray();
+        $school = [null=>'Please Select'] + $school;
+        return view('backend.standard.edit', compact('standard','school'));
     }
 
     /**
@@ -109,12 +109,12 @@ class SchoolController extends Controller {
         try {
             $data = Input::all();
             $data['updated_by']=  Sentinel::getUser()->id;
-            $this->school->update($id, $data);
-            Flash::message('School was successfully updated');
+            $this->standard->update($id, $data);
+            Flash::message('Standard was successfully updated');
 
-            return Redirect::route('admin.school');
+            return Redirect::route('admin.standard');
         } catch (ValidationException $e) {
-            return Redirect::route('admin.school.edit',['id'=>$id])->withInput()->withErrors($e->getErrors());
+            return Redirect::route('admin.standard.edit',['id'=>$id])->withInput()->withErrors($e->getErrors());
         }
     }
 
@@ -126,10 +126,10 @@ class SchoolController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        $this->school->delete($id);
-        Flash::message('School was successfully deleted');
+        $this->standard->delete($id);
+        Flash::message('Standard was successfully deleted');
 
-        return Redirect::route('admin.school');
+        return Redirect::route('admin.standard');
     }
 
     /**
@@ -138,9 +138,9 @@ class SchoolController extends Controller {
      * @return mixed
      */
     public function confirmDestroy($id) {
-        $school = $this->school->find($id);
+        $standard = $this->standard->find($id);
 
-        return view('backend.school.confirm-destroy', compact('school'));
+        return view('backend.standard.confirm-destroy', compact('standard'));
     }
 
 }

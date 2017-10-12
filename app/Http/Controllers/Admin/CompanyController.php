@@ -49,7 +49,7 @@ class CompanyController extends Controller {
      */
     public function create() {
          $state = \App\Models\State::lists('name','name')->toArray();
-        $state= array_merge(array(''=>'SELECT STATE'), $state);
+         $state = [null=>'Please Select'] + $state;
         return view('backend.company.create', compact('state'));
     }
 
@@ -94,7 +94,7 @@ class CompanyController extends Controller {
     public function edit($id) {
         $company = $this->company->find($id);
         $state = \App\Models\State::lists('name','name')->toArray();
-        $state= array_merge(array(''=>'SELECT STATE'), $state);
+        $state = [null=>'Please Select'] + $state;
         return view('backend.company.edit', compact('company','state'));
     }
 
