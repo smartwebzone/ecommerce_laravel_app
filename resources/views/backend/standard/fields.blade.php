@@ -10,13 +10,13 @@
 <!-- Phone Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('description', 'Description:') !!}
-    {!! Form::text('description', null, ['class' => 'form-control','value' => old('description'),'required' => true]) !!}
+    {!! Form::text('description', null, ['class' => 'form-control','value' => old('description')]) !!}
 </div>
 
 <!-- Email Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('school_id', 'School:') !!}
-    {!! Form::select('school_id', $school, null, array('class' => 'form-control', 'value'=>Input::old('school_id'))) !!}
+    {!! Form::select('school_id', $school, null, array('class' => 'form-control', 'value'=>Input::old('school_id'),'required' => true)) !!}
 </div>
 
 

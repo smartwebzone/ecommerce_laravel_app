@@ -1,9 +1,19 @@
+<!-- Company Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('company_id', 'Company:') !!}
+    {!! Form::select('company_id', $company, (@$product && isset($product->company->first()->id))?$product->company->first()->id:NULL, array('class' => 'form-control', 'value'=>Input::old('company_id'),'required' => true)) !!}
+</div>
+
+<!-- Standard Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('standard_id', 'Standard:') !!}
+    {!! Form::select('standard_id', $standard, (@$product && isset($product->standard->first()->id))?$product->standard->first()->id:NULL, array('class' => 'form-control', 'value'=>Input::old('standard_id'),'required' => true)) !!}
+</div>
+
 <!-- Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('title', 'Title:') !!}
-
     {!! Form::text('title', null, ['class' => 'form-control', 'value' => old('title'),'required' => true]) !!}
-
 </div>
 
 
@@ -14,36 +24,22 @@
 </div>
 
 <!-- Long Description Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-12">
     {!! Form::label('long_description', 'Long Description:') !!}
-    {!! Form::text('long_description', null, ['class' => 'form-control','value' => old('long_description'),'required' => true]) !!}
+    {!! Form::textarea('long_description', null, ['class' => 'form-control','value' => old('long_description'),'required' => true,'rows'=>3]) !!}
 </div>
 
 <!-- Product Code Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('instate_shipping_charges', 'Instate Shipping Charges:') !!}
+    {!! Form::label('instate_shipping_charges', 'In State Shipping Charges:') !!}
     {!! Form::text('instate_shipping_charges', null, ['class' => 'form-control','value' => old('instate_shipping_charges'),'required' => true]) !!}
 </div>
 
 <!-- Price Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('outstate_shipping_charges', 'Outstate Shipping Charges:') !!}
+    {!! Form::label('outstate_shipping_charges', 'Out State Shipping Charges:') !!}
     {!! Form::text('outstate_shipping_charges', null, ['class' => 'form-control','value' => old('outstate_shipping_charges'),'required' => true]) !!}
 </div>
-
-
-<!-- Standard Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('standard_id', 'Standard:') !!}
-    {!! Form::select('standard_id', $standard, (@$product && isset($product->standard->first()->id))?$product->standard->first()->id:NULL, array('class' => 'form-control', 'value'=>Input::old('standard_id'))) !!}
-</div>
-
-<!-- Email Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('company_id', 'Company:') !!}
-    {!! Form::select('company_id', $company, (@$product && isset($product->company->first()->id))?$product->company->first()->id:NULL, array('class' => 'form-control', 'value'=>Input::old('company_id'))) !!}
-</div>
-
 
 <!-- Show on Shop page Field -->
 <div class="form-group col-sm-2">

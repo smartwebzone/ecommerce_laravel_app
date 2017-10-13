@@ -48,7 +48,7 @@
 <!-- Email Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('state', 'State:') !!}
-    {!! Form::select('state', $state, null, array('class' => 'form-control', 'value'=>Input::old('state'))) !!}
+    {!! Form::select('state', $state, null, array('class' => 'form-control', 'value'=>Input::old('state'),'required' => true)) !!}
 </div>
 <!-- Email Field -->
 <div class="form-group col-sm-6">

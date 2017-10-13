@@ -13,7 +13,7 @@
             <!-- start: PAGE TITLE & BREADCRUMB -->
             <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>    
-            <li><a href="{!! url(getLang() . '/admin/standard') !!}"><i class="fa fa-building"></i> Standard</a></li>
+            <li><a href="{!! url(getLang() . '/admin/standard') !!}"><i class="fa fa-paperclip"></i> Standards</a></li>
             <li class="active">Add Standard</li>
             </ol>
             <div class="page-header">

@@ -13,7 +13,7 @@
             <!-- start: PAGE TITLE & BREADCRUMB -->
             <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>    
-            <li><a href="{!! url(getLang() . '/admin/book') !!}"><i class="fa fa-building"></i> Book</a></li>
+            <li><a href="{!! url(getLang() . '/admin/book') !!}"><i class="fa fa-book"></i> Books</a></li>
             <li class="active">Add Book</li>
             </ol>
             <div class="page-header">

@@ -2,10 +2,10 @@
     <thead>
     <th width="5%" class="text-center">#</th>
     <th>Name</th>
-    <th>Author</th>
-    <th>Price</th>
-    <th>Standard</th>
     <th>Company</th>
+    <th>Standard</th>
+    <th>Author</th>
+    <th class="text-right">Price</th>
     <th>Added On</th>
     <th width="7%" class="text-center">Action</th>
 </thead>
@@ -14,10 +14,10 @@
     <tr>
         <td class="text-center">{{ $book->id }}</td>
         <td>{{ $book->name }}</td>
-        <td>{{ $book->author }}</td>
-        <td>{{ $book->price }}</td>
-        <td>{{ $book->standard->first()->name }}</td>
         <td>{{ $book->company->first()->name }}</td>
+        <td>{{ $book->standard->first()->name }}</td>
+        <td>{{ $book->author }}</td>
+        <td class="text-right">{{ $book->price }}</td>
         <td>{{ formatDate($book->created_at) }}</td>
         <td class="text-center" nowrap="nowrap">
             {!! Form::open(['route' => ['admin.book.destroy', $book->id], 'method' => 'delete']) !!}

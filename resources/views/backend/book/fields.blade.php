@@ -1,3 +1,15 @@
+<!-- Company Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('company_id', 'Company:') !!}
+    {!! Form::select('company_id', $company, (@$book && isset($book->company->first()->id))?$book->company->first()->id:NULL, array('class' => 'form-control', 'value'=>Input::old('company_id'),'required' => true)) !!}
+</div>
+
+<!-- Standard Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('standard_id', 'Standard:') !!}
+    {!! Form::select('standard_id', $standard, (@$book && isset($book->standard->first()->id))?$book->standard->first()->id:NULL, array('class' => 'form-control', 'value'=>Input::old('standard_id'),'required' => true)) !!}
+</div>
+
 <!-- Name Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('name', 'Name:') !!}
@@ -41,14 +53,8 @@
 
 <!-- Tax Field -->
 <div class="form-group col-sm-6 tax">
-    {!! Form::label('tax', 'Tax: ') !!}
-    {!! Form::text('tax', null, ['class' => 'form-control','value' => old('tax'),'required' => true]) !!}
-</div>
-
-<!-- Price after tax Field -->
-<div class="form-group col-sm-6 tax">
-    {!! Form::label('price_after_tax', 'Price after tax:') !!}
-    {!! Form::text('price_after_tax', null, ['class' => 'form-control','value' => old('price_after_tax'),'required' => true]) !!}
+    {!! Form::label('tax', 'Tax: (%) ') !!}
+    {!! Form::text('tax', null, ['class' => 'form-control','value' => old('tax')]) !!}
 </div>
 
 <!-- Shipping charges Field -->
@@ -56,18 +62,6 @@
     {!! Form::label('shipping_charges', 'Shipping charges:') !!}
     {!! Form::text('shipping_charges', null, ['class' => 'form-control','value' => old('shipping_charges'),'required' => true]) !!}
 </div>
-<!-- Standard Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('standard_id', 'Standard:') !!}
-    {!! Form::select('standard_id', $standard, (@$book && isset($book->standard->first()->id))?$book->standard->first()->id:NULL, array('class' => 'form-control', 'value'=>Input::old('standard_id'))) !!}
-</div>
-
-<!-- Email Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('company_id', 'Company:') !!}
-    {!! Form::select('company_id', $company, (@$book && isset($book->company->first()->id))?$book->company->first()->id:NULL, array('class' => 'form-control', 'value'=>Input::old('company_id'))) !!}
-</div>
-
 
 <!-- Show on Shop page Field -->
 <div class="form-group col-sm-2">
@@ -86,9 +80,9 @@
 <script>
 $('input[name="is_taxable"]').change(function(){
     if($(this).prop('checked'))
-    $('.tax').slideDown();
-else
-    $('.tax').slideUp();
+        $('.tax').slideDown();
+    else
+        $('.tax').slideUp();
 });
 $(document).ready(function(){
     @if(isset($book->is_taxable) && !$book->is_taxable)
