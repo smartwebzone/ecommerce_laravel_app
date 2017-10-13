@@ -17,7 +17,7 @@ use Sentinel;
 /**
  * Class BookController.
  *
- 
+
  */
 class BookController extends Controller {
 
@@ -48,12 +48,12 @@ class BookController extends Controller {
      * @return Response
      */
     public function create() {
-         $standard = \App\Models\Standard::lists('name','id')->toArray();
-         $standard = [null=>'Please Select'] + $standard;
-         
-         $company = \App\Models\School::lists('name','id')->toArray();
-         $company = [null=>'Please Select'] + $company;
-        return view('backend.book.create', compact('company','standard'));
+        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = [null => 'Please Select'] + $standard;
+
+        $company = \App\Models\Company::lists('name', 'id')->toArray();
+        $company = [null => 'Please Select'] + $company;
+        return view('backend.book.create', compact('company', 'standard'));
     }
 
     /**
@@ -63,8 +63,8 @@ class BookController extends Controller {
      */
     public function store() {
         try {
-            $data=Input::all();
-            $data['added_by']=  Sentinel::getUser()->id;
+            $data = Input::all();
+            $data['added_by'] = Sentinel::getUser()->id;
             $this->book->create($data);
             Flash::message('Book was successfully added');
 
@@ -96,12 +96,12 @@ class BookController extends Controller {
      */
     public function edit($id) {
         $book = $this->book->find($id);
-         $standard = \App\Models\Standard::lists('name','id')->toArray();
-         $standard = [null=>'Please Select'] + $standard;
-         
-         $company = \App\Models\School::lists('name','id')->toArray();
-         $company = [null=>'Please Select'] + $company;
-        return view('backend.book.edit', compact('book','standard','company'));
+        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = [null => 'Please Select'] + $standard;
+
+        $company = \App\Models\Company::lists('name', 'id')->toArray();
+        $company = [null => 'Please Select'] + $company;
+        return view('backend.book.edit', compact('book', 'standard', 'company'));
     }
 
     /**
@@ -114,13 +114,19 @@ class BookController extends Controller {
     public function update($id) {
         try {
             $data = Input::all();
-            $data['updated_by']=  Sentinel::getUser()->id;
+            $data['updated_by'] = Sentinel::getUser()->id;
+            if($data['is_taxable'] == 1){
+                $data['price_after_tax'] = calculatePercentage($data['price'],$data['tax']);
+            }else{
+                $data['tax'] = NULL;
+                $data['price_after_tax'] = NULL;
+            }
             $this->book->update($id, $data);
             Flash::message('Book was successfully updated');
 
             return Redirect::route('admin.book');
         } catch (ValidationException $e) {
-            return Redirect::route('admin.book.edit',['id'=>$id])->withInput()->withErrors($e->getErrors());
+            return Redirect::route('admin.book.edit', ['id' => $id])->withInput()->withErrors($e->getErrors());
         }
     }
 

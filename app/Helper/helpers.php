@@ -186,3 +186,13 @@ function formatDate($date, $format = 'd/m/Y', $current_time = false) {
         return '';
     }
 }
+
+function calculatePercentage($num,$percentage){
+    if($percentage > 0){
+        $total = $num + $num*($percentage/100);
+        $total = number_format((float)$total, 2, '.', '');
+        return $total;
+    }else{
+        return $num;
+    }
+}
