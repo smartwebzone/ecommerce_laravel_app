@@ -49,7 +49,7 @@
 <div class="form-group col-sm-2">
     {!! Form::label('is_taxable', 'Is Taxable:') !!}
     <label class="checkbox">
-        {!! Form::checkbox('is_taxable', 1, (isset($product->is_taxable))?$product->is_taxable:true,['data-toggle' => 'toggle', 'data-on' => 'Enabled', 'data-off'=>'Disabled', 'data-onstyle' => 'success', 'data-offstyle' => 'danger', 'value'=>Input::old('is_taxable')]) !!}
+        {!! Form::checkbox('is_taxable', 1, (isset($product->is_taxable))?$product->is_taxable:true,['data-toggle' => 'toggle', 'data-on' => 'Yes', 'data-off'=>'No', 'data-onstyle' => 'success', 'data-offstyle' => 'danger', 'value'=>Input::old('is_taxable')]) !!}
     </label>
 </div>
 

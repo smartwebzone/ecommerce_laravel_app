@@ -1,80 +1,84 @@
-@extends('backend/layout/clip')
+@extends('backend/layout/create')
 
-@section('topcss')
-<link href="{!! asset('/clip/bower_components/select2/dist/css/select2.min.css') !!}" rel="stylesheet" />
-<link href="{!! asset('/clip/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') !!}" rel="stylesheet" />
-<link href="{!! asset('/clip/assets/plugin/bootstrap-timepicker.min.css') !!}" rel="stylesheet" />
-<link href="{!! asset('/clip/bower_components/bootstrap-daterangepicker/daterangepicker.css') !!}" rel="stylesheet" />
-<link href="{!! asset('/clip/bower_components/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') !!}" rel="stylesheet" />
-<link href="{!! asset('/clip/bower_components/jquery.tagsinput/dist/jquery.tagsinput.min.css') !!}" rel="stylesheet" />
-<link href="{!! asset('/clip/bower_components/summernote/dist/summernote.css') !!}" rel="stylesheet" />
-<link href="{!! asset('/clip/bower_components/bootstrap-fileinput/css/fileinput.min.css') !!}" rel="stylesheet" />
+@section('topscripts-off')
+<script type="text/javascript">
+    (function ($) {});
+</script>
 @endsection
 
 @section('pagetitle')
+    <div class="row">
+        <div class="col-sm-12">
+
+            <!-- start: PAGE TITLE & BREADCRUMB -->
+            <ol class="breadcrumb">
+            <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>    
+            <li><a href="{!! url(getLang() . '/admin/user') !!}"><i class="fa fa-users"></i> Users</a></li>
+            <li class="active">Add User</li>
+            </ol>
+            <div class="page-header">
+                <h1> Add User </h1>
+            </div>
+            <!-- end: PAGE TITLE & BREADCRUMB -->
+        </div>
+    </div>
 @endsection
 
 @section('content')
+{{-- <div class="container-fluid"> --}}
 <div class="row">
+    {{-- <div class="col-sm-2"></div> --}}
     <div class="col-sm-12">
-        <div class="tabbable">
-            <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue" id="myTab4">
-                <li class="active">
-                    <a data-toggle="tab" href="#panel_overview">
-                        Overview
-                    </a>
-                </li>
-                <li>
-                    <a data-toggle="tab" onClick="alert('Create User First!');" href="javascript:void(0);">
-                        Locations
-                    </a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div id="panel_overview" class="tab-pane in active">
-                    {!! Form::open(['action' => 'Admin\UserController@store', 'method' => 'post', 'files' => true]) !!}
-                    @include('backend.user.partials.userfields')
-                    {!! Form::close() !!}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="clip-stats"></i>
+                <div class="panel-tools">
+                    <a class="btn btn-xs btn-link panel-collapse collapses" href="#"> </a>
                 </div>
-                {{-- @include('partials.user.myaccountedit') --}}
-                {{--@include('partials.header.top-bar')--}}
-                <div id="panel_user_locations" class="tab-pane">
-                    <br style="clear:both" />
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="clearfix"></div>
+{{--    @include('flash::message') --}}
+{{--    @include('adminlte-templates::common.errors') --}}
+                        <div class="clearfix"></div>
+
+                        <div class="col-md-12">
+                    {!! Form::open(['action' => 'Admin\UserController@store', 'method' => 'post', 'files' => true]) !!}
+
+                        @include('backend.user.fields')
+
+                    {!! Form::close() !!}
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+{{-- </div> --}}
 @endsection
 
-@section('bottomscripts')
-<script src="{!! asset('/clip/assets/js/min/form-elements.min.js') !!}"></script>
-<script src="{!! asset('/clip/bower_components/moment/min/moment.min.js') !!}"></script>
-<script src="{!! asset('/clip/bower_components/bootstrap-maxlength/src/bootstrap-maxlength.js') !!}"></script>
-<script src="{!! asset('/clip/bower_components/autosize/dist/autosize.min.js') !!}"></script>
-<script src="{!! asset('/clip/bower_components/select2/dist/js/select2.min.js') !!}"></script>
-<script src="{!! asset('/clip/bower_components/jquery.maskedinput/dist/jquery.maskedinput.min.js') !!}"></script>
-<script src="{!! asset('/clip/bower_components/jquery-maskmoney/dist/jquery.maskMoney.min.js') !!}"></script>
-<script src="{!! asset('/clip/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') !!}"></script>
-<script src="{!! asset('/clip/bower_components/bootstrap-daterangepicker/daterangepicker.js') !!}"></script>
-<script src="{!! asset('/clip/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js') !!}"></script>
-<script src="{!! asset('/clip/bower_components/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') !!}"></script>
-<script src="{!! asset('/clip/bower_components/jquery.tagsinput/src/jquery.tagsinput.js') !!}"></script>
-<script src="{!! asset('/clip/bower_components/summernote/dist/summernote.min.js') !!}"></script>
-<script src="{!! asset('/clip/bower_components/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js') !!}"></script>
-<script src="{!! asset('/clip/bower_components/bootstrap-fileinput/js/fileinput.js') !!}"></script>
-<!--<script src="{!! asset('/clip/assets/js/bootstrap-toggle.min.js') !!}" type="text/javascript" charset="utf-8"></script>-->
+@section('bottomscripts-off')
+        <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 
+
+        <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 @endsection
 
 @section('clipinline')
-
-$("input#display_name").attr('readonly','readonly');
-$('#display_name,#first_name,#last_name').blur(function() {
-$('input[name="userInfo[display_name]"]').val(
-$('#first_name').val() + " " +
-$('#last_name').val() );
-});
-
-FormElements.init();
+    $('input#slug').attr('disabled', 'disabled');
+    $("input#title").keyup(function(){
+        var Text = $(this).val();
+        Text = Text.toLowerCase();
+        Text = Text.replace(/[^a-zA-Z0-9]+/g,'-');
+        $("input#slug").val(Text);
+    });
+    $("input#meta_description").blur(function () {
+        $('input#meta_description').val($('input#meta_description').val() + ' by The Jeevandeep');
+    });
 @endsection

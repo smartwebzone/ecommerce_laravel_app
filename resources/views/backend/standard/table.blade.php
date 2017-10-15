@@ -2,8 +2,8 @@
     <thead>
     <th width="5%" class="text-center">#</th>
     <th>Name</th>
-    <th>School</th>
-    <th>Added On</th>
+    <th width="10%" class="text-center">Added On</th>
+    <th width="10%" class="text-center">Status</th>
     <th width="7%" class="text-center">Action</th>
 </thead>
 <tbody>
@@ -11,8 +11,8 @@
     <tr>
         <td class="text-center">{{ $standard->id }}</td>
         <td>{{ $standard->name }}</td>
-        <td>{{ $standard->school->name }}</td>
-        <td>{{ formatDate($standard->created_at) }}</td>
+        <td class="text-center">{{ formatDate($standard->created_at) }}</td>
+        <td class="text-center">{{ getStatus($standard->status) }}</td>
         <td class="text-center" nowrap="nowrap">
             {!! Form::open(['route' => ['admin.standard.destroy', $standard->id], 'method' => 'delete']) !!}
             <div class='btn-group'>

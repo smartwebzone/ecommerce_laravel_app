@@ -13,11 +13,11 @@
             <!-- start: PAGE TITLE & BREADCRUMB -->
             <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li><a href="{!! url(getLang(). '/admin/users') !!}"><i class="fa fa-gears"></i>  User</a></li>
-            <li class="active">Preview User</li>
+            <li><a href="{!! url(getLang(). '/admin/email') !!}"><i class="fa fa-gears"></i>  Email</a></li>
+            <li class="active">Preview Email</li>
             </ol>
             <div class="page-header">
-                <h1>  User <small> </small> </h1>
+                <h1>  email <small> | Preview Email</small> </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>
@@ -52,14 +52,14 @@
 
                         <div class="space12">
                             <div class="btn-group btn-group-lg">
-                                <a class="btn btn-default" href="{!! url(getLang() . '/admin/user') !!}"> User</a>
-                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/user/create') !!}"> <i class="fa fa-plus"></i> Add  User </a>
+                                <a class="btn btn-default" href="{!! url(getLang() . '/admin/email') !!}"> email</a>
+                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/email/create') !!}"> <i class="fa fa-plus"></i> Add  Email </a>
                             </div>
                         </div>
 
                         <div class="col-md-10">
-           @include('backend.users.show_fields')
-                    <a href="{!! url(getLang() . '/admin/user') !!}" class="btn btn-default">Back</a>
+           @include('backend.user.show_fields')
+                    <a href="{!! url(getLang() . '/admin/email') !!}" class="btn btn-default">Back</a>
                         </div>
 
                     </div>

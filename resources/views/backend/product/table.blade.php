@@ -2,9 +2,10 @@
     <thead>
     <th width="5%" class="text-center">#</th>
     <th>Title</th>
-    <th>Standard</th>
     <th>Company</th>
-    <th>Added On</th>
+    <th>Standard</th>
+    <th width="10%" class="text-center">Added On</th>
+    <th width="10%" class="text-center">Status</th>
     <th width="7%" class="text-center">Action</th>
 </thead>
 <tbody>
@@ -12,9 +13,10 @@
     <tr>
         <td class="text-center">{{ $product->id }}</td>
         <td>{{ $product->title }}</td>
-        <td>{{ $product->standard->first()->name }}</td>
-        <td>{{ $product->company->first()->name }}</td>
-        <td>{{ formatDate($product->created_at) }}</td>
+        <td>{{ $product->company->find($product->company_id)->name }}</td>
+        <td>{{ $product->standard->find($product->standard_id)->name }}</td>
+        <td class="text-center">{{ formatDate($product->created_at) }}</td>
+        <td class="text-center">{{ getStatus($product->status) }}</td>
         <td class="text-center" nowrap="nowrap">
             {!! Form::open(['route' => ['admin.product.destroy', $product->id], 'method' => 'delete']) !!}
             <div class='btn-group'>

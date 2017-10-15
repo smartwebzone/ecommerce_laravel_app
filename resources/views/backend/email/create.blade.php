@@ -13,11 +13,11 @@
             <!-- start: PAGE TITLE & BREADCRUMB -->
             <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>    
-            <li><a href="{!! url(getLang() . '/admin/email') !!}"><i class="fa fa-building"></i> Email</a></li>
-            <li class="active">Add Email</li>
+            <li><a href="{!! url(getLang() . '/admin/email') !!}"><i class="fa fa-envelope"></i> Email Templates</a></li>
+            <li class="active">Add Email Template</li>
             </ol>
             <div class="page-header">
-                <h1> Add Email </h1>
+                <h1> Add Email Template </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

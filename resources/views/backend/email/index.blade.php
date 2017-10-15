@@ -14,10 +14,10 @@
             <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 
-            <li class="active">Email</li>
+            <li class="active">Email Templates</li>
             </ol>
             <div class="page-header">
-                <h1>  Email <small> | Control Panel</small> </h1>
+                <h1>  Email Templates<small> | Control Panel</small> </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>
@@ -49,7 +49,7 @@
 
                         <div class="space12">
                             <div class="btn-group btn-group-lg">
-                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/email/create') !!}"> <i class="fa fa-plus"></i> Add Email </a>
+                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/email/create') !!}"> <i class="fa fa-plus"></i> Add Email Template </a>
                             </div>
                         </div>
 

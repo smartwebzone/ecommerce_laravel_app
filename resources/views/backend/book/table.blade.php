@@ -6,7 +6,8 @@
     <th>Standard</th>
     <th>Author</th>
     <th class="text-right">Price</th>
-    <th>Added On</th>
+    <th width="10%" class="text-center">Added On</th>
+    <th width="10%" class="text-center">Status</th>
     <th width="7%" class="text-center">Action</th>
 </thead>
 <tbody>
@@ -14,11 +15,12 @@
     <tr>
         <td class="text-center">{{ $book->id }}</td>
         <td>{{ $book->name }}</td>
-        <td>{{ $book->company->first()->name }}</td>
-        <td>{{ $book->standard->first()->name }}</td>
+        <td>{{ $book->company->find($book->company_id)->name }}</td>
+        <td>{{ $book->standard->find($book->standard_id)->name }}</td>
         <td>{{ $book->author }}</td>
         <td class="text-right">{{ $book->price }}</td>
-        <td>{{ formatDate($book->created_at) }}</td>
+        <td class="text-center">{{ formatDate($book->created_at) }}</td>
+        <td class="text-center">{{ getStatus($book->status) }}</td>
         <td class="text-center" nowrap="nowrap">
             {!! Form::open(['route' => ['admin.book.destroy', $book->id], 'method' => 'delete']) !!}
             <div class='btn-group'>
