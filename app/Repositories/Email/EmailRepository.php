@@ -32,7 +32,10 @@ class EmailRepository extends RepositoryAbstract implements EmailInterface, Crud
      * @var array
      */
     protected static $rules = [
-        'name' => 'required|min:3|unique:email_master',
+        'template' => 'required',
+        'name' => 'required',
+        'subject' => 'required',
+        'body' => 'required',
     ];
 
     /**
@@ -94,16 +97,11 @@ class EmailRepository extends RepositoryAbstract implements EmailInterface, Crud
      * @TODO CHECK FUNCTIONALITY OF NEW UPLOADER AND SAVING OF NEW FIELDS
      */
     public function create($attributes) {
-        if ($this->isValid($attributes)) {
-            
-            
+        if ($this->isValid($attributes, static::$rules)) {
+            if (!isset($attributes['status'])) {
+                $attributes['status']=0;
+            }
             $email=$this->email->fill($attributes)->save();
-            if($attributes['standard_id']){
-                $this->email->standard()->attach($attributes['standard_id']);
-            }
-            if($attributes['company_id']){
-                $this->email->company()->attach($attributes['company_id']);
-            }
             return true;
 
             //Event::fire('email.creating', $this->email);
@@ -116,17 +114,12 @@ class EmailRepository extends RepositoryAbstract implements EmailInterface, Crud
      * @TODO ADD UPLOAD AND NEW VALIDATION TO UPDATE LIKE WAS ADDED TO STORE:
      */
     public function update($id, $attributes) {
-        $rules = ['name' => 'required|min:3|unique:email_master,name,' . $id];
         $this->email = $this->find($id);
 
-        if ($this->isValid($attributes, $rules)) {
+        if ($this->isValid($attributes, static::$rules)) {
             if (!isset($attributes['status'])) {
-                $attributes['status']=0;;
+                $attributes['status']=0;
             }
-            if (!isset($attributes['is_taxable'])) {
-                $attributes['is_taxable']=0;;
-            }
-          
             $this->email->fill($attributes)->save();
 
             return true;

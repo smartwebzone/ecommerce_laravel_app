@@ -32,7 +32,15 @@ class SchoolRepository extends RepositoryAbstract implements SchoolInterface, Cr
      * @var array
      */
     protected static $rules = [
-        'name' => 'required|min:3|unique:school_master',
+        'name' => 'required',
+        'phone' => 'required',
+        'email' => 'required|email',
+        'contact_person' => 'required',
+        'address1' => 'required',
+        'area' => 'required',
+        'city' => 'required',
+        'state' => 'required',
+        'zip' => 'required|digits:6'
     ];
 
     /**
@@ -94,13 +102,13 @@ class SchoolRepository extends RepositoryAbstract implements SchoolInterface, Cr
      * @TODO CHECK FUNCTIONALITY OF NEW UPLOADER AND SAVING OF NEW FIELDS
      */
     public function create($attributes) {
-        if ($this->isValid($attributes)) {
-
-
-
+        if ($this->isValid($attributes, static::$rules)) {
+            if (!isset($attributes['status'])) {
+                $attributes['status'] = 0;
+            }
             $this->school->fill($attributes)->save();
 
-            return true;
+            return $this->school->id;
 
             //Event::fire('school.creating', $this->school);
         }
@@ -112,17 +120,16 @@ class SchoolRepository extends RepositoryAbstract implements SchoolInterface, Cr
      * @TODO ADD UPLOAD AND NEW VALIDATION TO UPDATE LIKE WAS ADDED TO STORE:
      */
     public function update($id, $attributes) {
-        $rules = ['name' => 'required|min:3|unique:school_master,name,' . $id];
         $this->school = $this->find($id);
 
-        if ($this->isValid($attributes, $rules)) {
+        if ($this->isValid($attributes, static::$rules)) {
             if (!isset($attributes['status'])) {
-                $attributes['status']=0;;
+                $attributes['status']=0;
             }
           
             $this->school->fill($attributes)->save();
 
-            return true;
+            return $this->school->id;
         }
 
         throw new ValidationException('School validation failed', $this->getErrors());

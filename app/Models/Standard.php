@@ -17,16 +17,9 @@ class Standard extends Model implements ModelInterface {
     protected $guarded = ['id'];
     public $table = 'standard_master';
     public $timestamps = false;
-    
-     public static $rules = [
-        'name' => 'required|min:3|unique:standard_master,name,3',
-        'description' => 'required',
-        'status' => 'required',
-        'school_id' => 'required',
-    ];
-    public function school() {
-        return $this->belongsTo(School::class, 'school_id');
-    }
 
+    public function school() {
+        return $this->belongsToMany(School::class);
+    }
 
 }

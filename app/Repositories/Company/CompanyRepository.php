@@ -45,7 +45,15 @@ class CompanyRepository extends RepositoryAbstract implements CompanyInterface, 
      * @var array
      */
     protected static $rules = [
-        'name' => 'required|min:3|unique:company_master',
+        'name' => 'required',
+        'phone' => 'required',
+        'email' => 'required|email',
+        'contact_person' => 'required',
+        'address1' => 'required',
+        'area' => 'required',
+        'city' => 'required',
+        'state' => 'required',
+        'zip' => 'required|digits:6'
     ];
 
     /**
@@ -102,14 +110,14 @@ class CompanyRepository extends RepositoryAbstract implements CompanyInterface, 
         return $this->company->findOrFail($id);
     }
 
-
     /**
      * @TODO CHECK FUNCTIONALITY OF NEW UPLOADER AND SAVING OF NEW FIELDS
      */
     public function create($attributes) {
-        if ($this->isValid($attributes)) {
-
-
+        if ($this->isValid($attributes, static::$rules)) {
+            if (!isset($attributes['status'])) {
+                $attributes['status'] = 0;
+            }
             $this->company->fill($attributes)->save();
 
             return true;
@@ -124,14 +132,13 @@ class CompanyRepository extends RepositoryAbstract implements CompanyInterface, 
      * @TODO ADD UPLOAD AND NEW VALIDATION TO UPDATE LIKE WAS ADDED TO STORE:
      */
     public function update($id, $attributes) {
-        $rules = ['name' => 'required|min:3|unique:company_master,name,' . $id];
         $this->company = $this->find($id);
 
-        if ($this->isValid($attributes, $rules)) {
+        if ($this->isValid($attributes, static::$rules)) {
             if (!isset($attributes['status'])) {
-                $attributes['status']=0;;
+                $attributes['status'] = 0;
             }
-          
+
             $this->company->fill($attributes)->save();
 
             return true;

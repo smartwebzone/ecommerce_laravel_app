@@ -187,12 +187,26 @@ function formatDate($date, $format = 'd/m/Y', $current_time = false) {
     }
 }
 
-function calculatePercentage($num,$percentage){
-    if($percentage > 0){
-        $total = $num + $num*($percentage/100);
-        $total = number_format((float)$total, 2, '.', '');
+function calculatePercentage($num, $percentage) {
+    if ($percentage > 0) {
+        $total = $num + $num * ($percentage / 100);
+        $total = number_format((float) $total, 2, '.', '');
         return $total;
-    }else{
+    } else {
         return $num;
     }
+}
+
+function getStatus($status_db) {
+    switch ($status_db) {
+        case '1':
+            $status = 'Enabled';
+            break;
+        case '0':
+            $status = 'Disabled';
+            break;
+        default:
+            $status = 'Enabled';
+    }
+    return $status;
 }

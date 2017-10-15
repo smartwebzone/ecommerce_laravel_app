@@ -32,7 +32,13 @@ class ProductRepository extends RepositoryAbstract implements ProductInterface, 
      * @var array
      */
     protected static $rules = [
-        'title' => 'required|min:3|unique:product_master',
+        'company_id' => 'required',
+        'standard_id' => 'required',
+        'title' => 'required',
+        'description' => 'required',
+        'long_description' => 'required',
+        'instate_shipping_charges' => 'regex:/^\d*(\.\d{1,2})?$/',
+        'outstate_shipping_charges' => 'regex:/^\d*(\.\d{1,2})?$/'
     ];
 
     /**
@@ -89,21 +95,15 @@ class ProductRepository extends RepositoryAbstract implements ProductInterface, 
         return $this->product->findOrFail($id);
     }
 
-
     /**
      * @TODO CHECK FUNCTIONALITY OF NEW UPLOADER AND SAVING OF NEW FIELDS
      */
     public function create($attributes) {
-        if ($this->isValid($attributes)) {
-            
-            
-            $product=$this->product->fill($attributes)->save();
-//            if($attributes['standard_id']){
-//                $this->product->standard()->attach($attributes['standard_id']);
-//            }
-//            if($attributes['company_id']){
-//                $this->product->company()->attach($attributes['company_id']);
-//            }
+        if ($this->isValid($attributes, static::$rules)) {
+            if (!isset($attributes['status'])) {
+                $attributes['status'] = 0;
+            }
+            $product = $this->product->fill($attributes)->save();
             return true;
 
             //Event::fire('product.creating', $this->product);
@@ -119,12 +119,13 @@ class ProductRepository extends RepositoryAbstract implements ProductInterface, 
         $rules = ['title' => 'required|min:3|unique:product_master,title,' . $id];
         $this->product = $this->find($id);
 
-        if ($this->isValid($attributes, $rules)) {
-          
+        if ($this->isValid($attributes, static::$rules)) {
             if (!isset($attributes['is_taxable'])) {
-                $attributes['is_taxable']=0;;
+                $attributes['is_taxable'] = 0;
             }
-          
+            if (!isset($attributes['status'])) {
+                $attributes['status'] = 0;
+            }
             $this->product->fill($attributes)->save();
 
             return true;

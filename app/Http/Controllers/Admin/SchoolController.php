@@ -13,11 +13,14 @@ use Input;
 use View;
 use Redirect;
 use Sentinel;
+use App\Models\Standard;
+use Illuminate\Http\Request;
+use App\Models\SchoolStandard;
 
 /**
  * Class SchoolController.
  *
- 
+
  */
 class SchoolController extends Controller {
 
@@ -48,9 +51,10 @@ class SchoolController extends Controller {
      * @return Response
      */
     public function create() {
-         $state = \App\Models\State::lists('name','name')->toArray();
-         $state = [null=>'Please Select'] + $state;
-        return view('backend.school.create', compact('state'));
+        $state = \App\Models\State::lists('name', 'name')->toArray();
+        $state = [null => 'Please Select'] + $state;
+        $standard = Standard::lists('name', 'id')->toArray();
+        return view('backend.school.create', compact('state', 'standard'));
     }
 
     /**
@@ -58,11 +62,16 @@ class SchoolController extends Controller {
      *
      * @return Response
      */
-    public function store() {
+    public function store(Request $request) {
         try {
-            $data=Input::all();
-            $data['added_by']=  Sentinel::getUser()->id;
-            $this->school->create($data);
+            $data = Input::all();
+            $data['added_by'] = Sentinel::getUser()->id;
+            unset($data['standards']);
+            $school_id = $this->school->create($data);
+            $school = $this->school->find($school_id);
+            if (!empty($request->standards)) {
+                $school->standard()->sync($request->standards);
+            }
             Flash::message('School was successfully added');
 
             return Redirect::route('admin.school');
@@ -93,9 +102,15 @@ class SchoolController extends Controller {
      */
     public function edit($id) {
         $school = $this->school->find($id);
-        $state = \App\Models\State::lists('name','name')->toArray();
-        $state = [null=>'Please Select'] + $state;
-        return view('backend.school.edit', compact('school','state'));
+        $school_standards = $this->school->find($id)->standard()->get();
+        $existing_standards = array();
+        foreach($school_standards as $row){
+            $existing_standards[] = $row->id;
+        }
+        $state = \App\Models\State::lists('name', 'name')->toArray();
+        $state = [null => 'Please Select'] + $state;
+        $standard = Standard::lists('name', 'id')->toArray();
+        return view('backend.school.edit', compact('school', 'state', 'standard', 'existing_standards'));
     }
 
     /**
@@ -105,16 +120,21 @@ class SchoolController extends Controller {
      *
      * @return Response
      */
-    public function update($id) {
+    public function update(Request $request, $id) {
         try {
             $data = Input::all();
-            $data['updated_by']=  Sentinel::getUser()->id;
+            $data['updated_by'] = Sentinel::getUser()->id;
+            unset($data['standards']);
             $this->school->update($id, $data);
+            $school = $this->school->find($id);
+            if (!empty($request->standards)) {
+                $school->standard()->sync($request->standards);
+            }
             Flash::message('School was successfully updated');
 
             return Redirect::route('admin.school');
         } catch (ValidationException $e) {
-            return Redirect::route('admin.school.edit',['id'=>$id])->withInput()->withErrors($e->getErrors());
+            return Redirect::route('admin.school.edit', ['id' => $id])->withInput()->withErrors($e->getErrors());
         }
     }
 

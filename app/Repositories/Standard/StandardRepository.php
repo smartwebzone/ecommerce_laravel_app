@@ -32,7 +32,7 @@ class StandardRepository extends RepositoryAbstract implements StandardInterface
      * @var array
      */
     protected static $rules = [
-        'name' => 'required|min:3|unique:standard_master',
+        'name' => 'required'
     ];
 
     /**
@@ -89,12 +89,14 @@ class StandardRepository extends RepositoryAbstract implements StandardInterface
         return $this->standard->findOrFail($id);
     }
 
-
     /**
      * @TODO CHECK FUNCTIONALITY OF NEW UPLOADER AND SAVING OF NEW FIELDS
      */
     public function create($attributes) {
-        if ($this->isValid($attributes)) {
+        if ($this->isValid($attributes, static::$rules)) {
+            if (!isset($attributes['status'])) {
+                $attributes['status'] = 0;
+            }
             $this->standard->fill($attributes)->save();
 
             return true;
@@ -109,14 +111,13 @@ class StandardRepository extends RepositoryAbstract implements StandardInterface
      * @TODO ADD UPLOAD AND NEW VALIDATION TO UPDATE LIKE WAS ADDED TO STORE:
      */
     public function update($id, $attributes) {
-        $rules = ['name' => 'required|min:3|unique:standard_master,name,' . $id];
         $this->standard = $this->find($id);
 
-        if ($this->isValid($attributes, $rules)) {
+        if ($this->isValid($attributes, static::$rules)) {
             if (!isset($attributes['status'])) {
-                $attributes['status']=0;;
+                $attributes['status'] = 0;
             }
-          
+
             $this->standard->fill($attributes)->save();
 
             return true;

@@ -48,9 +48,7 @@ class StandardController extends Controller {
      * @return Response
      */
     public function create() {
-         $school = \App\Models\School::lists('name','id')->toArray();
-         $school = [null=>'Please Select'] + $school;
-        return view('backend.standard.create', compact('school'));
+        return view('backend.standard.create');
     }
 
     /**
@@ -93,9 +91,7 @@ class StandardController extends Controller {
      */
     public function edit($id) {
         $standard = $this->standard->find($id);
-        $school = \App\Models\School::lists('name','id')->toArray();
-        $school = [null=>'Please Select'] + $school;
-        return view('backend.standard.edit', compact('standard','school'));
+        return view('backend.standard.edit', compact('standard'));
     }
 
     /**

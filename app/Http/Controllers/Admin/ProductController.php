@@ -17,7 +17,7 @@ use Sentinel;
 /**
  * Class ProductController.
  *
- 
+
  */
 class ProductController extends Controller {
 
@@ -48,12 +48,12 @@ class ProductController extends Controller {
      * @return Response
      */
     public function create() {
-         $standard = \App\Models\Standard::lists('name','id')->toArray();
-         $standard = [null=>'Please Select'] + $standard;
-         
-         $company = \App\Models\School::lists('name','id')->toArray();
-         $company = [null=>'Please Select'] + $company;
-        return view('backend.product.create', compact('company','standard'));
+        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = [null => 'Please Select'] + $standard;
+
+        $company = \App\Models\Company::lists('name', 'id')->toArray();
+        $company = [null => 'Please Select'] + $company;
+        return view('backend.product.create', compact('company', 'standard'));
     }
 
     /**
@@ -63,8 +63,8 @@ class ProductController extends Controller {
      */
     public function store() {
         try {
-            $data=Input::all();
-            $data['added_by']=  Sentinel::getUser()->id;
+            $data = Input::all();
+            $data['added_by'] = Sentinel::getUser()->id;
             $this->product->create($data);
             Flash::message('Product was successfully added');
 
@@ -96,12 +96,12 @@ class ProductController extends Controller {
      */
     public function edit($id) {
         $product = $this->product->find($id);
-         $standard = \App\Models\Standard::lists('name','id')->toArray();
-         $standard = [null=>'Please Select'] + $standard;
-         
-         $company = \App\Models\School::lists('name','id')->toArray();
-         $company = [null=>'Please Select'] + $company;
-        return view('backend.product.edit', compact('product','standard','company'));
+        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = [null => 'Please Select'] + $standard;
+
+        $company = \App\Models\Company::lists('name', 'id')->toArray();
+        $company = [null => 'Please Select'] + $company;
+        return view('backend.product.edit', compact('product', 'standard', 'company'));
     }
 
     /**
@@ -114,13 +114,13 @@ class ProductController extends Controller {
     public function update($id) {
         try {
             $data = Input::all();
-            $data['updated_by']=  Sentinel::getUser()->id;
+            $data['updated_by'] = Sentinel::getUser()->id;
             $this->product->update($id, $data);
             Flash::message('Product was successfully updated');
 
             return Redirect::route('admin.product');
         } catch (ValidationException $e) {
-            return Redirect::route('admin.product.edit',['id'=>$id])->withInput()->withErrors($e->getErrors());
+            return Redirect::route('admin.product.edit', ['id' => $id])->withInput()->withErrors($e->getErrors());
         }
     }
 

@@ -17,14 +17,9 @@ class School extends Model implements ModelInterface {
     protected $guarded = ['id'];
     public $table = 'school_master';
     public $timestamps = false;
-    
-     public static $rules = [
-        'name' => 'required|min:3|unique:school_master,name,3',
-        'phone' => 'required',
-        'email' => 'required',
-        'city' => 'required',
-        'area' => 'required',
-        'state' => 'required',
-    ];
+
+    public function standard() {
+        return $this->belongsToMany(Standard::class);
+    }
 
 }

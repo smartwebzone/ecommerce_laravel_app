@@ -65,6 +65,12 @@ class BookController extends Controller {
         try {
             $data = Input::all();
             $data['added_by'] = Sentinel::getUser()->id;
+            if(isset($data['is_taxable']) && $data['is_taxable'] == 1){
+            }else{
+                $data['is_taxable'] = 0;
+                $data['tax'] = 0;
+            }
+            $data['price_after_tax'] = calculatePercentage($data['price'],$data['tax']);
             $this->book->create($data);
             Flash::message('Book was successfully added');
 
@@ -115,12 +121,12 @@ class BookController extends Controller {
         try {
             $data = Input::all();
             $data['updated_by'] = Sentinel::getUser()->id;
-            if($data['is_taxable'] == 1){
-                $data['price_after_tax'] = calculatePercentage($data['price'],$data['tax']);
+            if(isset($data['is_taxable']) && $data['is_taxable'] == 1){
             }else{
-                $data['tax'] = NULL;
-                $data['price_after_tax'] = NULL;
+                $data['is_taxable'] = 0;
+                $data['tax'] = 0;
             }
+            $data['price_after_tax'] = calculatePercentage($data['price'],$data['tax']);
             $this->book->update($id, $data);
             Flash::message('Book was successfully updated');
 

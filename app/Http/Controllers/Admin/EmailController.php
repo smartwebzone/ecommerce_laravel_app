@@ -13,11 +13,12 @@ use Input;
 use View;
 use Redirect;
 use Sentinel;
+use Config;
 
 /**
  * Class EmailController.
  *
- 
+
  */
 class EmailController extends Controller {
 
@@ -48,12 +49,9 @@ class EmailController extends Controller {
      * @return Response
      */
     public function create() {
-         $standard = \App\Models\Standard::lists('name','id')->toArray();
-         $standard = [null=>'Please Select'] + $standard;
-         
-         $company = \App\Models\School::lists('name','id')->toArray();
-         $company = [null=>'Please Select'] + $company;
-        return view('backend.email.create', compact('company','standard'));
+        $template = Config::get('email_templates.templates');
+        $template = [null => 'Please Select'] + $template;
+        return view('backend.email.create', compact('template'));
     }
 
     /**
@@ -63,8 +61,8 @@ class EmailController extends Controller {
      */
     public function store() {
         try {
-            $data=Input::all();
-            $data['added_by']=  Sentinel::getUser()->id;
+            $data = Input::all();
+            $data['added_by'] = Sentinel::getUser()->id;
             $this->email->create($data);
             Flash::message('Email was successfully added');
 
@@ -96,12 +94,9 @@ class EmailController extends Controller {
      */
     public function edit($id) {
         $email = $this->email->find($id);
-         $standard = \App\Models\Standard::lists('name','id')->toArray();
-         $standard = [null=>'Please Select'] + $standard;
-         
-         $company = \App\Models\School::lists('name','id')->toArray();
-         $company = [null=>'Please Select'] + $company;
-        return view('backend.email.edit', compact('email','standard','company'));
+        $template = Config::get('email_templates.templates');
+        $template = [null => 'Please Select'] + $template;
+        return view('backend.email.edit', compact('email', 'template'));
     }
 
     /**
@@ -114,13 +109,13 @@ class EmailController extends Controller {
     public function update($id) {
         try {
             $data = Input::all();
-            $data['updated_by']=  Sentinel::getUser()->id;
+            $data['updated_by'] = Sentinel::getUser()->id;
             $this->email->update($id, $data);
             Flash::message('Email was successfully updated');
 
             return Redirect::route('admin.email');
         } catch (ValidationException $e) {
-            return Redirect::route('admin.email.edit',['id'=>$id])->withInput()->withErrors($e->getErrors());
+            return Redirect::route('admin.email.edit', ['id' => $id])->withInput()->withErrors($e->getErrors());
         }
     }
 

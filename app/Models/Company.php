@@ -17,14 +17,5 @@ class Company extends Model implements ModelInterface {
     protected $guarded = ['id'];
     public $table = 'company_master';
     public $timestamps = false;
-    
-     public static $rules = [
-        'name' => 'required|min:3|unique:company_master,name,3',
-        'phone' => 'required',
-        'email' => 'required',
-        'city' => 'required',
-        'area' => 'required',
-        'state' => 'required',
-    ];
 
 }

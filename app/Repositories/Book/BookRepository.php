@@ -32,7 +32,15 @@ class BookRepository extends RepositoryAbstract implements BookInterface, Crudab
      * @var array
      */
     protected static $rules = [
-        'name' => 'required|min:3|unique:book_master',
+        'company_id' => 'required',
+        'standard_id' => 'required',
+        'name' => 'required',
+        'description' => 'required',
+        'author' => 'required',
+        'book_code' => 'required',
+        'price' => 'required|regex:/^\d*(\.\d{1,2})?$/',
+        'tax' => 'regex:/^\d*(\.\d{1,2})?$/',
+        'shipping_charges' => 'regex:/^\d*(\.\d{1,2})?$/'
     ];
 
     /**
@@ -89,21 +97,18 @@ class BookRepository extends RepositoryAbstract implements BookInterface, Crudab
         return $this->book->findOrFail($id);
     }
 
-
     /**
      * @TODO CHECK FUNCTIONALITY OF NEW UPLOADER AND SAVING OF NEW FIELDS
      */
     public function create($attributes) {
-        if ($this->isValid($attributes)) {
-            
-            
-            $book=$this->book->fill($attributes)->save();
-            if($attributes['standard_id']){
-                $this->book->standard()->attach($attributes['standard_id']);
+        if ($this->isValid($attributes, static::$rules)) {
+            if (!isset($attributes['status'])) {
+                $attributes['status'] = 0;
             }
-            if($attributes['company_id']){
-                $this->book->company()->attach($attributes['company_id']);
+            if (!isset($attributes['is_taxable'])) {
+                $attributes['is_taxable'] = 0;
             }
+            $book = $this->book->fill($attributes)->save();
             return true;
 
             //Event::fire('book.creating', $this->book);
@@ -116,17 +121,16 @@ class BookRepository extends RepositoryAbstract implements BookInterface, Crudab
      * @TODO ADD UPLOAD AND NEW VALIDATION TO UPDATE LIKE WAS ADDED TO STORE:
      */
     public function update($id, $attributes) {
-        $rules = ['name' => 'required|min:3|unique:book_master,name,' . $id];
         $this->book = $this->find($id);
 
-        if ($this->isValid($attributes, $rules)) {
+        if ($this->isValid($attributes, static::$rules)) {
             if (!isset($attributes['status'])) {
-                $attributes['status']=0;;
+                $attributes['status'] = 0;
             }
             if (!isset($attributes['is_taxable'])) {
-                $attributes['is_taxable']=0;;
+                $attributes['is_taxable'] = 0;
             }
-          
+
             $this->book->fill($attributes)->save();
 
             return true;
