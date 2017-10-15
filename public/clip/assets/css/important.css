@@ -42,3 +42,10 @@ ul.main-navigation-menu ul.sub-menu > ul.sub-menu > li > a { border: 0 none; dis
 .fast .toggle-group { transition: left 0.1s; -webkit-transition: left 0.1s; }
 .quick .toggle-group { transition: none; -webkit-transition: none; }
 .form-group label.checkbox{margin:0px !important;;padding:0px !important;}
+.row{
+    overflow: hidden; 
+}
+.form-group .error{
+    line-height: 1.8;
+    color: #f96a74;
+}
