@@ -65,12 +65,13 @@ class BookController extends Controller {
         try {
             $data = Input::all();
             $data['added_by'] = Sentinel::getUser()->id;
-            if(isset($data['is_taxable']) && $data['is_taxable'] == 1){
-            }else{
+            if (isset($data['is_taxable']) && $data['is_taxable'] == 1) {
+                
+            } else {
                 $data['is_taxable'] = 0;
                 $data['tax'] = 0;
             }
-            $data['price_after_tax'] = calculatePercentage($data['price'],$data['tax']);
+            $data['price_after_tax'] = calculatePercentage($data['price'], $data['tax']);
             $this->book->create($data);
             Flash::message('Book was successfully added');
 
@@ -121,12 +122,13 @@ class BookController extends Controller {
         try {
             $data = Input::all();
             $data['updated_by'] = Sentinel::getUser()->id;
-            if(isset($data['is_taxable']) && $data['is_taxable'] == 1){
-            }else{
+            if (isset($data['is_taxable']) && $data['is_taxable'] == 1) {
+                
+            } else {
                 $data['is_taxable'] = 0;
                 $data['tax'] = 0;
             }
-            $data['price_after_tax'] = calculatePercentage($data['price'],$data['tax']);
+            $data['price_after_tax'] = calculatePercentage($data['price'], $data['tax']);
             $this->book->update($id, $data);
             Flash::message('Book was successfully updated');
 
@@ -150,15 +152,21 @@ class BookController extends Controller {
         return Redirect::route('admin.book');
     }
 
-    /**
-     * @param $id
-     *
-     * @return mixed
-     */
     public function confirmDestroy($id) {
         $book = $this->book->find($id);
 
         return view('backend.book.confirm-destroy', compact('book'));
+    }
+
+    public function copy($id) {
+        $book = $this->book->find($id);
+        $newBook = $book->replicate();
+        $newBook->save();
+        $newBook->name = 'Copy of '.$book->name;
+        $newBook->save();
+        Flash::message('Clone successfully generated');
+
+        return Redirect::route('admin.book');
     }
 
 }
