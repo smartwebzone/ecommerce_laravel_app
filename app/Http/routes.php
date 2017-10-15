@@ -212,6 +212,7 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::get('book/show/{id}', ['as' => 'admin.book.show', 'uses' => 'BookController@show']);
         Route::get('book/edit/{id}', ['as' => 'admin.book.edit', 'uses' => 'BookController@edit']);
         Route::patch('book/update/{book}', ['as' => 'admin.book.update', 'uses' => 'BookController@update']);
+        Route::get('book/copy/{id}', ['as' => 'admin.book.copy', 'uses' => 'BookController@copy']);
         
         Route::get('/book/{id}/delete', 'BookController@delete');
         Route::get('/book/{id}/show', 'BookController@show');
