@@ -1,7 +1,0 @@
-<?
-
-	function space () {
-		echo '<br/>';
-	}
-
-?>
