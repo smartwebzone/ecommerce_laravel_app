@@ -80,13 +80,13 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
 
     // company
     Route::get('/company/{slug}', ['as' => 'dashboard.company', 'uses' => 'CompanyController@index']);
-    
+
     // school
     Route::get('/school/{slug}', ['as' => 'dashboard.school', 'uses' => 'SchoolController@index']);
-    
+
     // standard
     Route::get('/standard/{slug}', ['as' => 'dashboard.standard', 'uses' => 'StandardController@index']);
-    
+
     // book
     Route::get('/book/{slug}', ['as' => 'dashboard.book', 'uses' => 'BookController@index']);
     // order
@@ -95,7 +95,7 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
     Route::get('/product/{slug}', ['as' => 'dashboard.product', 'uses' => 'ProductController@index']);
     // email
     Route::get('/email/{slug}', ['as' => 'dashboard.email', 'uses' => 'EmailController@index']);
-
+    
     // page
     Route::get('/page', ['as' => 'dashboard.page', 'uses' => 'PageController@index']);
     Route::get('/page/{slug}', ['as' => 'dashboard.page.show', 'uses' => 'PageController@show']);
@@ -176,36 +176,36 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::get('company/show/{id}', ['as' => 'admin.company.show', 'uses' => 'CompanyController@show']);
         Route::get('company/edit/{id}', ['as' => 'admin.company.edit', 'uses' => 'CompanyController@edit']);
         Route::patch('company/update/{company}', ['as' => 'admin.company.update', 'uses' => 'CompanyController@update']);
-        
+
         Route::get('/company/{id}/delete', 'CompanyController@delete');
         Route::get('/company/{id}/show', 'CompanyController@show');
         Route::post('/company/create', 'CompanyController@store');
         Route::post('/company/{id}/edit', 'CompanyController@edit');
-        
+
         Route::get('school', ['as' => 'admin.school', 'uses' => 'SchoolController@index']);
         Route::get('school/create', ['as' => 'admin.school.create', 'uses' => 'SchoolController@create']);
         Route::delete('school/destroy/{id}', ['as' => 'admin.school.destroy', 'uses' => 'SchoolController@destroy']);
         Route::get('school/show/{id}', ['as' => 'admin.school.show', 'uses' => 'SchoolController@show']);
         Route::get('school/edit/{id}', ['as' => 'admin.school.edit', 'uses' => 'SchoolController@edit']);
         Route::patch('school/update/{school}', ['as' => 'admin.school.update', 'uses' => 'SchoolController@update']);
-        
+
         Route::get('/school/{id}/delete', 'SchoolController@delete');
         Route::get('/school/{id}/show', 'SchoolController@show');
         Route::post('/school/create', 'SchoolController@store');
         Route::post('/school/{id}/edit', 'SchoolController@edit');
-        
+
         Route::get('standard', ['as' => 'admin.standard', 'uses' => 'StandardController@index']);
         Route::get('standard/create', ['as' => 'admin.standard.create', 'uses' => 'StandardController@create']);
         Route::delete('standard/destroy/{id}', ['as' => 'admin.standard.destroy', 'uses' => 'StandardController@destroy']);
         Route::get('standard/show/{id}', ['as' => 'admin.standard.show', 'uses' => 'StandardController@show']);
         Route::get('standard/edit/{id}', ['as' => 'admin.standard.edit', 'uses' => 'StandardController@edit']);
         Route::patch('standard/update/{standard}', ['as' => 'admin.standard.update', 'uses' => 'StandardController@update']);
-        
+
         Route::get('/standard/{id}/delete', 'StandardController@delete');
         Route::get('/standard/{id}/show', 'StandardController@show');
         Route::post('/standard/create', 'StandardController@store');
         Route::post('/standard/{id}/edit', 'StandardController@edit');
-        
+
         Route::get('book', ['as' => 'admin.book', 'uses' => 'BookController@index']);
         Route::get('book/create', ['as' => 'admin.book.create', 'uses' => 'BookController@create']);
         Route::delete('book/destroy/{id}', ['as' => 'admin.book.destroy', 'uses' => 'BookController@destroy']);
@@ -213,47 +213,59 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::get('book/edit/{id}', ['as' => 'admin.book.edit', 'uses' => 'BookController@edit']);
         Route::patch('book/update/{book}', ['as' => 'admin.book.update', 'uses' => 'BookController@update']);
         Route::get('book/copy/{id}', ['as' => 'admin.book.copy', 'uses' => 'BookController@copy']);
-        
+
         Route::get('/book/{id}/delete', 'BookController@delete');
         Route::get('/book/{id}/show', 'BookController@show');
         Route::post('/book/create', 'BookController@store');
         Route::post('/book/{id}/edit', 'BookController@edit');
-        
+
         Route::get('order', ['as' => 'admin.order', 'uses' => 'OrderController@index']);
         Route::get('order/create', ['as' => 'admin.order.create', 'uses' => 'OrderController@create']);
         Route::delete('order/destroy/{id}', ['as' => 'admin.order.destroy', 'uses' => 'OrderController@destroy']);
         Route::get('order/show/{id}', ['as' => 'admin.order.show', 'uses' => 'OrderController@show']);
         Route::get('order/edit/{id}', ['as' => 'admin.order.edit', 'uses' => 'OrderController@edit']);
         Route::patch('order/update/{order}', ['as' => 'admin.order.update', 'uses' => 'OrderController@update']);
-        
+
         Route::get('/order/{id}/delete', 'OrderController@delete');
         Route::get('/order/{id}/show', 'OrderController@show');
         Route::post('/order/create', 'OrderController@store');
         Route::post('/order/{id}/edit', 'OrderController@edit');
-        
+
         Route::get('product', ['as' => 'admin.product', 'uses' => 'ProductController@index']);
         Route::get('product/create', ['as' => 'admin.product.create', 'uses' => 'ProductController@create']);
         Route::delete('product/destroy/{id}', ['as' => 'admin.product.destroy', 'uses' => 'ProductController@destroy']);
         Route::get('product/show/{id}', ['as' => 'admin.product.show', 'uses' => 'ProductController@show']);
         Route::get('product/edit/{id}', ['as' => 'admin.product.edit', 'uses' => 'ProductController@edit']);
         Route::patch('product/update/{product}', ['as' => 'admin.product.update', 'uses' => 'ProductController@update']);
+        Route::get('product/copy/{id}', ['as' => 'admin.product.copy', 'uses' => 'ProductController@copy']);
+        
+        Route::get('product/book/{id}', ['as' => 'admin.product.book', 'uses' => 'ProductController@book']);      
+        Route::patch('product/book_update/{product}', ['as' => 'admin.product.book.update', 'uses' => 'ProductController@book_update']);
         
         Route::get('/product/{id}/delete', 'ProductController@delete');
         Route::get('/product/{id}/show', 'ProductController@show');
         Route::post('/product/create', 'ProductController@store');
         Route::post('/product/{id}/edit', 'ProductController@edit');
-        
+
         Route::get('email', ['as' => 'admin.email', 'uses' => 'EmailController@index']);
         Route::get('email/create', ['as' => 'admin.email.create', 'uses' => 'EmailController@create']);
         Route::delete('email/destroy/{id}', ['as' => 'admin.email.destroy', 'uses' => 'EmailController@destroy']);
         Route::get('email/show/{id}', ['as' => 'admin.email.show', 'uses' => 'EmailController@show']);
         Route::get('email/edit/{id}', ['as' => 'admin.email.edit', 'uses' => 'EmailController@edit']);
         Route::patch('email/update/{email}', ['as' => 'admin.email.update', 'uses' => 'EmailController@update']);
-        
+
         Route::get('/email/{id}/delete', 'EmailController@delete');
         Route::get('/email/{id}/show', 'EmailController@show');
         Route::post('/email/create', 'EmailController@store');
         Route::post('/email/{id}/edit', 'EmailController@edit');
+
+        Route::get('/information/create/ajax-standard', function() {
+            $school_id = Input::get('school_id');
+            $subcategories = \App\Models\Standard::whereHas('school', function ($q) use($school_id) {
+                        $q->where('school_id', $school_id);
+                    })->get();
+            return $subcategories;
+        });
     });
 });
 
