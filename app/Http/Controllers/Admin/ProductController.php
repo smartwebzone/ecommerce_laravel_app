@@ -42,6 +42,13 @@ class ProductController extends Controller {
         return view('backend.product.index', compact('product'));
     }
 
+    public function book($id) {
+        $product = $this->product->find($id);
+        $book = \App\Models\Book::lists('name', 'id')->toArray();
+        $book = [null => 'Please Select'] + $book;
+        return view('backend.product.book', compact('product', 'book'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -51,9 +58,12 @@ class ProductController extends Controller {
         $standard = \App\Models\Standard::lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
+        $school = \App\Models\School::lists('name', 'id')->toArray();
+        $school = [null => 'Please Select'] + $school;
+
         $company = \App\Models\Company::lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
-        return view('backend.product.create', compact('company', 'standard'));
+        return view('backend.product.create', compact('company', 'standard', 'school'));
     }
 
     /**
@@ -65,10 +75,10 @@ class ProductController extends Controller {
         try {
             $data = Input::all();
             $data['added_by'] = Sentinel::getUser()->id;
-            $this->product->create($data);
-            Flash::message('Product was successfully added');
+            $product = $this->product->create($data);
 
-            return Redirect::route('admin.product');
+            Flash::message('Product was successfully added');
+            return Redirect::route('admin.product.book', ['id' => $product->id]);
         } catch (ValidationException $e) {
             return Redirect::route('admin.product.create')->withInput()->withErrors($e->getErrors());
         }
@@ -124,6 +134,24 @@ class ProductController extends Controller {
         }
     }
 
+    public function book_update($id) {
+        try {
+            $data = Input::all();
+            $array = array();
+            foreach ($data['book_id'] as $i => $bid) {
+                if (!in_array($bid, $array)) {
+                    $array[] = $bid;
+                    \App\Models\ProductBooks::create(['book_id' => $bid, 'quantity' => $data['quantity'][$i], 'product_id' => $id]);
+                }
+            }
+            Flash::message('Product was successfully updated');
+
+            return Redirect::route('admin.product');
+        } catch (ValidationException $e) {
+            return Redirect::route('admin.product.book', ['id' => $id])->withInput()->withErrors($e->getErrors());
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -147,6 +175,28 @@ class ProductController extends Controller {
         $product = $this->product->find($id);
 
         return view('backend.product.confirm-destroy', compact('product'));
+    }
+
+    public function copy($id) {
+
+
+        $product = $this->product->find($id);
+        $newProduct = $product->replicate();
+        $newProduct->save();
+        $newProduct->title = 'Copy of ' . $product->title;
+        $newProduct->save();
+
+        $productb = \App\Models\ProductBooks::where(['product_id' => $id])->get();
+        $array=array();
+        foreach($productb as $i => $pb) {
+            if (!in_array($pb->book_id, $array)) {
+                $array[] = $pb->book_id;
+                \App\Models\ProductBooks::create(['book_id' => $pb->book_id, 'quantity' => $pb->quantity, 'product_id' => $newProduct->id]);
+            }
+        }
+        Flash::message('Clone successfully generated');
+
+        return Redirect::route('admin.product');
     }
 
 }
