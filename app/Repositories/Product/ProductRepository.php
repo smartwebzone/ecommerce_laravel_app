@@ -104,7 +104,7 @@ class ProductRepository extends RepositoryAbstract implements ProductInterface, 
                 $attributes['status'] = 0;
             }
             $product = $this->product->fill($attributes)->save();
-            return true;
+            return $this->product;
 
             //Event::fire('product.creating', $this->product);
         }
