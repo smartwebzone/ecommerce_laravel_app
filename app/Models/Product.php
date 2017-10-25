@@ -25,5 +25,8 @@ class Product extends Model implements ModelInterface {
     public function company() {
         return $this->belongsTo(Company::class, 'company_id');
     }
+    public function school() {
+        return $this->belongsTo(School::class, 'school_id');
+    }
 
 }
