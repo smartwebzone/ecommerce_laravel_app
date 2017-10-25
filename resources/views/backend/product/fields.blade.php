@@ -1,14 +1,21 @@
 <div class="row">
-    <div class="form-group col-sm-6">
+    <div class="form-group col-sm-4">
         {!! Form::label('company_id', 'Company:') !!}
         {!! Form::select('company_id', $company, NULL, array('class' => 'form-control', 'value'=>Input::old('company_id'),'required' => true)) !!}
         @if ($errors->has('company_id'))
         <div class="error">{{ $errors->first('company_id') }}</div>
         @endif
     </div>
-    <div class="form-group col-sm-6">
+    <div class="form-group col-sm-4">
+        {!! Form::label('school_id', 'School:') !!}
+        {!! Form::select('school_id', $school, NULL, array('class' => 'form-control','id'=>'school', 'value'=>Input::old('school_id'),'required' => true)) !!}
+        @if ($errors->has('school_id'))
+        <div class="error">{{ $errors->first('school_id') }}</div>
+        @endif
+    </div>
+    <div class="form-group col-sm-4">
         {!! Form::label('standard_id', 'Standard:') !!}
-        {!! Form::select('standard_id', $standard, NULL, array('class' => 'form-control', 'value'=>Input::old('standard_id'),'required' => true)) !!}
+        {!! Form::select('standard_id', array('Please Select'), NULL, array('class' => 'form-control','id'=>'standard', 'value'=>Input::old('standard_id'),'required' => true)) !!}
         @if ($errors->has('standard_id'))
         <div class="error">{{ $errors->first('standard_id') }}</div>
         @endif
@@ -75,3 +82,15 @@
         <a href="{!! route('admin.product') !!}" class="btn btn-default">Cancel</a>
     </div>
 </div>
+<script>
+    $('#school').on('change', function(e){
+        var school_id = e.target.value;
+
+        $.get('{{ url('en/admin/information') }}/create/ajax-standard?school_id=' + school_id, function(data) {
+            $('#standard').empty();
+            $.each(data, function(index,subCatObj){
+                $('#standard').append('<option value="'+subCatObj.id+'">'+subCatObj.name+'</option>');
+            });
+        });
+    });
+</script>

@@ -90,7 +90,7 @@
     <div class="form-group col-sm-12">
         {!! Form::label('standards[]', 'Standards:') !!}
         @foreach($standard as $key => $value)
-        <div><input type="checkbox" name="standards[]" id="standard_{!!$key!!}" value="{!!$key!!}" {!!in_array($key,(old('standards')) ? old('standards') : $existing_standards) ? 'checked=checked' : ''!!}> <label for="standard_{!!$key!!}">{!!$value!!}</label></div>
+        <div><input type="checkbox" name="standards[]" id="standard_{!!$key!!}" value="{!!$key!!}" {!!(@$existing_standards || old('standards')) && in_array($key,(old('standards')) ? old('standards') : $existing_standards) ? 'checked=checked' : ''!!}> <label for="standard_{!!$key!!}">{!!$value!!}</label></div>
         @endforeach
     </div>
 </div>
