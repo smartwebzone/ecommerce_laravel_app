@@ -50,8 +50,34 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
     })->before('sentinel.auth');
 
 
-    // frontend dashboard
+    // frontend dashboard  
     Route::get('/', ['as' => 'dashboard', 'uses' => 'HomeController@index']);
+    //Route::get('store', ['as' => 'store', 'uses' => 'ProductController@index']);
+    Route::get('store', function () {
+        return View::make('frontend/page/store');
+    });
+
+    Route::get('/store', ['as' => 'store', 'uses' => 'StoreController@index']);
+    Route::post('/store/selectSchool', ['as' => 'store.selectSchool', 'uses' => 'StoreController@selectSchool']);
+    Route::get('/store/selectProduct', ['as' => 'store.selectProduct', 'uses' => 'StoreController@selectProduct']);
+    Route::post('/store/confirm', ['as' => 'store.confirm', 'uses' => 'StoreController@confirm']);
+    Route::get('/store/confirm', ['as' => 'store.confirm', 'uses' => 'StoreController@confirm']);
+    Route::get('/store/cart', ['as' => 'store.cat', 'uses' => 'StoreController@cart']);
+    Route::post('/store/cart', ['as' => 'store.cart', 'uses' => 'StoreController@cart']);
+
+    Route::get('/information/create/ajax-school', function() {
+        $state = Input::get('state');
+        $subcategories = \App\Models\School::where('state', $state)->get();
+        return $subcategories;
+    });
+
+    Route::get('/information/create/ajax-standard', function() {
+        $school_id = Input::get('school_id');
+        $subcategories = \App\Models\Standard::whereHas('school', function ($q) use($school_id) {
+                    $q->where('school_id', $school_id);
+                })->get();
+        return $subcategories;
+    });
 
     // article
     Route::get('/resources/blog', ['as' => 'dashboard.article', 'uses' => 'ArticleController@index']);
@@ -95,7 +121,7 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
     Route::get('/product/{slug}', ['as' => 'dashboard.product', 'uses' => 'ProductController@index']);
     // email
     Route::get('/email/{slug}', ['as' => 'dashboard.email', 'uses' => 'EmailController@index']);
-    
+
     // page
     Route::get('/page', ['as' => 'dashboard.page', 'uses' => 'PageController@index']);
     Route::get('/page/{slug}', ['as' => 'dashboard.page.show', 'uses' => 'PageController@show']);
@@ -125,7 +151,7 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
 /*
   |--------------------------------------------------------------------------
   | Backend Routes
-  |--------------------------------------------------------------------------
+  |----------------store----------------------------------------------------------
  */
 
 Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () {
@@ -238,10 +264,10 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::get('product/edit/{id}', ['as' => 'admin.product.edit', 'uses' => 'ProductController@edit']);
         Route::patch('product/update/{product}', ['as' => 'admin.product.update', 'uses' => 'ProductController@update']);
         Route::get('product/copy/{id}', ['as' => 'admin.product.copy', 'uses' => 'ProductController@copy']);
-        
-        Route::get('product/book/{id}', ['as' => 'admin.product.book', 'uses' => 'ProductController@book']);      
+
+        Route::get('product/book/{id}', ['as' => 'admin.product.book', 'uses' => 'ProductController@book']);
         Route::patch('product/book_update/{product}', ['as' => 'admin.product.book.update', 'uses' => 'ProductController@book_update']);
-        
+
         Route::get('/product/{id}/delete', 'ProductController@delete');
         Route::get('/product/{id}/show', 'ProductController@show');
         Route::post('/product/create', 'ProductController@store');

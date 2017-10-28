@@ -12,6 +12,7 @@
 				<li><a href="lets-connect.html">lets connect</a></li>
 				<li><a href="work-with-us.html">work with us</a></li>
 				<li><a href="write-for-us.html">write for us</a></li>
+                                <li><a href="{!! url(getLang() . '/store') !!}">Store</a></li>
 			</ul>
 		</div>
 	</div>

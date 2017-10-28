@@ -25,8 +25,22 @@ class Product extends Model implements ModelInterface {
     public function company() {
         return $this->belongsTo(Company::class, 'company_id');
     }
+
     public function school() {
         return $this->belongsTo(School::class, 'school_id');
+    }
+
+    public function books() {
+        return $this->belongsToMany(Book::class, 'product_books', 'product_id', 'book_id');
+    }
+
+    public function getPriceAttribute() {
+        $totalmrp = 0;
+        foreach ($this->books as $book):
+            $totalmrp+=$book->price_after_tax;
+        endforeach;
+        $shippingtax = (($this->instate_shipping_charges * 18) / 100);
+        return $shippingtax+$this->instate_shipping_charges+$totalmrp;
     }
 
 }

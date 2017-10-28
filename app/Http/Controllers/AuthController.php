@@ -47,11 +47,10 @@ class AuthController extends Controller {
         $userinfo = NULL;
         // Is the user logged in?
         if (Sentinel::check()) {
-            return Redirect::route('dashboard');
+            return Redirect::route('store.selectProduct');
         }
         $redirect = $request->redirect;
         $refrer = $request->refrer;
-        helperFunctions::getCartInfo($cart, $total);
 
         return view('frontend/auth/signin-signup', compact('page', 'cart', 'total', 'user', 'userinfo', 'redirect', 'refrer'));
     }
@@ -75,49 +74,22 @@ class AuthController extends Controller {
         try {
             // Try to log the user in
             $ip_subnet = getIpSubnetMarkFromEmail($request->get('email'));
-            $Fraud = FraudIp::where('ip_addr', $ip_subnet)->first();
-            if ($Fraud) {
-                $this->messageBag->add('general_login', Lang::get('Unable to perform the request. Try again later.'));
-                if ($request->get('top-login')) {
-                    $this->messageBag->add('top-login', Lang::get('Unable to perform the request. Try again later.'));
-                }
-                return back()->withInput()->withErrors($this->messageBag);
-            }
+           
             if (Sentinel::authenticate($request->only(['email', 'password']), $request->get('remember-me', false))) {
                 $user = User::find(Sentinel::getUser()->id);
-                if (!$user->userInfo->is_active) {
-                    //if ($user->isDealer) {
+                if (!$user->is_active) {
                     Session::flush('cart');
                     Sentinel::logout();
-                    return Redirect::route('signin')->with('error', 'Your account isn\'t active. Contact administrator for further assistance.');
-                    //}
+                    return Redirect::route('signin')->with('error', 'Your account isn\'t active. Check email for activation link or contact administrator for further assistance.');
                 }
 
-                // If Cart has value in
-                if (Session::has('cart')) {
-                    // Insert cart value in DB
-                    foreach ($cart_old as $crt):
-                        $cart = new CartController;
-                        $request->qty = $crt['quantity'];
-                        $request->price_id = $crt['price_id'];
-                        $request->options = (@$crt['options']) ? explode(',', @$crt['options']) : NULL;
-                        $request->sub_options = (@$crt['sub_options']) ? @$crt['sub_options'] : NULL;
-                        $request->sub_product = (@$crt['sub_product']) ? $crt['sub_product'] : '';
-                        $request->sub_price_id = (@$crt['sub_price_id']) ? $crt['sub_price_id'] : '';
-
-                        $cart->add($crt['product_id'], $request, TRUE);
-
-                    endforeach;
-                }
+                
+              
                 if ($request->redirect) {
                     return Redirect::route("checkout");
                 } else if ($request->refrer) {
                     return Redirect::to($request->refrer);
-                }else if($user->isDealer){
-                    return Redirect::route('admin.dashboard');
                 } else {
-
-
                     return back()->with('success', Lang::get('auth/message.signin.success'));
                 }
             }
