@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2017 at 03:08 PM
+-- Generation Time: Oct 10, 2017 at 11:31 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -58,23 +58,14 @@ CREATE TABLE `address_master` (
   `city` varchar(100) DEFAULT NULL,
   `state` varchar(50) DEFAULT NULL,
   `zip` varchar(10) DEFAULT NULL,
-  `add_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `add_date` datetime NOT NULL,
   `added_by` int(11) NOT NULL,
-  `update_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_date` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `deleted_on` datetime DEFAULT NULL,
+  `deleted_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `address_master`
---
-
-INSERT INTO `address_master` (`id`, `address_type`, `address1`, `address2`, `area`, `city`, `state`, `zip`, `add_date`, `added_by`, `update_date`, `updated_by`, `deleted_at`) VALUES
-(4, 'shipping', 'kjk', NULL, 'kj', 'k', 'jk', 'jk', '2017-10-29 00:04:55', 1, '2017-10-29 00:04:55', NULL, NULL),
-(5, 'shipping', 'kjk', NULL, 'kj', 'k', 'jk', 'jk', '2017-10-29 00:06:09', 1, '2017-10-29 00:06:09', NULL, NULL),
-(6, 'shipping', 'lk', NULL, 'l', 'lk', 'lk', 'klk', '2017-10-29 00:15:49', 1, '2017-10-29 00:15:49', NULL, NULL),
-(7, 'shipping', 'lk', NULL, 'l', 'lk', 'lk', 'klk', '2017-10-29 00:16:56', 1, '2017-10-29 00:16:56', NULL, NULL),
-(8, 'shipping', 'lk', NULL, 'l', 'lk', 'lk', 'klk', '2017-10-29 00:19:56', 1, '2017-10-29 00:19:56', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -87,16 +78,16 @@ CREATE TABLE `address_user` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `address_user`
+-- Table structure for table `book_company`
 --
 
-INSERT INTO `address_user` (`address_id`, `user_id`) VALUES
-(4, 1),
-(5, 1),
-(6, 1),
-(7, 1),
-(8, 1);
+CREATE TABLE `book_company` (
+  `book_id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -106,8 +97,6 @@ INSERT INTO `address_user` (`address_id`, `user_id`) VALUES
 
 CREATE TABLE `book_master` (
   `id` int(11) NOT NULL,
-  `company_id` int(11) NOT NULL,
-  `standard_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `author` varchar(100) DEFAULT NULL,
@@ -118,20 +107,25 @@ CREATE TABLE `book_master` (
   `price_after_tax` decimal(10,2) DEFAULT NULL,
   `shipping_charges` decimal(10,2) DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
+  `add_date` datetime NOT NULL,
   `added_by` int(11) NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_date` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `deleted_on` datetime DEFAULT NULL,
   `deleted_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `book_master`
+-- Table structure for table `book_standard`
 --
 
-INSERT INTO `book_master` (`id`, `company_id`, `standard_id`, `name`, `description`, `author`, `book_code`, `price`, `is_taxable`, `tax`, `price_after_tax`, `shipping_charges`, `status`, `added_by`, `created_at`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 1, 1, 'Fabri-Fast Tool', 'Algebra, Trigonometric, etc', 'R.K sharma', 'PL3298382983', '5000.00', 1, '50.00', '7500.00', '30.00', 1, 1, '2017-10-25 17:42:13', '2017-10-25 17:42:13', NULL, NULL, NULL);
+CREATE TABLE `book_standard` (
+  `book_id` int(11) NOT NULL,
+  `standard_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -144,18 +138,8 @@ CREATE TABLE `cart` (
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `total_price` decimal(10,2) NOT NULL,
-  `add_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `add_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `user_id`, `product_id`, `total_price`, `add_date`) VALUES
-(1, 1, 20, '7524.78', '0000-00-00 00:00:00'),
-(2, 1, 25, '7524.78', '0000-00-00 00:00:00'),
-(3, 1, 20, '7524.78', '0000-00-00 00:00:00'),
-(4, 1, 25, '7524.78', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -191,20 +175,23 @@ CREATE TABLE `company_master` (
   `payment_gateway` varchar(50) DEFAULT NULL,
   `payment_gateway_key` varchar(100) DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `add_date` datetime NOT NULL,
   `added_by` int(11) NOT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_date` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `deleted_by` int(11) DEFAULT NULL
+  `deleted_by` int(11) DEFAULT NULL,
+  `lang` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `company_master`
 --
 
-INSERT INTO `company_master` (`id`, `name`, `phone`, `email`, `contact_person`, `address1`, `address2`, `area`, `city`, `state`, `zip`, `payment_gateway`, `payment_gateway_key`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 'abc', '9999999999', 'raviverma9590@gmail.com', 'ravi', 'Ahmedabad', 'Ahmedabad', '380009', 'Ahmedabad', 'Gujarat', '380009', '380009', 'PjshhdHjksjk281JHJhj(@hjdshsj', 1, '2017-10-23 18:00:50', 1, '2017-10-23 18:00:50', NULL, NULL, NULL);
+INSERT INTO `company_master` (`id`, `name`, `phone`, `email`, `contact_person`, `address1`, `address2`, `area`, `city`, `state`, `zip`, `payment_gateway`, `payment_gateway_key`, `status`, `add_date`, `added_by`, `update_date`, `updated_by`, `is_deleted`, `deleted_at`, `deleted_by`, `lang`) VALUES
+(1, 'ravi1', '9714617041', 'raviverma9590@gmail.com', 'ravi', 'addq', 'ada2', 'navrangpura', 'Ahmedabad', 'Gujarat', '380009', 'paypal', 'PjshhdHjksjk281JHJhj(@hjdshsj', 1, '0000-00-00 00:00:00', 0, NULL, NULL, 0, NULL, NULL, 'en'),
+(2, 'klds', 'jk', 'jk', 'j', 'kjk', 'j', 'k', 'jk', 'j', 'k', 'j', '', 1, '0000-00-00 00:00:00', 0, NULL, NULL, 0, '2017-10-10 08:52:42', NULL, 'en');
 
 -- --------------------------------------------------------
 
@@ -219,21 +206,14 @@ CREATE TABLE `email_templates` (
   `subject` varchar(255) DEFAULT NULL,
   `body` text,
   `status` tinyint(4) NOT NULL DEFAULT '1',
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `add_date` datetime NOT NULL,
   `added_by` int(11) NOT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_date` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `deleted_on` datetime DEFAULT NULL,
   `deleted_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `email_templates`
---
-
-INSERT INTO `email_templates` (`id`, `name`, `template`, `subject`, `body`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 'Register', 'Register', 'Welcome to Jeevandeep Online Portal', 'Hello <<student_name>>,\r\n\r\nWelcome to Jeevandeep online portal.\r\n\r\nPlease find below login credentials.\r\nUsername : <<username>>\r\nPassword : <<password>>\r\n\r\nThanks,\r\nJeevandeep Team', 1, '2017-10-15 11:17:29', 1, '2017-10-15 11:48:00', 1, NULL, NULL),
-(2, 'Forgot Password', 'Forgot Password', 'Forgot your password?', 'Hi <<student_name>>,\r\n\r\nYou have requested for a new password. Please click on below link to reset your password.\r\n<<reset_password_link>>\r\n\r\nThanks,\r\nJeevandeep Team', 1, '2017-10-15 11:46:08', 1, '2017-10-15 11:46:08', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -289,9 +269,10 @@ CREATE TABLE `order_master` (
   `shipping_city` varchar(100) DEFAULT NULL,
   `shipping_state` varchar(50) DEFAULT NULL,
   `shipping_zip` varchar(10) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_date` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `deleted_on` datetime DEFAULT NULL,
   `deleted_by` int(11) DEFAULT NULL,
   `issue_raised` enum('0','1') NOT NULL DEFAULT '0',
   `order_notes` text
@@ -329,21 +310,13 @@ CREATE TABLE `persistences` (
 --
 
 INSERT INTO `persistences` (`id`, `user_id`, `code`, `created_at`, `updated_at`) VALUES
-(18, 1, 'N6VxxDDk5iv8xTSlEnHEIgU3cOwh5Rdt', '2017-10-15 09:08:54', '2017-10-15 09:08:54'),
-(19, 1, 'LPeT8FjI9l75Rq3IlZTF0DnJjDvZ51yL', '2017-10-15 21:05:26', '2017-10-15 21:05:26'),
-(21, 1, 'fIhGN9w2uRL6oPu5dsnhGdLJ7rKjPWsT', '2017-10-15 21:58:06', '2017-10-15 21:58:06'),
-(23, 1, 'MxgJQnOAyRsy7BatC5EY6ZfMV9SZG11R', '2017-10-17 03:36:51', '2017-10-17 03:36:51'),
-(24, 1, 'KSfJrxGHg1IGhhoP3debUy60p8yCeeZI', '2017-10-23 04:26:19', '2017-10-23 04:26:19'),
-(25, 1, 'wvLc9l3qvJO6L2Bpc17qomLDR5FlwgS4', '2017-10-23 06:21:51', '2017-10-23 06:21:51'),
-(26, 1, '3TolQmG5rdI3WrigyFWtAYAyJWXwYiIa', '2017-10-23 14:57:59', '2017-10-23 14:57:59'),
-(27, 1, 'PRgsb28Bcsv6uC9EU066gPoi8ZBRvjlE', '2017-10-25 04:33:43', '2017-10-25 04:33:43'),
-(28, 1, '0QwjZj55meI28KUwrvkpuKesY84yi7A8', '2017-10-27 17:07:16', '2017-10-27 17:07:16'),
-(29, 1, 'rFHfAYct0mzAr09BOkJ0tjqJN0f30AmH', '2017-10-27 17:09:54', '2017-10-27 17:09:54'),
-(30, 1, 'U5NDQJ26XRhQo1Fpupc4ZnB4GHQ3Zm64', '2017-10-27 17:19:54', '2017-10-27 17:19:54'),
-(33, 1, 'l8DHtPdED2Uod3948umVaIRq6Ss1fgCJ', '2017-10-27 17:26:18', '2017-10-27 17:26:18'),
-(34, 1, 'WFa3fXgpWO7VxzxFaPWAfZqnmHTn4czu', '2017-10-27 17:26:31', '2017-10-27 17:26:31'),
-(35, 1, 'y7BbK0jGMlDi9Bzq2EIsS8RsOsqPxbzK', '2017-10-27 17:27:00', '2017-10-27 17:27:00'),
-(36, 1, 'MFk2Dh5ph0B3QPaKDk5u7BL7hnT4svll', '2017-10-27 17:28:32', '2017-10-27 17:28:32');
+(1, 1, 't9U2x9kj6sPm4KglfmUr5B0WkwXFjzS1', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 1, 'Px978iXUa2LUE15QxrLd5Soq9ZoixU0V', '2017-10-10 00:40:42', '2017-10-10 00:40:42'),
+(3, 1, 'VhPqout9prdiABo8XIaIyRKE2CloxvDn', '2017-10-10 00:41:50', '2017-10-10 00:41:50'),
+(4, 1, 'XlK8ysHQIOO6eOuckgJi9C3eG95tyufk', '2017-10-10 00:42:36', '2017-10-10 00:42:36'),
+(5, 1, 'unv37g483i0rmjVYASTASE2Orw6aa2C8', '2017-10-10 00:43:29', '2017-10-10 00:43:29'),
+(7, 1, '3eJ7a1xgQowAJ1F67gAJvM2XeFU4VYG8', '2017-10-10 05:56:29', '2017-10-10 05:56:29'),
+(8, 1, 'gZ5hjHmiEpWdTchzTnC6wGKMpfOYku4L', '2017-10-10 09:33:35', '2017-10-10 09:33:35');
 
 -- --------------------------------------------------------
 
@@ -357,14 +330,6 @@ CREATE TABLE `product_books` (
   `quantity` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `product_books`
---
-
-INSERT INTO `product_books` (`product_id`, `book_id`, `quantity`) VALUES
-(20, 1, 15),
-(25, 1, 15);
-
 -- --------------------------------------------------------
 
 --
@@ -373,7 +338,6 @@ INSERT INTO `product_books` (`product_id`, `book_id`, `quantity`) VALUES
 
 CREATE TABLE `product_master` (
   `id` int(11) NOT NULL,
-  `school_id` int(11) NOT NULL,
   `standard_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   `is_taxable` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0=Nontaxable, 1=Taxable',
@@ -382,40 +346,14 @@ CREATE TABLE `product_master` (
   `long_description` text NOT NULL,
   `instate_shipping_charges` decimal(10,2) DEFAULT NULL,
   `outstate_shipping_charges` decimal(10,2) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `add_date` datetime NOT NULL,
   `added_by` int(11) NOT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_date` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `deleted_on` datetime DEFAULT NULL,
   `deleted_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `product_master`
---
-
-INSERT INTO `product_master` (`id`, `school_id`, `standard_id`, `company_id`, `is_taxable`, `title`, `description`, `long_description`, `instate_shipping_charges`, `outstate_shipping_charges`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(20, 1, 1, 1, 1, 'Pipeline 1', 'Algebra, Trigonometric, etc', 'fd', '21.00', '21.00', 1, '2017-10-25 17:17:13', 1, '2017-10-25 17:17:13', NULL, NULL, NULL),
-(23, 1, 1, 1, 1, 'Copy of Pipeline 1', 'Algebra, Trigonometric, etc', 'fd', '21.00', '21.00', 1, '2017-10-25 20:00:24', 1, '2017-10-25 20:00:24', NULL, NULL, NULL),
-(24, 1, 1, 1, 1, 'Copy of Pipeline 1', 'Algebra, Trigonometric, etc', 'fd', '21.00', '21.00', 1, '2017-10-25 20:02:03', 1, '2017-10-25 20:02:03', NULL, NULL, NULL),
-(25, 1, 1, 1, 1, 'Copy of Pipeline 1', 'Algebra, Trigonometric, etc', 'fd', '21.00', '21.00', 1, '2017-10-25 20:02:43', 1, '2017-10-25 20:02:43', NULL, NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `reminders`
---
-
-CREATE TABLE `reminders` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `completed` tinyint(1) NOT NULL DEFAULT '0',
-  `completed_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -459,7 +397,7 @@ CREATE TABLE `role_users` (
 --
 
 INSERT INTO `role_users` (`user_id`, `role_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2017-10-15 09:37:35', '2017-10-15 09:37:35');
+(1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -478,43 +416,15 @@ CREATE TABLE `school_master` (
   `city` varchar(100) DEFAULT NULL,
   `state` varchar(50) DEFAULT NULL,
   `zip` varchar(10) DEFAULT NULL,
-  `area` varchar(50) NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
-  `lang` varchar(50) NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `add_date` datetime NOT NULL,
   `added_by` int(11) NOT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_date` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `deleted_on` datetime DEFAULT NULL,
   `deleted_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `school_master`
---
-
-INSERT INTO `school_master` (`id`, `name`, `phone`, `email`, `contact_person`, `address1`, `address2`, `city`, `state`, `zip`, `area`, `status`, `lang`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 'St. Thomas', '9999999999', 'rv9510648077@gmail.com', 'ravi', 'swastik', 'opp', 'Ahmedabad', 'Gujarat', '380009', 'navrangpura', 1, '', '2017-10-23 18:01:54', 1, '2017-10-23 18:02:35', 1, NULL, NULL),
-(2, 'jkdsjk', '9999999999', 'rv9510648077@gmail.com', 'lk', 'l', 'kl', 'l', 'Gujarat', '454545', 'navrangpura', 1, '', '2017-10-23 18:20:17', 1, '2017-10-23 18:20:17', NULL, NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `school_standard`
---
-
-CREATE TABLE `school_standard` (
-  `school_id` int(11) NOT NULL,
-  `standard_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `school_standard`
---
-
-INSERT INTO `school_standard` (`school_id`, `standard_id`) VALUES
-(1, 1),
-(2, 2);
 
 -- --------------------------------------------------------
 
@@ -545,24 +455,18 @@ INSERT INTO `settings` (`id`, `settings`, `updated_at`, `created_at`, `lang`) VA
 
 CREATE TABLE `standard_master` (
   `id` int(11) NOT NULL,
+  `school_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `add_date` datetime NOT NULL,
   `added_by` int(11) NOT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_date` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `deleted_on` datetime DEFAULT NULL,
   `deleted_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `standard_master`
---
-
-INSERT INTO `standard_master` (`id`, `name`, `description`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 'Gread 8-12', '99999999', 1, '2017-10-23 18:02:26', 1, '2017-10-23 18:02:26', NULL, NULL, NULL),
-(2, 'rob', 'Algebra, Trigonometric, etc', 1, '2017-10-23 18:12:47', 1, '2017-10-23 18:12:47', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -575,14 +479,6 @@ CREATE TABLE `state_master` (
   `name` varchar(50) NOT NULL,
   `code` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `state_master`
---
-
-INSERT INTO `state_master` (`id`, `name`, `code`) VALUES
-(1, 'Gujarat', 'GJ'),
-(2, 'Maharastra', 'MH');
 
 -- --------------------------------------------------------
 
@@ -597,6 +493,7 @@ CREATE TABLE `status_master` (
   `added_by` int(11) NOT NULL,
   `update_date` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
   `deleted_on` datetime DEFAULT NULL,
   `deleted_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -624,20 +521,23 @@ INSERT INTO `throttle` (`id`, `user_id`, `type`, `ip`, `created_at`, `updated_at
 (1, NULL, 'global', NULL, '2017-10-09 22:02:39', '2017-10-09 22:02:39'),
 (2, NULL, 'ip', '::1', '2017-10-09 22:02:39', '2017-10-09 22:02:39'),
 (3, NULL, 'global', NULL, '2017-10-09 22:02:45', '2017-10-09 22:02:45'),
-(4, NULL, 'ip', '::1', '2017-10-09 22:02:45', '2017-10-09 22:02:45'),
-(5, NULL, 'global', NULL, '2017-10-15 08:27:37', '2017-10-15 08:27:37'),
-(6, NULL, 'ip', '::1', '2017-10-15 08:27:38', '2017-10-15 08:27:38'),
-(7, NULL, 'global', NULL, '2017-10-15 08:28:17', '2017-10-15 08:28:17'),
-(8, NULL, 'ip', '::1', '2017-10-15 08:28:17', '2017-10-15 08:28:17'),
-(9, NULL, 'global', NULL, '2017-10-15 08:29:22', '2017-10-15 08:29:22'),
-(10, NULL, 'ip', '::1', '2017-10-15 08:29:22', '2017-10-15 08:29:22'),
-(11, NULL, 'global', NULL, '2017-10-15 08:30:17', '2017-10-15 08:30:17'),
-(12, NULL, 'ip', '::1', '2017-10-15 08:30:17', '2017-10-15 08:30:17'),
-(13, NULL, 'global', NULL, '2017-10-15 08:31:45', '2017-10-15 08:31:45'),
-(14, NULL, 'ip', '::1', '2017-10-15 08:31:46', '2017-10-15 08:31:46'),
-(15, 1, 'user', NULL, '2017-10-15 08:31:46', '2017-10-15 08:31:46'),
-(16, NULL, 'global', NULL, '2017-10-28 06:11:08', '2017-10-28 06:11:08'),
-(17, NULL, 'ip', '::1', '2017-10-28 06:11:08', '2017-10-28 06:11:08');
+(4, NULL, 'ip', '::1', '2017-10-09 22:02:45', '2017-10-09 22:02:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `unpublished_pages`
+--
+
+CREATE TABLE `unpublished_pages` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `slug` varchar(200) NOT NULL,
+  `new_slug` varchar(200) DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -647,33 +547,30 @@ INSERT INTO `throttle` (`id`, `user_id`, `type`, `ip`, `created_at`, `updated_at
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `isAdmin` tinyint(4) NOT NULL DEFAULT '0',
   `email` varchar(50) NOT NULL,
   `password` varchar(500) NOT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `middle_name` varchar(50) DEFAULT NULL,
-  `last_name` varchar(50) DEFAULT NULL,
+  `last_ name` varchar(50) DEFAULT NULL,
   `parent_first_name` varchar(50) DEFAULT NULL,
   `parent_middle_name` varchar(50) DEFAULT NULL,
   `parent_last_name` varchar(50) DEFAULT NULL,
   `mobile` varchar(20) DEFAULT NULL,
   `landline` varchar(50) DEFAULT NULL,
   `last_login` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  `deleted_by` int(11) DEFAULT NULL,
-  `uuid` char(36) DEFAULT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT '0'
+  `add_date` datetime NOT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `deleted_on` datetime DEFAULT NULL,
+  `deleted_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `isAdmin`, `email`, `password`, `first_name`, `middle_name`, `last_name`, `parent_first_name`, `parent_middle_name`, `parent_last_name`, `mobile`, `landline`, `last_login`, `status`, `created_at`, `updated_at`, `deleted_at`, `deleted_by`, `uuid`, `is_active`) VALUES
-(1, 1, 'rob@devsimplify.com', '$2y$10$jiEY8c90BRrVLdFiykHAyOi4m2g0I/rZ.2kFb.QoAn5Q.Ijs4r1MO', 'Rob', 'Prakashchandra', 'Dev', NULL, NULL, NULL, '9510983350', NULL, '2017-10-28 06:11:20', 1, '2017-10-28 17:41:20', '2017-10-28 06:11:20', NULL, NULL, NULL, 1);
+INSERT INTO `users` (`id`, `email`, `password`, `first_name`, `middle_name`, `last_ name`, `parent_first_name`, `parent_middle_name`, `parent_last_name`, `mobile`, `landline`, `last_login`, `add_date`, `updated_at`, `is_deleted`, `deleted_on`, `deleted_by`) VALUES
+(1, 'rob@devsimplify.com', '$2y$10$jiEY8c90BRrVLdFiykHAyOi4m2g0I/rZ.2kFb.QoAn5Q.Ijs4r1MO', 'rob', 'p', 'modi', NULL, NULL, NULL, NULL, NULL, '2017-10-10 09:33:35', '0000-00-00 00:00:00', '2017-10-10 09:33:35', 0, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -699,11 +596,23 @@ ALTER TABLE `address_user`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `book_company`
+--
+ALTER TABLE `book_company`
+  ADD KEY `book_id` (`book_id`),
+  ADD KEY `company_id` (`company_id`);
+
+--
 -- Indexes for table `book_master`
 --
 ALTER TABLE `book_master`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `company_id` (`company_id`),
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `book_standard`
+--
+ALTER TABLE `book_standard`
+  ADD KEY `book_id` (`book_id`),
   ADD KEY `standard_id` (`standard_id`);
 
 --
@@ -774,14 +683,7 @@ ALTER TABLE `product_books`
 ALTER TABLE `product_master`
   ADD PRIMARY KEY (`id`),
   ADD KEY `standard_id` (`standard_id`),
-  ADD KEY `company_id` (`company_id`),
-  ADD KEY `school_id` (`school_id`);
-
---
--- Indexes for table `reminders`
---
-ALTER TABLE `reminders`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY `company_id` (`company_id`);
 
 --
 -- Indexes for table `roles`
@@ -803,13 +705,6 @@ ALTER TABLE `school_master`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `school_standard`
---
-ALTER TABLE `school_standard`
-  ADD UNIQUE KEY `school_id` (`school_id`,`standard_id`),
-  ADD KEY `standard_id` (`standard_id`);
-
---
 -- Indexes for table `settings`
 --
 ALTER TABLE `settings`
@@ -819,7 +714,8 @@ ALTER TABLE `settings`
 -- Indexes for table `standard_master`
 --
 ALTER TABLE `standard_master`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `standard_master_ibfk_1` (`school_id`);
 
 --
 -- Indexes for table `state_master`
@@ -841,6 +737,12 @@ ALTER TABLE `throttle`
   ADD KEY `throttle_user_id_index` (`user_id`) USING BTREE;
 
 --
+-- Indexes for table `unpublished_pages`
+--
+ALTER TABLE `unpublished_pages`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -860,27 +762,27 @@ ALTER TABLE `activations`
 -- AUTO_INCREMENT for table `address_master`
 --
 ALTER TABLE `address_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `book_master`
 --
 ALTER TABLE `book_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `company_master`
 --
 ALTER TABLE `company_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `email_templates`
 --
 ALTER TABLE `email_templates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `form_posts`
 --
@@ -895,27 +797,22 @@ ALTER TABLE `order_master`
 -- AUTO_INCREMENT for table `persistences`
 --
 ALTER TABLE `persistences`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `product_master`
 --
 ALTER TABLE `product_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
---
--- AUTO_INCREMENT for table `reminders`
---
-ALTER TABLE `reminders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `school_master`
 --
 ALTER TABLE `school_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `settings`
 --
@@ -925,12 +822,12 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `standard_master`
 --
 ALTER TABLE `standard_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `state_master`
 --
 ALTER TABLE `state_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `status_master`
 --
@@ -940,7 +837,12 @@ ALTER TABLE `status_master`
 -- AUTO_INCREMENT for table `throttle`
 --
 ALTER TABLE `throttle`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `unpublished_pages`
+--
+ALTER TABLE `unpublished_pages`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -958,11 +860,18 @@ ALTER TABLE `address_user`
   ADD CONSTRAINT `address_user_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `book_master`
+-- Constraints for table `book_company`
 --
-ALTER TABLE `book_master`
-  ADD CONSTRAINT `book_master_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company_master` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `book_master_ibfk_2` FOREIGN KEY (`standard_id`) REFERENCES `standard_master` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `book_company`
+  ADD CONSTRAINT `book_company_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book_master` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `book_company_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `company_master` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `book_standard`
+--
+ALTER TABLE `book_standard`
+  ADD CONSTRAINT `book_standard_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `book_master` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `book_standard_ibfk_2` FOREIGN KEY (`standard_id`) REFERENCES `standard_master` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `cart`
@@ -1003,15 +912,13 @@ ALTER TABLE `product_books`
 --
 ALTER TABLE `product_master`
   ADD CONSTRAINT `product_master_ibfk_1` FOREIGN KEY (`standard_id`) REFERENCES `standard_master` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_master_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `company_master` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_master_ibfk_3` FOREIGN KEY (`school_id`) REFERENCES `school_master` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_master_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `company_master` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `school_standard`
+-- Constraints for table `standard_master`
 --
-ALTER TABLE `school_standard`
-  ADD CONSTRAINT `school_standard_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `school_master` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `school_standard_ibfk_2` FOREIGN KEY (`standard_id`) REFERENCES `standard_master` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `standard_master`
+  ADD CONSTRAINT `standard_master_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `school_master` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
