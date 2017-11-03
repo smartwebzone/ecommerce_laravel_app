@@ -41,7 +41,12 @@ class AuthController extends Controller {
     public function __construct(MessageBag $messageBag) {
         $this->messageBag = $messageBag;
     }
+    public function getSignout(Request $request) {
+         $request->session()->flush();
 
+        return redirect('/');
+        
+    }
     public function getSignin(Request $request) {
         $user = Auth::user();
         $userinfo = NULL;
@@ -63,6 +68,29 @@ class AuthController extends Controller {
         return Redirect::route('dashboard');
     }
 
+    public function getconfirmEmail(Request $request) {
+        if (!Sentinel::check() && $request->secret) {
+            $user = User::where(['verify' => $request->secret])->first();
+
+            if ($user) {
+                $user->is_active = 1;
+                $user->verify = 'COMPLETED';
+                $user->save();
+                Sentinel::activate($user);
+                Sentinel::authenticate($user);
+                $role = Sentinel::findRoleByName('Customer');
+                $role->users()->attach($user);
+                return Redirect::to('profile');
+            }
+        }
+
+        return Redirect::to('validate');
+    }
+
+    public function getProfile(Request $request) {
+        return View('frontend.auth.profile');
+    }
+
     /**
      * Account sign in form processing.
      * @param Request $request
@@ -74,7 +102,7 @@ class AuthController extends Controller {
         try {
             // Try to log the user in
             $ip_subnet = getIpSubnetMarkFromEmail($request->get('email'));
-           
+
             if (Sentinel::authenticate($request->only(['email', 'password']), $request->get('remember-me', false))) {
                 $user = User::find(Sentinel::getUser()->id);
                 if (!$user->is_active) {
@@ -83,8 +111,8 @@ class AuthController extends Controller {
                     return Redirect::route('signin')->with('error', 'Your account isn\'t active. Check email for activation link or contact administrator for further assistance.');
                 }
 
-                
-              
+
+
                 if ($request->redirect) {
                     return Redirect::route("checkout");
                 } else if ($request->refrer) {
@@ -122,48 +150,75 @@ class AuthController extends Controller {
         return back()->withInput()->withErrors($this->messageBag);
     }
 
+    public function postRegisterEmail(Request $request) {
+        $rules = array(
+            'email_signup' => 'required|email|unique:users,email',
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+
+        $validator->setAttributeNames([
+            'email_signup' => 'Email address']);
+
+        // If validation fails, we'll exit the operation now.
+        if ($validator->fails()) {
+            // Ooops.. something went wrong
+            return Redirect::to(URL::previous() . '#toregister')->withInput()->withErrors($validator);
+        }
+        $user = User::create(array(
+                    'isAdmin' => 0,
+                    'email' => $request->get('email_signup'),
+                    'password' => bcrypt('test123'),
+                    'verify' => str_random(16)
+        ));
+        $data = array(
+            'link' => url(getLang() . '/confirmEmail?secret=' . $user->verify)
+        );
+        Mail::send('emails.verify', $data, function ($m) use ($user) {
+            $m->from('noreply@jeevandeep.com', 'Jeevandeep');
+            $m->to($user->email, 'User');
+            $m->subject('Welcome to Jeevandeep');
+        });
+    }
+
     /**
      * Account sign up form processing.
      *
      * @return Redirect
      */
     public function postSignup(Request $request) {
-        $cart_old = Session::get('cart');
-        // Declare the rules for the form validation
+        if (!Sentinel::check()) {
+            Redirect::to('signin');
+        }
         $request['phone'] = preg_replace("/[^0-9]/", "", $request['phone']);
 
         $rules = array(
             'first_name' => 'required|min:3',
+            'middle_name' => 'required|min:3',
             'last_name' => 'required|min:3',
-            'email_signup' => 'required|email|unique:users,email',
-            'email_confirm' => 'required|email|same:email_signup',
-            'phone' => 'required|between:10,16',
-            'password_signup' => 'required|between:3,32',
-            'password_confirm' => 'required|same:password_signup',
+            'parent_first_name' => 'required|min:3',
+            'parent_middle_name' => 'required|min:3',
+            'parent_last_name' => 'required|min:3',
+            'mobile' => 'required|between:10,16',
+            'landline' => 'required',
+            'address1' => 'required',
+            'billaddress1' => 'required',
         );
-        if ($request->get('dealer')):
-            $rules['dealer_name']='required';
-            $rules['website']='required';
-            $rules['address']='required';
-            $rules['street']='required';
-            $rules['city']='required';
-            $rules['state']='required';
-            $rules['country']='required';
-            $rules['region']='required';
-            $rules['zip']='required';
-        endif;
+
 
         // Create a new validator instance from our validation rules
         $validator = Validator::make($request->all(), $rules);
 
         $validator->setAttributeNames(['first_name' => 'First name',
             'last_name' => 'Last name',
-            'email_signup' => 'Email address',
-            'tier' => 'Tier',
-            'email_confirm' => 'Email address',
-            'phone' => 'Phone number',
-            'password_signup' => 'Password',
-            'password_confirm' => 'Password']);
+            'middle_name' => 'Middle name',
+            'parent_first_name' => 'Parent First name',
+            'parent_last_name' => 'Parent Last name',
+            'parent_middle_name' => 'Parent Middle name',
+            'mobile' => 'Mobile number',
+            'landline' => 'Landline number',
+            'address1' => 'Address1',
+            'billaddress1' => 'Address1']);
 
         // If validation fails, we'll exit the operation now.
         if ($validator->fails()) {
@@ -172,124 +227,72 @@ class AuthController extends Controller {
         }
 
         try {
-            $ip_subnet = getIpSubnetMarkFromEmail($request->get('email_signup'));
-            $Fraud = FraudIp::where('ip_addr', $ip_subnet)->first();
-            if ($Fraud) {
-                $this->messageBag->add('general_signup', Lang::get('Unable to perform the request. Try again later.'));
+            // update the user
+            $user = User::find(Sentinel::getUser()->id);
+            $user->first_name = $request->get('first_name');
+            $user->middle_name = $request->get('middle_name');
+            $user->last_name = $request->get('last_name');
+            $user->parent_first_name = $request->get('parent_first_name');
+            $user->parent_last_name = $request->get('parent_last_name');
+            $user->parent_middle_name = $request->get('parent_middle_name');
+            $user->mobile = $request->get('mobile');
+            $user->landline = $request->get('landline');
+            $user->save();
 
-                return Redirect::back()->withInput()->withErrors($this->messageBag);
-            }
-            // Register the user
-            $user = Sentinel::registerAndActivate(array(
-                        'first_name' => $request->get('first_name'),
-                        'last_name' => $request->get('last_name'),
-                        'username' => $request->get('first_name') . " " . $request->get('last_name'),
-                        'slug' => Str::slug($request->get('first_name') . " " . $request->get('last_name'), '-'),
-                        'isAdmin' => ($request->get('dealer'))?1:0,
-                        'email' => $request->get('email_signup'),
-                        'password' => $request->get('password_signup')
-            ));
-            $active = 0;
-            //add user to 'User' group
-            if ($request->get('dealer')):
-                $role = Sentinel::findRoleByName('Dealer');
-                $uuser = User::find($user->id);
-                if($request->file('dealer_logo')):
-                    $destinationPath = public_path() . "/uploads/dealer/";
-                    File::exists($destinationPath) or File::makeDirectory($destinationPath);
-                    $name = str_random(11) . '_' . $request->file('dealer_logo')->getClientOriginalName();
-                    $request->file('dealer_logo')->move($destinationPath, $name);
-                endif;
-                
-                $data=array('dealer' => $request->get('dealer_name'),
-                    'logo' => $name,
-                    'tier' => '1');
-                $dealer=\App\Models\Dealer::Create($data);
-                $shipping = array('location_type' => 'dealer_location',
-                    'nickname' => $request->get('dealer_name'),
-                    'address' => $request->get('address'),
-                    'street' => $request->get('street'),
-                    'city' => $request->get('city'),
-                    'website' => $request->get('website'),
-                    'state' => $request->get('state'),
-                    'country' => $request->get('country'),
-                    'zip' => $request->get('zip'),
-                    'region' => $request->get('region'));
-                $location = Location::Create($shipping);
-                DealerLocation::Create(['location_id' => $location->id, 'dealer_id' => $dealer->id]);
-                
-                \App\Models\DealerUser::Create(['user_id' => $user->id, 'dealer_id' => $dealer->id,'user_type'=>'dealer_admin']);
-                //When dealer sign up, assign default Tier 1 to dealer and later admin can change dealer tier
-                $uuser->tier()->attach(1);
-            else:
-                $active = 1;
-                $role = Sentinel::findRoleByName('Customer');
-            endif;
-            $role->users()->attach($user);
-            UserInfo::create([
-                'user_id' => $user->id,
-                'is_active' => $active,
-                'photo' => '/users/' . $user->slug . '/photos/profile.png',
-                'phone' => $request->get('phone')
-            ]);
-
-
-
-            //un-comment below code incase if user have to activate manually
-            // Data to be used on the email view
             $data = array(
-                'user' => $user,
-                'pass' => $request->get('password_signup')
+                'address_type' => 'shipping',
+                'address1' => $request->address1,
+                'address2' => $request->address2,
+                'area' => $request->area,
+                'city' => $request->city,
+                'state' => $request->state,
+                'zip' => $request->zip,
+                'added_by' => Sentinel::getuser()->id,
             );
-//              ,
-//              'activationUrl' => URL::route('activate', $user->getActivationCode()),
-            // Send the activation code through email
-            Mail::send('emails.welcome', $data, function ($m) use ($user) {
-                $m->from('noreply@graceframe.com', 'Grace');
-                $m->to($user->email, $user->first_name . ' ' . $user->last_name);
-                $m->subject('Welcome to Grace Frames');
-            });
-            
-            if ($request->get('dealer')){
-                return \Redirect()->back()->with([
-                            'dealer_registered' => 1
-                ]);
-            }else{
-                //Redirect to login page
-                //return Redirect::to("signin")->with('success', Lang::get('auth/message.signup.success'));
-                // login user automatically
-                // Log the user in
-                Sentinel::login($user, false);
-                // If Cart has value in
-                if (Session::has('cart')) {
-                    // Insert cart value in DB
-                    foreach ($cart_old as $crt):
-                        $cart = new CartController;
-                        $request->qty = $crt['quantity'];
-                        $request->price_id = $crt['price_id'];
-                        $request->options = (@$crt['options']) ? explode(',', @$crt['options']) : NULL;
-                        $request->sub_options = (@$crt['sub_options']) ? explode(',', @$crt['sub_options']) : NULL;
-                        $request->sub_product = (@$crt['sub_product']) ? @$crt['sub_product'] : '';
-                        $request->sub_price_id = (@$crt['sub_price_id']) ? @$crt['sub_price_id'] : '';
-                        $cart->add($crt['product_id'], $request, TRUE);
-
-                    endforeach;
-                }
-                if ($request->redirect) {
-                    return Redirect::route("checkout");
-                } else if ($request->refrer) {
-                    return Redirect::to($request->refrer);
-                } else {
-                    // Redirect to the home page with success menu
-                    return Redirect::route("dashboard")->with('success', Lang::get('auth/message.signup.success'));
-                }
-            }
+            $address = \App\Models\Address::create($data);
+            $address->users()->attach($user);
+            $data = array(
+                'address_type' => 'billing',
+                'address1' => $request->billaddress1,
+                'address2' => $request->billaddress2,
+                'area' => $request->billarea,
+                'city' => $request->billcity,
+                'state' => $request->billstate,
+                'zip' => $request->billzip,
+                'added_by' => Sentinel::getuser()->id,
+            );
+            $address = \App\Models\Address::create($data);
+            $address->users()->attach($user);
+            return Redirect::route('auth.createPass');
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', Lang::get('auth/message.account_already_exists'));
         }
 
         // Ooops.. something went wrong
         return Redirect::back()->withInput()->withErrors($this->messageBag);
+    }
+
+    public function postCreatePass(Request $request) {
+        if (!Sentinel::check()) {
+            Redirect::to('signin');
+        }
+        $rules = array(
+            'password_signup' => 'required|between:3,32',
+            'password_confirm' => 'required|same:password_signup');
+        // Create a new validator instance from our validation rules
+        $validator = Validator::make($request->all(), $rules);
+
+        $validator->setAttributeNames(['password_signup' => 'Password',
+            'last_name' => 'Confirm Password']);
+
+        // If validation fails, we'll exit the operation now.
+        if ($validator->fails()) {
+            return Redirect::back()->withInput()->withErrors($validator);
+        }
+        $user = User::find(Sentinel::getUser()->id);
+        $user->password = bcrypt($request->password_signup);
+        $user->save();
+        return Redirect::route('store.selectProduct');
     }
 
     /**
@@ -361,7 +364,7 @@ class AuthController extends Controller {
 
             // Send the activation code through email
             Mail::send('emails.password', $data, function ($m) use ($user) {
-                $m->from('noreply@graceframe.com', 'Grace');
+                $m->from('noreply@jeevandeepframe.com', 'Grace');
                 $m->to($user->email, $user->first_name . ' ' . $user->last_name);
                 $m->subject('Account Password Recovery');
             });

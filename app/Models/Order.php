@@ -17,7 +17,7 @@ class Order extends Model implements ModelInterface {
     protected $guarded = ['id'];
     public $table = 'order_master';
     public $timestamps = false;
-     protected $fillable = ['name', 'description', 'author', 'order_code', 'price','tax', 'is_taxable', 'last_name', 'price_after_tax', 'shipping_charges', 'referral_id', 'status', 'added_by','updated_by'];
+     protected $fillable = ['user_id','status','amount','tax' ,'shipping' ,'total_amount','status_id' , 'added_by','updated_by'];
      
      public static $rules = [
         'name' => 'required|min:3|unique:order_master,name,3',
@@ -30,6 +30,9 @@ class Order extends Model implements ModelInterface {
     }
     public function company() {
         return $this->belongsToMany(Company::class, 'order_company', 'order_id', 'company_id');
+    }
+    public function product() {
+        return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id');
     }
 
 

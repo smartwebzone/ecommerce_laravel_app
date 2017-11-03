@@ -57,13 +57,16 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
         return View::make('frontend/page/store');
     });
 
+    
     Route::get('/store', ['as' => 'store', 'uses' => 'StoreController@index']);
-    Route::post('/store/selectSchool', ['as' => 'store.selectSchool', 'uses' => 'StoreController@selectSchool']);
+    Route::get('/store/selectSchool', ['as' => 'store.selectSchool', 'uses' => 'StoreController@selectSchool']);
+    Route::post('/store/selectSchoolPost', ['as' => 'store.selectSchoolPost', 'uses' => 'StoreController@selectSchoolPost']);
     Route::get('/store/selectProduct', ['as' => 'store.selectProduct', 'uses' => 'StoreController@selectProduct']);
     Route::post('/store/confirm', ['as' => 'store.confirm', 'uses' => 'StoreController@confirm']);
     Route::get('/store/confirm', ['as' => 'store.confirm', 'uses' => 'StoreController@confirm']);
-    Route::get('/store/cart', ['as' => 'store.cat', 'uses' => 'StoreController@cart']);
+    Route::get('/store/cart', ['as' => 'store.cart', 'uses' => 'StoreController@cart']);
     Route::post('/store/cart', ['as' => 'store.cart', 'uses' => 'StoreController@cart']);
+    Route::post('/store/pay', ['as' => 'store.pay', 'uses' => 'StoreController@pay']);
 
     Route::get('/information/create/ajax-school', function() {
         $state = Input::get('state');
@@ -326,8 +329,19 @@ Route::group(['namespace' => 'Admin'], function () {
 // });
 
 Route::get('signin', ['as' => 'signin', 'uses' => 'AuthController@getSignin']);
+Route::get('validate', function () {
+        return View::make('frontend/auth/validate');
+    });
+Route::get('create-password', function () {
+        return View::make('frontend/auth/createPass');
+    });
+    Route::get('profile', ['as' => 'profile', 'uses' => 'AuthController@getProfile']);
+Route::get('confirmEmail', ['as' => 'confirmEmail', 'uses' => 'AuthController@getConfirmEmail']);
 Route::post('signin', 'AuthController@postSignin');
+Route::get('signout', 'AuthController@getSignout');
 Route::post('signup', ['as' => 'signup', 'uses' => 'AuthController@postSignup']);
+Route::post('registerEmail', ['as' => 'registerEmail', 'uses' => 'AuthController@postRegisterEmail']);
+Route::post('createPass', ['as' => 'createPass', 'uses' => 'AuthController@postcreatePass']);
 
 
 
