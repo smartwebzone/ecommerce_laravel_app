@@ -36,7 +36,7 @@ Jeevandeep Prakashan Pvt. Ltd.
         <div class="select-div">Select State, School Name and Standard</div>
         <div class="please-select">Please select the State, School Name, and Standard for which you wish to purchase online.</div>
         
-            {!! Form::open(['action' => 'StoreController@selectSchool','class'=>"select-school-drop cf" , 'method' => 'post']) !!}
+            {!! Form::open(['action' => 'StoreController@selectSchoolPost','class'=>"select-school-drop cf" , 'method' => 'post']) !!}
         	<li>
             	<label>SELECT STATE</label>
                 <div class="errormsg pull-right">{{ $errors->first('state') }}</div>
