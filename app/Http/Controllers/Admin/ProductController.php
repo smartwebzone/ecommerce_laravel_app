@@ -106,6 +106,9 @@ class ProductController extends Controller {
      */
     public function edit($id) {
         $product = $this->product->find($id);
+        if($product->order()->count() > 0){
+            die("Action not allowed");
+        }
         $standard = \App\Models\Standard::lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
         
@@ -163,6 +166,9 @@ class ProductController extends Controller {
      * @return Response
      */
     public function destroy($id) {
+        if($this->product->order()->count() > 0){
+            die("Action not allowed");
+        }
         $this->product->delete($id);
         Flash::message('Product was successfully deleted');
 

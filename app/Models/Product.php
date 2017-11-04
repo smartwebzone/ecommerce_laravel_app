@@ -42,5 +42,9 @@ class Product extends Model implements ModelInterface {
         $shippingtax = (($this->instate_shipping_charges * 18) / 100);
         return $shippingtax+$this->instate_shipping_charges+$totalmrp;
     }
+    
+    public function order() {
+        return $this->belongsToMany(Order::class, 'order_product', 'product_id', 'order_id');
+    }
 
 }
