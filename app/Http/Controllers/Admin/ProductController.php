@@ -44,7 +44,7 @@ class ProductController extends Controller {
 
     public function book($id) {
         $product = $this->product->find($id);
-        $book = \App\Models\Book::lists('name', 'id')->toArray();
+        $book = \App\Models\Book::where('standard_id',$product['standard_id'])->lists('name', 'id')->toArray();
         $book = [null => 'Please Select'] + $book;
         return view('backend.product.book', compact('product', 'book'));
     }
@@ -131,7 +131,7 @@ class ProductController extends Controller {
             $this->product->update($id, $data);
             Flash::message('Product was successfully updated');
 
-            return Redirect::route('admin.product');
+            return Redirect::route('admin.product.book', ['id' => $id]);
         } catch (ValidationException $e) {
             return Redirect::route('admin.product.edit', ['id' => $id])->withInput()->withErrors($e->getErrors());
         }
