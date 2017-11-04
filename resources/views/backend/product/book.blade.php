@@ -11,7 +11,7 @@
 </script>
 @endsection
 
-@section('pagequantity')
+@section('pagetitle')
 <div class="row">
     <div class="col-sm-12">
 
@@ -22,7 +22,7 @@
             <li class="active">Update Product</li>
         </ol>
         <div class="page-header">
-            <h1> Product Book</h1>
+            <h1> Select Product Books</h1>
         </div>
         <!-- end: PAGE TITLE & BREADCRUMB -->
     </div>
@@ -52,7 +52,7 @@
                                 <div class="form-group col-sm-12">
                                     <div class="form-group col-sm-3">
                                         {!! Form::label('Product', 'Product Name:') !!}
-                                        {{$product->quantity}}
+                                        {{$product->title}}
                                     </div>
                                     <div class="form-group col-sm-3">
                                         {!! Form::label('Company', 'Company:') !!}

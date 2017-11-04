@@ -78,19 +78,30 @@
 </div>
 <div class="row">
     <div class="form-group col-sm-12">
-        {!! Form::submit('Save', ['class' => 'btn btn-primary','required' => true]) !!}
+        {!! Form::submit('Next', ['class' => 'btn btn-primary','required' => true]) !!}
         <a href="{!! route('admin.product') !!}" class="btn btn-default">Cancel</a>
     </div>
 </div>
 <script>
     $('#school').on('change', function(e){
         var school_id = e.target.value;
-
+        selectStandard(school_id);
+    });
+    function selectStandard(school_id){
+        var standard_id = "{{(old('standard_id') ? old('standard_id') : @$product['standard_id'])}}";
         $.get('{{ url('en/admin/information') }}/create/ajax-standard?school_id=' + school_id, function(data) {
             $('#standard').empty();
             $.each(data, function(index,subCatObj){
-                $('#standard').append('<option value="'+subCatObj.id+'">'+subCatObj.name+'</option>');
+                var sel = '';
+                if(standard_id && subCatObj.id == standard_id){
+                    var sel = 'selected="selected"';
+                }
+                $('#standard').append('<option value="'+subCatObj.id+'" '+sel+'>'+subCatObj.name+'</option>');
             });
         });
-    });
+    }
+    var school_id = "{{(old('school_id') ? old('school_id') : @$product['school_id'])}}";
+    if(school_id){
+        selectStandard(school_id);
+    }
 </script>
