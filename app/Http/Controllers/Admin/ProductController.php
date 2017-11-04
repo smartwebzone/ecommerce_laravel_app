@@ -108,10 +108,13 @@ class ProductController extends Controller {
         $product = $this->product->find($id);
         $standard = \App\Models\Standard::lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
+        
+        $school = \App\Models\School::lists('name', 'id')->toArray();
+        $school = [null => 'Please Select'] + $school;
 
         $company = \App\Models\Company::lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
-        return view('backend.product.edit', compact('product', 'standard', 'company'));
+        return view('backend.product.edit', compact('product', 'standard', 'company', 'school'));
     }
 
     /**
