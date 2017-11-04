@@ -69,8 +69,8 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <td><div><i class="fa fa-shopping-bag"></i>{{$op->title}}</div></td>
                     <td class="col-td-2"><div>INR {{$op->price}}</div></td>
                     <td class="col-td">                        
-                        <div style="background: grey;text-align: center">
-                            <i style="color:white" class="fa">Paid</i>
+                        <div style="background: #5cb85c;text-align: center">
+                            <i style="color:white" class="fa fa-check"> Paid</i>
                         </div>
                     </td>
                 </tr>
