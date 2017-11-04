@@ -78,7 +78,7 @@ class AuthController extends Controller {
                 $user->save();
                 Sentinel::activate($user);
                 Sentinel::authenticate($user);
-                $role = Sentinel::findRoleByName('Customer');
+                $role = Sentinel::findRoleByName('Student');
                 $role->users()->attach($user);
                 return Redirect::to('profile');
             }
@@ -172,13 +172,14 @@ class AuthController extends Controller {
                     'verify' => str_random(16)
         ));
         $data = array(
-            'link' => url(getLang() . '/confirmEmail?secret=' . $user->verify)
+            'link' => url('/confirmEmail?secret=' . $user->verify)
         );
         Mail::send('emails.verify', $data, function ($m) use ($user) {
             $m->from('noreply@jeevandeep.com', 'Jeevandeep');
             $m->to($user->email, 'User');
             $m->subject('Welcome to Jeevandeep');
         });
+        return Redirect::to('validate');
     }
 
     /**

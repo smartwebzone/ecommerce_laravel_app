@@ -25,11 +25,11 @@ class SentinelPermission
 //                return Redirect::to(getLang() . '/');
 //            }else 
             
-                if (!Sentinel::inRole('superadmin') && !Sentinel::inRole('dealer')) {
+                if (!Sentinel::inRole('superadmin')) {
                 if (!$request->route()->getName()) {
                     return $next($request);
                 }
-                if (Sentinel::inRole('customer')) {
+                if (Sentinel::inRole('student')) {
                     return Redirect::to(getLang() . '/');
                 }
 //                if (Sentinel::inRole('dealer')) {
