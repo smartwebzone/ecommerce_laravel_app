@@ -1,0 +1,23 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.568 31.297">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <title>elearning</title>
+  <g>
+    <path class="cls-1" d="M29.1,9.459H13.84a1.306,1.306,0,0,0-1.155,1.415V39.34a1.306,1.306,0,0,0,1.155,1.416H29.1a1.306,1.306,0,0,0,1.155-1.416V10.875A1.306,1.306,0,0,0,29.1,9.459ZM21.467,40a1.4,1.4,0,1,1,1.438-1.4A1.417,1.417,0,0,1,21.467,40Zm7.9-5.021a1.563,1.563,0,0,1-1.551,1.574H15.12a1.563,1.563,0,0,1-1.551-1.574V14.218a1.561,1.561,0,0,1,1.551-1.571h12.7a1.561,1.561,0,0,1,1.551,1.571V34.976Z" transform="translate(-12.685 -9.459)"/>
+    <ellipse class="cls-1" cx="3.449" cy="7.891" rx="1.088" ry="1.057"/>
+    <ellipse class="cls-1" cx="3.449" cy="11.595" rx="1.088" ry="1.057"/>
+    <ellipse class="cls-1" cx="3.449" cy="15.517" rx="1.088" ry="1.057"/>
+    <ellipse class="cls-1" cx="3.449" cy="19.439" rx="1.088" ry="1.057"/>
+    <ellipse class="cls-1" cx="3.449" cy="23.362" rx="1.088" ry="1.057"/>
+    <rect class="cls-1" x="6.521" y="7.309" width="7.775" height="0.727"/>
+    <rect class="cls-1" x="6.521" y="11.231" width="7.775" height="0.728"/>
+    <rect class="cls-1" x="6.521" y="15.153" width="7.775" height="0.727"/>
+    <rect class="cls-1" x="6.521" y="19.076" width="7.775" height="0.728"/>
+    <rect class="cls-1" x="6.521" y="22.998" width="7.775" height="0.728"/>
+  </g>
+</svg>
