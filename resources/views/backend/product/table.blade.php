@@ -10,6 +10,9 @@
 </thead>
 <tbody>
     @foreach($product as $product)
+    <?php
+    $disable_class = ($product->order()->count() > 0 ? 'disabled' : '');
+    ?>
     <tr>
         <td class="text-center">{{ $product->id }}</td>
         <td>{{ $product->title }}</td>
@@ -21,9 +24,9 @@
             {!! Form::open(['route' => ['admin.product.destroy', $product->id], 'method' => 'delete']) !!}
             <div class='btn-group'>
 <!--                    <a href="{!! route('admin.product.show', [$product->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>-->
-                <a href="{!! route('admin.product.edit', [$product->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                <a onclick="return confirm('Are you sure want to generate clone?')" href="{!! route('admin.product.copy', [$product->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-copy"></i></a>
-                {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                <a href="{!! route('admin.product.edit', [$product->id]) !!}" class='btn btn-default btn-xs {{$disable_class}}'><i class="glyphicon glyphicon-edit"></i></a>
+                <a title="Clone" onclick="return confirm('Are you sure want to generate clone?')" href="{!! route('admin.product.copy', [$product->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-copy"></i></a>
+                {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs '.$disable_class, 'onclick' => "return confirm('Are you sure?')"]) !!}
             </div>
             {!! Form::close() !!}
         </td>
