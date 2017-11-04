@@ -3,13 +3,13 @@
 	<div class="wrapper cf">
 		<div class="footer-link">
 			<ul class="cf">
-				<li class="active"><a href="index.html">jeevandeep</a></li>
-				<li><a href="our-story.html">our story</a></li>
-				<li><a href="what-we-do.html">what we do</a></li>
-				<li><a href="lets-connect.html">lets connect</a></li>
-				<li><a href="work-with-us.html">work with us</a></li>
-				<li><a href="write-for-us.html">write for us</a></li>
-                                <li><a href="{!! url(getLang() . '/store') !!}">Store</a></li>
+				<li class="active"><a href="{{url()}}">jeevandeep</a></li>
+				<li><a href="javsscript:;">our story</a></li>
+				<li><a href="javsscript:;">what we do</a></li>
+				<li><a href="javsscript:;">lets connect</a></li>
+				<li><a href="javsscript:;">work with us</a></li>
+				<li><a href="javsscript:;">write for us</a></li>
+                                <li><a href="{!! url(getLang() . '/store') !!}">store</a></li>
 			</ul>
 		</div>
 		<div class="footer-logo">
