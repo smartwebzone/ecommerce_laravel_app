@@ -333,6 +333,9 @@ Route::get('validate', function () {
         return View::make('frontend/auth/validate');
     });
 Route::get('create-password', function () {
+        if (!Sentinel::check()) {
+            return Redirect::to('signin');
+        }
         return View::make('frontend/auth/createPass');
     });
     Route::get('profile', ['as' => 'profile', 'uses' => 'AuthController@getProfile']);
@@ -341,6 +344,7 @@ Route::post('signin', 'AuthController@postSignin');
 Route::get('signout', 'AuthController@getSignout');
 Route::post('signup', ['as' => 'signup', 'uses' => 'AuthController@postSignup']);
 Route::post('registerEmail', ['as' => 'registerEmail', 'uses' => 'AuthController@postRegisterEmail']);
+Route::get('createPass', ['as' => 'createPass', 'uses' => 'AuthController@getConfirmEmail']);
 Route::post('createPass', ['as' => 'createPass', 'uses' => 'AuthController@postcreatePass']);
 
 

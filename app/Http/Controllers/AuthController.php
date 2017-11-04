@@ -88,7 +88,11 @@ class AuthController extends Controller {
     }
 
     public function getProfile(Request $request) {
-        return View('frontend.auth.profile');
+        if (!Sentinel::check()) {
+            return Redirect::to('signin');
+        }
+        $user = User::find(Sentinel::getUser()->id);
+        return View('frontend.auth.profile', compact('user'));
     }
 
     /**
@@ -189,21 +193,24 @@ class AuthController extends Controller {
      */
     public function postSignup(Request $request) {
         if (!Sentinel::check()) {
-            Redirect::to('signin');
+            return Redirect::to('signin');
         }
         $request['phone'] = preg_replace("/[^0-9]/", "", $request['phone']);
 
         $rules = array(
-            'first_name' => 'required|min:3',
-            'middle_name' => 'required|min:3',
-            'last_name' => 'required|min:3',
-            'parent_first_name' => 'required|min:3',
-            'parent_middle_name' => 'required|min:3',
-            'parent_last_name' => 'required|min:3',
-            'mobile' => 'required|between:10,16',
-            'landline' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'parent_first_name' => 'required',
+            'parent_last_name' => 'required',
+            'mobile' => 'required',
             'address1' => 'required',
             'billaddress1' => 'required',
+            'city' => 'required',
+            'billcity' => 'required',
+            'zip' => 'required',
+            'billzip' => 'required',
+            'state' => 'required',
+            'billstate' => 'required',
         );
 
 
@@ -212,14 +219,17 @@ class AuthController extends Controller {
 
         $validator->setAttributeNames(['first_name' => 'First name',
             'last_name' => 'Last name',
-            'middle_name' => 'Middle name',
             'parent_first_name' => 'Parent First name',
             'parent_last_name' => 'Parent Last name',
-            'parent_middle_name' => 'Parent Middle name',
             'mobile' => 'Mobile number',
-            'landline' => 'Landline number',
             'address1' => 'Address1',
-            'billaddress1' => 'Address1']);
+            'billaddress1' => 'Address1',
+            'city' => 'City',
+            'billcity' => 'City',
+            'zip' => 'Pincode',
+            'billzip' => 'Pincode',
+            'state' => 'State',
+            'billstate' => 'State']);
 
         // If validation fails, we'll exit the operation now.
         if ($validator->fails()) {
@@ -264,7 +274,7 @@ class AuthController extends Controller {
             );
             $address = \App\Models\Address::create($data);
             $address->users()->attach($user);
-            return Redirect::route('auth.createPass');
+            return Redirect::to('create-password');
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', Lang::get('auth/message.account_already_exists'));
         }
@@ -275,7 +285,7 @@ class AuthController extends Controller {
 
     public function postCreatePass(Request $request) {
         if (!Sentinel::check()) {
-            Redirect::to('signin');
+            return Redirect::to('signin');
         }
         $rules = array(
             'password_signup' => 'required|between:3,32',
