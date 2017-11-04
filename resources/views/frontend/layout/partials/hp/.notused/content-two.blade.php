@@ -102,7 +102,7 @@
                                 <a href="#"><img itemprop="image" src="{!! asset('frontend/demos/construction/images/icons/building.png') !!}" alt="Concrete Developments"></a>
                             </div>
                             <h3>Dealer Locations</h3>
-                            <p>The grace company can be found in many locations across the globe. Locate one today.</p>
+                            <p>Jeevandeep can be found in many locations across the globe. Locate one today.</p>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 bottommargin">
@@ -331,13 +331,13 @@
                         <div class="clear-bottommargin-sm">
                             <div class="row clearfix">
                                 <div class="col-sm-7 bottommargin-sm">
-                                    <p>With over 25 years of tradition in products for the timeless art of quilting, The Grace Company has become the number one producer of both machine and hand quilting frames. The Grace Company has also expanded to specialize in quilting hoops, rotary cutting notions and other quilting accessories. Learn more about the Grace Company here.</p>
+                                    <p>With over 25 years of tradition in products for the timeless art of quilting, Jeevandeep has become the number one producer of both machine and hand quilting frames. Jeevandeep has also expanded to specialize in quilting hoops, rotary cutting notions and other quilting accessories. Learn more about Jeevandeep here.</p>
                                     <div class="clear-bottommargin-sm">
                                         <div class="row clearfix">
                                             <div class="col-sm-6 bottommargin-sm">
                                                 <address>
                                                     <strong>Headquarters:</strong><br>
-                                                    <strong>The Grace Company</strong> <br>
+                                                    <strong>Jeevandeep</strong> <br>
                                                     2225 South 3200 West<br>
                                                     West Valley City, UT 84119<br>
                                                 </address>

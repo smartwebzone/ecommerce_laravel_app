@@ -20,11 +20,7 @@ Jeevandeep Prakashan Pvt. Ltd.
 @section('bodyschema')@endsection
 @section('bodytag')@endsection
 
-@section('header_styles')
-<link rel="shortcut icon" type="image/x-icon" href="images/jeevandeep-favicon.ico">
-<link rel="stylesheet" href="{!! asset('/frontend/styles.css') !!}" type="text/css" />
-<link rel="stylesheet" href="{!! asset('/frontend/developer.css') !!}" type="text/css" />
-@endsection
+@section('header_styles')@endsection
 
 
 @section('content')

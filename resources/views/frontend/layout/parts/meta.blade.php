@@ -1,4 +1,4 @@
-        <meta name="abstract" content="Manufacturer of the Grace Company Product Lines, hand quilting frames, quilting hoops, Qnique quilter quilting machines, grace quilting frames and many quilting accessories." />
+        <meta name="abstract" content="Manufacturer of Jeevandeep Product Lines, hand quilting frames, quilting hoops, Qnique quilter quilting machines, grace quilting frames and many quilting accessories." />
         <meta name="zipcode" content="84119" >
         <meta name="city" content="Salt Lake City" >
         <meta name="state" content="UT" >

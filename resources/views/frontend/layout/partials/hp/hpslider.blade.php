@@ -5,8 +5,8 @@
                     <div class="swiper-slide" style="background-image: url('{!! asset('frontend/demos/construction/images/slider/2.jpg') !!}'); background-position: center top;">
                         <div class="container clearfix">
                             <div class="slider-caption">
-                                <h2>The Grace Company</h2>
-                                <p>The Grace Company consistently generates new and exciting ideas, experiments in new product design, and is always reaching new heights in excellence and quality.  The Grace Company goes to great expense to take each product from concept to market by utilizing state-of-the-art software, in-house rapid prototyping, and cost-efficient sourcing and manufacturing.</p>
+                                <h2>Jeevandeep</h2>
+                                <p>Jeevandeep consistently generates new and exciting ideas, experiments in new product design, and is always reaching new heights in excellence and quality.  Jeevandeep goes to great expense to take each product from concept to market by utilizing state-of-the-art software, in-house rapid prototyping, and cost-efficient sourcing and manufacturing.</p>
                             </div>
                         </div>
                     </div>
@@ -14,7 +14,7 @@
                         <div class="container clearfix">
                             <div class="slider-caption slider-caption-right">
                                 <h2>Beautifully Designed</h2>
-                                <p>Through these means, The Grace Company has been able to rapidly respond to market and customer needs and continues to lead the industry. After 25 wonderful years, The Grace Company continues in the tradition of creativity, innovation, and service.</p>
+                                <p>Through these means, Jeevandeep has been able to rapidly respond to market and customer needs and continues to lead the industry. After 25 wonderful years, Jeevandeep continues in the tradition of creativity, innovation, and service.</p>
                             </div>
                         </div>
                         <div class="video-wrap">

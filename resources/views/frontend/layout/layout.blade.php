@@ -5,7 +5,7 @@
 	<!-- Document Title
 	============================================= -->
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="shortcut icon" href="{!! url('favicon.ico') !!}">
+		<link rel="shortcut icon" type="image/x-icon" href="{!! asset('/jeevandeep/images/favicon.ico') !!}">
 		<link rel="canonical" href="{!! Request::url() !!}" />
                 <title>@yield('title', 'Jeevandeep Prakashan Pvt. Ltd.')  </title>
 

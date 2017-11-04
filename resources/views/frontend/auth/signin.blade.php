@@ -4,13 +4,13 @@
 @section('seo')
     <meta name="description" content="Login or Register for a Grace Company Account">
     <meta name="keywords" content="Login, Register, create account">
-    <meta name="author"content="The Grace Company"/>
+    <meta name="author"content="Jeevandeep"/>
 @endsection
 
 @section('jsonschema')@endsection
 
 @section('title')
-Login or Register | The Grace Company
+Login or Register | Jeevandeep
 @endsection
 
 @section('bodyschema')@endsection

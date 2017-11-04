@@ -4,13 +4,13 @@
 @section('seo')
     <meta name="description" content="Forgot Password">
     <meta name="keywords" content="Forgot Password, Reset Password, Password Assistance, Forgot Account">
-    <meta name="author"content="The Grace Company"/>
+    <meta name="author"content="Jeevandeep"/>
 @endsection
 
 @section('jsonschema')@endsection
 
 @section('title')
-Forgot Password | The Grace Company
+Forgot Password | Jeevandeep
 @endsection
 
 @section('bodyschema')@endsection

@@ -1,6 +1,6 @@
         <!-- facebook meta -->
-        <meta property="og:site_name" content="The Grace Company">
-        <meta property="og:title" content="FaceBook brings you The Grace Company | The Qnique Quilter | Machine Quilting Frames | Hand Quilting Frames | Rotary Cutters">
+        <meta property="og:site_name" content="Jeevandeep">
+        <meta property="og:title" content="FaceBook brings you Jeevandeep | The Qnique Quilter | Machine Quilting Frames | Hand Quilting Frames | Rotary Cutters">
         <meta property="og:description" content="Home for Quilting Hobbyist's Everywhere! Grace Frames, manufacturer of fine quality machine and hand quilting frames as well as quilting frame accessories and notions.">
         <meta property="og:image" content="{!! asset('/frontend/images/grace-logo.png') !!}">
         <meta property="og:image:type" content="image/png" />

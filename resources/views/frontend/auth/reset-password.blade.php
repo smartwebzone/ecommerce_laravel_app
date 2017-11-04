@@ -1,7 +1,7 @@
 @extends('frontend/layout/account')
 
 @section('title')
-Login or Register | The Grace Company
+Login or Register | Jeevandeep
 @endsection
 
 @section('bodyschema')@endsection

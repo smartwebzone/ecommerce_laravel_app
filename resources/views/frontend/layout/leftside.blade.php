@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US" @yield('htmlschema')>
 <head>
-	<title>@yield('title', 'The Grace Company')</title>
+	<title>@yield('title', 'Jeevandeep')</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<link rel="shortcut icon" href="{!! url('favicon.ico') !!}">
+	<link rel="shortcut icon" type="image/x-icon" href="{!! asset('/jeevandeep/images/favicon.ico') !!}">
 	<link rel="canonical" href="{!! Request::url() !!}" />
 	@yield('seo')
 	{{-- <meta property="og:url" content="{!! Request::url(). "/" !!}"> --}}

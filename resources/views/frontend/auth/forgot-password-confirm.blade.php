@@ -4,13 +4,13 @@
 @section('seo')
 <meta name="description" content="Reset Password">
 <meta name="keywords" content="Reset Password">
-<meta name="author"content="The Grace Company"/>
+<meta name="author"content="Jeevandeep"/>
 @endsection
 
 @section('jsonschema')@endsection
 
 @section('title')
-Reset Password | The Grace Company
+Reset Password | Jeevandeep
 @endsection
 
 @section('bodyschema')@endsection

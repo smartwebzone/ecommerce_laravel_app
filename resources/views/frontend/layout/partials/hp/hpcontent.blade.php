@@ -2,7 +2,7 @@
 	<div class="force-full-screen full-screen dark section nopadding nomargin noborder ohidden">
 		<div class="container clearfix">
 			<div class="slider-caption slider-caption-center">
-				<h2 data-animate="fadeInUp">Welcome to The Grace Company</h2>
+				<h2 data-animate="fadeInUp">Welcome to Jeevandeep</h2>
 				<p data-animate="fadeInUp" data-delay="200">With our products you can Create just what you need for your Perfect quilt experience.</p>
 				<a data-animate="fadeInUp" data-delay="400" href="#" class="button button-border button-light button-rounded button-large noleftmargin nobottommargin" style="margin-top: 30px;">Start Browsing</a>
 				<a data-animate="fadeInUp" data-delay="600" href="#" class="button button-3d button-teal button-large nobottommargin" style="margin: 30px 0 0 10px;">Buy Now</a>
