@@ -198,12 +198,14 @@ class UserController extends Controller {
             $input = Input::all();
             if (!$input['password'])
                 unset($input['password']);
-            else
-                $input['password'] = bcrypt($input['password']);
+            
             $validation = Validator::make($input, $rules);
 
             if ($validation->fails()) {
                 return Redirect::to(getLang() . '/admin/user/' . $id . '/edit#panel_edit_account')->withErrors($validation)->withInput();
+            }
+            if (isset($input['password'])){
+                $input['password'] = bcrypt($input['password']);
             }
             $user = User::find($id);
             $input['isAdmin'] = ($request->get('isAdmin') ? 1 : 0);
