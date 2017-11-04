@@ -63,12 +63,12 @@ Login or Register | Jeevandeep
                                 <div class="col_full {{ $errors->first('email', 'has-error') }}">
                                     <label for="login-form-username">Email:</label>
                                     <input type="text" id="login-form-email" name="email" value="{!! Input::old('email') !!}" class="form-control" />
-                                    <span class="help-block">{{ $errors->first('email', ':message') }}</span>
+                                    <span class="errormsg">{{ $errors->first('email', ':message') }}</span>
                                 </div>
                                 <div class="col_full {{ $errors->first('password', 'has-error') }}">
                                     <label for="login-form-password">Password:</label>
                                     <input type="password" id="login-form-password" name="password" value="" class="form-control" />
-                                    <span class="help-block">{{ $errors->first('password', ':message') }}</span>
+                                    <span class="errormsg">{{ $errors->first('password', ':message') }}</span>
                                     <a href="{{ url(getLang() . '/forgot-password') }}">Forgot Password</a>
                                 </div>
                                 <div class="col_full nobottommargin">

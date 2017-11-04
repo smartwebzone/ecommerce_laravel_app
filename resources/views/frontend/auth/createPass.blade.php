@@ -41,7 +41,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                             <input placeholder="ENTER PASSWORD" name="password_signup" class="form-control" id="" type="password">
                         </div>
                     </div>
-                    <span class="help-block">{{ $errors->first('password_signup', ':message') }}</span>
+                    <span class="errormsg">{{ $errors->first('password_signup', ':message') }}</span>
                 </li>
                 <li class="form-group">
                     <label>RE-ENTER PASSWORD</label>
@@ -51,7 +51,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                             <input placeholder="RE-ENTER PASSWORD" class="form-control" id="" name="password_confirm" type="password">
                         </div>
                     </div>
-                    <span class="help-block">{{ $errors->first('password_confirm', ':message') }}</span>
+                    <span class="errormsg">{{ $errors->first('password_confirm', ':message') }}</span>
                 </li>
                 <li class="fullBtn">
                     <button  type="submit" class="btn btnS"><i class="fa fa-link"></i>PROCEED</button>

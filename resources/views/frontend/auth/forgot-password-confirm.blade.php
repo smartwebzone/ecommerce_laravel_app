@@ -67,7 +67,7 @@ Reset Password | Jeevandeep
                     <div class="controls">
                         {!! Form::password('password', array('class'=>'form-control', 'id' => 'password')) !!}
                         @if ($errors->first('password'))
-                        <span class="help-block">{!! $errors->first('password') !!}</span>
+                        <span class="errormsg">{!! $errors->first('password') !!}</span>
                         @endif
                     </div>
                 </div>
@@ -77,7 +77,7 @@ Reset Password | Jeevandeep
                     <div class="controls">
                         {!! Form::password('password_confirm', array('class'=>'form-control', 'id' => 'password_confirm')) !!}
                         @if ($errors->first('password_confirm'))
-                        <span class="help-block">{!! $errors->first('password_confirm') !!}</span>
+                        <span class="errormsg">{!! $errors->first('password_confirm') !!}</span>
                         @endif
                     </div>
                 </div>

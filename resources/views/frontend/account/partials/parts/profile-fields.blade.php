@@ -14,26 +14,26 @@
                             <div class="form-group col-sm-12 {{ $errors->has('first_name')? 'has-error' : '' }}">
                                 {!! Form::label('first_name', 'First Name:') !!}
                                 {!! Form::text('first_name', null, ['class' => 'form-control', 'value' => old('first_name')]) !!}
-                                {!! $errors->has('first_name')? '<p class="help-block"> '.$errors->first('first_name').' </p> ':'' !!}
+                                {!! $errors->has('first_name')? '<p class="errormsg"> '.$errors->first('first_name').' </p> ':'' !!}
                             </div>
                             <!-- Last Name Field -->
                             <div class="form-group col-sm-12 {{ $errors->has('last_name')? 'has-error' : '' }}">
                                 {!! Form::label('last_name', 'Last Name:') !!}
                                 {!! Form::text('last_name', null, ['class' => 'form-control', 'value' => old('last_name')]) !!}
-                                {!! $errors->has('last_name')? '<p class="help-block"> '.$errors->first('last_name').' </p> ':'' !!}
+                                {!! $errors->has('last_name')? '<p class="errormsg"> '.$errors->first('last_name').' </p> ':'' !!}
                             </div>
                             <!-- Display Name Field -->
                             <div class="form-group col-sm-12 {{ $errors->has('userInfo[display_name]')? 'has-error' : '' }}">
                                 {!! Form::label('userInfo[display_name]', 'Display Name:') !!}
                                 {!! Form::text('userInfo[display_name]', null, ['id'=>'display_name','class' => 'form-control', 'value' => old('userInfo[display_name]')]) !!}
-                                {!! $errors->has('userInfo[display_name]')? '<p class="help-block"> '.$errors->first('userInfo[display_name]').' </p> ':'' !!}
+                                {!! $errors->has('userInfo[display_name]')? '<p class="errormsg"> '.$errors->first('userInfo[display_name]').' </p> ':'' !!}
                             </div>
 
                             <!-- Dob Field -->
                             <div class="form-group col-sm-12 {{ $errors->has('userInfo[dob]')? 'has-error' : '' }}">
                                 {!! Form::label('userInfo[dob]', 'Birth Date::') !!}
                                 {!! Form::text('userInfo[dob]', null, ['data-provide'=>"datepicker",'class' => 'form-control', 'value' => old('userInfo[dob]')]) !!}
-                                {!! $errors->has('userInfo[dob]')? '<p class="help-block"> '.$errors->first('userInfo[dob]').' </p> ':'' !!}
+                                {!! $errors->has('userInfo[dob]')? '<p class="errormsg"> '.$errors->first('userInfo[dob]').' </p> ':'' !!}
                             </div>
 
                         </div>
@@ -50,7 +50,7 @@
                                         <div class="form-group col-sm-12 {{ $errors->has('userInfo[company]')? 'has-error' : '' }}">
                                             {!! Form::label('userInfo[company]', 'Company:') !!}
                                             {!! Form::text('userInfo[company]', null, ['class' => 'form-control', 'value' => old('userInfo[company]')]) !!}
-                                            {!! $errors->has('userInfo[company]')? '<p class="help-block"> '.$errors->first('userInfo[company]').' </p>':'' !!}
+                                            {!! $errors->has('userInfo[company]')? '<p class="errormsg"> '.$errors->first('userInfo[company]').' </p>':'' !!}
                                         </div>
                                     </td>
                                 </tr>
@@ -60,7 +60,7 @@
                                         <div class="form-group col-sm-12 {{ $errors->has('userInfo[website]')? 'has-error' : '' }}">
                                             {!! Form::label('userInfo[website]', 'Website:') !!}
                                             {!! Form::text('userInfo[website]', null, ['class' => 'form-control', 'value' => old('userInfo[website]')]) !!}
-                                            {!! $errors->has('userInfo[website]')? '<p class="help-block"> '.$errors->first('userInfo[website]').' </p> ':'' !!}
+                                            {!! $errors->has('userInfo[website]')? '<p class="errormsg"> '.$errors->first('userInfo[website]').' </p> ':'' !!}
                                         </div>
                                     </td>
                                 </tr>
@@ -74,25 +74,25 @@
                                         <div class="form-group col-sm-12 {{ $errors->has('userInfo[phone]')? 'has-error' : '' }}">
                                             {!! Form::label('userInfo[phone]', 'Phone:') !!}
                                             {!! Form::text('userInfo[phone]', null, ['class' => 'form-control input-mask-phone text-center', 'value' => old('userInfo[phone]')]) !!}
-                                            {!! $errors->has('userInfo[phone]')? '<p class="help-block"> '.$errors->first('userInfo[phone]').' </p> ':'' !!}
+                                            {!! $errors->has('userInfo[phone]')? '<p class="errormsg"> '.$errors->first('userInfo[phone]').' </p> ':'' !!}
                                         </div>
                                         <!-- Mobile Field -->
                                         <div class="form-group col-sm-12 {{ $errors->has('userInfo[mobile]')? 'has-error' : '' }}">
                                             {!! Form::label('userInfo[mobile]', 'Mobile:') !!}
                                             {!! Form::text('userInfo[mobile]', null, ['class' => 'form-control input-mask-phone text-center', 'value' => old('userInfo[mobile]')]) !!}
-                                            {!! $errors->has('userInfo[mobile]')? '<p class="help-block"> '.$errors->first('userInfo[mobile]').' </p> ':'' !!}
+                                            {!! $errors->has('userInfo[mobile]')? '<p class="errormsg"> '.$errors->first('userInfo[mobile]').' </p> ':'' !!}
                                         </div>
                                         <!-- Work Field -->
                                         <div class="form-group col-sm-12 {{ $errors->has('userInfo[work]')? 'has-error' : '' }}">
                                             {!! Form::label('userInfo[work]', 'Work:') !!}
                                             {!! Form::text('userInfo[work]', null, ['class' => 'form-control input-mask-phone text-center', 'value' => old('userInfo[work]')]) !!}
-                                            {!! $errors->has('userInfo[work]')? '<p class="help-block"> '.$errors->first('userInfo[work]').' </p> ':'' !!}
+                                            {!! $errors->has('userInfo[work]')? '<p class="errormsg"> '.$errors->first('userInfo[work]').' </p> ':'' !!}
                                         </div>
                                         <!-- Other Field -->
                                         <div class="form-group col-sm-12 {{ $errors->has('userInfo[other]')? 'has-error' : '' }}">
                                             {!! Form::label('userInfo[other]', 'Other:') !!}
                                             {!! Form::text('userInfo[other]', null, ['class' => 'form-control input-mask-phone text-center', 'value' => old('userInfo[other]')]) !!}
-                                            {!! $errors->has('userInfo[other]')? '<p class="help-block"> '.$errors->first('userInfo[other]').' </p>':'' !!}
+                                            {!! $errors->has('userInfo[other]')? '<p class="errormsg"> '.$errors->first('userInfo[other]').' </p>':'' !!}
                                         </div>
 
                                     </td>
@@ -114,7 +114,7 @@
                                             <div class="controls">
                                                 {!! Form::text('email', null, array('class'=>'form-control', 'id' => 'email', 'placeholder'=>'Email', 'value'=>Input::old('email'))) !!}
                                                 @if ($errors->first('email'))
-                                                <span class="help-block">{!! $errors->first('email') !!}</span>
+                                                <span class="errormsg">{!! $errors->first('email') !!}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -129,7 +129,7 @@
                                             <div class="controls">
                                                 {!! Form::password('password', array('class'=>'form-control', 'id' => 'password', 'placeholder'=>'Password')) !!}
                                                 @if ($errors->first('password'))
-                                                <span class="help-block">{!! $errors->first('password') !!}</span>
+                                                <span class="errormsg">{!! $errors->first('password') !!}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -143,7 +143,7 @@
                                             <div class="controls">
                                                 {!! Form::password('confirm_password', array('class'=>'form-control', 'id' => 'confirm_password', 'placeholder'=>'Confirm Password')) !!}
                                                 @if ($errors->first('confirm-password'))
-                                                <span class="help-block">{!! $errors->first('confirm-password') !!}</span>
+                                                <span class="errormsg">{!! $errors->first('confirm-password') !!}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -169,7 +169,7 @@
                     <!-- About Me Field -->
                     <div class="form-group col-sm-12 col-lg-12 {{ $errors->has('userInfo[about_me]')? 'has-error' : '' }}">
                         {!! Form::textarea('userInfo[about_me]', null, ['class' => 'form-control summernote', 'value' => old('userInfo[about_me]')]) !!}
-                        {!! $errors->has('userInfo[about_me]')? '<p class="help-block"> '.$errors->first('userInfo[about_me]').' </p> ':'' !!}
+                        {!! $errors->has('userInfo[about_me]')? '<p class="errormsg"> '.$errors->first('userInfo[about_me]').' </p> ':'' !!}
                     </div>
                 </div>
             </div>
@@ -230,13 +230,13 @@
                                         <div class="form-group col-sm-12 {{ $errors->has('userInfo[skypeid]')? 'has-error' : '' }}">
                                             {!! Form::label('userInfo[skypeid]', 'Skypeid:') !!}
                                             {!! Form::text('userInfo[skypeid]', null, ['class' => 'form-control', 'value' => old('userInfo[skypeid]')]) !!}
-                                            {!! $errors->has('userInfo[skypeid]')? '<p class="help-block"> '.$errors->first('userInfo[skypeid]').' </p>':'' !!}
+                                            {!! $errors->has('userInfo[skypeid]')? '<p class="errormsg"> '.$errors->first('userInfo[skypeid]').' </p>':'' !!}
                                         </div>
                                         <!-- Githubid Field -->
                                         <div class="form-group col-sm-12 {{ $errors->has('userInfo[githubid]')? 'has-error' : '' }}">
                                             {!! Form::label('userInfo[githubid]', 'Githubid:') !!}
                                             {!! Form::text('userInfo[githubid]', null, ['class' => 'form-control', 'value' => old('userInfo[githubid]')]) !!}
-                                            {!! $errors->has('userInfo[githubid]')? '<p class="help-block"> '.$errors->first('userInfo[githubid]').' </p>':'' !!}
+                                            {!! $errors->has('userInfo[githubid]')? '<p class="errormsg"> '.$errors->first('userInfo[githubid]').' </p>':'' !!}
                                         </div>
                             </p>
                             <hr>

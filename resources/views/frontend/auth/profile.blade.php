@@ -31,114 +31,93 @@ Jeevandeep Prakashan Pvt. Ltd.
     <div class="please-select">Thank you for validating your email. Please create your profile here.</div>
     <!-- Start Lets Connect -->
     <div class="enquire">
-
-        {!! Form::open(['route' => 'signup',  'id' => 'register-form',  'name' => 'register-form', 'class' => 'cf',  'method' => 'post']) !!}
-        <!--            <div class="cf">
-                        <ul>
-                            <li class="form-group">
-                                <label>EMAIL ID</label>
-                                <div class="input-group profile-email">
-                                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                    <div class="icon-addon">
-                                        <input type="email" placeholder="NAME@DOMAIN.COM" class="form-control" id="">
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-        
-                    </div>-->
+        {!! Form::model($user, ['route' => 'signup',  'id' => 'register-form',  'name' => 'register-form', 'class' => 'cf',  'method' => 'post']) !!}
         <div class="profile-add cf">
             <li class="form-group">
                 <label>PARENT | GUARDIAN</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <div class="icon-addon">
-                        <input type="text" placeholder="FIRST NAME" name="parent_first_name" class="form-control" id="">
-
+                        {!! Form::text('parent_first_name', null, ['placeholder'=> 'FIRST NAME', 'class' => 'form-control']) !!}
                     </div>
 
                 </div>
-                <span class="help-block">{{ $errors->first('parent_first_name', ':message') }}</span>
+                <span class="errormsg">{{ $errors->first('parent_first_name', ':message') }}</span>
             </li>
             <li class="form-group">
                 <label>&nbsp;</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <div class="icon-addon">
-                        <input type="text" placeholder="MIDDLE NAME" name="parent_middle_name" class="form-control" id="">
+                        {!! Form::text('parent_middle_name', null, ['placeholder'=> 'MIDDLE NAME', 'class' => 'form-control']) !!}
                     </div>
 
                 </div>
-                <span class="help-block">{{ $errors->first('parent_middle_name', ':message') }}</span>
+                <span class="errormsg">{{ $errors->first('parent_middle_name', ':message') }}</span>
             </li>
             <li class="form-group">
                 <label>&nbsp;</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <div class="icon-addon">
-                        <input type="text" placeholder="FAMILY NAME" name="parent_last_name" class="form-control" id="">
+                        {!! Form::text('parent_last_name', null, ['placeholder'=> 'LAST NAME', 'class' => 'form-control']) !!}
                     </div>
 
                 </div>
-                <span class="help-block">{{ $errors->first('parent_last_name', ':message') }}</span>
+                <span class="errormsg">{{ $errors->first('parent_last_name', ':message') }}</span>
             </li>
             <li class="form-group">
                 <label>CHILD</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <div class="icon-addon">
-                        <input type="text" placeholder="FIRST NAME" name="first_name" class="form-control" id="">
-
+                        {!! Form::text('first_name', null, ['placeholder'=> 'FIRST NAME', 'class' => 'form-control']) !!}
                     </div>
 
                 </div>
-                <span class="help-block">{{ $errors->first('first_name', ':message') }}</span>
+                <span class="errormsg">{{ $errors->first('first_name', ':message') }}</span>
             </li>
             <li class="form-group">
                 <label>&nbsp;</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <div class="icon-addon">
-                        <input type="text" placeholder="MIDDLE NAME" name="middle_name" class="form-control" id="">
-
+                        {!! Form::text('middle_name', null, ['placeholder'=> 'MIDDLE NAME', 'class' => 'form-control']) !!}
                     </div>
 
                 </div>
-                <span class="help-block">{{ $errors->first('middle_name', ':message') }}</span>
+                <span class="errormsg">{{ $errors->first('middle_name', ':message') }}</span>
             </li>
             <li class="form-group">
                 <label>&nbsp;</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <div class="icon-addon">
-                        <input type="text" placeholder="FAMILY NAME" name="last_name" class="form-control" id="">
-
+                        {!! Form::text('last_name', null, ['placeholder'=> 'FAMILY NAME', 'class' => 'form-control']) !!}
                     </div>
                     
                 </div>
-                <span class="help-block">{{ $errors->first('last_name', ':message') }}</span>
+                <span class="errormsg">{{ $errors->first('last_name', ':message') }}</span>
             </li>
             <li class="form-group">
                 <label>MOBILE</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
                     <div class="icon-addon">
-                        <input type="text" placeholder="MOBILE" name="mobile" class="form-control" id="">
-                      
+                        {!! Form::text('mobile', null, ['placeholder'=> 'MOBILE', 'class' => 'form-control']) !!}
                     </div>
                 </div>
-                  <span class="help-block">{{ $errors->first('mobile', ':message') }}</span>
+                  <span class="errormsg">{{ $errors->first('mobile', ':message') }}</span>
             </li>
             <li class="form-group">
                 <label>LANDLINE</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                     <div class="icon-addon">
-                        <input type="text" placeholder="LANDLINE" name="landline" class="form-control" id="">
-                      
+                        {!! Form::text('landline', null, ['placeholder'=> 'LANDLINE', 'class' => 'form-control']) !!}
                     </div>
                 </div>
-                  <span class="help-block">{{ $errors->first('landline', ':message') }}</span>
+                  <span class="errormsg">{{ $errors->first('landline', ':message') }}</span>
             </li>
         </div>
         <div class="shipping-address cf">
@@ -147,41 +126,38 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <label>SHIPPING ADDRESS</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        <textarea class="form-control" name="address1" placeholder="ADDRESS LINE 1"></textarea>
-                        <span class="help-block">{{ $errors->first('address1', ':message') }}</span>
+                        {!! Form::textarea('address1', null, ['placeholder'=> 'ADDRESS LINE 1', 'class' => 'form-control']) !!}
+                    </div>
+                    <span class="errormsg">{{ $errors->first('address1', ':message') }}</span>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
+                        {!! Form::textarea('address2', null, ['placeholder'=> 'ADDRESS LINE 2', 'class' => 'form-control']) !!}
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        <textarea class="form-control" name="address2" placeholder="ADDRESS LINE 2"></textarea>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        <textarea class="form-control" name="area" placeholder="AREA AND NEAREST LANDMARK"></textarea>
+                        {!! Form::textarea('area', null, ['placeholder'=> 'AREA AND NEAREST LANDMARK', 'class' => 'form-control']) !!}
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            <input type="text" name="city" placeholder="CITY" class="form-control" id="">
-                            
+                            {!! Form::text('city', null, ['placeholder'=> 'CITY', 'class' => 'form-control']) !!}
                         </div>
                     </div>
-                    <span class="help-block">{{ $errors->first('city', ':message') }}</span>
+                    <span class="errormsg">{{ $errors->first('city', ':message') }}</span>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            <input type="text" name="zip" placeholder="PINCODE" class="form-control" id="">
-                            
+                            {!! Form::text('zip', null, ['placeholder'=> 'PINCODE', 'class' => 'form-control']) !!}
                         </div>
                     </div>
-                    <span class="help-block">{{ $errors->first('zip', ':message') }}</span>
+                    <span class="errormsg">{{ $errors->first('zip', ':message') }}</span>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            <input type="text" name="state" placeholder="STATE" class="form-control" id="">
-                            
+                            {!! Form::text('state', null, ['placeholder'=> 'STATE', 'class' => 'form-control']) !!}
                         </div>
                     </div>
-                    <span class="help-block">{{ $errors->first('state', ':message') }}</span>
+                    <span class="errormsg">{{ $errors->first('state', ':message') }}</span>
                 </li>
             </ul>
             <ul>
@@ -194,32 +170,33 @@ Jeevandeep Prakashan Pvt. Ltd.
                     </label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        <textarea class="form-control" name="billaddress1" placeholder="ADDRESS LINE 1"></textarea>
+                        {!! Form::textarea('billaddress1', null, ['placeholder'=> 'ADDRESS LINE 1', 'class' => 'form-control']) !!}
+                    </div>
+                    <span class="errormsg">{{ $errors->first('billaddress1', ':message') }}</span>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
+                        {!! Form::textarea('billaddress2', null, ['placeholder'=> 'ADDRESS LINE 2', 'class' => 'form-control']) !!}
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        <textarea class="form-control" name="billaddress2" placeholder="ADDRESS LINE 2"></textarea>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        <textarea class="form-control" name="billarea" placeholder="AREA AND NEAREST LANDMARK"></textarea>
+                        {!! Form::textarea('billarea', null, ['placeholder'=> 'AREA AND NEAREST LANDMARK', 'class' => 'form-control']) !!}
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            <input type="text" name="billcity" placeholder="CITY" class="form-control" id="">
+                            {!! Form::text('billcity', null, ['placeholder'=> 'CITY', 'class' => 'form-control']) !!}
                         </div>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            <input type="text" name="billzip" placeholder="PINCODE" class="form-control" id="">
+                            {!! Form::text('billzip', null, ['placeholder'=> 'PINCODE', 'class' => 'form-control']) !!}
                         </div>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            <input type="text" name="billstate" placeholder="STATE" class="form-control" id="">
+                            {!! Form::text('billstate', null, ['placeholder'=> 'STATE', 'class' => 'form-control']) !!}
                         </div>
                     </div>
                 </li>

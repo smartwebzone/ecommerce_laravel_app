@@ -70,7 +70,7 @@ Forgot Password | Jeevandeep
                             <div class="col_half {{ $errors->first('email', 'has-error') }}">
                                 <label for="email">Email Address:</label>
                                 {!! Form::email('email', NULL, ['class' => 'form-control','id' => 'email']) !!}
-                                 <span class="help-block">{{ $errors->first('email', ':message') }}</span>
+                                 <span class="errormsg">{{ $errors->first('email', ':message') }}</span>
                             </div>
 
                             <div class="clear"></div>

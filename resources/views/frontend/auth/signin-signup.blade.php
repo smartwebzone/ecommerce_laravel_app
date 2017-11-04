@@ -54,7 +54,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                         <input placeholder="PLEASE ENTER YOUR EMAIL ID" type="text" id="login-form-email" name="email" value="{!! Input::old('email') !!}" class="form-control" />
                     </div>
                 </div>
-                <span class="help-block">{{ $errors->first('email', ':message') }}</span>
+                <span class="errormsg">{{ $errors->first('email', ':message') }}</span>
             </li>
             <li class="form-group">
                 <label>PASSWORD</label>
@@ -64,7 +64,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                         <input placeholder="PLEASE ENTER YOUR PASSWORD" type="password" id="login-form-password" name="password" value="" class="form-control" />
                     </div>
                 </div>
-                <span class="help-block">{{ $errors->first('password', ':message') }}</span>
+                <span class="errormsg">{{ $errors->first('password', ':message') }}</span>
             </li>
             <button  type="submit" class="btn btnS"><i class="fa fa-link"></i>LOGIN</button></li>
             <li class="forgot"><i class="fa fa-link"></i><a href="{{ url(getLang() . '/forgot-password') }}">Forgot Password</a></li>
@@ -82,7 +82,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                         {!! Form::email('email_signup',  Input::old('email_signup'), ['class' => 'form-control','placeholder'=>"PLEASE ENTER YOUR EMAIL ID"]) !!}
                     </div>
                 </div>
-                <span class="help-block">{{ $errors->first('email_signup', ':message') }}</span>
+                <span class="errormsg">{{ $errors->first('email_signup', ':message') }}</span>
             </li>
             <li>
                 <button type="submit"  class="btn btnS"><i class="fa fa-link"></i>REGISTER</button></li>
