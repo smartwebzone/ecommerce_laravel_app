@@ -1,0 +1,45 @@
+Admin side issues
+
+Products
+- Edit books >> already selected books not retrieved in select product book page
+
+Orders
+- List, print order, view order (give facility to change order status)
+
+Dynamic emails. Please load email content from admin for below places
+1. Register
+2. Forgot Password
+
+Order email - send email when new order generated, if order status in admin changed to Shipped, notify student by email
+
+http://localhost/jdec/public/profile
+Profile page 
+- same as shipping address checkbox
+- give dropdown for State selection. Please make sure we use dropdown for state in entire site
+- retrieve already added data for address field
+
+
+http://localhost/jdec/public/en/store/selectProduct
+SELECT PRODUCTS THAT YOU WISH TO PURCHASE screen
+In state/out state shipping logic
+if student == product.school.state{
+   take in_state_shipping
+}else{
+   take out_state_shipping
+}
+
+if no product selected and user clicks on submit button, it should show message "Select atleast 1 product to proceed"
+
+You have previously purchased this product on 09 August 2017. - this is coming static, it shoud be dynamic and it should only show if user purchased this product in past
+
+
+http://localhost/jdec/public/en/store/confirm
+CONFIRM SHIPPING ADDRESS AND SELECT PREFERRED DELIVERY DATE
+Pre-fill address
+We need to update address instead of adding new for student
+
+
+Pay now last screen
+If order_date == today, show orders as PAID in cart page
+
+My Orders and My Profile pages pending
