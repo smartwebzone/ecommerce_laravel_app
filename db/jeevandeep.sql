@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2017 at 01:52 PM
+-- Generation Time: Nov 05, 2017 at 03:19 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -91,7 +91,7 @@ CREATE TABLE `address_master` (
 --
 
 INSERT INTO `address_master` (`id`, `address_type`, `address1`, `address2`, `area`, `city`, `state`, `zip`, `add_date`, `added_by`, `update_date`, `updated_by`, `deleted_at`) VALUES
-(1, 'shipping', 'M-303', 'Aarohi Elegance', 'Gala Gymkhana Road, South Bopal', 'Ahmedabad', 'Gujarat', '380058', '2017-11-05 10:32:28', 17, '2017-11-05 16:15:17', NULL, NULL),
+(1, 'shipping', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Gujarat', '380058', '2017-11-05 10:32:28', 17, '2017-11-05 18:32:15', NULL, NULL),
 (2, 'billing', 'Bungalow 4', 'Swara Bungalows', 'Valam', 'Visnagar', 'Gujarat', '396445', '2017-11-05 10:32:28', 17, '2017-11-05 16:14:33', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -275,6 +275,60 @@ CREATE TABLE `form_posts` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `missing_schools`
+--
+
+DROP TABLE IF EXISTS `missing_schools`;
+CREATE TABLE `missing_schools` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `added_by` int(11) DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_by` int(11) DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `deleted_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `missing_schools`
+--
+
+INSERT INTO `missing_schools` (`id`, `name`, `description`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
+(1, 'Sanskar Bharti', 'from Navsari missing', 1, '2017-11-05 14:08:50', NULL, '2017-11-05 14:08:50', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `missing_standards`
+--
+
+DROP TABLE IF EXISTS `missing_standards`;
+CREATE TABLE `missing_standards` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `added_by` int(11) DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_by` int(11) DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `deleted_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `missing_standards`
+--
+
+INSERT INTO `missing_standards` (`id`, `name`, `description`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
+(1, 'Grade 1', 'Grade 1 missing', 1, '2017-11-05 14:18:08', NULL, '2017-11-05 14:18:08', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `order_master`
 --
 
@@ -317,7 +371,11 @@ CREATE TABLE `order_master` (
 
 INSERT INTO `order_master` (`id`, `user_id`, `amount`, `tax`, `shipping`, `total_amount`, `status_id`, `order_date`, `transaction_id`, `reference_no`, `preferred_delivery_date`, `billing_address1`, `billing_address2`, `billing_area`, `billing_city`, `billing_state`, `billing_zip`, `shipping_address1`, `shipping_address2`, `shipping_area`, `shipping_city`, `shipping_state`, `shipping_zip`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`, `issue_raised`, `order_notes`) VALUES
 (1, 17, '5000.00', '2500.00', '0.00', '7535.40', 1, '2017-11-05 12:50:06', NULL, NULL, '2017-10-06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 12:50:06', NULL, NULL, NULL, '0', NULL),
-(2, 17, '5000.00', '2500.00', '0.00', '7524.78', 1, '2017-11-05 12:50:10', NULL, NULL, '2017-10-06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 12:50:10', NULL, NULL, NULL, '0', NULL);
+(2, 17, '5000.00', '2500.00', '0.00', '7524.78', 1, '2017-11-05 12:50:10', NULL, NULL, '2017-10-06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 12:50:10', NULL, NULL, NULL, '0', NULL),
+(3, 17, '5000.00', '2500.00', '0.00', '7535.40', 1, '2017-11-05 13:02:23', NULL, NULL, '2017-04-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 13:02:23', NULL, NULL, NULL, '0', NULL),
+(4, 17, '5000.00', '2500.00', '0.00', '7524.78', 1, '2017-11-05 13:02:26', NULL, NULL, '2017-04-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 13:22:15', NULL, NULL, NULL, '0', NULL),
+(5, 17, '5000.00', '2500.00', '0.00', '7524.78', 1, '2017-11-05 13:22:59', NULL, NULL, '2017-03-02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 13:22:59', NULL, NULL, NULL, '0', NULL),
+(6, 17, '5000.00', '2500.00', '0.00', '7524.78', 1, '2017-11-05 13:27:23', NULL, NULL, '2017-02-14', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 13:27:23', NULL, NULL, NULL, '0', NULL);
 
 -- --------------------------------------------------------
 
@@ -339,7 +397,11 @@ CREATE TABLE `order_product` (
 
 INSERT INTO `order_product` (`order_id`, `product_id`, `qty`, `price`) VALUES
 (1, 26, 1, '7535'),
-(2, 20, 1, '7525');
+(2, 20, 1, '7525'),
+(3, 26, 1, '7535'),
+(4, 20, 1, '7525'),
+(5, 20, 1, '7525'),
+(6, 20, 1, '7525');
 
 -- --------------------------------------------------------
 
@@ -872,6 +934,18 @@ ALTER TABLE `form_posts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `missing_schools`
+--
+ALTER TABLE `missing_schools`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `missing_standards`
+--
+ALTER TABLE `missing_standards`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `order_master`
 --
 ALTER TABLE `order_master`
@@ -1002,7 +1076,7 @@ ALTER TABLE `book_master`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `company_master`
 --
@@ -1019,10 +1093,20 @@ ALTER TABLE `email_templates`
 ALTER TABLE `form_posts`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `missing_schools`
+--
+ALTER TABLE `missing_schools`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `missing_standards`
+--
+ALTER TABLE `missing_standards`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `order_master`
 --
 ALTER TABLE `order_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `persistences`
 --
