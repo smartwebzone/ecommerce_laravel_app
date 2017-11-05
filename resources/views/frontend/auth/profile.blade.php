@@ -219,7 +219,7 @@ Jeevandeep Prakashan Pvt. Ltd.
 
         <div class="fullBtn">
             <button type="submit" class="btn btnS"><i class="fa fa-link"></i>PROCEED</button></div>
-        </form>
+        {!! Form::close() !!}
     </div>
 </div>
 <!-- End Wrapper -->
