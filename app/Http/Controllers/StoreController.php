@@ -84,17 +84,6 @@ class StoreController extends Controller {
     }
 
     public function cart(Request $request) {
-        if (!Session::get('shipping')) {
-            $this->validate($request, [
-                'address1' => 'required',
-                'area' => 'required',
-                'city' => 'required',
-                'state' => 'required',
-                'zip' => 'required',
-                'month' => 'required',
-                'date' => 'required',
-            ]);
-        }
         $product = \App\Models\Product::find(Session::get('product'));
         $orders=  \App\Models\Order::where(['user_id'=>Sentinel::getuser()->id])->get();
         
