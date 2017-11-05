@@ -354,3 +354,7 @@ Route::get('forgot-password', ['as' => 'forgot-password', 'uses' => 'AuthControl
 Route::post('forgot-password', ['as' => 'forgot-password', 'uses' => 'AuthController@postForgotPassword']);
 Route::get('forgot-password-confirm/{id}/{code}', ['as' => 'forgot-password-confirm', 'uses' => 'AuthController@getForgotPasswordConfirm']);
 Route::post('forgot-password-confirm/{id}/{code}', ['as' => 'forgot-password-confirm-post', 'uses' => 'AuthController@postForgotPasswordConfirm']);
+Route::get('unavailable_school', ['as' => 'unavailable_school', 'uses' => 'StoreController@unavailable_school']);
+Route::post('unavailable_school', ['as' => 'unavailable_school', 'uses' => 'StoreController@unavailable_school']);
+Route::get('unavailable_standard', ['as' => 'unavailable_standard', 'uses' => 'StoreController@unavailable_standard']);
+Route::post('unavailable_standard', ['as' => 'unavailable_standard', 'uses' => 'StoreController@unavailable_standard']);

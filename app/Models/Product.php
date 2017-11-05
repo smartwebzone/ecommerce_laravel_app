@@ -39,8 +39,35 @@ class Product extends Model implements ModelInterface {
         foreach ($this->books as $book):
             $totalmrp+=$book->price_after_tax;
         endforeach;
-        $shippingtax = (($this->instate_shipping_charges * 18) / 100);
-        return $shippingtax+$this->instate_shipping_charges+$totalmrp;
+        
+        $student_state = getUserShippingState();
+        $school_state = \App\Models\School::find($this->school_id)->state;
+        if(empty($student_state)){
+            $student_state = $school_state;
+        }
+        if($school_state == $student_state){
+            $state_ship = 'instate_shipping_charges';
+        }else{
+            $state_ship = 'outstate_shipping_charges';
+        }
+        
+        $shippingtax = (($this->$state_ship * 18) / 100);
+        $total = numberWithDecimal($shippingtax+$this->$state_ship+$totalmrp);
+        return $total;
+    }
+    
+    function getShippingStateAttribute(){
+        $student_state = getUserShippingState();
+        $school_state = \App\Models\School::find($this->school_id)->state;
+        if(empty($student_state)){
+            $student_state = $school_state;
+        }
+        if($school_state == $student_state){
+            $state_ship = 'instate_shipping_charges';
+        }else{
+            $state_ship = 'outstate_shipping_charges';
+        }
+        return $this->$state_ship;
     }
     
     public function order() {
