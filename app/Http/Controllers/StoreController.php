@@ -60,7 +60,7 @@ class StoreController extends Controller {
             $standard = \App\Models\Standard::find($standard);
             return view('frontend.store.selectproduct', compact('school', 'standard', 'product'))->with('cart', 'total');
         } else {
-            return \Redirect('en/store');
+            return Redirect::route('store.selectSchool');
         }
     }
 
