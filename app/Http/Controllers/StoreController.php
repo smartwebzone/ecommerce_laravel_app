@@ -188,5 +188,22 @@ class StoreController extends Controller {
         }
         return Redirect::route('store.cart', ['success' => '1']);
     }
-
+    
+    public function unavailable_school(Request $request) {
+        if($request->action == 'add'){
+            $missing_school = \App\Models\MissingSchool::Create(['name' => $request->name,
+                        'description' => $request->description]);
+            return Redirect::route('store.selectSchool')->with('success', 'Your request to add new school sent successfully');
+        }
+        return View('frontend.store.unavailable_school');
+    }
+    
+    public function unavailable_standard(Request $request) {
+        if($request->action == 'add'){
+            $missing_standard = \App\Models\MissingStandard::Create(['name' => $request->name,
+                        'description' => $request->description]);
+            return Redirect::route('store.selectSchool')->with('success', 'Your request to add new standard sent successfully');
+        }
+        return View('frontend.store.unavailable_standard');
+    }
 }
