@@ -10,16 +10,7 @@
                 <title>@yield('title', 'Jeevandeep Prakashan Pvt. Ltd.')  </title>
 
 		<meta property="og:url"             content="{!! Request::url() !!}" />
-		@yield('seo')
-
-		<meta property="og:image" content="{!! asset('/frontend/images/grace-logo.png') !!}">
-		<meta name="googlebot" content="index, follow">
-		<meta name="robots" content="index, follow">
-
-	
 		@yield('json-ld')
-
-	
 		@include('frontend/layout/parts/default-styles')
 		<!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
 		@yield('header_styles')

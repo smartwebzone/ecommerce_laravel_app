@@ -2,7 +2,7 @@
 
 
 @section('seo')
-    <meta name="description" content="Login or Register for a Grace Company Account">
+    <meta name="description" content="Login or Register for a Jeevandeep Account">
     <meta name="keywords" content="Login, Register, create account">
     <meta name="author"content="Jeevandeep"/>
 @endsection

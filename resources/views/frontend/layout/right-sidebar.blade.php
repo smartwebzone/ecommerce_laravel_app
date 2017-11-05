@@ -2,8 +2,6 @@
 <html dir="ltr" lang="en-US" @yield('htmlschema')>
 <head>
 
-@yield('seo')
-
 @yield('jsonschema')
 
 <title>@yield('title', 'Jeevandeep')</title>

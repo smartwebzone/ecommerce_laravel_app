@@ -37,7 +37,7 @@
                                     <tbody>
                                         <tr>
                                             <td width="50%" class="text-left">
-                                                <img alt="" src="{!! asset('/frontend/images/grace-logo.png') !!}">
+                                                JEEVANDEEP PRAKASHAN PVT. LTD.
                                             </td>
                                             <td class="text-right" style="font-size:26px;">#{{ $order->order_no }} / {{ $order->created_at }}</td>
                                         </tr>
