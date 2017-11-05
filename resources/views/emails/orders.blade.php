@@ -5,151 +5,96 @@
     <div class="content-wrap">
 
         <div class="container clearfix">
-
-            <!-- Post Content
-            ============================================= -->
             <div class="postcontent nobottommargin clearfix">
-                <p>Hi {{ $username }},</p>
+                <p>Hi {{ $order->user->first_name.' '.$order->user->last_name }},</p>
                 <p>Thank you for your purchase. If you have any questions that we can help with, please feel free to email us at info@jeevandeep.com. Thanks so much!</p>
-            </div><!-- .postcontent end -->
-            <!-- Sidebar
-            ============================================= -->
-            <br><br><br><br>
-            <div class="clearfix">
-                <h4>Orders</h4>
             </div>
-            <table class="table cart" style="width:100%;border:1px solid;text-align: center">
-                <thead>
-                    <tr>
-                        <th class="cart-product-id">ID</th>
-                        <th class="cart-product-thumbnail">&nbsp;</th>
-                        <th class="cart-product-name">Product</th>
-                        <th class="cart-product-price">Unit Price</th>
-                        <th class="cart-product-quantity">Quantity</th>
-                        <th class="cart-product-subtotal">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $index = 1;
-                    $sub_total = 0;
-                    ?>
-                    @foreach($orderDetails as $item)
-                    <?php
-                    $product_link = url(getLang() . '/product/' . $item->product->slug);
-                    $price = $item->product->prices->find($item->price_id);
+            <div class="clearfix">
+                <h3>Order Details</h3>
+            </div>
+            <div class="clearfix">
+                <h3>Order ID : #{{ $order->order_no }}</h3>
+                <h3>Order Date : {{ $order->order_date_formatted }}</h3>
+            </div>
+            <table class="table cart" border="1" cellpadding="1" cellspacing="0" style="width:100%;">
+                <tr>
+                    <th style="text-align:center !important;">Product</th>
+                    <th style="text-align:center !important;">Unit Price</th>
+                    <th style="text-align:center !important;">Quantity</th>
+                    <th style="text-align:center !important;">Total</th>
+                </tr>
+                <?php
+                $sub_total = 0;
+                ?>
+                @foreach($order->product as $item)
+                <tr>
 
-                    $suborderDetails = App\Models\OrderSubProduct::where('order_product_id', $item->id)->get();
-                    // $sub_prd = ProductSubProducts::find($item->sub_product);
-                    // dd($suborderDetails);
-                    $price = $item->product->prices->find($item->price_id);
-                    $subprice = 0;
-                    $sub_prd = '';
-                    ?>
-                    <tr class="cart_item product-{{ $item->product->id }}">
-                        <td><a href="{{ $product_link }}">{{ $index++ }}</a></td>
+                    <td style="text-align:center !important;">
+                        {{ $item->title }}
+                    </td>
+                    <td style="text-align:center !important;">{{ $order->amount }}</td>
+                    <td style="text-align:center !important;">1</td>
+                    <td style="text-align:center !important;">{{ $order->amount }}</td>
+                </tr>
+                @endforeach
+                <tr>
+                    <th colspan="3" style="text-align:center !important;">SubTotal</th>
+                    <th style="text-align:center !important;">{{ $order->amount }}</th>
+                </tr>
+                @if($order->shipping)
+                <tr>
+                    <th colspan="3" style="text-align:center !important;">Shipping</th>
+                    <th style="text-align:center !important;">{{ ($order->shipping) }}</th>
+                </tr>
+                @endif
+                @if($order->tax)
+                <tr>
+                    <th colspan="3" style="text-align:center !important;">Tax</th>
+                    <th style="text-align:center !important;">{{ ($order->tax) }}</th>
+                </tr>
+                @endif
+                @if($order->discount_amount > 0)
+                <tr>
+                    <th colspan="3" style="text-align:center !important;">Discount</th>
+                    <th style="text-align:center !important;">- {{ ($order->discount_amount) }}</th>
+                </tr>
+                @endif
+                <tr>
+                    <th colspan="3" style="text-align:center !important;">Total</th>
+                    <th style="text-align:center !important;">{{ ($order->total_amount) }}</th>
+                </tr>
+            </table>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-12">	
+            <h4>Books to Dispatch</h4>
+            <table class="table cart" border="1" cellpadding="3" cellspacing="1" style="width:100%;">
+                <tr>
+                    <th style="text-align:center !important;">Book</th>
+                    <th style="text-align:center !important;">Quantity</th>
+                </tr>
+                @foreach($order->product as $prod)
+                @foreach($item->books as $bk)
 
-                        <td class="cart-product-thumbnail">
-                            <a href="{{ $product_link }}"><img width="64" height="64" src="{{ asset('/uploads/products/thumb/')  }}/{{ $item->product->thumbnail }}" /></a>
-                        </td>
-
-                        <td class="cart-product-name">
-                            <a href="{{ $product_link }}">
-                                {{ $item->product->name }} 
-                                @if($item->product->prices->count()>1)
-                                ({!!(@$price->title)?@$price->title:@$price->model!!})
-                                @endif
-                                <?php
-                                if ($suborderDetails) {
-                                    foreach ($suborderDetails as $sd):
-                                        $prods_price = App\Models\Product::find($sd->product_id)->prices->first();
-                                        $prods_price_id = $prods_price->id;
-                                        if ($sd->price_id) {
-                                            $prods_price_id = $sd->price_id;
-                                        }
-                                        $subprice += App\Models\Price::find($prods_price_id)->final_price;
-                                        $sub_prd = App\Models\ProductSubProducts::where('product_id', $item->product_id)->where('sub_product_id', $sd->product_id)->first();
-                                        echo (@$sub_prd->id) ? (' - ' . @$sub_prd->label_custom . ' ') : '';
-                                    endforeach;
-                                }
-
-                                $sub_total += ($item->order_price + $subprice) * $item->amount;
-                                ?>
-
-                                @if($item->options)
-                                @foreach($options as $optionValue)
-                                @if(in_array($optionValue->id,explode(',',$item->options)))
-                                - {{ $optionValue->value }}
-                                @endif
-                                @endforeach
-                                @endif
-                            </a>
-                        </td>
-
-                        <td class="cart-product-price">
-                            <span class="amount">{!! formatDollar(@$item->order_price+$subprice) !!}</span>
-                        </td>
-
-                        <td class="cart-product-quantity">
-                            <div class="quantity clearfix">
-                                {{ $item->amount }}
-                            </div>
-                        </td>
-
-                        <td class="cart-product-subtotal">
-                            <span class="amount"><?= formatDollar((@$item->order_price + $subprice) * $item->amount) ?></span>
-
-                        </td>
-                    </tr>
-                    @endforeach
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td class="cart-product-quantity"><b>SubTotal :</b></td>
-                        <td class="cart-product-subtotal"> <span class="amount"><?= formatDollar($sub_total) ?></span></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td class="cart-product-quantity"><b>Shipping :</b></td>
-                        <td class="cart-product-subtotal"> <span class="amount"><?= formatDollar($order->shipping_amount) ?></span></td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td class="cart-product-quantity"><b>Tax :</b></td>
-                        <td class="cart-product-subtotal"> <span class="amount"><?= formatDollar($order->tax_amount) ?></span></td>
-                    </tr>
-                    @if($order->discount_amount > 0)
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td class="cart-product-quantity"><b>Discount :</b></td>
-                        <td class="cart-product-subtotal"> <span class="amount">- <?= formatDollar($order->discount_amount) ?></span></td>
-                    </tr>                            
-                    @endif
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td class="cart-product-quantity"><b>Total :</b></td>
-                        <td class="cart-product-subtotal"> <span class="amount"><?= formatDollar($order->amount) ?></span></td>
-                    </tr>
-                </tbody>
-
+                <tr>
+                    <td style="text-align:center !important;">
+                        {{ $bk->name }}
+                    </td>
+                    <td style="text-align:center !important;">{{ $bk->pivot->quantity }}</td>
+                </tr>
+                @endforeach
+                @endforeach
             </table>
         </div>
 
     </div>
-
+    <br/>
+    <div class="row">
+        <div class="col-md-12">
+          Thanks,<br/>
+          Jeevandeep Team
+        </div>
+    </div>   
 </section><!-- #content end -->

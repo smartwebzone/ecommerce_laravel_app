@@ -1,4 +1,5 @@
 Hi {{$name}},<br><br>
-Your order no. {{$order_no}} status is {{$status}}
-
-Thank you, Jeevandeep!
+Your Order #{{$order_no}} is <strong>{{$status}}</strong>
+<br/><br>
+Thank you,<br>
+Jeevandeep!
