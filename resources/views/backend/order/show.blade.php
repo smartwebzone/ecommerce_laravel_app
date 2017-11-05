@@ -53,7 +53,7 @@
                         <div class="space12">
                             <div class="btn-group btn-group-lg">
                                 <a class="btn btn-default" href="{!! url(getLang() . '/admin/order') !!}"> order</a>
-                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/order/create') !!}"> <i class="fa fa-plus"></i> Add  Order </a>
+                                <!--<a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/order/create') !!}"> <i class="fa fa-plus"></i> Add  Order </a>-->
                             </div>
                         </div>
 
