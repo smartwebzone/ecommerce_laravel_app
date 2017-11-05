@@ -34,6 +34,10 @@ class Order extends Model implements ModelInterface {
     public function status() {
         return $this->belongsTo(Status::class);
     }
-
-
+    public function getOrderDateFormattedAttribute(){
+        return date('d F Y',strtotime($this->order_date));
+    }
+    public function getOrderStatusTextAttribute(){
+        return $this->status()->find($this->status_id)->name;
+    }
 }

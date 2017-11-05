@@ -287,9 +287,9 @@ class AuthController extends Controller {
                 $address = \App\Models\Address::create($data);
                 $address->users()->attach($user);
             }
-            if($request->redirect_url){
+            if ($request->redirect_url) {
                 return Redirect::to($request->redirect_url)->with('success', 'Profile saved successfully.');
-            }else{
+            } else {
                 return Redirect::to('create-password');
             }
         } catch (UserExistsException $e) {
@@ -320,15 +320,15 @@ class AuthController extends Controller {
         $user = User::find(Sentinel::getUser()->id);
         $user->password = bcrypt($request->password_signup);
         $user->save();
-        $data=  \App\Models\Email::where(['template'=>'Register'])->find();
+        $data = \App\Models\Email::where(['template' => 'Register'])->find();
         // Send the welcome email
-                
-        $body=str_replace('<<student_name>>',$user->first_name.' '.$user->last_name,$data->body);
-        $body=str_replace('<<username>>',$user->email,$body);
-        $body=str_replace('<<password>>',$request->password_signup,$body);
-        
-        $body=nl2br($body);
-        Mail::send('emails.welcome', ['body'=>$body], function ($m) use ($user) {
+
+        $body = str_replace('<<student_name>>', $user->first_name . ' ' . $user->last_name, $data->body);
+        $body = str_replace('<<username>>', $user->email, $body);
+        $body = str_replace('<<password>>', $request->password_signup, $body);
+
+        $body = nl2br($body);
+        Mail::send('emails.welcome', ['body' => $body], function ($m) use ($user) {
             $m->from('noreply@jeevandeep.com', 'Jeevandeep');
             $m->to($user->email, $user->first_name . ' ' . $user->last_name);
             $m->subject('Welcome to Jeevandeep');
@@ -395,7 +395,7 @@ class AuthController extends Controller {
             if (!$activation) {
                 return Redirect::route('forgot-password')->with('error', 'Account not activated');
             }
-            $reminder = Reminder::exists($user) ? : Reminder::create($user);
+            $reminder = Reminder::exists($user) ?: Reminder::create($user);
             // Data to be used on the email view
             $data = array(
                 'user' => $user,
@@ -506,17 +506,22 @@ class AuthController extends Controller {
      *
      * @return Redirect
      */
-    
     public function my_profile(Request $request) {
         if (!Sentinel::check()) {
             return Redirect::to('signin');
         }
-        if($request->action == 'save_profile'){
-            die("dhay");
-        }
         $user = User::find(Sentinel::getUser()->id);
         $billing_address = getUserAddress('billing');
         $shipping_address = getUserAddress('shipping');
-        return View('frontend.auth.my_profile', compact('user','billing_address','shipping_address'));
+        return View('frontend.auth.my_profile', compact('user', 'billing_address', 'shipping_address'));
     }
+
+    public function my_orders(Request $request) {
+        if (!Sentinel::check()) {
+            return Redirect::to('signin');
+        }
+        $orders = \App\Models\Order::where(['user_id' => Sentinel::getuser()->id])->get();
+        return View('frontend.auth.my_orders', compact('orders'));
+    }
+
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2017 at 03:19 PM
+-- Generation Time: Nov 05, 2017 at 08:01 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -92,7 +92,7 @@ CREATE TABLE `address_master` (
 
 INSERT INTO `address_master` (`id`, `address_type`, `address1`, `address2`, `area`, `city`, `state`, `zip`, `add_date`, `added_by`, `update_date`, `updated_by`, `deleted_at`) VALUES
 (1, 'shipping', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Gujarat', '380058', '2017-11-05 10:32:28', 17, '2017-11-05 18:32:15', NULL, NULL),
-(2, 'billing', 'Bungalow 4', 'Swara Bungalows', 'Valam', 'Visnagar', 'Gujarat', '396445', '2017-11-05 10:32:28', 17, '2017-11-05 16:14:33', NULL, NULL);
+(2, 'billing', 'Bungalow 4', 'Swara Bungalows', 'Valam', 'Visnagar', 'Gujarat', '396445', '2017-11-05 10:32:28', 17, '2017-11-05 21:52:41', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -297,7 +297,8 @@ CREATE TABLE `missing_schools` (
 --
 
 INSERT INTO `missing_schools` (`id`, `name`, `description`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 'Sanskar Bharti', 'from Navsari missing', 1, '2017-11-05 14:08:50', NULL, '2017-11-05 14:08:50', NULL, NULL, NULL);
+(1, 'Sanskar Bharti', 'from Navsari missing', 1, '2017-11-05 14:08:50', NULL, '2017-11-05 14:08:50', NULL, NULL, NULL),
+(2, 'Test School', 'Rajasthan', 1, '2017-11-05 18:55:08', NULL, '2017-11-05 18:55:08', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -370,10 +371,10 @@ CREATE TABLE `order_master` (
 --
 
 INSERT INTO `order_master` (`id`, `user_id`, `amount`, `tax`, `shipping`, `total_amount`, `status_id`, `order_date`, `transaction_id`, `reference_no`, `preferred_delivery_date`, `billing_address1`, `billing_address2`, `billing_area`, `billing_city`, `billing_state`, `billing_zip`, `shipping_address1`, `shipping_address2`, `shipping_area`, `shipping_city`, `shipping_state`, `shipping_zip`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`, `issue_raised`, `order_notes`) VALUES
-(1, 17, '5000.00', '2500.00', '0.00', '7535.40', 1, '2017-11-05 12:50:06', NULL, NULL, '2017-10-06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 12:50:06', NULL, NULL, NULL, '0', NULL),
+(1, 17, '5000.00', '2500.00', '0.00', '7535.40', 2, '2017-11-05 12:50:06', NULL, NULL, '2017-10-06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 17:21:03', 1, NULL, NULL, '0', NULL),
 (2, 17, '5000.00', '2500.00', '0.00', '7524.78', 1, '2017-11-05 12:50:10', NULL, NULL, '2017-10-06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 12:50:10', NULL, NULL, NULL, '0', NULL),
 (3, 17, '5000.00', '2500.00', '0.00', '7535.40', 1, '2017-11-05 13:02:23', NULL, NULL, '2017-04-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 13:02:23', NULL, NULL, NULL, '0', NULL),
-(4, 17, '5000.00', '2500.00', '0.00', '7524.78', 1, '2017-11-05 13:02:26', NULL, NULL, '2017-04-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 13:22:15', NULL, NULL, NULL, '0', NULL),
+(4, 17, '5000.00', '2500.00', '0.00', '7524.78', 2, '2017-11-05 13:02:26', NULL, NULL, '2017-04-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 17:22:24', 1, NULL, NULL, '0', NULL),
 (5, 17, '5000.00', '2500.00', '0.00', '7524.78', 1, '2017-11-05 13:22:59', NULL, NULL, '2017-03-02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 13:22:59', NULL, NULL, NULL, '0', NULL),
 (6, 17, '5000.00', '2500.00', '0.00', '7524.78', 1, '2017-11-05 13:27:23', NULL, NULL, '2017-02-14', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 13:27:23', NULL, NULL, NULL, '0', NULL);
 
@@ -465,7 +466,8 @@ INSERT INTO `persistences` (`id`, `user_id`, `code`, `created_at`, `updated_at`)
 (67, 17, 'pCF9pPRRQhmZGh3XNqYAkbjr4EkOG9l2', '2017-11-04 21:01:04', '2017-11-04 21:01:04'),
 (68, 1, 'D1GmWmsCva0an8Wbsj6LFnMtCE8fo2GZ', '2017-11-04 21:02:41', '2017-11-04 21:02:41'),
 (69, 17, 'wAoSGhzDd2v14MDXDAoSyue3LuVqmKeR', '2017-11-04 21:05:38', '2017-11-04 21:05:38'),
-(70, 1, 'sykQLJdwFidxiAPYfSIKP7uO7ohdpDpT', '2017-11-04 23:01:32', '2017-11-04 23:01:32');
+(70, 1, 'sykQLJdwFidxiAPYfSIKP7uO7ohdpDpT', '2017-11-04 23:01:32', '2017-11-04 23:01:32'),
+(71, 1, 'JU8ypMDSJII0qaD3UHKUxaCFf2N3Z81y', '2017-11-05 04:38:43', '2017-11-05 04:38:43');
 
 -- --------------------------------------------------------
 
@@ -550,7 +552,8 @@ CREATE TABLE `reminders` (
 
 INSERT INTO `reminders` (`id`, `user_id`, `code`, `completed`, `completed_at`, `created_at`, `updated_at`) VALUES
 (1, 17, 'kZ9nrA37qWyGvx2MpwbC6aTI3hOdnwum', 1, '2017-11-04 20:17:26', '2017-11-04 19:37:58', '2017-11-04 20:17:26'),
-(2, 17, 'eBZR92xq4amG3svS5u07h24wCscFlCK8', 1, '2017-11-04 20:19:49', '2017-11-04 20:19:30', '2017-11-04 20:19:49');
+(2, 17, 'eBZR92xq4amG3svS5u07h24wCscFlCK8', 1, '2017-11-04 20:19:49', '2017-11-04 20:19:30', '2017-11-04 20:19:49'),
+(3, 17, '4S1WYSt3bhaxhgdZNeH6cCyeG6JMWhSq', 1, '2017-11-05 06:24:34', '2017-11-05 06:24:14', '2017-11-05 06:24:34');
 
 -- --------------------------------------------------------
 
@@ -739,9 +742,9 @@ DROP TABLE IF EXISTS `status_master`;
 CREATE TABLE `status_master` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `add_date` datetime NOT NULL,
-  `added_by` int(11) NOT NULL,
-  `update_date` datetime DEFAULT NULL,
+  `add_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `added_by` int(11) DEFAULT NULL,
+  `update_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_by` int(11) DEFAULT NULL,
   `deleted_on` datetime DEFAULT NULL,
   `deleted_by` int(11) DEFAULT NULL
@@ -752,7 +755,12 @@ CREATE TABLE `status_master` (
 --
 
 INSERT INTO `status_master` (`id`, `name`, `add_date`, `added_by`, `update_date`, `updated_by`, `deleted_on`, `deleted_by`) VALUES
-(1, 'PAID', '0000-00-00 00:00:00', 0, NULL, NULL, NULL, NULL);
+(1, 'Processing', '2017-11-05 00:00:00', 0, '2017-11-05 22:35:31', NULL, NULL, NULL),
+(2, 'Confirmed', '2017-11-05 22:35:38', NULL, '2017-11-05 22:35:38', NULL, NULL, NULL),
+(3, 'Shipping', '2017-11-05 22:35:49', NULL, '2017-11-05 22:35:49', NULL, NULL, NULL),
+(4, 'Shipped', '2017-11-05 22:35:55', NULL, '2017-11-05 22:35:55', NULL, NULL, NULL),
+(5, 'Delivered', '2017-11-05 22:36:08', NULL, '2017-11-05 22:36:08', NULL, NULL, NULL),
+(6, 'Cancelled', '2017-11-05 22:36:16', NULL, '2017-11-05 22:36:16', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -863,11 +871,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `isAdmin`, `email`, `password`, `first_name`, `middle_name`, `last_name`, `parent_first_name`, `parent_middle_name`, `parent_last_name`, `mobile`, `landline`, `last_login`, `status`, `created_at`, `updated_at`, `deleted_at`, `deleted_by`, `uuid`, `is_active`, `verify`) VALUES
-(1, 1, 'rob@devsimplify.com', '$2y$10$jiEY8c90BRrVLdFiykHAyOi4m2g0I/rZ.2kFb.QoAn5Q.Ijs4r1MO', 'Rob', 'Prakashchandra', 'Dev', NULL, NULL, NULL, '9510983350', NULL, '2017-11-04 23:01:32', 1, '2017-11-05 11:31:32', '2017-11-04 23:01:32', NULL, NULL, NULL, 1, ''),
+(1, 1, 'rob@devsimplify.com', '$2y$10$jiEY8c90BRrVLdFiykHAyOi4m2g0I/rZ.2kFb.QoAn5Q.Ijs4r1MO', 'Rob', 'Prakashchandra', 'Dev', NULL, NULL, NULL, '9510983350', NULL, '2017-11-05 04:38:43', 1, '2017-11-05 17:08:43', '2017-11-05 04:38:43', NULL, NULL, NULL, 1, ''),
 (14, 0, 'raviverma9590@gmail.com', '$2y$10$XKoqZy8bN7W/ssSu3eLnveFbu0iEv8OkT864MUvR.gqIkM.RksYdG', 'ravi', 'omp', 'verma', 'ompra', 'bhav', 'verma', '9714617041', '9714614071', '2017-11-04 11:16:09', 1, '2017-11-04 11:16:09', '2017-11-03 23:46:09', NULL, NULL, NULL, 1, 'COMPLETED'),
 (15, 0, 'rohitpmodi@gmail.com', '$2y$10$S0wZPlP0TNBUGOBrwxsN4.y/2U4mfvF0zpkqt1/hPyL58ums0WmTe', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-04 10:44:38', 1, '2017-11-03 23:14:38', '2017-11-03 23:14:38', NULL, NULL, NULL, 0, 'dpMSYeitbB53ixqN'),
 (16, 0, 'rohitpmodi1@gmail.com', '$2y$10$WWQBj6HhMUHs7PQGfUIGEOGaJXA7gayX/womXbtZA6/eN7BzZJFOC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-04 01:03:04', 1, '2017-11-04 12:33:04', '2017-11-04 01:03:04', NULL, NULL, NULL, 1, 'COMPLETED'),
-(17, 0, 'rohitpmodi+1@gmail.com', '$2y$10$Rqv3m7p6S0hLeJZrDX3Yd.zCrNUNXGHvWGmE1MGBisKux/kQvXwYy', 'Yashvi', 'R', 'Modi', 'Rohit', 'P', 'Modi', '9510983350', '02637252003', '2017-11-04 21:05:38', 1, '2017-11-05 09:35:38', '2017-11-04 21:05:38', NULL, NULL, NULL, 1, 'COMPLETED');
+(17, 0, 'rohitpmodi+1@gmail.com', '$2y$10$7V87y1t6AmhZCm9eJnb81uyqXkfaLwgemKBdovwtEsO9iX7YqWWbK', 'Yashvi', 'R', 'Modi', 'Rohit', 'P', 'Modi', '9510983350', '02637252003', '2017-11-05 18:54:34', 1, '2017-11-05 18:54:34', '2017-11-05 06:24:34', NULL, NULL, NULL, 1, 'COMPLETED');
 
 --
 -- Indexes for dumped tables
@@ -1096,7 +1104,7 @@ ALTER TABLE `form_posts`
 -- AUTO_INCREMENT for table `missing_schools`
 --
 ALTER TABLE `missing_schools`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `missing_standards`
 --
@@ -1111,7 +1119,7 @@ ALTER TABLE `order_master`
 -- AUTO_INCREMENT for table `persistences`
 --
 ALTER TABLE `persistences`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 --
 -- AUTO_INCREMENT for table `product_master`
 --
@@ -1121,7 +1129,7 @@ ALTER TABLE `product_master`
 -- AUTO_INCREMENT for table `reminders`
 --
 ALTER TABLE `reminders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `roles`
 --
@@ -1151,7 +1159,7 @@ ALTER TABLE `state_master`
 -- AUTO_INCREMENT for table `status_master`
 --
 ALTER TABLE `status_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `throttle`
 --
