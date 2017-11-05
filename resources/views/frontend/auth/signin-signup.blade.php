@@ -66,8 +66,10 @@ Jeevandeep Prakashan Pvt. Ltd.
                 </div>
                 <span class="errormsg">{{ $errors->first('password', ':message') }}</span>
             </li>
-            <button  type="submit" class="btn btnS"><i class="fa fa-link"></i>LOGIN</button></li>
-            <li class="forgot"><i class="fa fa-link"></i><a href="{{ url(getLang() . '/forgot-password') }}">Forgot Password</a></li>
+            <li>
+                <button  type="submit" class="btn btnS"><i class="fa fa-link"></i>LOGIN</button>
+            </li>
+            <li class="forgot"><i class="fa fa-link"></i><a href="{{ url('/forgot-password') }}">Forgot Password</a></li>
 
             {!! Form::close() !!}
             {!! Form::open(['route' => 'registerEmail',  'id' => 'register-form',  'name' => 'register-form', 'class' => 'loginForm cf',  'method' => 'post']) !!}

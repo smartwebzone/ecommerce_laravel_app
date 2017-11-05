@@ -32,6 +32,20 @@ Jeevandeep Prakashan Pvt. Ltd.
     <!-- Start Lets Connect -->
     <div class="enquire">
         {!! Form::model($user, ['route' => 'signup',  'id' => 'register-form',  'name' => 'register-form', 'class' => 'cf validate_form',  'method' => 'post']) !!}
+        <div class="cf">
+            <ul>
+                <li class="form-group">
+                    <label>EMAIL ID</label>
+                    <div class="input-group profile-email">
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                        <div class="icon-addon">
+                            {!! Form::text('email', null, ['class' => 'form-control','readonly' => 'readonly']) !!}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
         <div class="profile-add cf">
             <li class="form-group">
                 <label>PARENT | GUARDIAN</label>
@@ -95,7 +109,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <div class="icon-addon">
                         {!! Form::text('last_name', null, ['placeholder'=> 'FAMILY NAME', 'class' => 'form-control required']) !!}
                     </div>
-                    
+
                 </div>
                 <span class="errormsg">{{ $errors->first('last_name', ':message') }}</span>
             </li>
@@ -107,7 +121,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                         {!! Form::text('mobile', null, ['placeholder'=> 'MOBILE', 'class' => 'form-control required']) !!}
                     </div>
                 </div>
-                  <span class="errormsg">{{ $errors->first('mobile', ':message') }}</span>
+                <span class="errormsg">{{ $errors->first('mobile', ':message') }}</span>
             </li>
             <li class="form-group">
                 <label>LANDLINE</label>
@@ -117,7 +131,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                         {!! Form::text('landline', null, ['placeholder'=> 'LANDLINE', 'class' => 'form-control']) !!}
                     </div>
                 </div>
-                  <span class="errormsg">{{ $errors->first('landline', ':message') }}</span>
+                <span class="errormsg">{{ $errors->first('landline', ':message') }}</span>
             </li>
         </div>
         <div class="shipping-address cf">
@@ -213,21 +227,21 @@ Jeevandeep Prakashan Pvt. Ltd.
 
 @section('footer_scripts')
 <script>
-$().ready(function() {
-    $(".validate_form").validate();
-    $("#same_as_address").click(function() {
-        if ($('#same_as_address').is(':checked')) {
-              $('[name="billaddress1"]').val($('[name="address1"]').val());
-              $('[name="billaddress2"]').val($('[name="address2"]').val());
-              $('[name="billarea"]').val($('[name="area"]').val());
-              $('[name="billcity"]').val($('[name="city"]').val());
-              $('[name="billzip"]').val($('[name="zip"]').val());
-              $('[name="billstate"]').val($('[name="state"]').val());
-        } else {
-              $('[name="billaddress1"],[name="billaddress2"],[name="billarea"],[name="billcity"],[name="billzip"],[name="billstate"]').val('');
-        }
-  });
-});
+    $().ready(function () {
+        $(".validate_form").validate();
+        $("#same_as_address").click(function () {
+            if ($('#same_as_address').is(':checked')) {
+                $('[name="billaddress1"]').val($('[name="address1"]').val());
+                $('[name="billaddress2"]').val($('[name="address2"]').val());
+                $('[name="billarea"]').val($('[name="area"]').val());
+                $('[name="billcity"]').val($('[name="city"]').val());
+                $('[name="billzip"]').val($('[name="zip"]').val());
+                $('[name="billstate"]').val($('[name="state"]').val());
+            } else {
+                $('[name="billaddress1"],[name="billaddress2"],[name="billarea"],[name="billcity"],[name="billzip"],[name="billstate"]').val('');
+            }
+        });
+    });
 </script>
 @endsection
 @section('pp_footer_scripts')@endsection
