@@ -291,6 +291,9 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::get('/email/{id}/show', 'EmailController@show');
         Route::post('/email/create', 'EmailController@store');
         Route::post('/email/{id}/edit', 'EmailController@edit');
+        
+        Route::get('unavailable/schools', ['as' => 'admin.unavailable.schools', 'uses' => 'UnavailableController@schools']);
+        Route::get('unavailable/standards', ['as' => 'admin.unavailable.standards', 'uses' => 'UnavailableController@standards']);
 
         Route::get('/information/create/ajax-standard', function() {
             $school_id = Input::get('school_id');
