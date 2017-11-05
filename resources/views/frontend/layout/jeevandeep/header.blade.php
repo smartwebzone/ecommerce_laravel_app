@@ -1,5 +1,6 @@
 <?php
 $cart_menu = (isset($cart_menu) ? $cart_menu : true);
+$cart_count = getCartCount();
 ?>
 <h2><i class="fa fa-book"></i>Online Store
     @if(Sentinel::check() && $cart_menu == true)
@@ -7,9 +8,7 @@ $cart_menu = (isset($cart_menu) ? $cart_menu : true);
         <li><a href="my-account.html"><i class="fa fa-group"></i><span>My Account</span></a></li>
         <li><a href="{{url('/signout')}}"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>
         <li>
-            @if(Session::get('product'))
-            <div class="cart-notification">{{count(Session::get('product'))}}</div>
-            @endif
+            <div class="cart-notification">{{$cart_count}}</div>
             <a href="{{url(getLang().'/store/cart')}}"><i class="fa fa-shopping-basket"></i><span>Cart</span></a>
         </li>
     </ul>
