@@ -17,27 +17,52 @@ class Order extends Model implements ModelInterface {
     protected $guarded = ['id'];
     public $table = 'order_master';
     public $timestamps = false;
-     protected $fillable = ['user_id','status','amount','tax' ,'shipping' ,'total_amount','status_id' , 'added_by','updated_by','preferred_delivery_date'];
-     
-     public static $rules = [
+    private $order_start = 3123494567;
+    protected $fillable = ['user_id', 'status', 'amount', 'tax', 'shipping', 'total_amount', 'status_id', 'added_by', 'updated_by', 'preferred_delivery_date', 'shipping',
+                'total_amount',
+                'status_id',
+                'preferred_delivery_date',
+                'billing_address1',
+                'billing_address2',
+                'billing_area',
+                'billing_city',
+                'billing_state',
+                'billing_zip',
+                'shipping_address1',
+                'shipping_address2',
+                'shipping_area',
+                'shipping_city',
+                'shipping_state',
+                'shipping_zip'];
+    public static $rules = [
         'name' => 'required|min:3|unique:order_master,name,3',
         'description' => 'required',
         'status' => 'required',
         'school_id' => 'required',
     ];
+
     public function product() {
-        return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id')->withPivot('qty');
     }
+
     public function user() {
         return $this->belongsTo(User::class);
     }
+
     public function status() {
         return $this->belongsTo(Status::class);
     }
-    public function getOrderDateFormattedAttribute(){
-        return date('d F Y',strtotime($this->order_date));
+
+    public function getOrderDateFormattedAttribute() {
+        return date('d F Y', strtotime($this->order_date));
     }
-    public function getOrderStatusTextAttribute(){
+
+    public function getOrderNoAttribute() {
+        return $this->id + $this->order_start;
+    }
+
+    public function getOrderStatusTextAttribute() {
         return $this->status()->find($this->status_id)->name;
     }
+
 }
