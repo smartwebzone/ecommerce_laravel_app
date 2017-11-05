@@ -1,87 +1,68 @@
 @extends('frontend/layout/layout')
 
-
-@section('seo')
-    <meta name="description" content="Forgot Password">
-    <meta name="keywords" content="Forgot Password, Reset Password, Password Assistance, Forgot Account">
-    <meta name="author"content="Jeevandeep"/>
+@section('htmlschema')
+itemscope itemtype="http://schema.org/LocalBusiness
 @endsection
 
-@section('jsonschema')@endsection
+@section('seo')
+@endsection
+
+@section('json-ld')
+@endsection
+
+@section('goodrelations-off')
+@endsection
 
 @section('title')
-Forgot Password | Jeevandeep
+Jeevandeep Prakashan Pvt. Ltd.
 @endsection
 
 @section('bodyschema')@endsection
+@section('bodytag')@endsection
 
-@section('header_styles')
-<style type="text/css">
-    .content-wrap { position: relative; padding: 50px 0; }
-</style>
-@endsection
+@section('header_styles')@endsection
 
-@section('scripts')@endsection
-
-@section('ppscripts')
-
-@endsection
-
-@section('submenu')
-
-@endsection
-
-
-
-
-@section('page-title')
-<!-- Page Title
-============================================= -->
-<section id="page-title">
-    <div class="container clearfix">
-        <h1>Forgot Password</h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ url(getLang().'/') }}">Home</a></li>
-            <li class="active">Forgot Password</li>
-        </ol>
-    </div>
-</section><!-- #page-title end -->
-@endsection
 
 @section('content')
-<!-- Content
-============================================= -->
-        <section id="content">
-            <div class="content-wrap">
-                <div class="container clearfix">
-                    @if(Session::has('error'))
-                    <div class="flash-message alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                    @endif
-                     @if(Session::has('success'))
-                    <div class="flash-message alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                    @endif
-                    <div class="nobottommargin">
-                    {!! Form::open(['route' => 'forgot.password.post',  'id' => 'forgot-form',  'name' => 'forgot-form', 'class' => 'nobottommargin',  'method' => 'post']) !!}
-                            <p>Enter the email address associated with your Jeevandeep account.</p>
-                            <div class="col_half {{ $errors->first('email', 'has-error') }}">
-                                <label for="email">Email Address:</label>
-                                {!! Form::email('email', NULL, ['class' => 'form-control','id' => 'email']) !!}
-                                 <span class="errormsg">{{ $errors->first('email', ':message') }}</span>
-                            </div>
-
-                            <div class="clear"></div>
-                            <div class="col_full nobottommargin">
-                                <button class="button button-3d button-black nomargin" id="register-form-submit" name="register-form-submit" value="register">Reset Password</button>
-                            </div>
-                        {!! Form::close() !!}
+<!-- Start Wrapper -->
+<div class="wrapper content cf">
+    <!-- Start Select School -->
+    <div class="enquire login-register cf">
+        <h2><i class="fa fa-book"></i>Online Store</h2>
+        <div class="select-div">forgot password</div>
+        <div class="please-select">Please enter your email ID and click 'Forgot Password'. We will send an email at your provided email address. Please check your INBOX and click on the reset password link. If you do not receive the email, please check your junk mailbox, else re-enter your email and click 'Forgot Password'.</div>
+        @if(Session::has('error'))
+        <div class="flash-message alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
+        @if(Session::has('success'))
+        <div class="flash-message alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
+        <div class="cf">
+            {!! Form::open(['route' => 'forgot-password', 'method' => 'post', 'id' => 'forgot-password-form',  'name' => 'forgot-password-form', 'class' => 'loginForm cf']) !!}    
+            <li class="form-group">
+                <label>EMAIL ID</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-sign-in"></i></span>
+                    <div class="icon-addon">
+                        {!! Form::text('email', null, ['placeholder'=> 'PLEASE ENTER YOUR EMAIL ID', 'class' => 'form-control']) !!}
                     </div>
                 </div>
-            </div>
-        </section><!-- #content end -->
+                <span class="errormsg">{{ $errors->first('email', ':message') }}</span>
+            </li>
+            <li class="pt5">
+                <button  type="submit" class="btn btnS"><i class="fa fa-link"></i>FORGOT PASSWORD</button>
+                <button type="submit" style="display: none; text-align: left;" class="btn btnS text-left"><i class="fa fa-link"></i>FORGOT PASSWORD</button>
+            </li>
+            {!! Form::close() !!}
+        </div>
+    </div>
+    <!-- End Select School -->
+</div>
+<!-- End wrapper -->
 @endsection
 
 @section('footer_scripts')@endsection

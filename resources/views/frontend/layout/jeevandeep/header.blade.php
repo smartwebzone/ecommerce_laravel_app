@@ -1,5 +1,8 @@
+<?php
+$cart_menu = (isset($cart_menu) ? $cart_menu : true);
+?>
 <h2><i class="fa fa-book"></i>Online Store
-    @if(Sentinel::check())
+    @if(Sentinel::check() && $cart_menu == true)
     <ul class="user-cart">
         <li><a href="my-account.html"><i class="fa fa-group"></i><span>My Account</span></a></li>
         <li><a href="{{url('/signout')}}"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>

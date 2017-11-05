@@ -350,6 +350,7 @@ Route::post('signup', ['as' => 'signup', 'uses' => 'AuthController@postSignup'])
 Route::post('registerEmail', ['as' => 'registerEmail', 'uses' => 'AuthController@postRegisterEmail']);
 Route::get('createPass', ['as' => 'createPass', 'uses' => 'AuthController@getConfirmEmail']);
 Route::post('createPass', ['as' => 'createPass', 'uses' => 'AuthController@postcreatePass']);
-
-
-
+Route::get('forgot-password', ['as' => 'forgot-password', 'uses' => 'AuthController@getForgotPassword']);
+Route::post('forgot-password', ['as' => 'forgot-password', 'uses' => 'AuthController@postForgotPassword']);
+Route::get('forgot-password-confirm/{id}/{code}', ['as' => 'forgot-password-confirm', 'uses' => 'AuthController@getForgotPasswordConfirm']);
+Route::post('forgot-password-confirm/{id}/{code}', ['as' => 'forgot-password-confirm-post', 'uses' => 'AuthController@postForgotPasswordConfirm']);
