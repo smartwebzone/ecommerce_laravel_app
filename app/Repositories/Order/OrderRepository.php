@@ -118,9 +118,10 @@ class OrderRepository extends RepositoryAbstract implements OrderInterface, Crud
         $rules = ['transaction_id' => 'required|min:3|unique:order_master,transaction_id,' . $id];
         $this->order = $this->find($id);
 
-        if ($this->isValid($attributes, $rules)) {
-            if (!isset($attributes['status'])) {
-                $attributes['status']=0;;
+      //  if ($this->isValid($attributes, $rules)) 
+                {
+            if (!isset($attributes['status_id'])) {
+                $attributes['status_id']=0;;
             }
             if (!isset($attributes['is_taxable'])) {
                 $attributes['is_taxable']=0;;

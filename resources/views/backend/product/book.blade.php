@@ -46,7 +46,7 @@
                         <div class="clearfix"></div>
 
                         <div class="col-md-12">
-                            {!! Form::model($product, ['route' => ['admin.product.book.update', $product->id], 'method' => 'patch', 'files'=>true]) !!}
+                            {!! Form::model($book, ['route' => ['admin.product.book.update', $product->id], 'method' => 'patch', 'files'=>true]) !!}
 
                             <div class="row book-contents">
                                 <div class="form-group col-sm-12">
@@ -67,12 +67,14 @@
                                         {{$product->standard->name}}
                                     </div>
                                 </div>
+
+                                @foreach($product->books as $key=>$bk)
                                 <div class="form-group col-sm-12 books">
                                     <div class="form-group col-sm-4">
                                         {!! Form::label('book', 'Book:') !!}
 
-                                        {!! Form::select('book_id[]', $book, null, array('class' => 'form-control select2 book', 'value'=>Input::old('book_id'),'required' => true)) !!}
-                                       
+                                        {!! Form::select('book_id[]', $book, $bk->id, array('class' => 'form-control select2 book', 'value'=>Input::old('book_id'),'required' => true)) !!}
+
                                         @if ($errors->has('book_id'))
                                         <div class="error">{{ $errors->first('book_id') }}</div>
                                         @endif
@@ -80,8 +82,8 @@
                                     <div class="form-group col-sm-4">
                                         {!! Form::label('Quantity', 'Quantity:') !!}
 
-                                        {!! Form::text('quantity[]', null, ['class' => 'form-control','placeholder'=>'Quantity', 'value' => old('quantity'),'required' => true]) !!}
-                                       
+                                        {!! Form::text('quantity[]', $bk->pivot->quantity, ['class' => 'form-control','placeholder'=>'Quantity', 'value' => old('quantity'),'required' => true]) !!}
+
                                         @if ($errors->has('book_id'))
                                         <div class="error">{{ $errors->first('book_id') }}</div>
                                         @endif
@@ -90,8 +92,41 @@
                                         {!! Form::label(' &nbsp;', ' &nbsp;') !!}
                                         <input type="button" value="+" onclick="clone()" class="form-control btn btn-primary plus">
                                     </div>
-
+                                    <div class="form-group col-sm-1 {{($key)?'':'hide'}}">
+                                        {!! Form::label(' &nbsp;', ' &nbsp;') !!}
+                                        <input type="button" value="-" onclick="removeclone($(this))" class="minus form-control btn btn-danger pull-right">
+                                    </div>
                                 </div>
+                                @endforeach
+                                @if(!$product->books->count())
+
+                                <div class="form-group col-sm-12 books">
+                                    <div class="form-group col-sm-4">
+                                        {!! Form::label('book', 'Book:') !!}
+
+                                        {!! Form::select('book_id[]', $book, null, array('class' => 'form-control select2 book', 'value'=>Input::old('book_id'),'required' => true)) !!}
+
+                                        @if ($errors->has('book_id'))
+                                        <div class="error">{{ $errors->first('book_id') }}</div>
+                                        @endif
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        {!! Form::label('Quantity', 'Quantity:') !!}
+
+                                        {!! Form::text('quantity[]', null, ['class' => 'form-control','placeholder'=>'Quantity', 'value' => old('quantity'),'required' => true]) !!}
+
+                                        @if ($errors->has('book_id'))
+                                        <div class="error">{{ $errors->first('book_id') }}</div>
+                                        @endif
+                                    </div>
+                                    <div class="form-group col-sm-1">
+                                        {!! Form::label(' &nbsp;', ' &nbsp;') !!}
+                                        <input type="button" value="+" onclick="clone()" class="form-control btn btn-primary plus">
+                                    </div>
+                                    
+                                </div>
+                                @endif
+
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-12">
@@ -113,6 +148,15 @@
             {!! Form::label('book', 'Book:') !!}
 
             {!! Form::select('book_id[]', $book, null, array('class' => 'form-control select2 bookclone', 'value'=>Input::old('book_id'),'required' => true)) !!}
+
+            @if ($errors->has('book_id'))
+            <div class="error">{{ $errors->first('book_id') }}</div>
+            @endif
+        </div>
+        <div class="form-group col-sm-4">
+            {!! Form::label('Quantity', 'Quantity:') !!}
+
+            {!! Form::text('quantity[]', null, ['class' => 'form-control','placeholder'=>'Quantity', 'value' => old('quantity'),'required' => true]) !!}
 
             @if ($errors->has('book_id'))
             <div class="error">{{ $errors->first('book_id') }}</div>

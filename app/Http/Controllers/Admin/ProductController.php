@@ -46,6 +46,7 @@ class ProductController extends Controller {
         $product = $this->product->find($id);
         $book = \App\Models\Book::where('standard_id',$product['standard_id'])->lists('name', 'id')->toArray();
         $book = [null => 'Please Select'] + $book;
+//        /dd($product->books);
         return view('backend.product.book', compact('product', 'book'));
     }
 
@@ -143,6 +144,8 @@ class ProductController extends Controller {
     public function book_update($id) {
         try {
             $data = Input::all();
+            $books=\App\Models\ProductBooks::where(['product_id'=>$id]);
+            $books->delete();
             $array = array();
             foreach ($data['book_id'] as $i => $bid) {
                 if (!in_array($bid, $array)) {
