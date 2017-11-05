@@ -30,5 +30,9 @@ class User extends EloquentUser {
     public function orders() {
         return $this->hasMany(Order::class);
     }
+    
+    public function address() {
+        return $this->belongsToMany(Address::class, 'address_user', 'user_id', 'address_id');
+    }
 
 }
