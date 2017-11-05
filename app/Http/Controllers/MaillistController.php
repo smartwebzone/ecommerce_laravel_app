@@ -56,6 +56,6 @@ class MaillistController extends Controller
     {
         $formData = [];
         $mailer = new Mailer();
-        $mailer->send('emails.newsletter', 'noreply@graceframe.com', 'Title', $formData);
+        $mailer->send('emails.newsletter', 'noreply@jeevandeep.com', 'Title', $formData);
     }
 }

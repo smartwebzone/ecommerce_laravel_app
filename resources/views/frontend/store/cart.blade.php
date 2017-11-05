@@ -73,7 +73,7 @@ Jeevandeep Prakashan Pvt. Ltd.
         <div class="cf" style="min-height:300px;">
             <div class="select-div"><i class="fa fa-shopping-basket"></i>Cart</div>
             <div class="alert alert-info">
-                Your cart is empty. <a href="{{url('/en/store/selectSchool')}}">Continue Shopping</a>
+                Your cart is empty. <a href="{{route('store.selectSchool')}}">Continue Shopping</a>
             </div>
         </div>
         @endif
