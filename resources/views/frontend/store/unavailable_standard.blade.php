@@ -29,7 +29,9 @@ Jeevandeep Prakashan Pvt. Ltd.
     <!-- Start Select School -->
     <div class="enquire login-register cf">
         <h2><i class="fa fa-book"></i>Online Store</h2>
-        <div class="select-div">Request to add new Standard</div>
+        <div class="select-div">Request to add new Standard
+        <a href="" onclick="window.history.go(-1); return false;" class="back"><i class="fa fa-chevron-circle-left"></i> Back</a>
+        </div>
         @if(Session::has('error'))
         <div class="flash-message alert alert-danger">
             {{ session('error') }}
