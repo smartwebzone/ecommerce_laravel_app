@@ -45,3 +45,5 @@ Pay now last screen
 If order_date == today, show orders as PAID in cart page
 
 My Orders and My Profile pages pending
+
+Forgot Password link not working
