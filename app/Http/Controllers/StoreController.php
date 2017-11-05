@@ -137,12 +137,13 @@ class StoreController extends Controller {
                 $cart = \App\Models\Cart::create($cartdata);
                 $carts[] = $cartdata;
             endforeach;
-
+            
+            Session::forget('product');
             return Redirect::route('store.cart');
         }
 
         $cart_data = \App\Models\Cart::where(['user_id' => Sentinel::getuser()->id])->get();
-        $orders = \App\Models\Order::where(['user_id' => Sentinel::getuser()->id])->get();
+        $orders = \App\Models\Order::where(['user_id' => Sentinel::getuser()->id])->whereRaw('DATE(NOW()) = DATE(order_date)')->get();
         
         $total_products = count($cart_data) + count($orders);
         

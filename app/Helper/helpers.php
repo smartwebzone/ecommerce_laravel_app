@@ -279,3 +279,14 @@ function inWords($number){
     }
     return $str;
 }
+
+function getCartCount(){
+    $count = 0;
+    if (Sentinel::check()) {
+        $count = \App\Models\Cart::where(['user_id' => Sentinel::getuser()->id])->get()->count();
+        if($count == 0){
+            $count = count(Session::get('product'));
+        }
+    }
+    return $count;
+}
