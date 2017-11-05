@@ -3,10 +3,11 @@
     <th width="5%" class="text-center">#</th>
     <th>Title</th>
     <th>Company</th>
+    <th>School</th>
     <th>Standard</th>
     <th width="10%" class="text-center">Added On</th>
     <th width="10%" class="text-center">Status</th>
-    <th width="10%" class="text-center">Action</th>
+    <th width="15%" class="text-center">Action</th>
 </thead>
 <tbody>
     @foreach($product as $product)
@@ -17,6 +18,7 @@
         <td class="text-center">{{ $product->id }}</td>
         <td>{{ $product->title }}</td>
         <td>{{ $product->company->find($product->company_id)->name }}</td>
+        <td>{{ $product->school->find($product->school_id)->name }}</td>
         <td>{{ $product->standard->find($product->standard_id)->name }}</td>
         <td class="text-center">{{ formatDate($product->created_at) }}</td>
         <td class="text-center">{{ getStatus($product->status) }}</td>

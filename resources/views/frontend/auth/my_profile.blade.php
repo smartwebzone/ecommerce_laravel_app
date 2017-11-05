@@ -14,7 +14,7 @@ itemscope itemtype="http://schema.org/LocalBusiness
 @endsection
 
 @section('title')
-Jeevandeep Prakashan Pvt. Ltd.
+My Profile | Jeevandeep Prakashan Pvt. Ltd.
 @endsection
 
 @section('bodyschema')@endsection
