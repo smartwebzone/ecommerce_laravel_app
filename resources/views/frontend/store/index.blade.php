@@ -31,7 +31,16 @@ Jeevandeep Prakashan Pvt. Ltd.
         @include('frontend.layout.jeevandeep.header')
         <div class="select-div">Select State, School Name and Standard</div>
         <div class="please-select">Please select the State, School Name, and Standard for which you wish to purchase online.</div>
-        
+        @if(Session::has('error'))
+        <div class="flash-message alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
+        @if(Session::has('success'))
+        <div class="flash-message alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
             {!! Form::open(['action' => 'StoreController@selectSchoolPost','class'=>"select-school-drop cf" , 'method' => 'post']) !!}
         	<li>
             	<label>SELECT STATE</label>
@@ -98,22 +107,27 @@ $(document).ready(function () {
 
         $.get('{{ url('en/information') }}/create/ajax-school?state=' + state, function(data) {
             $('#school-option').empty();
+            $('#standard-option').empty();
             $('.school-value').html('SELECT SCHOOL');
             $.each(data, function(index,subCatObj){
                 $('#school-option').append('<li data-id="'+subCatObj.id+'">'+subCatObj.name+'</li>');
             });
+            $('#school-option').append('<li data-id="not_available" class="italic" style="color:#FF0000">Not Available</li>');
         });
     });
     
     $('#school').on('change', function(e){
         var school_id = e.target.value;
-
+        if(school_id == 'not_available'){
+            window.location.href = "{{route('unavailable_school')}}";
+        }
         $.get('{{ url('en/information') }}/create/ajax-standard?school_id=' + school_id, function(data) {
             $('#standard-option').empty();
             $('.standard-value').html('SELECT STANDARD');
             $.each(data, function(index,subCatObj){
                 $('#standard-option').append('<li data-id="'+subCatObj.id+'">'+subCatObj.name+'</li>');
             });
+            $('#standard-option').append('<li data-id="not_available" class="italic" style="color:#FF0000">Not Available</li>');
         });
     });
     @if(Input::old("state"))
@@ -127,6 +141,12 @@ $(document).ready(function () {
          @endif
     @endif
     
+    $('#standard').on('change', function(e){
+        var standard_id = e.target.value;
+        if(standard_id == 'not_available'){
+            window.location.href = "{{route('unavailable_standard')}}";
+        }
+    });
 });
 
 $(document).on('click', '.btn-select', function (e) {
