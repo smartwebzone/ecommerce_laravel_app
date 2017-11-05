@@ -9,20 +9,9 @@ Orders
 - List, print order, view order (give facility to change order status)
 - Trigger email to student when admin changes order status to Shipped (we only need to fire email if status changed to Shipped)
 
-Dynamic emails. Please load email content from admin for below places
-1. Register
-2. Forgot Password
-
 *******************************************************************************************************
 
 Front-end items
-
-http://localhost/jdec/public/profile
-Profile page 
-- same as shipping address checkbox
-- give dropdown for State selection. Please make sure we use dropdown for state in entire site
-- retrieve already added data for address field
-
 
 http://localhost/jdec/public/en/store/selectProduct
 SELECT PRODUCTS THAT YOU WISH TO PURCHASE screen
@@ -50,5 +39,3 @@ If order_date == today, show orders as PAID in cart page
 My Orders and My Profile pages pending
 
 - Send order email
-
-Forgot Password functionality
