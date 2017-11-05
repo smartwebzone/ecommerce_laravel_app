@@ -11,13 +11,16 @@ use App\Services\Pagination;
 use Flash;
 use Input;
 use View;
+use Mail;
+use PDF;
+use Excel;
 use Redirect;
 use Sentinel;
 
 /**
  * Class OrderController.
  *
- 
+
  */
 class OrderController extends Controller {
 
@@ -48,12 +51,12 @@ class OrderController extends Controller {
      * @return Response
      */
     public function create() {
-         $standard = \App\Models\Standard::lists('name','id')->toArray();
-         $standard = [null=>'Please Select'] + $standard;
-         
-         $company = \App\Models\School::lists('name','id')->toArray();
-         $company = [null=>'Please Select'] + $company;
-        return view('backend.order.create', compact('company','standard'));
+        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = [null => 'Please Select'] + $standard;
+
+        $company = \App\Models\School::lists('name', 'id')->toArray();
+        $company = [null => 'Please Select'] + $company;
+        return view('backend.order.create', compact('company', 'standard'));
     }
 
     /**
@@ -63,8 +66,8 @@ class OrderController extends Controller {
      */
     public function store() {
         try {
-            $data=Input::all();
-            $data['added_by']=  Sentinel::getUser()->id;
+            $data = Input::all();
+            $data['added_by'] = Sentinel::getUser()->id;
             $this->order->create($data);
             Flash::message('Order was successfully added');
 
@@ -83,8 +86,8 @@ class OrderController extends Controller {
      */
     public function show($id) {
         $order = $this->order->find($id);
-
-        return view('backend.order.show', compact('order'));
+        $status = \App\Models\Status::lists('name', 'id')->toArray();
+        return view('backend.order.show', compact('order', 'status'));
     }
 
     /**
@@ -96,12 +99,12 @@ class OrderController extends Controller {
      */
     public function edit($id) {
         $order = $this->order->find($id);
-         $standard = \App\Models\Standard::lists('name','id')->toArray();
-         $standard = [null=>'Please Select'] + $standard;
-         
-         $company = \App\Models\School::lists('name','id')->toArray();
-         $company = [null=>'Please Select'] + $company;
-        return view('backend.order.edit', compact('order','standard','company'));
+        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = [null => 'Please Select'] + $standard;
+
+        $company = \App\Models\School::lists('name', 'id')->toArray();
+        $company = [null => 'Please Select'] + $company;
+        return view('backend.order.edit', compact('order', 'standard', 'company'));
     }
 
     /**
@@ -114,13 +117,25 @@ class OrderController extends Controller {
     public function update($id) {
         try {
             $data = Input::all();
-            $data['updated_by']=  Sentinel::getUser()->id;
+
+            $data['updated_by'] = Sentinel::getUser()->id;
             $this->order->update($id, $data);
+            $order=  \App\Models\Order::find($id);
+            $data['name']=Sentinel::getUser()->first_name;
+            $data['email']=Sentinel::getUser()->email;
+            $data['order_no']=$order->transaction_id;
+            $data['status']=  \App\Models\Status::find($data['status_id']);
+            $data['status']=$data['status']->name;
+            Mail::send('emails.orderstatus', $data, function ($m) use ($data) {
+                $m->from('noreply@jeevandeep.com', 'Jeevandeep');
+                $m->to($data['email'], $data['name']);
+                $m->subject('Welcome to Jeevandeep');
+            });
             Flash::message('Order was successfully updated');
 
-            return Redirect::route('admin.order');
+            return Redirect::route('admin.order.show', ['id' => $id]);
         } catch (ValidationException $e) {
-            return Redirect::route('admin.order.edit',['id'=>$id])->withInput()->withErrors($e->getErrors());
+            return Redirect::route('admin.order.show', ['id' => $id])->withInput()->withErrors($e->getErrors());
         }
     }
 
@@ -148,5 +163,14 @@ class OrderController extends Controller {
 
         return view('backend.order.confirm-destroy', compact('order'));
     }
-
+    public function invoice($id) {
+        
+        $order = \App\Models\Order::find($id);
+        $option_added = [];    
+        //dd($order->user);
+        //return view('backend.orders.invoice', compact('orderDetails', 'order', 'options'));
+        $pdf = PDF::loadView('backend.orders.invoice', compact('orderDetails', 'order', 'options'));
+        return $pdf->stream();
+    }
+    
 }

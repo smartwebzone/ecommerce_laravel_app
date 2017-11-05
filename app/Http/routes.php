@@ -57,7 +57,7 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
         return View::make('frontend/page/store');
     });
 
-    
+
     Route::get('/store', ['as' => 'store', 'uses' => 'StoreController@index']);
     Route::get('/store/selectSchool', ['as' => 'store.selectSchool', 'uses' => 'StoreController@selectSchool']);
     Route::post('/store/selectSchoolPost', ['as' => 'store.selectSchoolPost', 'uses' => 'StoreController@selectSchoolPost']);
@@ -166,6 +166,7 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::get('orders/index', ['as' => 'admin.orders.index', 'uses' => 'OrderController@index']);
         Route::post('orders/store', ['as' => 'admin.orders.store', 'uses' => 'OrderController@store']);
         Route::get('orders/show', ['as' => 'admin.orders.show', 'uses' => 'OrderController@show']);
+        Route::get('orders/invoice', ['as' => 'admin.orders.invoice', 'uses' => 'OrderController@invoice']);
         Route::get('orders/{orders}/charge', ['as' => 'admin.orders.charge', 'uses' => 'OrderController@charge']);
         Route::get('orders/{orders}/fraud', ['as' => 'admin.orders.fraud', 'uses' => 'OrderController@fraud']);
         Route::get('orders/{orders}/genuine', ['as' => 'admin.orders.genuine', 'uses' => 'OrderController@genuine']);
@@ -175,7 +176,7 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::patch('orders/update/{orders}', ['as' => 'admin.orders.update', 'uses' => 'OrderController@update']);
         Route::delete('orders/{orders}', ['as' => 'admin.orders.destroy', 'uses' => 'OrderController@destroy']);
         Route::get('orders/{orders}/show', ['as' => 'admin.orders.show', 'uses' => 'OrderController@show']);
-        Route::get('orders/{orders}/download', ['as' => 'admin.orders.download', 'uses' => 'OrderController@download']);
+
         Route::get('orders/{orders}/edit', ['as' => 'admin.orders.edit', 'uses' => 'OrderController@edit']);
     });
     Route::group([
@@ -217,6 +218,9 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::get('school/show/{id}', ['as' => 'admin.school.show', 'uses' => 'SchoolController@show']);
         Route::get('school/edit/{id}', ['as' => 'admin.school.edit', 'uses' => 'SchoolController@edit']);
         Route::patch('school/update/{school}', ['as' => 'admin.school.update', 'uses' => 'SchoolController@update']);
+
+        Route::get('order/invoice/{orders}', ['as' => 'admin.order.invoice', 'uses' => 'OrderController@invoice']);
+
 
         Route::get('/school/{id}/delete', 'SchoolController@delete');
         Route::get('/school/{id}/show', 'SchoolController@show');
@@ -330,15 +334,15 @@ Route::group(['namespace' => 'Admin'], function () {
 
 Route::get('signin', ['as' => 'signin', 'uses' => 'AuthController@getSignin']);
 Route::get('validate', function () {
-        return View::make('frontend/auth/validate');
-    });
+    return View::make('frontend/auth/validate');
+});
 Route::get('create-password', function () {
-        if (!Sentinel::check()) {
-            return Redirect::to('signin');
-        }
-        return View::make('frontend/auth/createPass');
-    });
-    Route::get('profile', ['as' => 'profile', 'uses' => 'AuthController@getProfile']);
+    if (!Sentinel::check()) {
+        return Redirect::to('signin');
+    }
+    return View::make('frontend/auth/createPass');
+});
+Route::get('profile', ['as' => 'profile', 'uses' => 'AuthController@getProfile']);
 Route::get('confirmEmail', ['as' => 'confirmEmail', 'uses' => 'AuthController@getConfirmEmail']);
 Route::post('signin', 'AuthController@postSignin');
 Route::get('signout', 'AuthController@getSignout');
