@@ -66,7 +66,7 @@ Forgot Password | Jeevandeep
                     @endif
                     <div class="nobottommargin">
                     {!! Form::open(['route' => 'forgot.password.post',  'id' => 'forgot-form',  'name' => 'forgot-form', 'class' => 'nobottommargin',  'method' => 'post']) !!}
-                            <p>Enter the email address associated with your Grace account.</p>
+                            <p>Enter the email address associated with your Jeevandeep account.</p>
                             <div class="col_half {{ $errors->first('email', 'has-error') }}">
                                 <label for="email">Email Address:</label>
                                 {!! Form::email('email', NULL, ['class' => 'form-control','id' => 'email']) !!}

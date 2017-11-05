@@ -10,7 +10,7 @@
             ============================================= -->
             <div class="postcontent nobottommargin clearfix">
                 <p>Hi {{ $username }},</p>
-                <p>Thank you for your purchase. If you have any questions that we can help with, please feel free to email us at info@graceframe.com or call +1(800) 264-0644 or use our contact page. Thanks so much!</p>
+                <p>Thank you for your purchase. If you have any questions that we can help with, please feel free to email us at info@jeevandeep.com. Thanks so much!</p>
             </div><!-- .postcontent end -->
             <!-- Sidebar
             ============================================= -->
