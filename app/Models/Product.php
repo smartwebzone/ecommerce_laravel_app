@@ -31,7 +31,7 @@ class Product extends Model implements ModelInterface {
     }
 
     public function books() {
-        return $this->belongsToMany(Book::class, 'product_books', 'product_id', 'book_id');
+        return $this->belongsToMany(Book::class, 'product_books', 'product_id', 'book_id')->withPivot('quantity');
     }
 
     public function getPriceAttribute() {

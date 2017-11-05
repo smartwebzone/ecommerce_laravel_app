@@ -25,14 +25,14 @@ class Order extends Model implements ModelInterface {
         'status' => 'required',
         'school_id' => 'required',
     ];
-    public function standard() {
-        return $this->belongsToMany(Standard::class, 'order_standard', 'order_id', 'standard_id');
-    }
-    public function company() {
-        return $this->belongsToMany(Company::class, 'order_company', 'order_id', 'company_id');
-    }
     public function product() {
         return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id');
+    }
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+    public function status() {
+        return $this->belongsTo(Status::class);
     }
 
 
