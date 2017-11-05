@@ -129,7 +129,7 @@ class AuthController extends Controller
 
         try {
             Mail::send('emails.auth.reset-password', $formData, function ($message) use ($request) {
-                $message->from('noreply@graceframe.com', 'Grace');
+                $message->from('noreply@jeevandeep.com', 'Jeevandeep');
                 $message->to($request->get('email'), 'Lorem Lipsum')->subject('Reset Password');
             });
 
@@ -138,7 +138,7 @@ class AuthController extends Controller
             return Redirect::route('admin.forgot.password')->withErrors(['forgot-password' => 'Password reset failed']);
         }
         /*$mailer = new Mailer;
-        $mailer->send('emails.auth.reset-password', 'user@graceframe.com', 'Reset Password', $formData);*/
+        $mailer->send('emails.auth.reset-password', 'user@jeevandeep.com', 'Reset Password', $formData);*/
     }
 
     public function getResetPassword($id, $code)

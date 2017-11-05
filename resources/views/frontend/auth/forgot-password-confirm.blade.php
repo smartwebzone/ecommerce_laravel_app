@@ -1,95 +1,68 @@
 @extends('frontend/layout/layout')
 
-
-@section('seo')
-<meta name="description" content="Reset Password">
-<meta name="keywords" content="Reset Password">
-<meta name="author"content="Jeevandeep"/>
+@section('htmlschema')
+itemscope itemtype="http://schema.org/LocalBusiness
 @endsection
 
-@section('jsonschema')@endsection
+@section('seo')
+@endsection
+
+@section('json-ld')
+@endsection
+
+@section('goodrelations-off')
+@endsection
 
 @section('title')
-Reset Password | Jeevandeep
+Jeevandeep Prakashan Pvt. Ltd.
 @endsection
 
 @section('bodyschema')@endsection
+@section('bodytag')@endsection
 
-@section('header_styles')
-<style type="text/css">
-    .content-wrap { position: relative; padding: 50px 0; }
-</style>
-@endsection
+@section('header_styles')@endsection
 
-@section('scripts')@endsection
-
-@section('ppscripts')
-
-@endsection
-
-@section('submenu')
-
-@endsection
-
-
-
-
-@section('page-title')
-<!-- Page Title
-============================================= -->
-<section id="page-title">
-    <div class="container clearfix">
-        <h1>Reset Password</h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ url(getLang().'/') }}">Home</a></li>
-            <li class="active">Reset Password</li>
-        </ol>
-    </div>
-</section><!-- #page-title end -->
-@endsection
 
 @section('content')
-<!-- Content
-============================================= -->
-<section id="content">
-    <div class="content-wrap">
-        <div class="container clearfix">
-            @if(Session::has('error'))
-            <div class="flash-message alert alert-danger">
-                {{ session('error') }}
-            </div>
-            @endif
-            <div class="nobottommargin">
-                {!! Form::open(['route' => ['forgot.password.confirm.post',$userId,$passwordResetCode],  'id' => 'forgot-form',  'name' => 'forgot-form', 'class' => 'nobottommargin',  'method' => 'post']) !!}
-                <!-- Password -->
-                <div class="col_half {!! $errors->has('password') ? 'has-error' : '' !!}">
-                    <label class="control-label" for="password">Password</label>
-                    <div class="controls">
-                        {!! Form::password('password', array('class'=>'form-control', 'id' => 'password')) !!}
-                        @if ($errors->first('password'))
-                        <span class="errormsg">{!! $errors->first('password') !!}</span>
-                        @endif
+<!-- Start Wrapper -->
+<div class="wrapper content cf">
+    <!-- Start Select School -->
+    <div class="enquire login-register cf">
+        {{$cart_menu = false}}
+        @include('frontend.layout.jeevandeep.header')
+        <div class="select-div">RESET YOUR PASSWORD</div>
+        <div class="please-select">Please reset your password. Use alphanumeric characters with a minimum of 8 characters. You can also use symbols such as @#$%^&*.</div>
+        <div class="cf">
+        {!! Form::open(['route' => ['forgot-password-confirm-post',$userId,$passwordResetCode],  'id' => 'forgot-form',  'name' => 'forgot-form', 'class' => 'loginForm cf',  'method' => 'post']) !!}
+                <li class="form-group">
+                    <label>ENTER PASSWORD</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                        <div class="icon-addon">
+                            <input placeholder="ENTER PASSWORD" name="password" class="form-control" id="" type="password">
+                        </div>
                     </div>
-                </div>
-                <!-- Confirm Password -->
-                <div class="col_half {!! $errors->has('password_confirm') ? 'has-error' : '' !!}">
-                    <label class="control-label" for="password_confirm">Confirm Password</label>
-                    <div class="controls">
-                        {!! Form::password('password_confirm', array('class'=>'form-control', 'id' => 'password_confirm')) !!}
-                        @if ($errors->first('password_confirm'))
-                        <span class="errormsg">{!! $errors->first('password_confirm') !!}</span>
-                        @endif
+                    <span class="errormsg">{{ $errors->first('password', ':message') }}</span>
+                </li>
+                <li class="form-group">
+                    <label>RE-ENTER PASSWORD</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                        <div class="icon-addon">
+                            <input placeholder="RE-ENTER PASSWORD" class="form-control" id="" name="password_confirm" type="password">
+                        </div>
                     </div>
-                </div>
-                <div class="clear"></div>
-                <div class="col_full nobottommargin">
-                    {!! Form::submit('Submit', ['class' => 'button button-3d button-black nomargin']) !!}
-                </div>
-                {!! Form::close() !!}
-            </div>
+                    <span class="errormsg">{{ $errors->first('password_confirm', ':message') }}</span>
+                </li>
+                <li class="fullBtn">
+                    <button  type="submit" class="btn btnS"><i class="fa fa-link"></i>RESET PASSWORD</button>
+                </li>
+            </form>
         </div>
     </div>
-</section><!-- #content end -->
+    <!-- End Select School -->
+</div>
+<!-- End wrapper -->
 @endsection
 
 @section('footer_scripts')@endsection

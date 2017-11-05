@@ -11,6 +11,7 @@ use View;
 use App\Models\State;
 use Session;
 use Sentinel;
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * Class StoreController.
@@ -64,6 +65,9 @@ class StoreController extends Controller {
     }
 
     public function confirm(Request $request) {
+        if (!Sentinel::check()) {
+            return Redirect::route('signin');
+        }
         if (!Session::get('product')) {
             if ($request->product) {
                 Session::put('product', $request->product);
@@ -84,6 +88,9 @@ class StoreController extends Controller {
     }
 
     public function cart(Request $request) {
+        if (!Sentinel::check()) {
+            return Redirect::route('signin');
+        }
         $product = \App\Models\Product::find(Session::get('product'));
         $orders=  \App\Models\Order::where(['user_id'=>Sentinel::getuser()->id])->get();
         
@@ -121,6 +128,9 @@ class StoreController extends Controller {
     }
 
     public function pay(Request $request) {
+        if (!Sentinel::check()) {
+            return Redirect::route('signin');
+        }
         if ($request->product_id && in_array($request->product_id, Session::get('product')) && Session::get('cart') && isset(Session::get('cart')[0])) {
             $exist = 0;
             foreach (Session::get('cart')[0] as $crt):

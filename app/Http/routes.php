@@ -57,7 +57,7 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
         return View::make('frontend/page/store');
     });
 
-    
+
     Route::get('/store', ['as' => 'store', 'uses' => 'StoreController@index']);
     Route::get('/store/selectSchool', ['as' => 'store.selectSchool', 'uses' => 'StoreController@selectSchool']);
     Route::post('/store/selectSchoolPost', ['as' => 'store.selectSchoolPost', 'uses' => 'StoreController@selectSchoolPost']);
@@ -330,15 +330,15 @@ Route::group(['namespace' => 'Admin'], function () {
 
 Route::get('signin', ['as' => 'signin', 'uses' => 'AuthController@getSignin']);
 Route::get('validate', function () {
-        return View::make('frontend/auth/validate');
-    });
+    return View::make('frontend/auth/validate');
+});
 Route::get('create-password', function () {
-        if (!Sentinel::check()) {
-            return Redirect::to('signin');
-        }
-        return View::make('frontend/auth/createPass');
-    });
-    Route::get('profile', ['as' => 'profile', 'uses' => 'AuthController@getProfile']);
+    if (!Sentinel::check()) {
+        return Redirect::to('signin');
+    }
+    return View::make('frontend/auth/createPass');
+});
+Route::get('profile', ['as' => 'profile', 'uses' => 'AuthController@getProfile']);
 Route::get('confirmEmail', ['as' => 'confirmEmail', 'uses' => 'AuthController@getConfirmEmail']);
 Route::post('signin', 'AuthController@postSignin');
 Route::get('signout', 'AuthController@getSignout');
@@ -346,6 +346,7 @@ Route::post('signup', ['as' => 'signup', 'uses' => 'AuthController@postSignup'])
 Route::post('registerEmail', ['as' => 'registerEmail', 'uses' => 'AuthController@postRegisterEmail']);
 Route::get('createPass', ['as' => 'createPass', 'uses' => 'AuthController@getConfirmEmail']);
 Route::post('createPass', ['as' => 'createPass', 'uses' => 'AuthController@postcreatePass']);
-
-
-
+Route::get('forgot-password', ['as' => 'forgot-password', 'uses' => 'AuthController@getForgotPassword']);
+Route::post('forgot-password', ['as' => 'forgot-password', 'uses' => 'AuthController@postForgotPassword']);
+Route::get('forgot-password-confirm/{id}/{code}', ['as' => 'forgot-password-confirm', 'uses' => 'AuthController@getForgotPasswordConfirm']);
+Route::post('forgot-password-confirm/{id}/{code}', ['as' => 'forgot-password-confirm-post', 'uses' => 'AuthController@postForgotPasswordConfirm']);
