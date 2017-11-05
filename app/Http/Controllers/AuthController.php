@@ -92,7 +92,19 @@ class AuthController extends Controller {
             return Redirect::to('signin');
         }
         $user = User::find(Sentinel::getUser()->id);
-        return View('frontend.auth.profile', compact('user'));
+        $billing_address = array();
+        if($user->address()->where('address_type','billing')->count() > 0){
+            $billing_address = $user->address()->where('address_type','billing')->get();
+            $billing_address = $billing_address[0];
+        }
+        $shipping_address = array();
+        if($user->address()->where('address_type','shipping')->count() > 0){
+            $shipping_address = $user->address()->where('address_type','shipping')->get();
+            $shipping_address = $shipping_address[0];
+        }
+        $state = \App\Models\State::lists('name', 'name')->toArray();
+        $state = [null => 'STATE'] + $state;
+        return View('frontend.auth.profile', compact('user','state','billing_address','shipping_address'));
     }
 
     /**
@@ -195,7 +207,6 @@ class AuthController extends Controller {
         if (!Sentinel::check()) {
             return Redirect::to('signin');
         }
-        $request['phone'] = preg_replace("/[^0-9]/", "", $request['phone']);
 
         $rules = array(
             'first_name' => 'required',
@@ -212,7 +223,6 @@ class AuthController extends Controller {
             'state' => 'required',
             'billstate' => 'required',
         );
-
 
         // Create a new validator instance from our validation rules
         $validator = Validator::make($request->all(), $rules);
@@ -260,8 +270,14 @@ class AuthController extends Controller {
                 'zip' => $request->zip,
                 'added_by' => Sentinel::getuser()->id,
             );
-            $address = \App\Models\Address::create($data);
-            $address->users()->attach($user);
+            if($user->address()->where('address_type','shipping')->count() > 0){
+                $sid = $user->address()->where('address_type','shipping')->get();
+                $sid = $sid[0]['id'];
+                $address = \App\Models\Address::where('id',$sid)->update($data);
+            }else{
+                $address = \App\Models\Address::create($data);
+                $address->users()->attach($user);
+            }
             $data = array(
                 'address_type' => 'billing',
                 'address1' => $request->billaddress1,
@@ -272,8 +288,14 @@ class AuthController extends Controller {
                 'zip' => $request->billzip,
                 'added_by' => Sentinel::getuser()->id,
             );
-            $address = \App\Models\Address::create($data);
-            $address->users()->attach($user);
+            if($user->address()->where('address_type','billing')->count() > 0){
+                $bid = $user->address()->where('address_type','billing')->get();
+                $bid = $bid[0]['id'];
+                $address = \App\Models\Address::where('id',$bid)->update($data);
+            }else{
+                $address = \App\Models\Address::create($data);
+                $address->users()->attach($user);
+            }
             return Redirect::to('create-password');
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', Lang::get('auth/message.account_already_exists'));
