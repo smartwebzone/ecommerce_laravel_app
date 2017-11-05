@@ -44,13 +44,16 @@ class StoreController extends Controller {
         Session::put('school', $request->school);
         Session::put('standard', $request->standard);
         if (Sentinel::getUser()) {
-            return \Redirect::route('store.selectProduct');
+            return Redirect::route('store.selectProduct');
         } else {
-            return \Redirect('/signin');
+            return Redirect('/signin');
         }
     }
 
     public function selectProduct(Request $request) {
+        if (Session::get('product')) {
+            Session::forget('product');
+        }
         $state = Session::get('state');
         $school = Session::get('school');
         $standard = Session::get('standard');
@@ -71,12 +74,9 @@ class StoreController extends Controller {
         if (!Session::get('product')) {
             if ($request->product) {
                 Session::put('product', $request->product);
-                return \Redirect::route('store.confirm');
+                return Redirect::route('store.confirm');
             } else {
-                $this->validate($request, [
-                    'product' => 'required'
-                ]);
-                return \Redirect::route('store.selectProduct');
+                return Redirect::route('store.selectProduct')->with('error', 'Please select atleast 1 product to proceed.');
             }
         }
         $school = Session::get('school');
@@ -84,6 +84,7 @@ class StoreController extends Controller {
         $product = \App\Models\Product::find(Session::get('product'));
         $school = \App\Models\School::find($school);
         $standard = \App\Models\Standard::find($standard);
+        
         return view('frontend.store.confirm', compact('product', 'school', 'standard'))->with('cart', 'total');
     }
 
@@ -122,7 +123,7 @@ class StoreController extends Controller {
 
             Session::push('cart', $carts);
             Session::put('shipping', $data);
-            return \Redirect::route('store.cart');
+            return Redirect::route('store.cart');
         }
         return view('frontend.store.cart', compact('product','orders'));
     }
@@ -193,7 +194,7 @@ class StoreController extends Controller {
                 Session::put('product', $productcart);
             }
         }
-        return \Redirect::route('store.cart');
+        return Redirect::route('store.cart');
     }
 
 }

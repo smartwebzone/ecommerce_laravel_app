@@ -210,3 +210,40 @@ function getStatus($status_db) {
     }
     return $status;
 }
+
+function getPreviousPurchaseText($product_id){
+    $text = '';
+    $user = App\Models\User::find(Sentinel::getUser()->id);
+    if($user->orders()->count() > 0){
+        $orders = $user->orders()->orderBy('id','desc')->get();
+        foreach($orders as $order){
+            $order_id = $order->id;
+            $order = \App\Models\Order::find($order_id);
+            if($order->product()->where('product_id',$product_id)->count() > 0){
+                $order_date = date('d F Y',strtotime($order->order_date));
+                $text = 'You have previously purchased this product on '.$order_date.'.';
+                return $text;
+            }
+        }
+    }
+    return $text;
+}
+
+function numberWithDecimal($number){
+    if(empty($number)){
+        $number = 0;
+    }
+    return number_format($number, 2, '.', '');
+}
+
+function getUserShippingState(){
+    $shipping_state = '';
+    if (Sentinel::check()) {
+        $user = \App\Models\User::find(Sentinel::getUser()->id);
+        if($user->address()->where('address_type','shipping')->count() > 0){
+            $shipping_address = $user->address()->where('address_type','shipping')->get();
+            $shipping_state = @$shipping_address[0]->state;
+        }
+    }
+    return $shipping_state;
+}

@@ -44,7 +44,7 @@ class AuthController extends Controller {
     public function getSignout(Request $request) {
          $request->session()->flush();
 
-        return redirect('/');
+        return Redirect::route('signin');
         
     }
     public function getSignin(Request $request) {
