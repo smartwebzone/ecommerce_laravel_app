@@ -39,7 +39,7 @@
                                             <td width="50%" class="text-left">
                                                 JEEVANDEEP PRAKASHAN PVT. LTD.
                                             </td>
-                                            <td class="text-right" style="font-size:26px;">#{{ $order->order_no }} / {{ $order->created_at }}</td>
+                                            <td class="text-right" style="font-size:26px;">#{{ $order->transaction_id }} / {{ $order->order_date }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -57,7 +57,6 @@
                                                     <address>
                                                         <strong>{{ $order->user->first_name }} {{ $order->user->last_name }}</strong>
                                                         <br>
-                                                        <abbr title="Phone">Phone:</abbr> {{ $order->user->userinfo->phone }}
                                                         <br/>
                                                         <abbr title="Email">Email:</abbr> {{ $order->user->email }}
                                                     </address>
@@ -72,8 +71,7 @@
                                                         {{ $order->billing_address }}
                                                         <br>
                                                         {{ $order->billing_city.", ".$order->billing_state.", ".$order->billing_zipcode.", ".$order->billing_country }}
-                                                        <br>
-                                                        <abbr title="Phone">Phone:</abbr> {{ $order->billing_phone }}
+                                                       
                                                     </address>
                                                 </div>    
                                             </td>
@@ -86,8 +84,7 @@
                                                         {{ $order->shipping_address }}
                                                         <br>
                                                         {{ $order->shipping_city.", ".$order->shipping_state.", ".$order->shipping_zipcode.", ".$order->shipping_country }}
-                                                        <br>
-                                                        <abbr title="Phone">Phone:</abbr> {{ $order->phone }}
+                                                      
                                                     </address>
                                                 </div>    
                                             </td>
@@ -111,48 +108,16 @@
                                         <?php
                                         $sub_total = 0;
                                         ?>
-                                        @foreach($orderDetails as $item)
-                                        <?php
-                                        $price = $item->product->prices->find($item->price_id);
-                                        $suborderDetails = App\Models\OrderSubProduct::where('order_product_id', $item->id)->get();
-
-                                        $subprice = 0;
-                                        $sub_prd = '';
-                                        ?>
+                                        @foreach($order->product as $item)
+                                       
                                         <tr>
                                             <td>
-                                                {{ $item->product->name }} 
-                                                @if($item->product->prices->count()>1)
-                                                ({!!(@$price->title)?@$price->title:@$price->model!!})
-                                                @endif
-
-                                                <?php
-                                                if ($suborderDetails) {
-                                                    foreach ($suborderDetails as $sd):
-                                                        $prods_price = App\Models\Product::find($sd->product_id)->prices->first();
-                                                        $prods_price_id = $prods_price->id;
-                                                        if ($sd->price_id) {
-                                                            $prods_price_id = $sd->price_id;
-                                                        }
-                                                        $subprice += $sd->order_price;//App\Models\Price::find($prods_price_id)->final_price;
-                                                        $sub_prd = App\Models\ProductSubProducts::where('product_id', $item->product_id)->where('sub_product_id', $sd->product_id)->first();
-                                                        echo (@$sub_prd->id) ? (' - ' . @$sub_prd->label_custom . ' ') : '';
-                                                    endforeach;
-                                                }
-                                                $sub_total += ($item->order_price + $subprice) * $item->amount;
-                                                ?>                                                
-
-                                                @if($item->options)
-                                                @foreach($options as $optionValue)
-                                                @if(in_array($optionValue->id,explode(',',$item->options)))
-                                                - {{ $optionValue->value }}
-                                                @endif
-                                                @endforeach
-                                                @endif
+                                                {{ $item->title }} 
+                                              
                                             </td>
-                                            <td class="text-right">{!! formatDollar(@$item->order_price+$subprice) !!}</td>
-                                            <td class="text-center">{{ $item->amount }}</td>
-                                            <td class="text-right">{{ formatDollar((@$item->order_price+$subprice)*$item->amount) }}</td>
+                                            <td class="text-right">{!! ($order->amount) !!}</td>
+                                            <td class="text-center">1</td>
+                                            <td class="text-right">{{ ($order->amount) }}</td>
                                         </tr>
                                         @endforeach
 
@@ -164,25 +129,25 @@
                             <div class="col-sm-12 invoice-block">
                                 <ul class="list-unstyled amounts">
                                     <li>
-                                        <strong>SubTotal :</strong> {{ formatDollar($sub_total) }}
+                                        <strong>SubTotal :</strong> {{ ($order->amount) }}
                                     </li>
-                                    @if($order->shipping_amount)
+                                    @if($order->shipping)
                                     <li>
-                                        <strong>Shipping :</strong> {{ formatDollar($order->shipping_amount) }}
+                                        <strong>Shipping :</strong> {{ ($order->shipping) }}
                                     </li>
                                     @endif
-                                    @if($order->tax_amount)
+                                    @if($order->tax)
                                     <li>
-                                        <strong>Tax :</strong> {{ formatDollar($order->tax_amount) }}
+                                        <strong>Tax :</strong> {{ ($order->tax) }}
                                     </li>
                                     @endif
                                     @if($order->discount_amount > 0)
                                     <li>
-                                        <strong>Discount :</strong>  -{{ formatDollar($order->discount_amount) }}
+                                        <strong>Discount :</strong>  -{{ ($order->discount_amount) }}
                                     </li>
                                     @endif
                                     <li>
-                                        <strong>Total :</strong> {{ formatDollar($order->amount) }}
+                                        <strong>Total :</strong> {{ ($order->total_amount) }}
                                     </li>                                </ul>
                                 <br>
 
@@ -194,7 +159,7 @@
                                     <thead>
                                         <tr>
                                             <td width="17%"> <strong>Order Status :</strong> </td>
-                                            <td> {{ $order->status }} </td>
+                                            <td> {{ $order->status->name }} </td>
                                         </tr>
                                         @if($order->status_reason)
                                         <tr>

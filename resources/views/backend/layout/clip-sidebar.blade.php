@@ -53,7 +53,7 @@
             </a>
         </li>
         <li class="{{ setActive('admin/order*') }}">
-            <a href="javascript:;"><i class="fa fa-shopping-cart"></i>
+            <a href="{{ url(getLang() . '/admin/order') }}"><i class="fa fa-shopping-cart"></i>
                 <span class="title"> Orders </span><span class="selected"></span>
             </a>
         </li>

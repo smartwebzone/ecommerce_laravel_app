@@ -6,7 +6,7 @@
     <th>Standard</th>
     <th width="10%" class="text-center">Added On</th>
     <th width="10%" class="text-center">Status</th>
-    <th width="9%" class="text-center">Action</th>
+    <th width="10%" class="text-center">Action</th>
 </thead>
 <tbody>
     @foreach($product as $product)
@@ -24,6 +24,8 @@
             {!! Form::open(['route' => ['admin.product.destroy', $product->id], 'method' => 'delete']) !!}
             <div class='btn-group'>
 <!--                    <a href="{!! route('admin.product.show', [$product->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>-->
+                
+                <a href="{!! route('admin.product.book', [$product->id]) !!}" class='btn btn-default btn-xs {{$disable_class}}'><i class="fa fa-book"></i></a>
                 <a href="{!! route('admin.product.edit', [$product->id]) !!}" class='btn btn-default btn-xs {{$disable_class}}'><i class="glyphicon glyphicon-edit"></i></a>
                 <a title="Clone" onclick="return confirm('Are you sure want to generate clone?')" href="{!! route('admin.product.copy', [$product->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-copy"></i></a>
                 {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs '.$disable_class, 'onclick' => "return confirm('Are you sure?')"]) !!}

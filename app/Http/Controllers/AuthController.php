@@ -41,12 +41,13 @@ class AuthController extends Controller {
     public function __construct(MessageBag $messageBag) {
         $this->messageBag = $messageBag;
     }
+
     public function getSignout(Request $request) {
-         $request->session()->flush();
+        $request->session()->flush();
 
         return Redirect::route('signin');
-        
     }
+
     public function getSignin(Request $request) {
         $user = Auth::user();
         $userinfo = NULL;
@@ -94,7 +95,7 @@ class AuthController extends Controller {
         $user = User::find(Sentinel::getUser()->id);
         $billing_address = getUserAddress('billing');
         $shipping_address = getUserAddress('shipping');
-        return View('frontend.auth.profile', compact('user','billing_address','shipping_address'));
+        return View('frontend.auth.profile', compact('user', 'billing_address', 'shipping_address'));
     }
 
     /**
@@ -260,11 +261,11 @@ class AuthController extends Controller {
                 'zip' => $request->zip,
                 'added_by' => Sentinel::getuser()->id,
             );
-            if($user->address()->where('address_type','shipping')->count() > 0){
-                $sid = $user->address()->where('address_type','shipping')->get();
+            if ($user->address()->where('address_type', 'shipping')->count() > 0) {
+                $sid = $user->address()->where('address_type', 'shipping')->get();
                 $sid = $sid[0]['id'];
-                $address = \App\Models\Address::where('id',$sid)->update($data);
-            }else{
+                $address = \App\Models\Address::where('id', $sid)->update($data);
+            } else {
                 $address = \App\Models\Address::create($data);
                 $address->users()->attach($user);
             }
@@ -278,11 +279,11 @@ class AuthController extends Controller {
                 'zip' => $request->billzip,
                 'added_by' => Sentinel::getuser()->id,
             );
-            if($user->address()->where('address_type','billing')->count() > 0){
-                $bid = $user->address()->where('address_type','billing')->get();
+            if ($user->address()->where('address_type', 'billing')->count() > 0) {
+                $bid = $user->address()->where('address_type', 'billing')->get();
                 $bid = $bid[0]['id'];
-                $address = \App\Models\Address::where('id',$bid)->update($data);
-            }else{
+                $address = \App\Models\Address::where('id', $bid)->update($data);
+            } else {
                 $address = \App\Models\Address::create($data);
                 $address->users()->attach($user);
             }
@@ -319,6 +320,19 @@ class AuthController extends Controller {
         $user = User::find(Sentinel::getUser()->id);
         $user->password = bcrypt($request->password_signup);
         $user->save();
+        $data=  \App\Models\Email::where(['template'=>'Register'])->find();
+        // Send the welcome email
+                
+        $body=str_replace('<<student_name>>',$user->first_name.' '.$user->last_name,$data->body);
+        $body=str_replace('<<username>>',$user->email,$body);
+        $body=str_replace('<<password>>',$request->password_signup,$body);
+        
+        $body=nl2br($body);
+        Mail::send('emails.welcome', ['body'=>$body], function ($m) use ($user) {
+            $m->from('noreply@jeevandeep.com', 'Jeevandeep');
+            $m->to($user->email, $user->first_name . ' ' . $user->last_name);
+            $m->subject('Welcome to Jeevandeep');
+        });
         return Redirect::route('store.selectProduct');
     }
 
@@ -450,10 +464,10 @@ class AuthController extends Controller {
 
         // Create a new validator instance from our dynamic rules
         $validator = Validator::make($request->all(), $rules);
-        
+
         $validator->setAttributeNames(['password' => 'Password',
             'password_confirm' => 'Re-enter password']);
-        
+
         // If validation fails, we'll exit the operation now.
         if ($validator->fails()) {
             // Ooops.. something went wrong
