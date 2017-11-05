@@ -48,6 +48,7 @@ Jeevandeep Prakashan Pvt. Ltd.
             @if(!$ps->books->count())
             <?php continue; ?>
             @endif
+            {!! Form::hidden('action', 'confirm') !!}
             <div class="select-product-blog cf">
                 <div class="checkbox checkbox-primary selectCheck cf">
                     <input id="{{$ps->id}}" name="product[]" value="{{$ps->id}}" type="checkbox">
