@@ -168,7 +168,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            {!! Form::select('state', $state, @$shipping_address['state'], array('class' => 'form-control required','style' => 'padding:6px;')) !!}
+                            {!! Form::select('state', getStateDropdown(), @$shipping_address['state'], array('class' => 'form-control required','style' => 'padding:6px;')) !!}
                         </div>
                     </div>
                     <span class="errormsg">{{ $errors->first('state', ':message') }}</span>
@@ -210,7 +210,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            {!! Form::select('billstate', $state, @$billing_address['state'], array('class' => 'form-control required','style' => 'padding:6px;')) !!}
+                            {!! Form::select('billstate', getStateDropdown(), @$billing_address['state'], array('class' => 'form-control required','style' => 'padding:6px;')) !!}
                         </div>
                     </div>
                 </li>
