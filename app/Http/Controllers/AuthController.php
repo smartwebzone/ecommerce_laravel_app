@@ -61,11 +61,11 @@ class AuthController extends Controller {
     }
 
     public function getForgotPassword() {
-        if (!Sentinel::check()) {
-            return view('frontend/auth/forgot-password');
+        if (Sentinel::check()) {
+            return Redirect::route('store.selectSchool');
         }
 
-        return Redirect::route('dashboard');
+        return view('frontend/auth/forgot-password');
     }
 
     public function getconfirmEmail(Request $request) {
@@ -373,7 +373,7 @@ class AuthController extends Controller {
         // If validation fails, we'll exit the operation now.
         if ($validator->fails()) {
             // Ooops.. something went wrong
-            return Redirect::to(URL::previous() . '#toforgot')->withInput()->withErrors($validator);
+            return Redirect::to(URL::previous())->withInput()->withErrors($validator);
         }
 
         try {
@@ -381,23 +381,23 @@ class AuthController extends Controller {
             $user = Sentinel::findByCredentials(['email' => $request->get('email')]);
 
             if (!$user) {
-                return Redirect::route('forgot.password')->with('error', 'Account not found');
+                return Redirect::route('forgot-password')->withInput()->with('error', 'Account not found');
             }
             $activation = Activation::completed($user);
             if (!$activation) {
-                return Redirect::route('forgot.password')->with('error', 'Account not activated');
+                return Redirect::route('forgot-password')->with('error', 'Account not activated');
             }
             $reminder = Reminder::exists($user) ? : Reminder::create($user);
             // Data to be used on the email view
             $data = array(
                 'user' => $user,
                 //'forgotPasswordUrl' => URL::route('forgot-password-confirm', $user->getResetPasswordCode()),
-                'forgotPasswordUrl' => URL::route('forgot.password.confirm', [$user->id, $reminder->code]),
+                'forgotPasswordUrl' => URL::route('forgot-password-confirm', [$user->id, $reminder->code]),
             );
 
             // Send the activation code through email
             Mail::send('emails.password', $data, function ($m) use ($user) {
-                $m->from('noreply@jeevandeepframe.com', 'Grace');
+                $m->from('noreply@jeevandeep.com', 'Jeevandeep');
                 $m->to($user->email, $user->first_name . ' ' . $user->last_name);
                 $m->subject('Account Password Recovery');
             });
@@ -422,7 +422,7 @@ class AuthController extends Controller {
         // Find the user using the password reset code
         if (!$user = Sentinel::findById($userId)) {
             // Redirect to the forgot password page
-            return Redirect::route('forgot-password')->with('error', Lang::get('auth/message.account_not_found'));
+            return Redirect::route('forgot-password')->with('error', 'Account not found');
         }
 
         if ($reminder = Reminder::exists($user)) {
@@ -456,11 +456,14 @@ class AuthController extends Controller {
 
         // Create a new validator instance from our dynamic rules
         $validator = Validator::make($request->all(), $rules);
-
+        
+        $validator->setAttributeNames(['password' => 'Password',
+            'password_confirm' => 'Re-enter password']);
+        
         // If validation fails, we'll exit the operation now.
         if ($validator->fails()) {
             // Ooops.. something went wrong
-            return Redirect::route('forgot.password.confirm', [$userId, $passwordResetCode])->withInput()->withErrors($validator);
+            return Redirect::route('forgot-password-confirm', [$userId, $passwordResetCode])->withInput()->withErrors($validator);
         }
 
         // Find the user using the password reset code
