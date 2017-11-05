@@ -28,7 +28,7 @@ Jeevandeep Prakashan Pvt. Ltd.
 <div class="wrapper content cf">
 	<!-- Start Select School -->
     <div class="enquire login-register cf">
-    	<h2><i class="fa fa-book"></i>Online Store</h2>
+    	@include('frontend.layout.jeevandeep.header')
         <div class="select-div">Validate your email</div>
         <div class="please-select">We have sent an email at your provided email address. Please check your INBOX and click on the validation link. If you did not receive the email, please check your junk mailbox, else click on the resend validation email button.</div>
         <div class="cf">

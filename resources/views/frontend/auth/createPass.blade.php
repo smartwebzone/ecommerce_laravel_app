@@ -28,7 +28,7 @@ Jeevandeep Prakashan Pvt. Ltd.
 <div class="wrapper content cf">
     <!-- Start Select School -->
     <div class="enquire login-register cf">
-        <h2><i class="fa fa-book"></i>Online Store</h2>
+        @include('frontend.layout.jeevandeep.header')
         <div class="select-div">CREATE YOUR PASSWORD</div>
         <div class="please-select">Please create your password. Use alphanumeric characters with a minimum of 8 characters. You can also use symbols such as @#$%^&*.</div>
         <div class="cf">

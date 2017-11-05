@@ -28,7 +28,7 @@ Jeevandeep Prakashan Pvt. Ltd.
 <div class="wrapper content cf">
 	<!-- Start Select School -->
     <div class="select-school cf">
-    	<h2><i class="fa fa-book"></i>Online Store</h2>
+        @include('frontend.layout.jeevandeep.header')
         <div class="select-div">Select State, School Name and Standard</div>
         <div class="please-select">Please select the State, School Name, and Standard for which you wish to purchase online.</div>
         
