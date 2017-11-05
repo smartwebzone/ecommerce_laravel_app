@@ -247,3 +247,35 @@ function getUserShippingState(){
     }
     return $shipping_state;
 }
+
+function getUserAddress($address_type){
+    $address = array();
+    if (Sentinel::check()) {
+        $user = App\Models\User::find(Sentinel::getUser()->id);
+        if($user->address()->where('address_type',$address_type)->count() > 0){
+            $address = $user->address()->where('address_type',$address_type)->orderBy('id','desc')->get();
+            $address = $address[0];
+        }
+    }
+    return $address;
+}
+
+function getStateDropdown(){
+    $state = \App\Models\State::lists('name', 'name')->toArray();
+    $state = [null => 'STATE'] + $state;
+    return $state;
+}
+
+function inWords($number){
+    $ns = array(1 => 'one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve');
+    $str = @$ns[$number];
+    if(empty($str)){
+        $str = $number;
+    }
+    if($number > 1){
+        $str .= ' products';
+    }else{
+        $str .= ' product';
+    }
+    return $str;
+}

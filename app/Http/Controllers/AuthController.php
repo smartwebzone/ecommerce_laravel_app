@@ -92,19 +92,9 @@ class AuthController extends Controller {
             return Redirect::to('signin');
         }
         $user = User::find(Sentinel::getUser()->id);
-        $billing_address = array();
-        if($user->address()->where('address_type','billing')->count() > 0){
-            $billing_address = $user->address()->where('address_type','billing')->get();
-            $billing_address = $billing_address[0];
-        }
-        $shipping_address = array();
-        if($user->address()->where('address_type','shipping')->count() > 0){
-            $shipping_address = $user->address()->where('address_type','shipping')->get();
-            $shipping_address = $shipping_address[0];
-        }
-        $state = \App\Models\State::lists('name', 'name')->toArray();
-        $state = [null => 'STATE'] + $state;
-        return View('frontend.auth.profile', compact('user','state','billing_address','shipping_address'));
+        $billing_address = getUserAddress('billing');
+        $shipping_address = getUserAddress('shipping');
+        return View('frontend.auth.profile', compact('user','billing_address','shipping_address'));
     }
 
     /**

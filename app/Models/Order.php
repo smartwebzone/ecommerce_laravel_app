@@ -17,7 +17,7 @@ class Order extends Model implements ModelInterface {
     protected $guarded = ['id'];
     public $table = 'order_master';
     public $timestamps = false;
-     protected $fillable = ['user_id','status','amount','tax' ,'shipping' ,'total_amount','status_id' , 'added_by','updated_by'];
+     protected $fillable = ['user_id','status','amount','tax' ,'shipping' ,'total_amount','status_id' , 'added_by','updated_by','preferred_delivery_date'];
      
      public static $rules = [
         'name' => 'required|min:3|unique:order_master,name,3',
