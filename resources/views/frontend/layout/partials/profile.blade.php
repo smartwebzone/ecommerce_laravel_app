@@ -197,9 +197,6 @@
 											<h3>About Me </h3>
 											<p>{!! $user->Profile->bio !!}</p>
 											@endif
-											<!-- 		<p>
-													Be the first to get savings and offers when you sign up for Graces's emails and texts.
-											</p> -->
 										</div>
 									</div>
 								</div>
