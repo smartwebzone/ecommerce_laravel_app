@@ -28,7 +28,7 @@ Jeevandeep Prakashan Pvt. Ltd.
 <div class="wrapper content cf">
     <!-- Start Select School -->
     <div class="enquire login-register cf">
-        <h2><i class="fa fa-book"></i>Online Store</h2>
+        @include('frontend.layout.jeevandeep.header')
         <div class="select-div">Login | Register</div>
         <div class="please-select">Please login if you are a returning user, else register if you are here for the first time.</div>
         @if(Session::has('error'))

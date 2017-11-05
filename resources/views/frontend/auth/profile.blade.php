@@ -26,7 +26,7 @@ Jeevandeep Prakashan Pvt. Ltd.
 @section('content')
 <!-- Start Wrapper -->
 <div class="wrapper content create-profile cf">
-    <h2><i class="fa fa-book"></i>Online Store</h2>
+    @include('frontend.layout.jeevandeep.header')
     <div class="select-div"><strong>CREATE YOUR PROFILE</strong></div>
     <div class="please-select">Thank you for validating your email. Please create your profile here.</div>
     <!-- Start Lets Connect -->
