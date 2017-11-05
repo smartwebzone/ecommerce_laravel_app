@@ -42,8 +42,8 @@ Jeevandeep Prakashan Pvt. Ltd.
                 </tr>
                 @foreach($cart_data as $row)
                 <tr>
-                    <td><div><i class="fa fa-shopping-bag"></i>{{$row->product()->get()[0]->title}}</div></td>
-                    <td class="col-td-2"><div>INR {{$row->product()->get()[0]->price}}</div></td>
+                    <td><div><i class="fa fa-shopping-bag"></i>{{$row->product()->find($row->product_id)->title}}</div></td>
+                    <td class="col-td-2"><div>INR {{$row->product()->find($row->product_id)->price}}</div></td>
                     <td class="col-td-pay">
                         {!! Form::open(['route' => 'store.pay',  'id' => '',  'name' => 'cart-form', 'class' => '',  'method' => 'post']) !!}
                         <div style="padding:0px;">
