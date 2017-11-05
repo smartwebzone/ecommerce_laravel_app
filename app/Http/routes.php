@@ -354,3 +354,5 @@ Route::get('unavailable_school', ['as' => 'unavailable_school', 'uses' => 'Store
 Route::post('unavailable_school', ['as' => 'unavailable_school', 'uses' => 'StoreController@unavailable_school']);
 Route::get('unavailable_standard', ['as' => 'unavailable_standard', 'uses' => 'StoreController@unavailable_standard']);
 Route::post('unavailable_standard', ['as' => 'unavailable_standard', 'uses' => 'StoreController@unavailable_standard']);
+Route::get('my_profile', ['as' => 'my_profile', 'uses' => 'AuthController@my_profile']);
+Route::get('my_orders', ['as' => 'my_orders', 'uses' => 'AuthController@my_orders']);

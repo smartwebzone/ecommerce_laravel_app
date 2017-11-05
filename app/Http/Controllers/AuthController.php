@@ -286,7 +286,11 @@ class AuthController extends Controller {
                 $address = \App\Models\Address::create($data);
                 $address->users()->attach($user);
             }
-            return Redirect::to('create-password');
+            if($request->redirect_url){
+                return Redirect::to($request->redirect_url)->with('success', 'Profile saved successfully.');
+            }else{
+                return Redirect::to('create-password');
+            }
         } catch (UserExistsException $e) {
             $this->messageBag->add('email', Lang::get('auth/message.account_already_exists'));
         }
@@ -488,4 +492,17 @@ class AuthController extends Controller {
      *
      * @return Redirect
      */
+    
+    public function my_profile(Request $request) {
+        if (!Sentinel::check()) {
+            return Redirect::to('signin');
+        }
+        if($request->action == 'save_profile'){
+            die("dhay");
+        }
+        $user = User::find(Sentinel::getUser()->id);
+        $billing_address = getUserAddress('billing');
+        $shipping_address = getUserAddress('shipping');
+        return View('frontend.auth.my_profile', compact('user','billing_address','shipping_address'));
+    }
 }
