@@ -1,5 +1,7 @@
 Admin side issues
 
+Books import facility. Excel sheet format sent in email
+
 Products
 - Edit books >> already selected books not retrieved in select product book page
 
