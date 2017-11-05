@@ -206,7 +206,6 @@ class StoreController extends Controller {
                 $m->to($user->email, $user->first_name.' '.$user->last_name);
                 $m->subject('Welcome to Jeevandeep');
             });
-            dd();
             $delete_cart = \App\Models\Cart::where('user_id',Sentinel::getuser()->id)->where('product_id',$product_id)->delete();
         }
         return Redirect::route('store.cart', ['success' => '1']);
