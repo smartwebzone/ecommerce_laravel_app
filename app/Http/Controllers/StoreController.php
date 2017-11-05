@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use View;
 use App\Models\State;
 use Session;
+use Mail;
 use Sentinel;
 use Illuminate\Support\Facades\Redirect;
 
@@ -166,24 +167,46 @@ class StoreController extends Controller {
                 $totalmrp += $book->price_after_tax;
                 $totaltax += $book->price_after_tax - $book->price;
             endforeach;
-            $shippingtax = (($ps->state_shipping * 18) / 100);
-            $totalshipping = $shippingtax + $ps->state_shipping;
-
-
+            $shippingtax = (($ps->shipping_state * 18) / 100);
+            $totalshipping = $shippingtax + $ps->shipping_state;
+            $user=  \App\Models\User::find( Sentinel::getuser()->id);
+            $billing=$user->address()->where('address_type', 'billing')->first();
+            $shipping=$user->address()->where('address_type', 'shipping')->first();
+            if(!$billing){
+                $billing=$shipping;
+            }
             $order = array('user_id' => Sentinel::getuser()->id,
                 'amount' => $subtotal,
                 'tax' => $totaltax,
                 'shipping' => $totalshipping,
                 'total_amount' => $ps->price,
                 'status_id' => 1,
-                'preferred_delivery_date' => $request->preferred_delivery_date
+                'preferred_delivery_date' => $request->preferred_delivery_date,
+                'billing_address1' => $billing->address1,
+                'billing_address2' => $billing->address2,
+                'billing_area' => $billing->area,
+                'billing_city' => $billing->city,
+                'billing_state' => $billing->state,
+                'billing_zip' => $billing->zip,
+                'shipping_address1' => $shipping->address1,
+                'shipping_address2' => $shipping->address2,
+                'shipping_area' => $shipping->area,
+                'shipping_city' => $shipping->city,
+                'shipping_state' => $shipping->state,
+                'shipping_zip' => $shipping->zip,
             );
             $ord = \App\Models\Order::Create($order);
             $ord_prod = \App\Models\OrderProduct::Create(['order_id' => $ord->id,
                         'product_id' => $ps->id,
                         'qty' => 1,
                         'price' => $ps->price]);
-            
+            $ord=  \App\Models\Order::find($ord->id);
+             Mail::send('emails.orders', ['order'=>$ord], function ($m) use ($user) {
+                $m->from('noreply@jeevandeep.com', 'Jeevandeep');
+                $m->to($user->email, $user->first_name.' '.$user->last_name);
+                $m->subject('Welcome to Jeevandeep');
+            });
+            dd();
             $delete_cart = \App\Models\Cart::where('user_id',Sentinel::getuser()->id)->where('product_id',$product_id)->delete();
         }
         return Redirect::route('store.cart', ['success' => '1']);

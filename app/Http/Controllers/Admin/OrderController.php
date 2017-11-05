@@ -121,9 +121,10 @@ class OrderController extends Controller {
             $data['updated_by'] = Sentinel::getUser()->id;
             $this->order->update($id, $data);
             $order=  \App\Models\Order::find($id);
-            $data['name']=Sentinel::getUser()->first_name;
-            $data['email']=Sentinel::getUser()->email;
-            $data['order_no']=$order->transaction_id;
+            //dd($order->user->first_name);
+            $data['name']=$order->user->first_name;
+            $data['email']=$order->user->email;
+            $data['order_no']=$order->order_no;
             $data['status']=  \App\Models\Status::find($data['status_id']);
             $data['status']=$data['status']->name;
             Mail::send('emails.orderstatus', $data, function ($m) use ($data) {
