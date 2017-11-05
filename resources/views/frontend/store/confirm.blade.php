@@ -28,17 +28,7 @@ Jeevandeep Prakashan Pvt. Ltd.
 <!-- Start Wrapper -->
 <div class="wrapper confirm-shipping-address content cf">
 	<!-- Start Lets Connect -->
-    	<h2><i class="fa fa-book"></i>Online Store 
-        	<ul class="user-cart">
-                <li><a href="my-account.html"><i class="fa fa-group"></i><span>My Account</span></a></li>
-                <li><a href="#"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>
-                <li>
-                    @if(Session::get('product'))
-                    <div class="cart-notification">{{count(Session::get('product'))}}</div>
-                    @endif
-                    <a href="{{url(getLang().'/store/cart')}}"><i class="fa fa-shopping-basket"></i><span>Cart</span></a></li>
-            </ul>
-        </h2>
+    	@include('frontend.layout.jeevandeep.header')
         <div class="select-div"><strong>Confirm Shipping Address and Select preferred delivery Date</strong></div>
         <div class="please-select">Hi <span>{{Sentinel::getUser()->first_name.' '.Sentinel::getUser()->last_name}}</span>. You have selected the following products for the <span>{{$school->name}}</span> for <span>{{$standard->name}}</span>. Please confirm your shipping address for these products and your preferred delivery date and then click 'Proceed'.</div>
         <div class="seleceted-product-price">

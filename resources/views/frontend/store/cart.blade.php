@@ -29,17 +29,8 @@ Jeevandeep Prakashan Pvt. Ltd.
 <div class="wrapper cart-blog content cf">
     <!-- Start Select School -->
     <div class="cf">
-        <h2><i class="fa fa-book"></i>Online Store 
-            <ul class="user-cart">
-                <li><a href="my-account.html"><i class="fa fa-group"></i><span>My Account</span></a></li>
-                <li><a href="{{url('/signout')}}"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>
-                <li>
-                    @if(Session::get('product'))
-                    <div class="cart-notification">{{count(Session::get('product'))}}</div>
-                    @endif
-                    <a href="{{url(getLang().'/store/cart')}}"><i class="fa fa-shopping-basket"></i><span>Cart</span></a></li>
-            </ul>
-        </h2>
+        @include('frontend.layout.jeevandeep.header')
+        @if(count($product) > 0)
         <div class="select-div"><i class="fa fa-credit-card"></i>Proceed to payment</div>
         <div class="please-select">You have selected two products in your shopping cart. You are required to complete your transactions for the two products one after another. Please click 'Pay Now' to continue.</div>
         <div class="cf">
@@ -64,7 +55,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                 </tr>
                 @endforeach
                 @foreach($orders as $om):
-            @foreach($om->product as $op):
+                @foreach($om->product as $op):
                 <tr>
                     <td><div><i class="fa fa-shopping-bag"></i>{{$op->title}}</div></td>
                     <td class="col-td-2"><div>INR {{$op->price}}</div></td>
@@ -78,6 +69,14 @@ Jeevandeep Prakashan Pvt. Ltd.
                 @endforeach
             </table>
         </div>
+        @else
+        <div class="cf" style="min-height:300px;">
+            <div class="select-div"><i class="fa fa-shopping-basket"></i>Cart</div>
+            <div class="alert alert-info">
+                Your cart is empty. <a href="{{url('/en/store/selectSchool')}}">Continue Shopping</a>
+            </div>
+        </div>
+        @endif
     </div>
     <!-- End Select School -->
 </div>
