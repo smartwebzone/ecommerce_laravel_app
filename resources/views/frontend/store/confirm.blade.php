@@ -48,33 +48,33 @@ Jeevandeep Prakashan Pvt. Ltd.
         </div>
         <div class="confirm-add"><h5><i class="fa fa-map-marker"></i>Confirm Shipping Address</h5></div>
         
-            {!! Form::open(['action' => 'StoreController@cart' ,'class'=>"enquire shippingForm", 'method' => 'post']) !!}
+            {!! Form::open(['action' => 'StoreController@cart' ,'class'=>"enquire shippingForm validate_form", 'method' => 'post']) !!}
         	<p class="pb5">SHIPPING ADDRESS</p>
 			<div class="cf">
                 <ul class="first">
                     <li class="textArea form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        <textarea name="address1" class="form-control" placeholder="Address 1"></textarea>
+                        {!! Form::textarea('address1', @$shipping_address['address1'], ['placeholder'=> 'ADDRESS LINE 1', 'class' => 'form-control required']) !!}
                     </div>
                 </li>
                 <li class="textArea form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        <textarea name="address2" class="form-control" placeholder="Address 2"></textarea>
+                        {!! Form::textarea('address2', @$shipping_address['address2'], ['placeholder'=> 'ADDRESS LINE 2', 'class' => 'form-control']) !!}
                     </div>
                 </li>
                 <li class="textArea form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        <textarea name="area" class="form-control" placeholder="Area"></textarea>
+                        {!! Form::textarea('area', @$shipping_address['area'], ['placeholder'=> 'AREA AND NEAREST LANDMARK', 'class' => 'form-control']) !!}
                     </div>
                 </li>
                 <li class="form-group mb7">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            <input type="text" name="city" placeholder="City" class="form-control" id="">
+                            {!! Form::text('city', @$shipping_address['city'], ['placeholder'=> 'CITY', 'class' => 'form-control required']) !!}
                         </div>
                     </div>
                 </li>
@@ -82,7 +82,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            <input type="text" placeholder="Zip" name="zip" class="form-control" id="">
+                            {!! Form::text('zip', @$shipping_address['zip'], ['placeholder'=> 'PINCODE', 'class' => 'form-control required']) !!}
                         </div>
                     </div>
                 </li>
@@ -90,7 +90,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            <input type="text" placeholder="State" name="state" class="form-control" id="">
+                            {!! Form::select('state', getStateDropdown(), @$shipping_address['state'], array('class' => 'form-control required','style' => 'height:37px;')) !!}
                         </div>
                     </div>
                 </li>
@@ -190,6 +190,7 @@ Jeevandeep Prakashan Pvt. Ltd.
 @section('footer_scripts')
 <script>
 $(document).ready(function () {
+    $(".validate_form").validate();
     $(".btn-select").each(function (e) {
         var value = $(this).find("ul li.selected").html();
         if (value != undefined) {

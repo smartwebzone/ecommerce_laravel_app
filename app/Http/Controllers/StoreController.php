@@ -44,13 +44,16 @@ class StoreController extends Controller {
         Session::put('school', $request->school);
         Session::put('standard', $request->standard);
         if (Sentinel::getUser()) {
-            return \Redirect::route('store.selectProduct');
+            return Redirect::route('store.selectProduct');
         } else {
-            return \Redirect('/signin');
+            return Redirect('/signin');
         }
     }
 
     public function selectProduct(Request $request) {
+        if (Session::get('product')) {
+            Session::forget('product');
+        }
         $state = Session::get('state');
         $school = Session::get('school');
         $standard = Session::get('standard');
@@ -68,33 +71,31 @@ class StoreController extends Controller {
         if (!Sentinel::check()) {
             return Redirect::route('signin');
         }
-        if (!Session::get('product')) {
+        if($request->action == 'confirm'){
             if ($request->product) {
                 Session::put('product', $request->product);
-                return \Redirect::route('store.confirm');
+                return Redirect::route('store.confirm');
             } else {
-                $this->validate($request, [
-                    'product' => 'required'
-                ]);
-                return \Redirect::route('store.selectProduct');
+                return Redirect::route('store.selectProduct')->with('error', 'Please select atleast 1 product to proceed.');
             }
+        }
+        if (!Session::get('product')) {
+            return Redirect::route('store.selectSchool');
         }
         $school = Session::get('school');
         $standard = Session::get('standard');
         $product = \App\Models\Product::find(Session::get('product'));
         $school = \App\Models\School::find($school);
         $standard = \App\Models\Standard::find($standard);
-        return view('frontend.store.confirm', compact('product', 'school', 'standard'))->with('cart', 'total');
+        $shipping_address = getUserAddress('shipping');
+        return view('frontend.store.confirm', compact('product', 'school', 'standard', 'shipping_address'))->with('cart', 'total');
     }
 
     public function cart(Request $request) {
         if (!Sentinel::check()) {
             return Redirect::route('signin');
         }
-        $product = \App\Models\Product::find(Session::get('product'));
-        $orders=  \App\Models\Order::where(['user_id'=>Sentinel::getuser()->id])->get();
-        
-                
+
         if ($request->address1) {
             $data = array(
                 'address_type' => 'shipping',
@@ -106,94 +107,86 @@ class StoreController extends Controller {
                 'zip' => $request->zip,
                 'added_by' => Sentinel::getuser()->id,
             );
-            $address = \App\Models\Address::create($data);
             $user = \App\Models\User::find(Sentinel::getuser()->id);
-            $address->users()->attach($user);
+            if ($user->address()->where('address_type', 'shipping')->count() > 0) {
+                $sid = $user->address()->where('address_type', 'shipping')->get();
+                $sid = $sid[0]['id'];
+                $address = \App\Models\Address::where('id', $sid)->update($data);
+            } else {
+                $address = \App\Models\Address::create($data);
+                $address->users()->attach($user);
+            }
+            $product = \App\Models\Product::find(Session::get('product'));
+            $preferred_delivery_date = NULL;
+            if($request->month && $request->date){
+                $date = date_parse($request->month);
+                $pdate = date('Y').'-'.$date['month'].'-'.$request->date;
+                $preferred_delivery_date = date('Y-m-d',strtotime($pdate));
+            }
+            if($preferred_delivery_date == '0000-00-00'){
+                $preferred_delivery_date = NULL;
+            }
+            $delete_cart = \App\Models\Cart::where('user_id',Sentinel::getuser()->id)->delete();
             $carts = array();
             foreach ($product as $ps):
                 $cartdata = array(
                     'user_id' => Sentinel::getuser()->id,
                     'product_id' => $ps->id,
-                    'total_price' => $ps->price
+                    'preferred_delivery_date' => $preferred_delivery_date
                 );
                 $cart = \App\Models\Cart::create($cartdata);
                 $carts[] = $cartdata;
             endforeach;
-
-            Session::push('cart', $carts);
-            Session::put('shipping', $data);
-            return \Redirect::route('store.cart');
+            
+            Session::forget('product');
+            return Redirect::route('store.cart');
         }
-        return view('frontend.store.cart', compact('product','orders'));
+
+        $cart_data = \App\Models\Cart::where(['user_id' => Sentinel::getuser()->id])->get();
+        $orders = \App\Models\Order::where(['user_id' => Sentinel::getuser()->id])->whereRaw('DATE(NOW()) = DATE(order_date)')->get();
+        
+        $total_products = count($cart_data) + count($orders);
+        
+        return view('frontend.store.cart', compact('product', 'cart_data', 'orders', 'total_products'));
     }
 
     public function pay(Request $request) {
         if (!Sentinel::check()) {
             return Redirect::route('signin');
         }
-        if ($request->product_id && in_array($request->product_id, Session::get('product')) && Session::get('cart') && isset(Session::get('cart')[0])) {
-            $exist = 0;
-            foreach (Session::get('cart')[0] as $crt):
-                if ($crt['product_id'] == $request->product_id):
-                    $exist = $crt;
-                endif;
+        if ($request->product_id) {
+            $product_id = $request->product_id;
+            $ps = \App\Models\Product::find($product_id);
+            $subtotal = 0;
+            $totaltax = 0;
+            $totalmrp = 0;
+            $totalshipping = 0;
+            foreach ($ps->books as $book):
+                $subtotal += $book->price;
+                $totalmrp += $book->price_after_tax;
+                $totaltax += $book->price_after_tax - $book->price;
             endforeach;
-            if ($exist) {
-
-                $ps = \App\Models\Product::find($exist['product_id']);
-                $subtotal = 0;
-                $totaltax = 0;
-                $totalmrp = 0;
-                $totalshipping = 0;
-                foreach ($ps->books as $book):
-                    $subtotal+=$book->price;
-                    $totalmrp+=$book->price_after_tax;
-                    $totaltax+=$book->price_after_tax - $book->price;
-                endforeach;
-                $shippingtax = (($ps->instate_shipping_charges * 18) / 100);
-                $totalshipping = $shippingtax + $ps->instate_shipping_charges;
+            $shippingtax = (($ps->state_shipping * 18) / 100);
+            $totalshipping = $shippingtax + $ps->state_shipping;
 
 
-                $order = array('user_id' => Sentinel::getuser()->id,
-                    'amount' => $subtotal,
-                    'tax' => $totaltax,
-                    'shipping' => $totalshipping,
-                    'total_amount' => $ps->price,
-                    'status_id' => 1
-                );
-                $ord = \App\Models\Order::Create($order);
-                $ord_prod = \App\Models\OrderProduct::Create(['order_id' => $ord->id,
-                            'product_id' => $ps->id,
-                            'qty' => 1,
-                            'price' => $ps->price]);
-                $cart = Session::get('cart');
-                foreach ($cart[0] as $key => $crt):
-                    if ($crt['product_id'] == $ps->id):
-                        unset($cart[0][$key]);
-                    endif;
-                endforeach;
-                $productcart = Session::get('product');
-                foreach ($productcart as $k => $pc):
-                    if ($pc == $ps->id):
-                        unset($productcart[$k]);
-                    endif;
-                endforeach;
-
-                Session::put('product', $productcart);
-                Session::put('cart', $cart);
-            }
-
-            $productcart = Session::get('product');
-            if ($productcart) {
-                foreach ($productcart as $k => $pc):
-                    if ($pc == $request->product_id):
-                        unset($productcart[$k]);
-                    endif;
-                endforeach;
-                Session::put('product', $productcart);
-            }
+            $order = array('user_id' => Sentinel::getuser()->id,
+                'amount' => $subtotal,
+                'tax' => $totaltax,
+                'shipping' => $totalshipping,
+                'total_amount' => $ps->price,
+                'status_id' => 1,
+                'preferred_delivery_date' => $request->preferred_delivery_date
+            );
+            $ord = \App\Models\Order::Create($order);
+            $ord_prod = \App\Models\OrderProduct::Create(['order_id' => $ord->id,
+                        'product_id' => $ps->id,
+                        'qty' => 1,
+                        'price' => $ps->price]);
+            
+            $delete_cart = \App\Models\Cart::where('user_id',Sentinel::getuser()->id)->where('product_id',$product_id)->delete();
         }
-        return \Redirect::route('store.cart');
+        return Redirect::route('store.cart', ['success' => '1']);
     }
 
 }
