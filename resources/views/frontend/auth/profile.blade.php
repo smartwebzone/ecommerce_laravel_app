@@ -31,14 +31,14 @@ Jeevandeep Prakashan Pvt. Ltd.
     <div class="please-select">Thank you for validating your email. Please create your profile here.</div>
     <!-- Start Lets Connect -->
     <div class="enquire">
-        {!! Form::model($user, ['route' => 'signup',  'id' => 'register-form',  'name' => 'register-form', 'class' => 'cf',  'method' => 'post']) !!}
+        {!! Form::model($user, ['route' => 'signup',  'id' => 'register-form',  'name' => 'register-form', 'class' => 'cf validate_form',  'method' => 'post']) !!}
         <div class="profile-add cf">
             <li class="form-group">
                 <label>PARENT | GUARDIAN</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <div class="icon-addon">
-                        {!! Form::text('parent_first_name', null, ['placeholder'=> 'FIRST NAME', 'class' => 'form-control']) !!}
+                        {!! Form::text('parent_first_name', null, ['placeholder'=> 'FIRST NAME', 'class' => 'form-control required']) !!}
                     </div>
 
                 </div>
@@ -60,7 +60,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <div class="icon-addon">
-                        {!! Form::text('parent_last_name', null, ['placeholder'=> 'LAST NAME', 'class' => 'form-control']) !!}
+                        {!! Form::text('parent_last_name', null, ['placeholder'=> 'LAST NAME', 'class' => 'form-control required']) !!}
                     </div>
 
                 </div>
@@ -71,7 +71,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <div class="icon-addon">
-                        {!! Form::text('first_name', null, ['placeholder'=> 'FIRST NAME', 'class' => 'form-control']) !!}
+                        {!! Form::text('first_name', null, ['placeholder'=> 'FIRST NAME', 'class' => 'form-control required']) !!}
                     </div>
 
                 </div>
@@ -93,7 +93,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <div class="icon-addon">
-                        {!! Form::text('last_name', null, ['placeholder'=> 'FAMILY NAME', 'class' => 'form-control']) !!}
+                        {!! Form::text('last_name', null, ['placeholder'=> 'FAMILY NAME', 'class' => 'form-control required']) !!}
                     </div>
                     
                 </div>
@@ -104,7 +104,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
                     <div class="icon-addon">
-                        {!! Form::text('mobile', null, ['placeholder'=> 'MOBILE', 'class' => 'form-control']) !!}
+                        {!! Form::text('mobile', null, ['placeholder'=> 'MOBILE', 'class' => 'form-control required']) !!}
                     </div>
                 </div>
                   <span class="errormsg">{{ $errors->first('mobile', ':message') }}</span>
@@ -126,35 +126,35 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <label>SHIPPING ADDRESS</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        {!! Form::textarea('address1', null, ['placeholder'=> 'ADDRESS LINE 1', 'class' => 'form-control']) !!}
+                        {!! Form::textarea('address1', @$shipping_address['address1'], ['placeholder'=> 'ADDRESS LINE 1', 'class' => 'form-control required']) !!}
                     </div>
                     <span class="errormsg">{{ $errors->first('address1', ':message') }}</span>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        {!! Form::textarea('address2', null, ['placeholder'=> 'ADDRESS LINE 2', 'class' => 'form-control']) !!}
+                        {!! Form::textarea('address2', @$shipping_address['address2'], ['placeholder'=> 'ADDRESS LINE 2', 'class' => 'form-control']) !!}
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        {!! Form::textarea('area', null, ['placeholder'=> 'AREA AND NEAREST LANDMARK', 'class' => 'form-control']) !!}
+                        {!! Form::textarea('area', @$shipping_address['area'], ['placeholder'=> 'AREA AND NEAREST LANDMARK', 'class' => 'form-control']) !!}
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            {!! Form::text('city', null, ['placeholder'=> 'CITY', 'class' => 'form-control']) !!}
+                            {!! Form::text('city', @$shipping_address['city'], ['placeholder'=> 'CITY', 'class' => 'form-control required']) !!}
                         </div>
                     </div>
                     <span class="errormsg">{{ $errors->first('city', ':message') }}</span>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            {!! Form::text('zip', null, ['placeholder'=> 'PINCODE', 'class' => 'form-control']) !!}
+                            {!! Form::text('zip', @$shipping_address['zip'], ['placeholder'=> 'PINCODE', 'class' => 'form-control required']) !!}
                         </div>
                     </div>
                     <span class="errormsg">{{ $errors->first('zip', ':message') }}</span>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            {!! Form::text('state', null, ['placeholder'=> 'STATE', 'class' => 'form-control']) !!}
+                            {!! Form::select('state', $state, @$shipping_address['state'], array('class' => 'form-control required','style' => 'padding:6px;')) !!}
                         </div>
                     </div>
                     <span class="errormsg">{{ $errors->first('state', ':message') }}</span>
@@ -164,39 +164,39 @@ Jeevandeep Prakashan Pvt. Ltd.
                 <li class="textArea form-group">
                     <label>BILLING ADDRESS
                         <div class="checkbox selectCheck cf">
-                            <input id="1" type="checkbox">
-                            <label for="1">Check this box to copy the shipping address</label>
+                            <input type="checkbox" name="same_as_address" id="same_as_address" value="1">
+                            <label for="same_as_address">Check this box to copy the shipping address</label>
                         </div>
                     </label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        {!! Form::textarea('billaddress1', null, ['placeholder'=> 'ADDRESS LINE 1', 'class' => 'form-control']) !!}
+                        {!! Form::textarea('billaddress1', @$billing_address['address1'], ['placeholder'=> 'ADDRESS LINE 1', 'class' => 'form-control required']) !!}
                     </div>
                     <span class="errormsg">{{ $errors->first('billaddress1', ':message') }}</span>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        {!! Form::textarea('billaddress2', null, ['placeholder'=> 'ADDRESS LINE 2', 'class' => 'form-control']) !!}
+                        {!! Form::textarea('billaddress2', @$billing_address['address2'], ['placeholder'=> 'ADDRESS LINE 2', 'class' => 'form-control']) !!}
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
-                        {!! Form::textarea('billarea', null, ['placeholder'=> 'AREA AND NEAREST LANDMARK', 'class' => 'form-control']) !!}
+                        {!! Form::textarea('billarea', @$billing_address['area'], ['placeholder'=> 'AREA AND NEAREST LANDMARK', 'class' => 'form-control']) !!}
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            {!! Form::text('billcity', null, ['placeholder'=> 'CITY', 'class' => 'form-control']) !!}
+                            {!! Form::text('billcity', @$billing_address['city'], ['placeholder'=> 'CITY', 'class' => 'form-control required']) !!}
                         </div>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            {!! Form::text('billzip', null, ['placeholder'=> 'PINCODE', 'class' => 'form-control']) !!}
+                            {!! Form::text('billzip', @$billing_address['zip'], ['placeholder'=> 'PINCODE', 'class' => 'form-control required']) !!}
                         </div>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                         <div class="icon-addon">
-                            {!! Form::text('billstate', null, ['placeholder'=> 'STATE', 'class' => 'form-control']) !!}
+                            {!! Form::select('billstate', $state, @$billing_address['state'], array('class' => 'form-control required','style' => 'padding:6px;')) !!}
                         </div>
                     </div>
                 </li>
@@ -211,6 +211,24 @@ Jeevandeep Prakashan Pvt. Ltd.
 <!-- End Wrapper -->
 @endsection
 
-@section('footer_scripts')@endsection
+@section('footer_scripts')
+<script>
+$().ready(function() {
+    $(".validate_form").validate();
+    $("#same_as_address").click(function() {
+        if ($('#same_as_address').is(':checked')) {
+              $('[name="billaddress1"]').val($('[name="address1"]').val());
+              $('[name="billaddress2"]').val($('[name="address2"]').val());
+              $('[name="billarea"]').val($('[name="area"]').val());
+              $('[name="billcity"]').val($('[name="city"]').val());
+              $('[name="billzip"]').val($('[name="zip"]').val());
+              $('[name="billstate"]').val($('[name="state"]').val());
+        } else {
+              $('[name="billaddress1"],[name="billaddress2"],[name="billarea"],[name="billcity"],[name="billzip"],[name="billstate"]').val('');
+        }
+  });
+});
+</script>
+@endsection
 @section('pp_footer_scripts')@endsection
 @section('inlinejs')@endsection
