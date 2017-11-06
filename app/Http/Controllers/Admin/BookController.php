@@ -13,6 +13,8 @@ use Input;
 use View;
 use Redirect;
 use Sentinel;
+use Excel;
+use Config;
 
 /**
  * Class BookController.
@@ -162,11 +164,56 @@ class BookController extends Controller {
         $book = $this->book->find($id);
         $newBook = $book->replicate();
         $newBook->save();
-        $newBook->name = 'Copy of '.$book->name;
+        $newBook->name = 'Copy of ' . $book->name;
         $newBook->save();
         Flash::message('Clone successfully generated');
 
         return Redirect::route('admin.book');
+    }
+
+    public function import() {
+        $data = Input::all();
+        $data['added_by'] = Sentinel::getUser()->id;
+        $data['total_book']=0;
+        //Config::set('excel.import.startRow', 9);
+        $reader = Excel::load($data['upload'])->ignoreEmpty();
+        $reader->each(function($sheet) use(&$data) {
+            $sheet->each(function($row) use(&$data) {
+                $standard=\App\Models\Standard::where(['name'=>$row->class])->first();
+                if ($row->title && $standard) {
+                    $data['total_book']++;
+                    $book = array('name' => $row->title,
+                        'standard_id' => $standard->id,
+                        'medium' => $row->medium,
+                        'company_id' => $data['company_id'],
+                        'book_code' => $row->code,
+                        'description' => ($row->description) ? $row->description : $row->title,
+                        'author' => ($row->author) ? $row->author : $row->title,
+                        'shipping_charges' => ($row->shipping) ? $row->shipping : 0,
+                        'price' => $row->rate,
+                        'tax' => $row->tax,
+                        'quantity' => $row->qty,
+                        'is_taxable' => ($row->tax) ? 1 : 0,
+                        'price_after_tax' => calculatePercentage($row->rate, $row->tax),
+                    );
+                    \App\Models\Book::create($book);
+                }
+            });
+        });
+
+        Flash::message('Total '.$data['total_book'].' Books was successfully uploaded');
+
+        return Redirect::route('admin.book');
+    }
+
+    public function upload() {
+
+        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = [null => 'Please Select'] + $standard;
+
+        $company = \App\Models\Company::lists('name', 'id')->toArray();
+        $company = [null => 'Please Select'] + $company;
+        return view('backend.book.upload', compact('standard', 'company'));
     }
 
 }
