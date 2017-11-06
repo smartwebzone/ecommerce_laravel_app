@@ -31,7 +31,7 @@ Jeevandeep Prakashan Pvt. Ltd.
         {{$cart_menu = false}}
         @include('frontend.layout.jeevandeep.header')
         <div class="select-div">CREATE YOUR PASSWORD</div>
-        <div class="please-select">Please create your password. Use alphanumeric characters with a minimum of 8 characters. You can also use symbols such as @#$%^&*.</div>
+        <div class="please-select">Please create your password. Use alphanumeric characters with a minimum of 6 characters. You can also use symbols such as @#$%^&*.</div>
         <div class="cf">
         {!! Form::open(['route' => 'createPass',  'id' => '',  'name' => 'signup-form', 'class' => 'loginForm cf',  'method' => 'post']) !!}
                 <li class="form-group">
