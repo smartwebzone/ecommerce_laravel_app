@@ -320,10 +320,10 @@ class AuthController extends Controller {
         $user = User::find(Sentinel::getUser()->id);
         $user->password = bcrypt($request->password_signup);
         $user->save();
-        $data = \App\Models\Email::where(['template' => 'Register'])->find();
+        $data = \App\Models\Email::where(['template' => 'Register'])->get();
         // Send the welcome email
 
-        $body = str_replace('<<student_name>>', $user->first_name . ' ' . $user->last_name, $data->body);
+        $body = str_replace('<<student_name>>', $user->first_name . ' ' . $user->last_name, $data[0]->body);
         $body = str_replace('<<username>>', $user->email, $body);
         $body = str_replace('<<password>>', $request->password_signup, $body);
 
