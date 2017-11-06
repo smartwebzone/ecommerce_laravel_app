@@ -305,7 +305,7 @@ class AuthController extends Controller {
             return Redirect::to('signin');
         }
         $rules = array(
-            'password_signup' => 'required|between:3,32',
+            'password_signup' => 'required|between:6,32',
             'password_confirm' => 'required|same:password_signup');
         // Create a new validator instance from our validation rules
         $validator = Validator::make($request->all(), $rules);
@@ -458,7 +458,7 @@ class AuthController extends Controller {
     public function postForgotPasswordConfirm(Request $request, $userId, $passwordResetCode = null) {
         // Declare the rules for the form validation
         $rules = array(
-            'password' => 'required|between:3,32',
+            'password' => 'required|between:6,32',
             'password_confirm' => 'required|same:password'
         );
 
