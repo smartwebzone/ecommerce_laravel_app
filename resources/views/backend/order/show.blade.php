@@ -46,16 +46,14 @@
 
                         <div class="space12">
                             <div class="btn-group btn-group-lg">
-                                <a class="btn btn-default" href="{!! url(getLang() . '/admin/order') !!}"> order</a>
-                                <!--<a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/order/create') !!}"> <i class="fa fa-plus"></i> Add  Order </a>-->
+                                <a class="btn btn-default" href="{!! url(getLang() . '/admin/order') !!}"> Back</a>
+                                <a class="btn btn-default" href="{!! route('admin.order.invoice', [$order->id]) !!}" target="_blank"> Print Order</a>
                             </div>
                         </div>
 
                         <div class="col-md-12">
                             @include('backend.order.show_fields')
-                            <a href="{!! url(getLang() . '/admin/order') !!}" class="btn btn-default">Back</a>
                         </div>
-
                     </div>
                 </div>
             </div>

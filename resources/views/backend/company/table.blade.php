@@ -10,20 +10,20 @@
     <th width="7%" class="text-center">Action</th>
 </thead>
 <tbody>
-    @foreach($company as $company)
+    @foreach($company as $key=>$row)
     <tr>
-        <td class="text-center">{{ $company->id }}</td>
-        <td>{{ $company->name }}</td>
-        <td>{{ $company->phone }}</td>
-        <td>{{ $company->email }}</td>
-        <td>{{ $company->contact_person }}</td>
-        <td class="text-center">{{ formatDate($company->created_at) }}</td>
-        <td class="text-center">{{ getStatus($company->status) }}</td>
+        <td class="text-center">{{ srNo($key) }}</td>
+        <td>{{ $row->name }}</td>
+        <td>{{ $row->phone }}</td>
+        <td>{{ $row->email }}</td>
+        <td>{{ $row->contact_person }}</td>
+        <td class="text-center">{{ formatDate($row->created_at) }}</td>
+        <td class="text-center">{{ getStatus($row->status) }}</td>
         <td class="text-center" nowrap="nowrap">
-            {!! Form::open(['route' => ['admin.company.destroy', $company->id], 'method' => 'delete']) !!}
+            {!! Form::open(['route' => ['admin.company.destroy', $row->id], 'method' => 'delete']) !!}
             <div class='btn-group'>
-<!--                    <a href="{!! route('admin.company.show', [$company->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>-->
-                <a href="{!! route('admin.company.edit', [$company->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+<!--                    <a href="{!! route('admin.company.show', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>-->
+                <a href="{!! route('admin.company.edit', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                 {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
             </div>
             {!! Form::close() !!}
@@ -32,4 +32,9 @@
     @endforeach
 </tbody>
 </table>
-{{-- $company->links() --}}
+<div class="col-md-12">
+    <ul class="pagination">
+        {!! $company->render() !!}
+    </ul>
+</div>
+{{-- $row->links() --}}

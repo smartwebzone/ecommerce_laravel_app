@@ -10,20 +10,20 @@
     <th width="7%" class="text-center">Action</th>
 </thead>
 <tbody>
-    @foreach($school as $school)
+    @foreach($school as $key => $row)
     <tr>
-        <td class="text-center">{{ $school->id }}</td>
-        <td>{{ $school->name }}</td>
-        <td>{{ $school->phone }}</td>
-        <td>{{ $school->email }}</td>
-        <td>{{ $school->contact_person }}</td>
-        <td class="text-center">{{ formatDate($school->created_at) }}</td>
-        <td class="text-center">{{ getStatus($school->status) }}</td>
+        <td class="text-center">{{ srNo($key) }}</td>
+        <td>{{ $row->name }}</td>
+        <td>{{ $row->phone }}</td>
+        <td>{{ $row->email }}</td>
+        <td>{{ $row->contact_person }}</td>
+        <td class="text-center">{{ formatDate($row->created_at) }}</td>
+        <td class="text-center">{{ getStatus($row->status) }}</td>
         <td class="text-center" nowrap="nowrap">
-            {!! Form::open(['route' => ['admin.school.destroy', $school->id], 'method' => 'delete']) !!}
+            {!! Form::open(['route' => ['admin.school.destroy', $row->id], 'method' => 'delete']) !!}
             <div class='btn-group'>
-<!--                    <a href="{!! route('admin.school.show', [$school->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>-->
-                <a href="{!! route('admin.school.edit', [$school->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+<!--                    <a href="{!! route('admin.school.show', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>-->
+                <a href="{!! route('admin.school.edit', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                 
                 {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
             </div>
@@ -33,4 +33,9 @@
     @endforeach
 </tbody>
 </table>
-{{-- $school->links() --}}
+<div class="col-md-12">
+    <ul class="pagination">
+        {!! $school->render() !!}
+    </ul>
+</div>
+{{-- $row->links() --}}

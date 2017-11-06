@@ -1,3 +1,8 @@
+<?php
+foreach($order->product as $item){
+    $invoice_title = ($item->is_taxable == 1 ? 'TAX INVOICE' : 'BILL OF SUPPLY');
+}
+?>
 <!DOCTYPE html>
 <!--[if IE 8]><html class="ie8 no-js" lang="en"><![endif]-->
 <!--[if IE 9]><html class="ie9 no-js" lang="en"><![endif]-->
@@ -33,13 +38,18 @@
                     <div class="invoice">
                         <div class="row">
                             <div class="col-sm-12">
+                                <h3 style="text-align:center">{{$invoice_title}}</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
                                 <table class="print_table">
                                     <tbody>
                                         <tr>
                                             <td width="50%" class="text-left">
-                                                JEEVANDEEP PRAKASHAN PVT. LTD.
+                                                <h4>JEEVANDEEP PRAKASHAN PVT. LTD.</h4>
                                             </td>
-                                            <td class="text-right" style="font-size:26px;">#{{ $order->transaction_id }} / {{ $order->order_date }}</td>
+                                            <td class="text-right"><h4>#{{ $order->order_no }} / {{ $order->order_date_formatted }}</h4></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -54,23 +64,18 @@
                                             <td width="33%" class="text-left">
                                                 <h4>Customer Details:</h4>
                                                 <div class="">
-                                                    <address>
-                                                        <strong>{{ $order->user->first_name }} {{ $order->user->last_name }}</strong>
-                                                        <br>
-                                                        <br/>
-                                                        <abbr title="Email">Email:</abbr> {{ $order->user->email }}
-                                                    </address>
+                                                    <strong>{{ $order->user->first_name }} {{ $order->user->last_name }}</strong>
+                                                    <br/>{{ $order->user->email }}
+                                                    <br/>{{ $order->user->mobile }}
                                                 </div>
                                             </td>
                                             <td class="text-left">
                                                 <h4>Billing Information:</h4>
                                                 <div class="">
                                                     <address>
-                                                        <strong>{{ $order->billing_firstname }} {{ $order->billing_lastname }}</strong>
+                                                        {{ $order->billing_address1.' '.$order->billing_address2 }}
                                                         <br>
-                                                        {{ $order->billing_address }}
-                                                        <br>
-                                                        {{ $order->billing_city.", ".$order->billing_state.", ".$order->billing_zipcode.", ".$order->billing_country }}
+                                                        {{ $order->billing_city.", ".$order->billing_state.", ".$order->billing_zip }}
                                                        
                                                     </address>
                                                 </div>    
@@ -79,12 +84,10 @@
                                                 <h4>Shipping Information:</h4>
                                                 <div class="">
                                                     <address>
-                                                        <strong>{{ $order->firstname }} {{ $order->lastname }}</strong>
+                                                        {{ $order->shipping_address1.' '.$order->shipping_address2 }}
                                                         <br>
-                                                        {{ $order->shipping_address }}
-                                                        <br>
-                                                        {{ $order->shipping_city.", ".$order->shipping_state.", ".$order->shipping_zipcode.", ".$order->shipping_country }}
-                                                      
+                                                        {{ $order->shipping_city.", ".$order->shipping_state.", ".$order->shipping_zip }}
+                                                       
                                                     </address>
                                                 </div>    
                                             </td>
@@ -155,25 +158,12 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table no_border_table" cellspacing="0" cellpadding="0">
-                                    <thead>
+                                <table class="print_table">
+                                    <tbody>
                                         <tr>
-                                            <td width="17%"> <strong>Order Status :</strong> </td>
-                                            <td> {{ $order->status->name }} </td>
+                                            <td> Order Status : {{ $order->status->name }} </td>
                                         </tr>
-                                        @if($order->status_reason)
-                                        <tr>
-                                            <td width="17%"> <strong>Notes :</strong> </td>
-                                            <td> {{ $order->status_reason }} </td>
-                                        </tr>
-                                        @endif
-                                        @if($order->charge_date)
-                                        <tr>
-                                            <td width="17%"> <strong>Charge Date :</strong> </td>
-                                            <td> {{ $order->charge_date }} </td>
-                                        </tr>
-                                        @endif
-                                    </thead>   
+                                    </tbody>   
                                 </table>
                             </div>
                         </div>

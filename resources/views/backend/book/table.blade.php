@@ -11,21 +11,21 @@
     <th width="10%" class="text-center">Action</th>
 </thead>
 <tbody>
-    @foreach($book as $book)
+    @foreach($book as $key => $row)
     <tr>
-        <td class="text-center">{{ $book->id }}</td>
-        <td>{{ $book->name }}</td>
-        <td>{{ $book->company->find($book->company_id)->name }}</td>
-        <td>{{ $book->standard->find($book->standard_id)->name }}</td>
-        <td>{{ $book->author }}</td>
-        <td class="text-right">{{ $book->price }}</td>
-        <td class="text-center">{{ formatDate($book->created_at) }}</td>
-        <td class="text-center">{{ getStatus($book->status) }}</td>
+        <td class="text-center">{{ srNo($key) }}</td>
+        <td>{{ $row->name }}</td>
+        <td>{{ $row->company->find($row->company_id)->name }}</td>
+        <td>{{ $row->standard->find($row->standard_id)->name }}</td>
+        <td>{{ $row->author }}</td>
+        <td class="text-right">{{ $row->price }}</td>
+        <td class="text-center">{{ formatDate($row->created_at) }}</td>
+        <td class="text-center">{{ getStatus($row->status) }}</td>
         <td class="text-center" nowrap="nowrap">
-            {!! Form::open(['route' => ['admin.book.destroy', $book->id], 'method' => 'delete']) !!}
+            {!! Form::open(['route' => ['admin.book.destroy', $row->id], 'method' => 'delete']) !!}
             <div class='btn-group'>
-                <a href="{!! route('admin.book.edit', [$book->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                <a onclick="return confirm('Are you sure want to generate clone?')" href="{!! route('admin.book.copy', [$book->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-copy"></i></a>
+                <a href="{!! route('admin.book.edit', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                <a onclick="return confirm('Are you sure want to generate clone?')" href="{!! route('admin.book.copy', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-copy"></i></a>
                 {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
             </div>
             {!! Form::close() !!}
@@ -34,4 +34,9 @@
     @endforeach
 </tbody>
 </table>
-{{-- $book->links() --}}
+<div class="col-md-12">
+    <ul class="pagination">
+        {!! $book->render() !!}
+    </ul>
+</div>
+{{-- $row->links() --}}
