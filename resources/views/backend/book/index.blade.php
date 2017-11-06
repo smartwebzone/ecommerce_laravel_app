@@ -50,6 +50,7 @@
                         <div class="space12">
                             <div class="btn-group btn-group-lg">
                                 <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/book/create') !!}"> <i class="fa fa-plus"></i> Add Book </a>
+                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/book/upload') !!}"> <i class="fa fa-upload"></i> Upload Book </a>
                             </div>
                         </div>
 
