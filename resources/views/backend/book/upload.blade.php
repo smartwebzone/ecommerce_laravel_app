@@ -73,6 +73,10 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-12">
+                                    <a target="_blank" href="{{url('assets/book_upload_format.xlsx')}}">Download Format</a>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    
                                     {!! Form::submit('Import', ['class' => 'btn btn-primary','required' => true]) !!}
                                     <a href="{!! route('admin.book') !!}" class="btn btn-default">Cancel</a>
                                 </div>
