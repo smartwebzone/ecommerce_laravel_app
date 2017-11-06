@@ -292,8 +292,17 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::post('/email/create', 'EmailController@store');
         Route::post('/email/{id}/edit', 'EmailController@edit');
         
-        Route::get('unavailable/schools', ['as' => 'admin.unavailable.schools', 'uses' => 'UnavailableController@schools']);
-        Route::get('unavailable/standards', ['as' => 'admin.unavailable.standards', 'uses' => 'UnavailableController@standards']);
+        Route::get('unavailables', ['as' => 'admin.unavailables', 'uses' => 'UnavailablesController@index']);
+        Route::get('unavailables/create', ['as' => 'admin.unavailables.create', 'uses' => 'UnavailablesController@create']);
+        Route::delete('unavailables/destroy/{id}', ['as' => 'admin.unavailables.destroy', 'uses' => 'UnavailablesController@destroy']);
+        Route::get('unavailables/show/{id}', ['as' => 'admin.unavailables.show', 'uses' => 'UnavailablesController@show']);
+        Route::get('unavailables/edit/{id}', ['as' => 'admin.unavailables.edit', 'uses' => 'UnavailablesController@edit']);
+        Route::patch('unavailables/update/{unavailables}', ['as' => 'admin.unavailables.update', 'uses' => 'UnavailablesController@update']);
+
+        Route::get('/unavailables/{id}/delete', 'UnavailablesController@delete');
+        Route::get('/unavailables/{id}/show', 'UnavailablesController@show');
+        Route::post('/unavailables/create', 'UnavailablesController@store');
+        Route::post('/unavailables/{id}/edit', 'UnavailablesController@edit');
 
         Route::get('/information/create/ajax-standard', function() {
             $school_id = Input::get('school_id');

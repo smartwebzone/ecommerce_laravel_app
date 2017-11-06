@@ -213,7 +213,7 @@ class StoreController extends Controller {
     
     public function unavailable_school(Request $request) {
         if($request->action == 'add'){
-            $missing_school = \App\Models\MissingSchool::Create(['name' => $request->name,
+            $missing_school = \App\Models\Missingschool::Create(['name' => $request->name,
                         'description' => $request->description]);
             return Redirect::route('store.selectSchool')->with('success', 'Your request to add new school sent successfully.');
         }
@@ -222,7 +222,7 @@ class StoreController extends Controller {
     
     public function unavailable_standard(Request $request) {
         if($request->action == 'add'){
-            $missing_standard = \App\Models\MissingStandard::Create(['name' => $request->name,
+            $missing_standard = \App\Models\Missingstandard::Create(['name' => $request->name,
                         'description' => $request->description]);
             return Redirect::route('store.selectSchool')->with('success', 'Your request to add new standard sent successfully.');
         }
