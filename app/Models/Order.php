@@ -56,6 +56,10 @@ class Order extends Model implements ModelInterface {
     public function getOrderDateFormattedAttribute() {
         return date('d F Y', strtotime($this->order_date));
     }
+    
+    public function getOrderDateFormattedShortAttribute() {
+        return date('d-M-y', strtotime($this->order_date));
+    }
 
     public function getOrderNoAttribute() {
         return $this->id + $this->order_start;
