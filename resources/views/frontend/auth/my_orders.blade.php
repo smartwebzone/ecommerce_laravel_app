@@ -52,7 +52,7 @@ My Orders | Jeevandeep Prakashan Pvt. Ltd.
                             <th class="my-col-2">DATE OF PURCHASE</th>
                             <th class="my-col-3">ORDER TOTAL</th>
                             <th class="my-col-4">ORDER STATUS</th>
-                            <th class="my-col-5">DOWNLOAD INVOICE</th>
+                            <th class="my-col-5">DOWNLOAD</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,7 +63,7 @@ My Orders | Jeevandeep Prakashan Pvt. Ltd.
                             <td class="my-col-2"><div>{{$om->order_date_formatted}}</div></td>
                             <td class="my-col-3"><div>INR {{$op->price}}</div></td>
                             <td class="my-col-4"><div>{{$om->order_status_text}}</div></td>
-                            <td class="my-col-5"><div><a href="#"><i class="fa fa-download"></i><span>INVOICE</span></a></div></td>
+                            <td class="my-col-5"><div><a href="{!! route('invoice', [$om->id]) !!}" target="_blank"><i class="fa fa-download"></i><span>Download</span></a></div></td>
                         </tr>
                         @endforeach
                         @endforeach
