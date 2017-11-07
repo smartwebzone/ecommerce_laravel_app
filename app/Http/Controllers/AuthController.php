@@ -28,6 +28,7 @@ use Activation;
 use Auth;
 use Str;
 use Illuminate\Support\MessageBag;
+use PDF;
 
 class AuthController extends Controller {
 
@@ -522,6 +523,20 @@ class AuthController extends Controller {
         }
         $orders = \App\Models\Order::where(['user_id' => Sentinel::getuser()->id])->get();
         return View('frontend.auth.my_orders', compact('orders'));
+    }
+    
+    public function invoice($id) {
+        
+        $order = \App\Models\Order::where('user_id',Sentinel::getuser()->id)->where('id',$id)->get();
+        if(count($order) == 0){
+            return Redirect::route('my_orders')->with('error', 'Invalid request');
+        }
+        $order = $order[0];
+        $option_added = [];    
+        //dd($order->user);
+        //return view('backend.orders.invoice', compact('orderDetails', 'order', 'options'));
+        $pdf = PDF::loadView('backend.orders.invoice', compact('orderDetails', 'order', 'options'));
+        return $pdf->stream();
     }
 
 }

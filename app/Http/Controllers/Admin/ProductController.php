@@ -169,7 +169,8 @@ class ProductController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        if($this->product->order()->count() > 0){
+        $product = $this->product->find($id);
+        if($product->order()->count() > 0){
             die("Action not allowed");
         }
         $this->product->delete($id);
