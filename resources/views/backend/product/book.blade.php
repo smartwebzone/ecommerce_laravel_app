@@ -19,7 +19,7 @@
         <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>    
             <li><a href="{!! url(getLang() . '/admin/product') !!}"><i class="fa fa-shopping-bag"></i> Products</a></li>
-            <li class="active">Update Product</li>
+            <li class="active">Select Product Books</li>
         </ol>
         <div class="page-header">
             <h1> Select Product Books</h1>
@@ -79,10 +79,10 @@
                                         <div class="error">{{ $errors->first('book_id') }}</div>
                                         @endif
                                     </div>
-                                    <div class="form-group col-sm-4">
+                                    <div class="form-group col-sm-1">
                                         {!! Form::label('Quantity', 'Quantity:') !!}
 
-                                        {!! Form::text('quantity[]', $bk->pivot->quantity, ['class' => 'form-control','placeholder'=>'Quantity', 'value' => old('quantity'),'required' => true]) !!}
+                                        {!! Form::text('quantity[]', $bk->pivot->quantity, ['class' => 'form-control', 'value' => old('quantity'),'required' => true]) !!}
 
                                         @if ($errors->has('book_id'))
                                         <div class="error">{{ $errors->first('book_id') }}</div>
@@ -110,10 +110,10 @@
                                         <div class="error">{{ $errors->first('book_id') }}</div>
                                         @endif
                                     </div>
-                                    <div class="form-group col-sm-4">
+                                    <div class="form-group col-sm-1">
                                         {!! Form::label('Quantity', 'Quantity:') !!}
 
-                                        {!! Form::text('quantity[]', null, ['class' => 'form-control','placeholder'=>'Quantity', 'value' => old('quantity'),'required' => true]) !!}
+                                        {!! Form::text('quantity[]', null, ['class' => 'form-control', 'value' => old('quantity'),'required' => true]) !!}
 
                                         @if ($errors->has('book_id'))
                                         <div class="error">{{ $errors->first('book_id') }}</div>
@@ -128,10 +128,9 @@
                                 @endif
 
                             </div>
-                            <div class="row">
-                                <div class="form-group col-sm-12">
-                                    {!! Form::submit('Save', ['class' => 'btn btn-primary','required' => true]) !!}
-                                </div>
+                            <div class="form-group col-sm-12">
+                                {!! Form::submit('Save', ['class' => 'btn btn-primary','required' => true]) !!}
+                                <a class="btn btn-default" href="{{route('admin.product')}}">Back</a>
                             </div>
                             {!! Form::close() !!}
                         </div>
@@ -153,10 +152,10 @@
             <div class="error">{{ $errors->first('book_id') }}</div>
             @endif
         </div>
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-1">
             {!! Form::label('Quantity', 'Quantity:') !!}
 
-            {!! Form::text('quantity[]', null, ['class' => 'form-control','placeholder'=>'Quantity', 'value' => old('quantity'),'required' => true]) !!}
+            {!! Form::text('quantity[]', null, ['class' => 'form-control', 'value' => old('quantity'),'required' => true]) !!}
 
             @if ($errors->has('book_id'))
             <div class="error">{{ $errors->first('book_id') }}</div>

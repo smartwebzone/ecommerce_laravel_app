@@ -290,3 +290,13 @@ function getCartCount(){
     }
     return $count;
 }
+
+function srNo($key,$per_page = 10){
+    if(app('request')->input('page')){
+        $page = app('request')->input('page');
+    }else{
+        $page = 1;
+    }
+    $sr_no = ($per_page * ($page-1)) + $key + 1;
+    return $sr_no;
+}

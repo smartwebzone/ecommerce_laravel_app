@@ -10,19 +10,19 @@
     <th width="7%" class="text-center">Action</th>
 </thead>
 <tbody>
-    @foreach($users as $user)
+    @foreach($users as $key => $row)
     <tr>
-        <td class="text-center">{{ $user->id }}</td>
-        <td>{!! $user->first_name !!} {!! $user->last_name !!}</td>
-        <td class="text-center">{!! $user->isAdmin == 1 ? 'Admin' : 'Student' !!}</td>
-        <td>{{ $user->email }}</td>
-        <td>{{ $user->mobile }}</td>
-        <td class="text-center">{{ formatDate($user->created_at) }}</td>
-        <td class="text-center">{{ getStatus($user->status) }}</td>
+        <td class="text-center">{{ srNo($key) }}</td>
+        <td>{!! $row->first_name !!} {!! $row->last_name !!}</td>
+        <td class="text-center">{!! $row->isAdmin == 1 ? 'Admin' : 'Student' !!}</td>
+        <td>{{ $row->email }}</td>
+        <td>{{ $row->mobile }}</td>
+        <td class="text-center">{{ formatDate($row->created_at) }}</td>
+        <td class="text-center">{{ getStatus($row->status) }}</td>
         <td class="text-center" nowrap="nowrap">
-            {!! Form::open(['route' => ['admin.user.destroy', $user->id], 'method' => 'delete']) !!}
+            {!! Form::open(['route' => ['admin.user.destroy', $row->id], 'method' => 'delete']) !!}
             <div class='btn-group'>
-                <a href="{!! route('admin.user.edit', [$user->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                <a href="{!! route('admin.user.edit', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                 {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
             </div>
             {!! Form::close() !!}
@@ -31,4 +31,9 @@
     @endforeach
 </tbody>
 </table>
-{{-- $user->links() --}}
+<div class="col-md-12">
+    <ul class="pagination">
+        {!! $users->render() !!}
+    </ul>
+</div>
+{{-- $row->links() --}}

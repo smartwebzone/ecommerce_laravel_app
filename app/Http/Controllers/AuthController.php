@@ -305,7 +305,7 @@ class AuthController extends Controller {
             return Redirect::to('signin');
         }
         $rules = array(
-            'password_signup' => 'required|between:3,32',
+            'password_signup' => 'required|between:6,32',
             'password_confirm' => 'required|same:password_signup');
         // Create a new validator instance from our validation rules
         $validator = Validator::make($request->all(), $rules);
@@ -320,10 +320,10 @@ class AuthController extends Controller {
         $user = User::find(Sentinel::getUser()->id);
         $user->password = bcrypt($request->password_signup);
         $user->save();
-        $data = \App\Models\Email::where(['template' => 'Register'])->find();
+        $data = \App\Models\Email::where(['template' => 'Register'])->get();
         // Send the welcome email
 
-        $body = str_replace('<<student_name>>', $user->first_name . ' ' . $user->last_name, $data->body);
+        $body = str_replace('<<student_name>>', $user->first_name . ' ' . $user->last_name, $data[0]->body);
         $body = str_replace('<<username>>', $user->email, $body);
         $body = str_replace('<<password>>', $request->password_signup, $body);
 
@@ -458,7 +458,7 @@ class AuthController extends Controller {
     public function postForgotPasswordConfirm(Request $request, $userId, $passwordResetCode = null) {
         // Declare the rules for the form validation
         $rules = array(
-            'password' => 'required|between:3,32',
+            'password' => 'required|between:6,32',
             'password_confirm' => 'required|same:password'
         );
 

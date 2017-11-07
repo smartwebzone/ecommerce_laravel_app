@@ -39,9 +39,9 @@ class OrderController extends Controller {
      */
     public function index() {
         $pagiData = $this->order->paginate(Input::get('page', 1), $this->perPage, true);
-        $order = Pagination::makeLengthAware($pagiData->items, $pagiData->totalItems, $this->perPage);
+        $orders = Pagination::makeLengthAware($pagiData->items, $pagiData->totalItems, $this->perPage);
 
-        return view('backend.order.index', compact('order'));
+        return view('backend.order.index', compact('orders'));
     }
 
     /**

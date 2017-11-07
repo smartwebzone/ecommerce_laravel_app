@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2017 at 08:01 PM
+-- Generation Time: Nov 07, 2017 at 10:31 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -61,7 +61,9 @@ INSERT INTO `activations` (`id`, `user_id`, `code`, `completed`, `completed_at`,
 (15, 14, 'weam3TYsLof0Y4G27ZR93U4HNfKrTMGx', 1, '2017-11-01 07:49:38', '2017-11-01 07:49:37', '2017-11-01 07:49:38'),
 (16, 14, 'nHhD0PlpYXAINPyDiEtmd9R8l9PcfFUy', 1, '2017-11-01 08:00:11', '2017-11-01 08:00:11', '2017-11-01 08:00:11'),
 (17, 16, 'nOfFBOaobwahvpR73eSTWb6SvRR4P5As', 1, '2017-11-04 01:03:04', '2017-11-04 01:03:04', '2017-11-04 01:03:04'),
-(18, 17, 'MldwezIz8B3LbcWwThcLtepfGcOnJVrU', 1, '2017-11-04 01:15:27', '2017-11-04 01:15:27', '2017-11-04 01:15:27');
+(18, 17, 'MldwezIz8B3LbcWwThcLtepfGcOnJVrU', 1, '2017-11-04 01:15:27', '2017-11-04 01:15:27', '2017-11-04 01:15:27'),
+(19, 18, 'Cb1EqJpV3s4p5zvmScVX0gbd9cUqTZvJ', 1, '2017-11-05 15:32:16', '2017-11-05 15:32:16', '2017-11-05 15:32:16'),
+(20, 19, 'iJlteuLqwJXzbNSEXzZYMvZqQeK1Bt7O', 1, '2017-11-05 17:31:34', '2017-11-05 17:31:34', '2017-11-05 17:31:34');
 
 -- --------------------------------------------------------
 
@@ -91,8 +93,8 @@ CREATE TABLE `address_master` (
 --
 
 INSERT INTO `address_master` (`id`, `address_type`, `address1`, `address2`, `area`, `city`, `state`, `zip`, `add_date`, `added_by`, `update_date`, `updated_by`, `deleted_at`) VALUES
-(1, 'shipping', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Gujarat', '380058', '2017-11-05 10:32:28', 17, '2017-11-05 18:32:15', NULL, NULL),
-(2, 'billing', 'Bungalow 4', 'Swara Bungalows', 'Valam', 'Visnagar', 'Gujarat', '396445', '2017-11-05 10:32:28', 17, '2017-11-05 21:52:41', NULL, NULL);
+(1, 'shipping', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Gujarat', '380058', '2017-11-06 11:32:38', 19, '2017-11-06 11:32:38', NULL, NULL),
+(2, 'billing', 'A-102', 'Jalaram Chambers', 'Bhaktinagar', 'Navsari', 'Gujarat', '396445', '2017-11-06 11:32:38', 19, '2017-11-06 11:32:38', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -111,8 +113,8 @@ CREATE TABLE `address_user` (
 --
 
 INSERT INTO `address_user` (`address_id`, `user_id`) VALUES
-(1, 17),
-(2, 17);
+(1, 19),
+(2, 19);
 
 -- --------------------------------------------------------
 
@@ -125,6 +127,7 @@ CREATE TABLE `book_master` (
   `id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   `standard_id` int(11) NOT NULL,
+  `medium` text,
   `name` varchar(100) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `author` varchar(100) DEFAULT NULL,
@@ -134,6 +137,7 @@ CREATE TABLE `book_master` (
   `tax` decimal(10,2) DEFAULT NULL,
   `price_after_tax` decimal(10,2) DEFAULT NULL,
   `shipping_charges` decimal(10,2) DEFAULT NULL,
+  `quantity` int(11) UNSIGNED NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
   `added_by` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -147,10 +151,11 @@ CREATE TABLE `book_master` (
 -- Dumping data for table `book_master`
 --
 
-INSERT INTO `book_master` (`id`, `company_id`, `standard_id`, `name`, `description`, `author`, `book_code`, `price`, `is_taxable`, `tax`, `price_after_tax`, `shipping_charges`, `status`, `added_by`, `created_at`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 1, 1, 'Fabri-Fast Tool', 'Algebra, Trigonometric, etc', 'R.K sharma', 'PL3298382983', '5000.00', 1, '50.00', '7500.00', '30.00', 1, 1, '2017-10-25 17:42:13', '2017-10-25 17:42:13', NULL, NULL, NULL),
-(2, 1, 2, 'Physics', 'Newton\'s all laws', 'Newton', 'N123456', '199.25', 1, '12.00', '223.16', '50.00', 1, 1, '2017-11-04 11:34:38', '2017-11-04 11:34:38', NULL, NULL, NULL),
-(3, 1, 1, 'Mathematics', 'Algebra, Trigonometric, etc', 'Rohit Modi', 'R123', '150.00', 1, '12.00', '168.00', '10.00', 1, 1, '2017-11-04 11:35:11', '2017-11-04 11:35:11', NULL, NULL, NULL);
+INSERT INTO `book_master` (`id`, `company_id`, `standard_id`, `medium`, `name`, `description`, `author`, `book_code`, `price`, `is_taxable`, `tax`, `price_after_tax`, `shipping_charges`, `quantity`, `status`, `added_by`, `created_at`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
+(1, 2, 1, '', 'Science', 'Science book', 'R.K sharma', 'PL3298382983', '150.00', 0, '0.00', '150.00', '20.00', 0, 1, 1, '2017-10-25 17:42:13', '2017-11-06 05:49:26', 1, NULL, NULL),
+(2, 1, 1, '', 'Physics', 'Newton\'s all laws', 'Newton', 'N123456', '200.00', 1, '12.00', '224.00', '20.00', 0, 1, 1, '2017-11-04 11:34:38', '2017-11-06 05:46:23', 1, NULL, NULL),
+(3, 1, 1, '', 'Mathematics', 'Algebra, Trigonometric, etc', 'Rohit Modi', 'R123', '180.00', 1, '18.00', '212.40', '20.00', 0, 1, 1, '2017-11-04 11:35:11', '2017-11-06 05:45:39', 1, NULL, NULL),
+(4, 2, 1, '', 'Social Science', 'Social Science Textbook', 'Rob Madson', 'B123567', '195.00', 0, '0.00', '195.00', '20.00', 0, 1, 1, '2017-11-06 05:48:43', '2017-11-06 05:49:19', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -216,7 +221,8 @@ CREATE TABLE `company_master` (
 --
 
 INSERT INTO `company_master` (`id`, `name`, `phone`, `email`, `contact_person`, `address1`, `address2`, `area`, `city`, `state`, `zip`, `payment_gateway`, `payment_gateway_key`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 'Safal Infotech', '9974916374', 'ajaydpatel15@gmail.com', 'Ajay Patel', '208, Rudra Arcade', 'Hemlet Cross Road', 'Navrangpura', 'Ahmedabad', 'Gujarat', '380009', 'PayUMoney', 'PjshhdHjksjk281JHJhj(@hjdshsj', 1, '2017-10-23 18:00:50', 1, '2017-11-04 10:06:17', 1, NULL, NULL);
+(1, 'Safal Infotech', '9974916374', 'ajaydpatel15@gmail.com', 'Ajay Patel', '208, Rudra Arcade', 'Hemlet Cross Road', 'Navrangpura', 'Ahmedabad', 'Gujarat', '380009', 'PayUMoney', 'PjshhdHjksjk281JHJhj(@hjdshsj', 1, '2017-10-23 18:00:50', 1, '2017-11-04 10:06:17', 1, NULL, NULL),
+(2, 'Yashvi IT Solutions', '9510983350', 'rohitpmodi@gmail.com', 'Rohit Modi', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Gujarat', '380058', 'PayUMoney', '6787678678HHGJHGHJ', 1, '2017-11-06 04:41:16', 1, '2017-11-06 04:41:16', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -297,8 +303,8 @@ CREATE TABLE `missing_schools` (
 --
 
 INSERT INTO `missing_schools` (`id`, `name`, `description`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 'Sanskar Bharti', 'from Navsari missing', 1, '2017-11-05 14:08:50', NULL, '2017-11-05 14:08:50', NULL, NULL, NULL),
-(2, 'Test School', 'Rajasthan', 1, '2017-11-05 18:55:08', NULL, '2017-11-05 18:55:08', NULL, NULL, NULL);
+(1, 'Sheth R.J.J', 'Navsari', 1, '2017-11-06 06:11:25', NULL, '2017-11-06 06:11:25', NULL, NULL, NULL),
+(2, 'Diwan Ballubhai', 'Ahmedabad', 1, '2017-11-06 06:39:15', NULL, '2017-11-06 06:39:15', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -325,7 +331,7 @@ CREATE TABLE `missing_standards` (
 --
 
 INSERT INTO `missing_standards` (`id`, `name`, `description`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 'Grade 1', 'Grade 1 missing', 1, '2017-11-05 14:18:08', NULL, '2017-11-05 14:18:08', NULL, NULL, NULL);
+(1, 'Grade 10', 'CN Vidyalaya', 1, '2017-11-06 06:39:44', NULL, '2017-11-06 06:39:44', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -371,12 +377,8 @@ CREATE TABLE `order_master` (
 --
 
 INSERT INTO `order_master` (`id`, `user_id`, `amount`, `tax`, `shipping`, `total_amount`, `status_id`, `order_date`, `transaction_id`, `reference_no`, `preferred_delivery_date`, `billing_address1`, `billing_address2`, `billing_area`, `billing_city`, `billing_state`, `billing_zip`, `shipping_address1`, `shipping_address2`, `shipping_area`, `shipping_city`, `shipping_state`, `shipping_zip`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`, `issue_raised`, `order_notes`) VALUES
-(1, 17, '5000.00', '2500.00', '0.00', '7535.40', 2, '2017-11-05 12:50:06', NULL, NULL, '2017-10-06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 17:21:03', 1, NULL, NULL, '0', NULL),
-(2, 17, '5000.00', '2500.00', '0.00', '7524.78', 1, '2017-11-05 12:50:10', NULL, NULL, '2017-10-06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 12:50:10', NULL, NULL, NULL, '0', NULL),
-(3, 17, '5000.00', '2500.00', '0.00', '7535.40', 1, '2017-11-05 13:02:23', NULL, NULL, '2017-04-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 13:02:23', NULL, NULL, NULL, '0', NULL),
-(4, 17, '5000.00', '2500.00', '0.00', '7524.78', 2, '2017-11-05 13:02:26', NULL, NULL, '2017-04-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 17:22:24', 1, NULL, NULL, '0', NULL),
-(5, 17, '5000.00', '2500.00', '0.00', '7524.78', 1, '2017-11-05 13:22:59', NULL, NULL, '2017-03-02', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 13:22:59', NULL, NULL, NULL, '0', NULL),
-(6, 17, '5000.00', '2500.00', '0.00', '7524.78', 1, '2017-11-05 13:27:23', NULL, NULL, '2017-02-14', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-05 13:27:23', NULL, NULL, NULL, '0', NULL);
+(1, 19, '380.00', '56.40', '23.60', '460.00', 1, '2017-11-06 06:06:11', NULL, NULL, '2017-10-06', 'A-102', 'Jalaram Chambers', 'Bhaktinagar', 'Navsari', 'Gujarat', '396445', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Gujarat', '380058', '2017-11-06 06:06:11', NULL, NULL, NULL, '0', NULL),
+(2, 19, '345.00', '0.00', '35.40', '380.40', 1, '2017-11-06 06:06:19', NULL, NULL, '2017-10-06', 'A-102', 'Jalaram Chambers', 'Bhaktinagar', 'Navsari', 'Gujarat', '396445', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Gujarat', '380058', '2017-11-06 06:06:19', NULL, NULL, NULL, '0', NULL);
 
 -- --------------------------------------------------------
 
@@ -397,12 +399,8 @@ CREATE TABLE `order_product` (
 --
 
 INSERT INTO `order_product` (`order_id`, `product_id`, `qty`, `price`) VALUES
-(1, 26, 1, '7535'),
-(2, 20, 1, '7525'),
-(3, 26, 1, '7535'),
-(4, 20, 1, '7525'),
-(5, 20, 1, '7525'),
-(6, 20, 1, '7525');
+(1, 20, 1, '460'),
+(2, 26, 1, '380');
 
 -- --------------------------------------------------------
 
@@ -467,7 +465,15 @@ INSERT INTO `persistences` (`id`, `user_id`, `code`, `created_at`, `updated_at`)
 (68, 1, 'D1GmWmsCva0an8Wbsj6LFnMtCE8fo2GZ', '2017-11-04 21:02:41', '2017-11-04 21:02:41'),
 (69, 17, 'wAoSGhzDd2v14MDXDAoSyue3LuVqmKeR', '2017-11-04 21:05:38', '2017-11-04 21:05:38'),
 (70, 1, 'sykQLJdwFidxiAPYfSIKP7uO7ohdpDpT', '2017-11-04 23:01:32', '2017-11-04 23:01:32'),
-(71, 1, 'JU8ypMDSJII0qaD3UHKUxaCFf2N3Z81y', '2017-11-05 04:38:43', '2017-11-05 04:38:43');
+(71, 1, 'JU8ypMDSJII0qaD3UHKUxaCFf2N3Z81y', '2017-11-05 04:38:43', '2017-11-05 04:38:43'),
+(72, 17, 'EK4wYYWBVTRDoovtWxIusjrzCfHrk6ED', '2017-11-05 07:06:28', '2017-11-05 07:06:28'),
+(73, 1, 'O7kJJ5K7iU0emao8tDD68WMKWwoS4exL', '2017-11-05 07:06:51', '2017-11-05 07:06:51'),
+(74, 1, 'afvP7MvN3bunaB1JnIvGP2Doinja5UIw', '2017-11-05 15:29:10', '2017-11-05 15:29:10'),
+(75, 18, 'UFcDo76WiijpmH4PUd5bxRqPGlODXLYC', '2017-11-05 15:32:16', '2017-11-05 15:32:16'),
+(76, 1, 'TWwnsc2pU13aoLM0KG5ayKWuGCQCKw78', '2017-11-05 15:39:32', '2017-11-05 15:39:32'),
+(77, 1, 'veF9DQB1vkLP7ckB9MaoL5isp0ZEq5nD', '2017-11-05 17:10:55', '2017-11-05 17:10:55'),
+(78, 19, 'dEghabINSFR41v6DMgjIpcojhiJbw1X6', '2017-11-05 17:31:34', '2017-11-05 17:31:34'),
+(79, 1, 'oYB82Ml8gcKmVFIrIcAh6jwdDEXYZ5AP', '2017-11-06 06:19:27', '2017-11-06 06:19:27');
 
 -- --------------------------------------------------------
 
@@ -487,9 +493,10 @@ CREATE TABLE `product_books` (
 --
 
 INSERT INTO `product_books` (`product_id`, `book_id`, `quantity`) VALUES
-(20, 1, 15),
-(25, 1, 15),
-(26, 1, 2);
+(20, 2, 1),
+(20, 3, 1),
+(26, 1, 1),
+(26, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -523,11 +530,8 @@ CREATE TABLE `product_master` (
 --
 
 INSERT INTO `product_master` (`id`, `school_id`, `standard_id`, `company_id`, `is_taxable`, `title`, `description`, `long_description`, `instate_shipping_charges`, `outstate_shipping_charges`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(20, 1, 1, 1, 1, 'Pipeline 1', 'Algebra, Trigonometric, etc', 'fd', '21.00', '50.00', 1, '2017-10-25 17:17:13', 1, '2017-11-05 11:33:50', 1, NULL, NULL),
-(23, 1, 1, 1, 1, 'Copy of Pipeline 1', 'Algebra, Trigonometric, etc', 'fd', '21.00', '21.00', 1, '2017-10-25 20:00:24', 1, '2017-11-04 10:10:58', NULL, '2017-11-03 22:40:58', NULL),
-(24, 1, 1, 1, 1, 'Copy of Pipeline 1', 'Algebra, Trigonometric, etc', 'fd', '21.00', '21.00', 1, '2017-10-25 20:02:03', 1, '2017-11-04 10:11:03', NULL, '2017-11-03 22:41:03', NULL),
-(25, 1, 1, 1, 1, 'Copy of Pipeline 1', 'Algebra, Trigonometric, etc', 'fd', '21.00', '21.00', 1, '2017-10-25 20:02:43', 1, '2017-11-04 10:11:07', NULL, '2017-11-03 22:41:07', NULL),
-(26, 1, 1, 1, 1, 'Prod 2', 'Test desc', 'Test desc long', '30.00', '60.00', 1, '2017-11-04 11:26:27', 1, '2017-11-05 11:32:17', 1, NULL, NULL);
+(20, 1, 1, 1, 1, 'Gread 8-12 Set 1', 'Algebra, Trigonometric, etc', 'Cras auctor ante non elementum malesuada. Cras posuere, est ac convallis auctor, ligula risus fermentum nibh, vitae efficitur libero mauris sed lectus. Sed varius turpis a tellus pulvinar tempus. In elit eros, iaculis a pulvinar at, suscipit viverra nisi. Suspendisse faucibus nunc ac massa consectetur sagittis. Etiam euismod nunc lorem. In nisi justo, consequat at ante vestibulum, tristique sagittis nisi.', '20.00', '50.00', 1, '2017-10-25 17:17:13', 1, '2017-11-06 05:50:36', 1, NULL, NULL),
+(26, 1, 1, 1, 1, 'Gread 8-12 Set 2', 'Science, Social Science', 'Pellentesque justo libero, placerat a venenatis ut, rutrum ut sem. Curabitur in elit sit amet risus imperdiet ultrices sit amet eu ligula. Aliquam eleifend vulputate sem eget rutrum. Nulla a ornare felis. Nulla facilisi. Nam commodo, diam et mattis vestibulum, nisl nisi fringilla sapien, eget cursus elit metus nec magna. Nulla a sapien arcu. Ut viverra augue in sapien dapibus, at efficitur turpis molestie. Praesent nunc nisi, ultrices vel semper eu, dapibus at ex. Morbi sagittis lacinia libero. Donec auctor aliquam ex, non dictum ante laoreet sed.', '30.00', '60.00', 1, '2017-11-04 11:26:27', 1, '2017-11-06 05:58:46', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -600,8 +604,7 @@ CREATE TABLE `role_users` (
 
 INSERT INTO `role_users` (`user_id`, `role_id`, `created_at`, `updated_at`) VALUES
 (1, 1, '2017-11-03 23:45:51', '2017-11-03 23:45:51'),
-(14, 5, '2017-11-03 23:46:09', '2017-11-03 23:46:09'),
-(17, 5, '2017-11-04 01:15:28', '2017-11-04 01:15:28');
+(19, 5, '2017-11-05 17:31:34', '2017-11-05 17:31:34');
 
 -- --------------------------------------------------------
 
@@ -833,7 +836,13 @@ INSERT INTO `throttle` (`id`, `user_id`, `type`, `ip`, `created_at`, `updated_at
 (48, NULL, 'ip', '::1', '2017-11-04 20:19:58', '2017-11-04 20:19:58'),
 (49, NULL, 'global', NULL, '2017-11-04 21:00:59', '2017-11-04 21:00:59'),
 (50, NULL, 'ip', '::1', '2017-11-04 21:00:59', '2017-11-04 21:00:59'),
-(51, 17, 'user', NULL, '2017-11-04 21:00:59', '2017-11-04 21:00:59');
+(51, 17, 'user', NULL, '2017-11-04 21:00:59', '2017-11-04 21:00:59'),
+(52, NULL, 'global', NULL, '2017-11-05 17:10:31', '2017-11-05 17:10:31'),
+(53, NULL, 'ip', '::1', '2017-11-05 17:10:31', '2017-11-05 17:10:31'),
+(54, 1, 'user', NULL, '2017-11-05 17:10:31', '2017-11-05 17:10:31'),
+(55, NULL, 'global', NULL, '2017-11-05 17:10:37', '2017-11-05 17:10:37'),
+(56, NULL, 'ip', '::1', '2017-11-05 17:10:37', '2017-11-05 17:10:37'),
+(57, 1, 'user', NULL, '2017-11-05 17:10:37', '2017-11-05 17:10:37');
 
 -- --------------------------------------------------------
 
@@ -871,11 +880,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `isAdmin`, `email`, `password`, `first_name`, `middle_name`, `last_name`, `parent_first_name`, `parent_middle_name`, `parent_last_name`, `mobile`, `landline`, `last_login`, `status`, `created_at`, `updated_at`, `deleted_at`, `deleted_by`, `uuid`, `is_active`, `verify`) VALUES
-(1, 1, 'rob@devsimplify.com', '$2y$10$jiEY8c90BRrVLdFiykHAyOi4m2g0I/rZ.2kFb.QoAn5Q.Ijs4r1MO', 'Rob', 'Prakashchandra', 'Dev', NULL, NULL, NULL, '9510983350', NULL, '2017-11-05 04:38:43', 1, '2017-11-05 17:08:43', '2017-11-05 04:38:43', NULL, NULL, NULL, 1, ''),
-(14, 0, 'raviverma9590@gmail.com', '$2y$10$XKoqZy8bN7W/ssSu3eLnveFbu0iEv8OkT864MUvR.gqIkM.RksYdG', 'ravi', 'omp', 'verma', 'ompra', 'bhav', 'verma', '9714617041', '9714614071', '2017-11-04 11:16:09', 1, '2017-11-04 11:16:09', '2017-11-03 23:46:09', NULL, NULL, NULL, 1, 'COMPLETED'),
-(15, 0, 'rohitpmodi@gmail.com', '$2y$10$S0wZPlP0TNBUGOBrwxsN4.y/2U4mfvF0zpkqt1/hPyL58ums0WmTe', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-04 10:44:38', 1, '2017-11-03 23:14:38', '2017-11-03 23:14:38', NULL, NULL, NULL, 0, 'dpMSYeitbB53ixqN'),
-(16, 0, 'rohitpmodi1@gmail.com', '$2y$10$WWQBj6HhMUHs7PQGfUIGEOGaJXA7gayX/womXbtZA6/eN7BzZJFOC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-04 01:03:04', 1, '2017-11-04 12:33:04', '2017-11-04 01:03:04', NULL, NULL, NULL, 1, 'COMPLETED'),
-(17, 0, 'rohitpmodi+1@gmail.com', '$2y$10$7V87y1t6AmhZCm9eJnb81uyqXkfaLwgemKBdovwtEsO9iX7YqWWbK', 'Yashvi', 'R', 'Modi', 'Rohit', 'P', 'Modi', '9510983350', '02637252003', '2017-11-05 18:54:34', 1, '2017-11-05 18:54:34', '2017-11-05 06:24:34', NULL, NULL, NULL, 1, 'COMPLETED');
+(1, 1, 'rob@devsimplify.com', '$2y$10$jiEY8c90BRrVLdFiykHAyOi4m2g0I/rZ.2kFb.QoAn5Q.Ijs4r1MO', 'Rob', 'Prakashchandra', 'Dev', NULL, NULL, NULL, '9510983350', NULL, '2017-11-06 06:19:27', 1, '2017-11-06 18:49:27', '2017-11-06 06:19:27', NULL, NULL, NULL, 1, ''),
+(19, 0, 'rohitpmodi@gmail.com', '$2y$10$wwuv413/.g1Z6tBQouMImOGLXWYyVQWRGr23kdIbThEMjk6XRvPB.', 'Yashvi', 'Rohitkumar', 'Modi', 'Rohit', 'Prakashchandra', 'Modi', '9510983350', '02637252003', '2017-11-06 06:02:44', 1, '2017-11-06 06:02:44', '2017-11-05 17:32:44', NULL, NULL, NULL, 1, 'COMPLETED');
 
 --
 -- Indexes for dumped tables
@@ -1069,27 +1075,27 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activations`
 --
 ALTER TABLE `activations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `address_master`
 --
 ALTER TABLE `address_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `book_master`
 --
 ALTER TABLE `book_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `company_master`
 --
 ALTER TABLE `company_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `email_templates`
 --
@@ -1114,12 +1120,12 @@ ALTER TABLE `missing_standards`
 -- AUTO_INCREMENT for table `order_master`
 --
 ALTER TABLE `order_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `persistences`
 --
 ALTER TABLE `persistences`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 --
 -- AUTO_INCREMENT for table `product_master`
 --
@@ -1164,12 +1170,12 @@ ALTER TABLE `status_master`
 -- AUTO_INCREMENT for table `throttle`
 --
 ALTER TABLE `throttle`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- Constraints for dumped tables
 --

@@ -3,7 +3,7 @@
         <div class="col-md-12">	
             <table class="table table-bordered ">
                 <tr>
-                    <td colspan="5"><h4>Order ID : #{{ $order->order_no }}</h4>
+                    <td colspan="5"><b>Order ID :</b> #{{ $order->order_no }}
                         <span style='float:right'>
                             <b>Order Date</b> : {{ $order->order_date_formatted }}
                         </span></td>
@@ -62,7 +62,7 @@
         <div class="col-md-4">
             <table class="table table-bordered">
                 <tr>
-                    <td colspan="2"><h4>Customer ID : #{{ $order->user->id }}</h4></td>
+                    <td colspan="2"><h4>Customer Details : </h4></td>
                 </tr>
                 <tr>
                     <td>First name</td>
@@ -154,7 +154,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td>&nbsp;</td>
+                    <td>
                         <input type="submit" class="btn btn-primary" value="Update Order Status">
                     </td>
                 </tr>
