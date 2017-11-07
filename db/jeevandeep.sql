@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2017 at 07:41 AM
+-- Generation Time: Nov 07, 2017 at 10:31 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -127,6 +127,7 @@ CREATE TABLE `book_master` (
   `id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   `standard_id` int(11) NOT NULL,
+  `medium` text,
   `name` varchar(100) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `author` varchar(100) DEFAULT NULL,
@@ -136,6 +137,7 @@ CREATE TABLE `book_master` (
   `tax` decimal(10,2) DEFAULT NULL,
   `price_after_tax` decimal(10,2) DEFAULT NULL,
   `shipping_charges` decimal(10,2) DEFAULT NULL,
+  `quantity` int(11) UNSIGNED NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
   `added_by` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -149,11 +151,11 @@ CREATE TABLE `book_master` (
 -- Dumping data for table `book_master`
 --
 
-INSERT INTO `book_master` (`id`, `company_id`, `standard_id`, `name`, `description`, `author`, `book_code`, `price`, `is_taxable`, `tax`, `price_after_tax`, `shipping_charges`, `status`, `added_by`, `created_at`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 2, 1, 'Science', 'Science book', 'R.K sharma', 'PL3298382983', '150.00', 0, '0.00', '150.00', '20.00', 1, 1, '2017-10-25 17:42:13', '2017-11-06 05:49:26', 1, NULL, NULL),
-(2, 1, 1, 'Physics', 'Newton\'s all laws', 'Newton', 'N123456', '200.00', 1, '12.00', '224.00', '20.00', 1, 1, '2017-11-04 11:34:38', '2017-11-06 05:46:23', 1, NULL, NULL),
-(3, 1, 1, 'Mathematics', 'Algebra, Trigonometric, etc', 'Rohit Modi', 'R123', '180.00', 1, '18.00', '212.40', '20.00', 1, 1, '2017-11-04 11:35:11', '2017-11-06 05:45:39', 1, NULL, NULL),
-(4, 2, 1, 'Social Science', 'Social Science Textbook', 'Rob Madson', 'B123567', '195.00', 0, '0.00', '195.00', '20.00', 1, 1, '2017-11-06 05:48:43', '2017-11-06 05:49:19', 1, NULL, NULL);
+INSERT INTO `book_master` (`id`, `company_id`, `standard_id`, `medium`, `name`, `description`, `author`, `book_code`, `price`, `is_taxable`, `tax`, `price_after_tax`, `shipping_charges`, `quantity`, `status`, `added_by`, `created_at`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
+(1, 2, 1, '', 'Science', 'Science book', 'R.K sharma', 'PL3298382983', '150.00', 0, '0.00', '150.00', '20.00', 0, 1, 1, '2017-10-25 17:42:13', '2017-11-06 05:49:26', 1, NULL, NULL),
+(2, 1, 1, '', 'Physics', 'Newton\'s all laws', 'Newton', 'N123456', '200.00', 1, '12.00', '224.00', '20.00', 0, 1, 1, '2017-11-04 11:34:38', '2017-11-06 05:46:23', 1, NULL, NULL),
+(3, 1, 1, '', 'Mathematics', 'Algebra, Trigonometric, etc', 'Rohit Modi', 'R123', '180.00', 1, '18.00', '212.40', '20.00', 0, 1, 1, '2017-11-04 11:35:11', '2017-11-06 05:45:39', 1, NULL, NULL),
+(4, 2, 1, '', 'Social Science', 'Social Science Textbook', 'Rob Madson', 'B123567', '195.00', 0, '0.00', '195.00', '20.00', 0, 1, 1, '2017-11-06 05:48:43', '2017-11-06 05:49:19', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -470,7 +472,8 @@ INSERT INTO `persistences` (`id`, `user_id`, `code`, `created_at`, `updated_at`)
 (75, 18, 'UFcDo76WiijpmH4PUd5bxRqPGlODXLYC', '2017-11-05 15:32:16', '2017-11-05 15:32:16'),
 (76, 1, 'TWwnsc2pU13aoLM0KG5ayKWuGCQCKw78', '2017-11-05 15:39:32', '2017-11-05 15:39:32'),
 (77, 1, 'veF9DQB1vkLP7ckB9MaoL5isp0ZEq5nD', '2017-11-05 17:10:55', '2017-11-05 17:10:55'),
-(78, 19, 'dEghabINSFR41v6DMgjIpcojhiJbw1X6', '2017-11-05 17:31:34', '2017-11-05 17:31:34');
+(78, 19, 'dEghabINSFR41v6DMgjIpcojhiJbw1X6', '2017-11-05 17:31:34', '2017-11-05 17:31:34'),
+(79, 1, 'oYB82Ml8gcKmVFIrIcAh6jwdDEXYZ5AP', '2017-11-06 06:19:27', '2017-11-06 06:19:27');
 
 -- --------------------------------------------------------
 
@@ -877,7 +880,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `isAdmin`, `email`, `password`, `first_name`, `middle_name`, `last_name`, `parent_first_name`, `parent_middle_name`, `parent_last_name`, `mobile`, `landline`, `last_login`, `status`, `created_at`, `updated_at`, `deleted_at`, `deleted_by`, `uuid`, `is_active`, `verify`) VALUES
-(1, 1, 'rob@devsimplify.com', '$2y$10$jiEY8c90BRrVLdFiykHAyOi4m2g0I/rZ.2kFb.QoAn5Q.Ijs4r1MO', 'Rob', 'Prakashchandra', 'Dev', NULL, NULL, NULL, '9510983350', NULL, '2017-11-05 17:10:55', 1, '2017-11-06 05:40:55', '2017-11-05 17:10:55', NULL, NULL, NULL, 1, ''),
+(1, 1, 'rob@devsimplify.com', '$2y$10$jiEY8c90BRrVLdFiykHAyOi4m2g0I/rZ.2kFb.QoAn5Q.Ijs4r1MO', 'Rob', 'Prakashchandra', 'Dev', NULL, NULL, NULL, '9510983350', NULL, '2017-11-06 06:19:27', 1, '2017-11-06 18:49:27', '2017-11-06 06:19:27', NULL, NULL, NULL, 1, ''),
 (19, 0, 'rohitpmodi@gmail.com', '$2y$10$wwuv413/.g1Z6tBQouMImOGLXWYyVQWRGr23kdIbThEMjk6XRvPB.', 'Yashvi', 'Rohitkumar', 'Modi', 'Rohit', 'Prakashchandra', 'Modi', '9510983350', '02637252003', '2017-11-06 06:02:44', 1, '2017-11-06 06:02:44', '2017-11-05 17:32:44', NULL, NULL, NULL, 1, 'COMPLETED');
 
 --
@@ -1122,7 +1125,7 @@ ALTER TABLE `order_master`
 -- AUTO_INCREMENT for table `persistences`
 --
 ALTER TABLE `persistences`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 --
 -- AUTO_INCREMENT for table `product_master`
 --
