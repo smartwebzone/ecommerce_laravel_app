@@ -52,6 +52,21 @@
                 <span class="title"> Users </span><span class="selected"></span>
             </a>
         </li>
+        <li class="{{ setActive(['admin/unavailable*']) }}">
+            <a class="{{ setActive('admin') }}" href="javascript:void(0)"><i class="clip-home-3"></i> <span class="title"> Unavailable </span><span class="selected"></span> </a>
+            <ul class="sub-menu">
+                <li class="{{ setActive('admin/unavailable/schools*') }}">
+                    <a href="{{ url(getLang() . '/admin/unavailable/schools') }}"><i class="fa fa-building-o"></i>
+                        <span class="title"> Unavailable Schools </span><span class="selected"></span>
+                    </a>
+                </li>
+                <li class="{{ setActive('admin/unavailable/standards*') }}">
+                    <a href="{{ url(getLang() . '/admin/unavailable/standards') }}"><i class="fa fa-file-excel-o"></i>
+                        <span class="title"> Unavailable Standards  </span><span class="selected"></span>
+                    </a>
+                </li>
+            </ul>
+        </li>
         <li class="{{ setActive('admin/order*') }}">
             <a href="{{ url(getLang() . '/admin/order') }}"><i class="fa fa-shopping-cart"></i>
                 <span class="title"> Orders </span><span class="selected"></span>

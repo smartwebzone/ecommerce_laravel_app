@@ -78,7 +78,24 @@
     </div>
 </div>
 <div class="row">
-    <div class="form-group col-sm-12">
+     <div class="form-group col-sm-6">
+        {!! Form::label('quantity', 'Quantity:') !!}
+        {!! Form::text('quantity', null, ['class' => 'form-control','value' => old('quantity'),'required' => true]) !!}
+        @if ($errors->has('quantity'))
+        <div class="error">{{ $errors->first('quantity') }}</div>
+        @endif
+    </div>
+   
+    <div class="form-group col-sm-6">
+       {!! Form::label('medium', 'medium:') !!}
+        {!! Form::text('medium', null, ['class' => 'form-control','value' => old('medium'),'required' => true]) !!}
+        @if ($errors->has('medium'))
+        <div class="error">{{ $errors->first('medium') }}</div>
+        @endif
+    </div>
+</div>
+<div class="row">
+     <div class="form-group col-sm-12">
         {!! Form::label('status', 'Status:') !!}
         <label class="checkbox">
             {!! Form::checkbox('status', 1, (isset($book->status))?$book->status:true,['data-toggle' => 'toggle', 'data-on' => 'Enabled', 'data-off'=>'Disabled', 'data-onstyle' => 'success', 'data-offstyle' => 'danger', 'value'=>Input::old('status')]) !!}
