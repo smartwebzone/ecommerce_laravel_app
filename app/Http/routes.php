@@ -238,12 +238,18 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::get('/standard/{id}/show', 'StandardController@show');
         Route::post('/standard/create', 'StandardController@store');
         Route::post('/standard/{id}/edit', 'StandardController@edit');
+        
+        Route::get('unavailable/standards', ['as' => 'admin.unavailable.standards', 'uses' => 'UnavailableController@standards']);
+        Route::get('unavailable/schools', ['as' => 'admin.unavailable.schools', 'uses' => 'UnavailableController@schools']);
+         Route::delete('unavailable/schooldestroy/{id}', ['as' => 'admin.unavailable.schooldestroy', 'uses' => 'UnavailableController@schooldestroy']);
+          Route::delete('unavailable/standarddestroy/{id}', ['as' => 'admin.unavailable.standarddestroy', 'uses' => 'UnavailableController@standarddestroy']);
 
         Route::get('book', ['as' => 'admin.book', 'uses' => 'BookController@index']);
         Route::get('book/create', ['as' => 'admin.book.create', 'uses' => 'BookController@create']);
         Route::delete('book/destroy/{id}', ['as' => 'admin.book.destroy', 'uses' => 'BookController@destroy']);
         Route::get('book/show/{id}', ['as' => 'admin.book.show', 'uses' => 'BookController@show']);
         Route::get('book/edit/{id}', ['as' => 'admin.book.edit', 'uses' => 'BookController@edit']);
+        Route::get('book/upload', ['as' => 'admin.book.upload', 'uses' => 'BookController@upload']);
         Route::patch('book/update/{book}', ['as' => 'admin.book.update', 'uses' => 'BookController@update']);
         Route::get('book/copy/{id}', ['as' => 'admin.book.copy', 'uses' => 'BookController@copy']);
 
@@ -251,6 +257,7 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
         Route::get('/book/{id}/show', 'BookController@show');
         Route::post('/book/create', 'BookController@store');
         Route::post('/book/{id}/edit', 'BookController@edit');
+        Route::post('/book/import', ['as' => 'admin.book.import', 'uses' => 'BookController@import']);
 
         Route::get('order', ['as' => 'admin.order', 'uses' => 'OrderController@index']);
         Route::get('order/create', ['as' => 'admin.order.create', 'uses' => 'OrderController@create']);

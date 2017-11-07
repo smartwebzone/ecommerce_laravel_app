@@ -13,7 +13,6 @@ use Input;
 use View;
 use Mail;
 use PDF;
-use Excel;
 use Redirect;
 use Sentinel;
 
