@@ -12,16 +12,16 @@
     <th width="9%" class="text-center">Action</th>
 </thead>
 <tbody>
-    @foreach($order as $key=>$order)
+    @foreach($orders as $key=>$order)
     <tr>
-        <td class="text-center">{{ $key+1 }}</td>
+        <td class="text-center">{{ srNo($key) }}</td>
         <td>{{ $order->order_no }}</td>
         <td>{{ $order->total_amount }}</td>
         <td>{{ $order->product->first()->title }}</td>
         <td>{{ $order->user->first_name.' '.$order->user->last_name }}</td>
         <td>{{ $order->user->email }}</td>
         <td>{{ $order->user->mobile }}</td>
-        <td>{{ $order->order_date_formatted }}</td>
+        <td>{{ $order->order_date_formatted_short }}</td>
         <td>{{ $order->status->name }}</td>
         <td class="text-center" nowrap="nowrap">
             {!! Form::open(['route' => ['admin.order.destroy', $order->id], 'method' => 'delete']) !!}
@@ -36,4 +36,9 @@
     @endforeach
 </tbody>
 </table>
+<div class="col-md-12">
+    <ul class="pagination">
+        {!! $orders->render() !!}
+    </ul>
+</div>
 {{-- $order->links() --}}

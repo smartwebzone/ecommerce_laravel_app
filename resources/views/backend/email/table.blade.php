@@ -9,19 +9,19 @@
     <th width="7%" class="text-center">Action</th>
 </thead>
 <tbody>
-    @foreach($email as $email)
+    @foreach($email as $key => $row)
     <tr>
-        <td class="text-center">{{ $email->id }}</td>
-        <td>{{ $email->template }}</td>
-        <td>{{ $email->name }}</td>
-        <td>{{ $email->subject }}</td>
-        <td class="text-center">{{ formatDate($email->created_at) }}</td>
-        <td class="text-center">{{ getStatus($email->status) }}</td>
+        <td class="text-center">{{ srNo($key) }}</td>
+        <td>{{ $row->template }}</td>
+        <td>{{ $row->name }}</td>
+        <td>{{ $row->subject }}</td>
+        <td class="text-center">{{ formatDate($row->created_at) }}</td>
+        <td class="text-center">{{ getStatus($row->status) }}</td>
         <td class="text-center" nowrap="nowrap">
-            {!! Form::open(['route' => ['admin.email.destroy', $email->id], 'method' => 'delete']) !!}
+            {!! Form::open(['route' => ['admin.email.destroy', $row->id], 'method' => 'delete']) !!}
             <div class='btn-group'>
-<!--                    <a href="{!! route('admin.email.show', [$email->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>-->
-                <a href="{!! route('admin.email.edit', [$email->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+<!--                    <a href="{!! route('admin.email.show', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>-->
+                <a href="{!! route('admin.email.edit', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                 {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
             </div>
             {!! Form::close() !!}
@@ -30,4 +30,9 @@
     @endforeach
 </tbody>
 </table>
-{{-- $email->links() --}}
+<div class="col-md-12">
+    <ul class="pagination">
+        {!! $email->render() !!}
+    </ul>
+</div>
+{{-- $row->links() --}}
