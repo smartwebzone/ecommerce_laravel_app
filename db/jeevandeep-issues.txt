@@ -1,0 +1,26 @@
+Front end changes
+
+- validation, instead of This field is required, make textbox and label red
+- password string validation
+
+if(shipping_state == product_state){
+   50% SGST and 50% CGST
+}else{
+   apply 100% IGST
+}
+
+Use same logic for shipping charge GST
+
+
+Back end changes/fixes
+
+Products list >> give status change button active/inactive and make sure we display only active products in front end
+
+Upload Book >> give facility to select School and Standard instead of loading them from excel sheet
+Upload Book >> If tax == null or tax == 0.00% then tax_type = Non taxable and tax = 0
+
+- Give filter in Order, Book and Product list
+- Checkbox for delete multiple items in Order, Book and Product
+
+Reports
+- Order Report and Print (Filters From Date, To Date, Status, Textbox search, Price Range)

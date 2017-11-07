@@ -379,3 +379,4 @@ Route::get('unavailable_standard', ['as' => 'unavailable_standard', 'uses' => 'S
 Route::post('unavailable_standard', ['as' => 'unavailable_standard', 'uses' => 'StoreController@unavailable_standard']);
 Route::get('my_profile', ['as' => 'my_profile', 'uses' => 'AuthController@my_profile']);
 Route::get('my_orders', ['as' => 'my_orders', 'uses' => 'AuthController@my_orders']);
+Route::get('order/invoice/{orders}', ['as' => 'invoice', 'uses' => 'AuthController@invoice']);
