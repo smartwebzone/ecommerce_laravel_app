@@ -306,7 +306,7 @@ class AuthController extends Controller {
             return Redirect::to('signin');
         }
         $rules = array(
-            'password_signup' => 'required|between:6,32',
+            'password_signup' => 'required|between:6,32|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%@]).*$/',
             'password_confirm' => 'required|same:password_signup');
         // Create a new validator instance from our validation rules
         $validator = Validator::make($request->all(), $rules);
