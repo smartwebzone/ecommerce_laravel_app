@@ -226,7 +226,11 @@ My Profile | Jeevandeep Prakashan Pvt. Ltd.
 @section('footer_scripts')
 <script>
     $().ready(function () {
-        $(".validate_form").validate();
+        $(".validate_form").validate({
+            errorPlacement: function(){
+            return false;  // suppresses error message text
+        }
+        });
         $("#same_as_address").click(function () {
             if ($('#same_as_address').is(':checked')) {
                 $('[name="billaddress1"]').val($('[name="address1"]').val());

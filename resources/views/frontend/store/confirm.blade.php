@@ -190,7 +190,11 @@ Jeevandeep Prakashan Pvt. Ltd.
 @section('footer_scripts')
 <script>
 $(document).ready(function () {
-    $(".validate_form").validate();
+    $(".validate_form").validate({
+            errorPlacement: function(){
+            return false;  // suppresses error message text
+        }
+        });
     $(".btn-select").each(function (e) {
         var value = $(this).find("ul li.selected").html();
         if (value != undefined) {
