@@ -2,26 +2,27 @@
 
 @section('topscripts-off')
 <script type="text/javascript">
-    (function($){});
+    (function ($) {
+    });
 </script>
 @endsection
 
 @section('pagetitle')
-    <div class="row">
-        <div class="col-sm-12">
+<div class="row">
+    <div class="col-sm-12">
 
-            <!-- start: PAGE TITLE & BREADCRUMB -->
-            <ol class="breadcrumb">
+        <!-- start: PAGE TITLE & BREADCRUMB -->
+        <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 
             <li class="active">Products</li>
-            </ol>
-            <div class="page-header">
-                <h1>  Products <small> | Control Panel</small> </h1>
-            </div>
-            <!-- end: PAGE TITLE & BREADCRUMB -->
+        </ol>
+        <div class="page-header">
+            <h1>  Products <small> | Control Panel</small> </h1>
         </div>
+        <!-- end: PAGE TITLE & BREADCRUMB -->
     </div>
+</div>
 @endsection
 
 @section('content')
@@ -54,7 +55,7 @@
                         </div>
 
                         <div class="col-md-12">
-   @include('backend.product.table')
+                            @include('backend.product.table')
                         </div>
 
                     </div>
@@ -66,11 +67,31 @@
 {{-- </div> --}}
 @endsection
 
-@section('bottomscripts-off')
-        <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+@section('bottomscripts')
+<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+<script>
+    $('.status').change(function () {        
+        $this = $(this);
+        var url = "{{ url(getLang().'/admin/product/switchstatus/') }}";
+        var $data = {};        
+        $data.prop = $this.prop('checked');
+        $data.product_id = $this.attr('data-val');
+        $data.ajax = 1;
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: $data,
+            cache: false,
+            dataType: 'json',
+            error: function (request, error) {
+            },
+            success: function (data) {
+            }
+        });
+    });
+</script>
 
-
-        <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 @endsection
 
 @section('clipinline-off')
