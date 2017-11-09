@@ -36,16 +36,83 @@ class ProductController extends Controller {
      *
      * @return Response
      */
-    public function index() {
-        $pagiData = $this->product->paginate(Input::get('page', 1), $this->perPage, true);
-        $product = Pagination::makeLengthAware($pagiData->items, $pagiData->totalItems, $this->perPage);
+    public function index(Request $request) {
+        //$pagiData = $this->product->paginate(Input::get('page', 1), $this->perPage, true);
+        //$product = Pagination::makeLengthAware($pagiData->items, $pagiData->totalItems, $this->perPage);
+        $product = \App\Models\Product::orderBy('id', 'desc');
+        $company_id = '';
+        if ($request->company_id) {
+            $company_id = $request->company_id;
+            $product = $product->where('company_id', '=', $company_id);
+        }
+        $standard_id = '';
+        if ($request->standard_id) {
+            $standard_id = $request->standard_id;
+            $product = $product->where('standard_id', '=', $standard_id);
+        }
+        $school_id = '';
+        if ($request->school_id) {
+            $school_id = $request->school_id;
+            $product = $product->where('school_id', '=', $school_id);
+        }
+        $is_taxable = '';
+        //dd($request->is_taxable);
+        if (($request->is_taxable)) {
+            $is_taxabl = ($request->is_taxable == 2) ? 1 : 0;
+            $is_taxable = $request->is_taxable;
+            $product = $product->where('is_taxable', '=', $is_taxabl);
+        }
+        $status = '';
 
-        return view('backend.product.index', compact('product'));
+        if (($request->status)) {
+            $statu = ($request->status == 2) ? 1 : 0;
+            $status = $request->status;
+            $product = $product->where('status', '=', $statu);
+        }
+
+        $title = '';
+        if ($request->title) {
+            $title = $request->title;
+            $product->where('title', 'like', '%' . $title . '%');
+        }
+        if ($request->delete && $request->delete_product) {
+            $this->delete($product, $request->delete_product);
+            Flash::message('Product successfully deleted');
+            return Redirect::route('admin.product');
+        }
+        $product = $product->paginate($this->perPage);
+        if ($company_id) {
+            $product = $product->appends(['company_id' => $company_id]);
+        }
+        if ($standard_id) {
+            $product = $product->appends(['standard_id' => $standard_id]);
+        }
+        if ($school_id) {
+            $product = $product->appends(['school_id' => $school_id]);
+        }
+        if ($title) {
+            $product = $product->appends(['title' => $title]);
+        }
+        if ($is_taxable) {
+            $product = $product->appends(['is_taxable' => $is_taxable]);
+        }
+        if ($status) {
+            $product = $product->appends(['status' => $status]);
+        }
+        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = [null => 'Please Select'] + $standard;
+
+        $school = \App\Models\School::lists('name', 'id')->toArray();
+        $school = [null => 'Please Select'] + $school;
+
+        $company = \App\Models\Company::lists('name', 'id')->toArray();
+        $company = [null => 'Please Select'] + $company;
+        return view('backend.product.index', compact('product', 'title', 'is_taxable', 'status', 'company', 'school', 'school_id', 'standard', 'company_id', 'standard_id'));
     }
 
     public function book($id) {
         $product = $this->product->find($id);
-        $book = \App\Models\Book::where('standard_id',$product['standard_id'])->lists('name', 'id')->toArray();
+        $book = \App\Models\Book::where('standard_id', $product['standard_id'])->lists('name', 'id')->toArray();
         $book = [null => 'Please Select'] + $book;
 //        /dd($product->books);
         return view('backend.product.book', compact('product', 'book'));
@@ -108,12 +175,12 @@ class ProductController extends Controller {
      */
     public function edit($id) {
         $product = $this->product->find($id);
-        if($product->order()->count() > 0){
+        if ($product->order()->count() > 0) {
             die("Action not allowed");
         }
         $standard = \App\Models\Standard::lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
-        
+
         $school = \App\Models\School::lists('name', 'id')->toArray();
         $school = [null => 'Please Select'] + $school;
 
@@ -145,7 +212,7 @@ class ProductController extends Controller {
     public function book_update($id) {
         try {
             $data = Input::all();
-            $books=\App\Models\ProductBooks::where(['product_id'=>$id]);
+            $books = \App\Models\ProductBooks::where(['product_id' => $id]);
             $books->delete();
             $array = array();
             foreach ($data['book_id'] as $i => $bid) {
@@ -171,7 +238,7 @@ class ProductController extends Controller {
      */
     public function destroy($id) {
         $product = $this->product->find($id);
-        if($product->order()->count() > 0){
+        if ($product->order()->count() > 0) {
             die("Action not allowed");
         }
         $this->product->delete($id);
@@ -201,8 +268,8 @@ class ProductController extends Controller {
         $newProduct->save();
 
         $productb = \App\Models\ProductBooks::where(['product_id' => $id])->get();
-        $array=array();
-        foreach($productb as $i => $pb) {
+        $array = array();
+        foreach ($productb as $i => $pb) {
             if (!in_array($pb->book_id, $array)) {
                 $array[] = $pb->book_id;
                 \App\Models\ProductBooks::create(['book_id' => $pb->book_id, 'quantity' => $pb->quantity, 'product_id' => $newProduct->id]);
@@ -212,10 +279,16 @@ class ProductController extends Controller {
 
         return Redirect::route('admin.product');
     }
+
     public function switchstatus(Request $request) {
-        $status=($request->prop=='true')?1:0;
-        \App\Models\Product::where(['id'=>$request->product_id])->update(['status'=>$status]);
+        $status = ($request->prop == 'true') ? 1 : 0;
+        \App\Models\Product::where(['id' => $request->product_id])->update(['status' => $status]);
         //$this->product->update(, ['status'=>$status]);
     }
-
+     private function delete($products, $ids) {
+        if ($ids) {
+            $products = $products->whereIn('id', explode(',', $ids));
+            $products->delete();
+        }
+    }
 }
