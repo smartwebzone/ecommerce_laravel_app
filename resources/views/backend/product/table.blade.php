@@ -1,5 +1,6 @@
 <table class="table table-responsive table-hover" id="product-table">
     <thead>
+    <th class="text-center"><input type="checkbox" class="check-all" name="check_all"></th>  
     <th width="5%" class="text-center">#</th>
     <th>Title</th>
     <th>Company</th>
@@ -15,6 +16,7 @@
     $disable_class = ($row->order()->count() > 0 ? 'disabled' : '');
     ?>
     <tr>
+        <td class="text-center"><input type="checkbox" data="{{$row->id}}" class="order-check" name="order_check"></td>
         <td class="text-center">{{ srNo($key) }}</td>
         <td>{{ $row->title }}</td>
         <td>{{ $row->company->find($row->company_id)->name }}</td>
