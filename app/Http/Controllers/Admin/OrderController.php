@@ -108,10 +108,10 @@ class OrderController extends Controller {
         $offset = $request->page;
         if ($request->export) {
             $offset = $request->offset;
-            return $this->export($orders, $request->export_order, $limit, $offset);
+            return $this->export($orders, $request, $limit, $offset);
         }
         if ($request->export_all) {
-            return $this->export($orders);
+            return $this->export($orders,$request);
         }
         if ($request->delete && $request->export_order) {
             $this->delete($orders, $request->export_order);
@@ -283,7 +283,8 @@ class OrderController extends Controller {
         return $pdf->stream();
     }
 
-    private function export($orders, $ids = NULL, $limit = NULL, $offset = NULL) {
+    private function export($orders, $request = NULL, $limit = NULL, $offset = NULL) {
+        $ids=@$request->export_order;
         if ($ids) {
             $orders = $orders->whereIn('id', explode(',', $ids));
         } else
@@ -295,8 +296,14 @@ class OrderController extends Controller {
             $orders = $orders->limit($limit);
         }
         $orders = $orders->get();
+        $search=@$request->search;
+        $from=@$request->from;
+        $to=@$request->to;
+        $min=@$request->min;
+        $max=@$request->max;
+        $product=@$request->product;
         // return view('backend.orders.export', compact('orders', 'search', 'order_id', 'product', 'product_id', 'status', 'statuss'));
-        $pdf = PDF::loadView('backend.orders.export', compact('orders'));
+        $pdf = PDF::loadView('backend.orders.export', compact('orders','search','from','to','min','max','product'));
         return $pdf->stream();
     }
 
