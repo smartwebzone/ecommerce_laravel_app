@@ -1,10 +1,10 @@
-<h1>Order Report Jeevandeep</h1>
-<table border='1' cellpadding='5' cellspacing='0'>
+<h3>Order Report </h3>
+<table border='1' cellpadding='5' cellspacing='0' style="font-size: 14px">
     <tr>
         <th>#</th>
         <th>Order ID.</th>
         <th>Amount</th>
-        <th>Product</th>
+        <th >Product</th>
         <th>Name</th>
         <th>Email</th>
         <th>Contact</th>
