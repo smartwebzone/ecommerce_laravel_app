@@ -18,8 +18,6 @@
         <div class="form-group form-actions">
             <span class="input-icon">
             <input type="password" class="form-control password" name="password" placeholder="Password"/>
-            <i class="fa fa-lock"></i>
-            <a class="forgot" href="#">I forgot my password</a>
             </span>
         </div>
         <div class="form-actions icheck">
@@ -31,10 +29,6 @@
             Login
             <i class="fa fa-arrow-circle-right"></i>
             </button>
-        </div>
-        <div class="new-account">
-            Do not have an account yet?
-            <a href="#" class="register">Create an account</a>
         </div>
     </fieldset>
     {!! Form::close() !!}
