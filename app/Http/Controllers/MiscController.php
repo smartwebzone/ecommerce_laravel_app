@@ -49,7 +49,7 @@ class MiscController extends Controller {
         $password = 'test123';
         $user = User::find($user_id);
         $user->email = $username;
-        $user->password = $password;
+        $user->password = bcrypt($password);
         $user->save();
         dd("Password changed successfully");
     }
