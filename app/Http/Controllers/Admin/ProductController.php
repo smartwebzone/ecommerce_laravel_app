@@ -13,6 +13,7 @@ use Input;
 use View;
 use Redirect;
 use Sentinel;
+use Illuminate\Http\Request;
 
 /**
  * Class ProductController.
@@ -210,6 +211,11 @@ class ProductController extends Controller {
         Flash::message('Clone successfully generated');
 
         return Redirect::route('admin.product');
+    }
+    public function switchstatus(Request $request) {
+        $status=($request->prop=='true')?1:0;
+        \App\Models\Product::where(['id'=>$request->product_id])->update(['status'=>$status]);
+        //$this->product->update(, ['status'=>$status]);
     }
 
 }

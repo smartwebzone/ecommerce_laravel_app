@@ -21,7 +21,9 @@
         <td>{{ $row->school->find($row->school_id)->name }}</td>
         <td>{{ $row->standard->find($row->standard_id)->name }}</td>
         <td class="text-center">{{ formatDate($row->created_at) }}</td>
-        <td class="text-center">{{ getStatus($row->status) }}</td>
+        <td class="text-center">
+                {!! Form::checkbox('status', 1, $row->status,['class'=>'status','data-val'=> $row->id,'data-toggle' => 'toggle', 'data-on' => 'Enabled', 'data-off'=>'Disabled', 'data-onstyle' => 'success', 'data-offstyle' => 'danger', 'value'=>Input::old('status') ]) !!}
+            </td>
         <td class="text-center" nowrap="nowrap">
             {!! Form::open(['route' => ['admin.product.destroy', $row->id], 'method' => 'delete']) !!}
             <div class='btn-group'>

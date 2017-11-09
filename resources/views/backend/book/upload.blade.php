@@ -55,15 +55,15 @@
                                     <div class="error">{{ $errors->first('company_id') }}</div>
                                     @endif
                                 </div>
-<!--                                <div class="form-group col-sm-6">
+                                <div class="form-group col-sm-6">
                                     {!! Form::label('standard_id', 'Standard:') !!}
                                     {!! Form::select('standard_id', $standard, NULL, array('class' => 'form-control', 'value'=>Input::old('standard_id'),'required' => true)) !!}
                                     @if ($errors->has('standard_id'))
                                     <div class="error">{{ $errors->first('standard_id') }}</div>
                                     @endif
-                                </div>-->
-<!--                            </div>
-                            <div class="row">-->
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="form-group col-sm-6">  
                                     {!! Form::label('Upload', 'Upload File:') !!}
                                     <input required="" class="form-control" type="file" name="upload" value="Upload">
