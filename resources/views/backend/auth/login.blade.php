@@ -12,14 +12,12 @@
     <fieldset>
         <div class="form-group">
             <span class="input-icon">
-            <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}"/> <i class="fa fa-envelope"></i>
+            <input type="text" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}"/> <i class="fa fa-envelope"></i>
             </span>
         </div>
         <div class="form-group form-actions">
             <span class="input-icon">
             <input type="password" class="form-control password" name="password" placeholder="Password"/>
-            <i class="fa fa-lock"></i>
-            <a class="forgot" href="#">I forgot my password</a>
             </span>
         </div>
         <div class="form-actions icheck">
@@ -31,10 +29,6 @@
             Login
             <i class="fa fa-arrow-circle-right"></i>
             </button>
-        </div>
-        <div class="new-account">
-            Do not have an account yet?
-            <a href="#" class="register">Create an account</a>
         </div>
     </fieldset>
     {!! Form::close() !!}

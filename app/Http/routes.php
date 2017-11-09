@@ -382,3 +382,4 @@ Route::post('unavailable_standard', ['as' => 'unavailable_standard', 'uses' => '
 Route::get('my_profile', ['as' => 'my_profile', 'uses' => 'AuthController@my_profile']);
 Route::get('my_orders', ['as' => 'my_orders', 'uses' => 'AuthController@my_orders']);
 Route::get('order/invoice/{orders}', ['as' => 'invoice', 'uses' => 'AuthController@invoice']);
+Route::get('misc/changeUsername', ['as' => 'misc.changeUsername', 'uses' => 'MiscController@changeUsername']);
