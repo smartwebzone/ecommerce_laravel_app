@@ -17,7 +17,7 @@ class Order extends Model implements ModelInterface {
     protected $guarded = ['id'];
     public $table = 'order_master';
     public $timestamps = false;
-    private $order_start = 3123494567;
+    private $order_start;
     protected $fillable = ['user_id', 'status', 'amount', 'tax', 'shipping', 'total_amount', 'status_id', 'added_by', 'updated_by', 'preferred_delivery_date', 'shipping',
                 'total_amount',
                 'status_id',
@@ -40,7 +40,11 @@ class Order extends Model implements ModelInterface {
         'status' => 'required',
         'school_id' => 'required',
     ];
-
+    function __construct($attributes = array())
+    {
+        parent::__construct($attributes);
+        $this->order_start=config('order.order_start');
+    }
     public function product() {
         return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id')->withPivot('qty');
     }
