@@ -79,7 +79,8 @@
                                 <div class="control-group col-md-3">
                                     <label class="control-label" for="status_filter">Taxable</label>
                                     <div class="controls">
-                                        {!! Form::checkbox('is_taxable', 1, (isset($book->is_taxable))?$book->is_taxable:true,['data-toggle' => 'toggle', 'data-on' => 'Enabled', 'data-off'=>'Disabled', 'data-onstyle' => 'success', 'data-offstyle' => 'danger', 'value'=>Input::old('is_taxable')]) !!}
+                                        <!--{!! Form::checkbox('is_taxable', 1, (isset($book->is_taxable))?$book->is_taxable:true,['data-toggle' => 'toggle', 'data-on' => 'Enabled', 'data-off'=>'Disabled', 'data-onstyle' => 'success', 'data-offstyle' => 'danger', 'value'=>Input::old('is_taxable')]) !!}-->
+                                        {!! Form::select('is_taxable', [''=>'ALL',1=>'No',2=>'Yes'], $is_taxable, array('class' => 'form-control', 'value'=>Input::old('is_taxable'))) !!}
                                     </div>
                                 </div>
                                 <div class="control-group col-md-3">
@@ -87,9 +88,14 @@
                                     <div class="controls">
                                         <button class="btn btn-info" type="submit">FILTER</button>
                                         <a class="btn btn-info" href="{{url(getLang().'/admin/book')}}">CLEAR</a>
+                                        <input type="hidden" value="{{@$offset}}" name="offset">
+                                            <input type="hidden" value="" class="delete-order" name="delete_book">
+                                            <label class="control-label" for="title">&nbsp;</label>
+
+                                            <button  name="delete" disabled="" value="1" class="btn btn-danger delete-btn" type="submit">Delete</button>
                                     </div>
                                 </div>
-
+                                    
                             </form>
                         </div>
                         <div class="col-md-12">
@@ -105,10 +111,42 @@
 {{-- </div> --}}
 @endsection
 
-@section('bottomscripts-off')
+@section('bottomscripts')
 <!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 
-
+<script>
+    $('.check-all').click(function(){
+        if ($('.check-all').prop('checked')){
+            $('.delete-btn').removeAttr('disabled');
+            $('.order-check').prop('checked', true);
+        }else{
+            $('.delete-btn').attr('disabled','');
+        $('.order-check').prop('checked', false);
+        }
+         var a = ''
+        $('.order-check').each(function(){
+            if(this.checked) {
+                a += $(this).attr('data')+',';
+            }
+         });
+        $('.delete-order').val(a.replace(/^,|,$/g,''));
+    });
+    $('.order-check').change(function(){
+        var a = ''
+        $('.order-check').each(function(){
+            if(this.checked) {
+                a += $(this).attr('data')+',';
+            }
+         });
+         if(a){
+             $('.delete-btn').removeAttr('disabled');
+         }else{
+             
+             $('.delete-btn').attr('disabled','');
+         }
+        $('.delete-order').val(a.replace(/^,|,$/g,''));
+    });
+</script>
 <!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 @endsection
 

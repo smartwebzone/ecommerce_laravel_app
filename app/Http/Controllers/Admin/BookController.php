@@ -54,9 +54,10 @@ class BookController extends Controller {
         }
         $is_taxable = '';
         //dd($request->is_taxable);
-        if (isset($request->search)) {
-            $is_taxable = ($request->is_taxable)?$request->is_taxable:0;
-            $book = $book->where('is_taxable', '=', $is_taxable);
+        if (($request->is_taxable)) {
+            $is_taxabl = ($request->is_taxable==2) ? 1 : 0;
+            $is_taxable = $request->is_taxable;
+            $book = $book->where('is_taxable', '=', $is_taxabl);
         }
 
         $search = '';
@@ -69,7 +70,11 @@ class BookController extends Controller {
                         ->orWhere('book_code', 'like', '%' . $search . '%');
             });
         }
-
+        if ($request->delete && $request->delete_book) {
+            $this->delete($book, $request->delete_book);
+            Flash::message('Book successfully deleted');
+            return Redirect::route('admin.book');
+        }
         $book = $book->paginate($this->perPage);
         if ($company_id) {
             $book = $book->appends(['company_id' => $company_id]);
@@ -88,7 +93,7 @@ class BookController extends Controller {
 
         $company = \App\Models\Company::lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
-        return view('backend.book.index', compact('book', 'company','search', 'standard', 'company_id', 'standard_id'));
+        return view('backend.book.index', compact('book', 'company','search', 'standard', 'company_id','is_taxable', 'standard_id'));
     }
 
     /**
@@ -261,6 +266,12 @@ class BookController extends Controller {
         $company = \App\Models\Company::lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
         return view('backend.book.upload', compact('standard', 'company'));
+    }
+    private function delete($books, $ids) {
+        if ($ids) {
+            $books = $books->whereIn('id', explode(',', $ids));
+            $books->delete();
+        }
     }
 
 }

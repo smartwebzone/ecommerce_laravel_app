@@ -1,5 +1,6 @@
 <table class="table table-responsive table-hover" id="order-table">
     <thead>
+    <th class="text-center"><input type="checkbox" class="check-all" name="check_all"></th>  
     <th width="5%" class="text-center">#</th>
     <th>Order ID.</th>
     <th>Amount</th>
@@ -14,6 +15,7 @@
 <tbody>
     @foreach($orders as $key=>$order)
     <tr>
+        <td class="text-center"><input type="checkbox" data="{{$order->id}}" class="order-check" name="order_check"></td>
         <td class="text-center">{{ srNo($key) }}</td>
         <td>{{ $order->order_no }}</td>
         <td>{{ $order->total_amount }}</td>
