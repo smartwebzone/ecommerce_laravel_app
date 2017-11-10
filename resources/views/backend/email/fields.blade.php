@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="form-group col-sm-6">
+<!--    <div class="form-group col-sm-6">
         {!! Form::label('template', 'Template:') !!}
         {!! Form::select('template', $template, null, array('class' => 'form-control', 'value'=>Input::old('template'),'required' => true)) !!}
         @if ($errors->has('template'))
         <div class="error">{{ $errors->first('template') }}</div>
         @endif
-    </div>
+    </div>-->
     <div class="form-group col-sm-6">
         {!! Form::label('name', 'Name:') !!}
         {!! Form::text('name', null, ['class' => 'form-control', 'value' => old('name'),'required' => true]) !!}
