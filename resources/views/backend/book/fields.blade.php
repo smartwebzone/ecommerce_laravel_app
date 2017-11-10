@@ -39,7 +39,7 @@
         @endif
     </div>
     <div class="form-group col-sm-6">
-        {!! Form::label('book_code', 'Book Code:') !!}
+        {!! Form::label('book_code', 'Code:') !!}
         {!! Form::text('book_code', null, ['class' => 'form-control','value' => old('book_code'),'required' => true]) !!}
         @if ($errors->has('book_code'))
         <div class="error">{{ $errors->first('book_code') }}</div>

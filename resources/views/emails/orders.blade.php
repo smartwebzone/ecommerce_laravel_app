@@ -69,10 +69,10 @@
 
     <div class="row">
         <div class="col-md-12">	
-            <h4>Books to Dispatch</h4>
+            <h4>Items to Dispatch</h4>
             <table class="table cart" border="1" cellpadding="3" cellspacing="1" style="width:100%;">
                 <tr>
-                    <th style="text-align:center !important;">Book</th>
+                    <th style="text-align:center !important;">Item</th>
                     <th style="text-align:center !important;">Quantity</th>
                 </tr>
                 @foreach($order->product as $prod)

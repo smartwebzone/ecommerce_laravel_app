@@ -168,10 +168,10 @@
         <div class="col-md-12">	
             <table class="table table-bordered ">
                 <tr>
-                    <td colspan="3"><h4>Books to Dispatch</h4></td>
+                    <td colspan="3"><h4>Items to Dispatch</h4></td>
                 </tr>
                 <tr>
-                    <th width="70%">Book</th>
+                    <th width="70%">Item</th>
                     <th class="text-center" width="15%">Quantity</th>
                 </tr>
                 @foreach($order->product as $prod)

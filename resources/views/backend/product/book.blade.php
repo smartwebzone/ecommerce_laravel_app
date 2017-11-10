@@ -19,10 +19,10 @@
         <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>    
             <li><a href="{!! url(getLang() . '/admin/product') !!}"><i class="fa fa-shopping-bag"></i> Products</a></li>
-            <li class="active">Select Product Books</li>
+            <li class="active">Select Product Items</li>
         </ol>
         <div class="page-header">
-            <h1> Select Product Books</h1>
+            <h1> Select Product Items</h1>
         </div>
         <!-- end: PAGE TITLE & BREADCRUMB -->
     </div>
@@ -71,7 +71,7 @@
                                 @foreach($product->books as $key=>$bk)
                                 <div class="form-group col-sm-12 books">
                                     <div class="form-group col-sm-4">
-                                        {!! Form::label('book', 'Book:') !!}
+                                        {!! Form::label('book', 'Item:') !!}
 
                                         {!! Form::select('book_id[]', $book, $bk->id, array('class' => 'form-control select2 book', 'value'=>Input::old('book_id'),'required' => true)) !!}
 
@@ -102,7 +102,7 @@
 
                                 <div class="form-group col-sm-12 books">
                                     <div class="form-group col-sm-4">
-                                        {!! Form::label('book', 'Book:') !!}
+                                        {!! Form::label('book', 'Item:') !!}
 
                                         {!! Form::select('book_id[]', $book, null, array('class' => 'form-control select2 book', 'value'=>Input::old('book_id'),'required' => true)) !!}
 
@@ -144,7 +144,7 @@
 <div class="hide" id="book-clone">
     <div class="form-group col-sm-12 books">
         <div class="form-group col-sm-4">
-            {!! Form::label('book', 'Book:') !!}
+            {!! Form::label('book', 'Item:') !!}
 
             {!! Form::select('book_id[]', $book, null, array('class' => 'form-control select2 bookclone', 'value'=>Input::old('book_id'),'required' => true)) !!}
 
