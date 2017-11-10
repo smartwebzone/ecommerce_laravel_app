@@ -1,8 +1,4 @@
 Front end changes
-
-- validation, instead of This field is required, make textbox and label red
-- password string validation (1 capital letter, 1 small letter and 1 digit)
-
 if(shipping_state == product_state){
    50% SGST and 50% CGST
 }else{
