@@ -35,8 +35,6 @@ class ProductRepository extends RepositoryAbstract implements ProductInterface, 
         'company_id' => 'required',
         'standard_id' => 'required',
         'title' => 'required',
-        'description' => 'required',
-        'long_description' => 'required',
         'instate_shipping_charges' => 'regex:/^\d*(\.\d{1,2})?$/',
         'outstate_shipping_charges' => 'regex:/^\d*(\.\d{1,2})?$/'
     ];

@@ -35,8 +35,6 @@ class BookRepository extends RepositoryAbstract implements BookInterface, Crudab
         'company_id' => 'required',
         'standard_id' => 'required',
         'name' => 'required',
-        'description' => 'required',
-        'author' => 'required',
         'book_code' => 'required',
         'price' => 'required|regex:/^\d*(\.\d{1,2})?$/',
         'tax' => 'regex:/^\d*(\.\d{1,2})?$/',

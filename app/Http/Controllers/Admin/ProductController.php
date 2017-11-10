@@ -112,7 +112,7 @@ class ProductController extends Controller {
 
     public function book($id) {
         $product = $this->product->find($id);
-        $book = \App\Models\Book::where('standard_id', $product['standard_id'])->lists('name', 'id')->active()->toArray();
+        $book = \App\Models\Book::where('standard_id', $product['standard_id'])->active()->lists('name', 'id')->toArray();
         $book = [null => 'Please Select'] + $book;
 //        /dd($product->books);
         return view('backend.product.book', compact('product', 'book'));
