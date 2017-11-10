@@ -5,7 +5,8 @@
                 <tr>
                     <td colspan="5"><b>Order ID :</b> #{{ $order->order_no }}
                         <span style='float:right'>
-                            <b>Order Date</b> : {{ $order->order_date_formatted }}
+                            <label style="margin-right: 20px;"><b>Order Date</b> : {{ $order->order_date_formatted }} </label>
+                            <label><b>Preferred Delivery Date</b> : {{ $order->preferred_delivery_date_formatted }}</label>
                         </span></td>
                 </tr>
                 <tr>
