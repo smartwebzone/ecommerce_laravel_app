@@ -17,7 +17,7 @@
             <li class="active">Users</li>
             </ol>
             <div class="page-header">
-                <h1>  Users<small> | Control Panel</small> </h1>
+                <h1>  Users </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

@@ -38,7 +38,7 @@
             <li class="active">Product</li>
         </ol>
         <div class="page-header">
-            <h1> Products <small> | Control Panel</small> </h1>
+            <h1> Products </h1>
         </div>
         <!-- end: PAGE TITLE & BREADCRUMB -->
     </div>

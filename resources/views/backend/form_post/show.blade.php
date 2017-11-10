@@ -13,7 +13,7 @@
                 <li class="active">Email  Post View</li>
             </ol>
             <div class="page-header">
-                <h1>View Email <small> | Control Panel</small> </h1>
+                <h1>View Email </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

@@ -1,6 +1,7 @@
 <div class="row">
     <div class="form-group col-sm-6">
         {!! Form::label('company_id', 'Company:') !!}
+        <span class="mandatory">*</span>
         {!! Form::select('company_id', $company, NULL, array('class' => 'form-control', 'value'=>Input::old('company_id'),'required' => true)) !!}
         @if ($errors->has('company_id'))
         <div class="error">{{ $errors->first('company_id') }}</div>
@@ -8,6 +9,7 @@
     </div>
     <div class="form-group col-sm-6">
         {!! Form::label('standard_id', 'Standard:') !!}
+        <span class="mandatory">*</span>
         {!! Form::select('standard_id', $standard, NULL, array('class' => 'form-control', 'value'=>Input::old('standard_id'),'required' => true)) !!}
         @if ($errors->has('standard_id'))
         <div class="error">{{ $errors->first('standard_id') }}</div>
@@ -17,6 +19,7 @@
 <div class="row">
     <div class="form-group col-sm-6">
         {!! Form::label('name', 'Name:') !!}
+        <span class="mandatory">*</span>
         {!! Form::text('name', null, ['class' => 'form-control', 'value' => old('name'),'required' => true]) !!}
         @if ($errors->has('name'))
         <div class="error">{{ $errors->first('name') }}</div>
@@ -24,7 +27,7 @@
     </div>
     <div class="form-group col-sm-6">
         {!! Form::label('description', 'Description:') !!}
-        {!! Form::text('description', null, ['class' => 'form-control','value' => old('description'),'required' => true]) !!}
+        {!! Form::text('description', null, ['class' => 'form-control','value' => old('description')]) !!}
         @if ($errors->has('description'))
         <div class="error">{{ $errors->first('description') }}</div>
         @endif
@@ -33,13 +36,14 @@
 <div class="row">
     <div class="form-group col-sm-6">
         {!! Form::label('author', 'Author:') !!}
-        {!! Form::text('author', null, ['class' => 'form-control','value' => old('author'),'required' => true]) !!}
+        {!! Form::text('author', null, ['class' => 'form-control','value' => old('author')]) !!}
         @if ($errors->has('author'))
         <div class="error">{{ $errors->first('author') }}</div>
         @endif
     </div>
     <div class="form-group col-sm-6">
-        {!! Form::label('book_code', 'Book Code:') !!}
+        {!! Form::label('book_code', 'Code:') !!}
+        <span class="mandatory">*</span>
         {!! Form::text('book_code', null, ['class' => 'form-control','value' => old('book_code'),'required' => true]) !!}
         @if ($errors->has('book_code'))
         <div class="error">{{ $errors->first('book_code') }}</div>
@@ -49,6 +53,7 @@
 <div class="row">
     <div class="form-group col-sm-6">
         {!! Form::label('price', 'Price:') !!}
+        <span class="mandatory">*</span>
         {!! Form::text('price', null, ['class' => 'form-control','value' => old('price'),'required' => true]) !!}
         @if ($errors->has('price'))
         <div class="error">{{ $errors->first('price') }}</div>
@@ -64,23 +69,24 @@
 <div class="row">
     <div class="form-group col-sm-6 tax">
         {!! Form::label('tax', 'Tax: (%) ') !!}
+        <span class="mandatory">*</span>
         {!! Form::text('tax', null, ['class' => 'form-control','value' => old('tax')]) !!}
         @if ($errors->has('tax'))
         <div class="error">{{ $errors->first('tax') }}</div>
         @endif
     </div>
     <div class="form-group col-sm-6">
-        {!! Form::label('shipping_charges', 'Shipping charges:') !!}
-        {!! Form::text('shipping_charges', null, ['class' => 'form-control','value' => old('shipping_charges'),'required' => true]) !!}
-        @if ($errors->has('shipping_charges'))
-        <div class="error">{{ $errors->first('shipping_charges') }}</div>
+        {!! Form::label('hsn_code', 'HSN Code :') !!}
+        {!! Form::text('hsn_code', null, ['class' => 'form-control','value' => old('hsn_code')]) !!}
+        @if ($errors->has('hsn_code'))
+        <div class="error">{{ $errors->first('hsn_code') }}</div>
         @endif
     </div>
 </div>
 <div class="row">
      <div class="form-group col-sm-6">
         {!! Form::label('quantity', 'Quantity:') !!}
-        {!! Form::text('quantity', null, ['class' => 'form-control','value' => old('quantity'),'required' => true]) !!}
+        {!! Form::text('quantity', null, ['class' => 'form-control','value' => old('quantity')]) !!}
         @if ($errors->has('quantity'))
         <div class="error">{{ $errors->first('quantity') }}</div>
         @endif
@@ -88,7 +94,7 @@
    
     <div class="form-group col-sm-6">
        {!! Form::label('medium', 'Medium:') !!}
-        {!! Form::text('medium', null, ['class' => 'form-control','value' => old('medium'),'required' => true]) !!}
+        {!! Form::text('medium', null, ['class' => 'form-control','value' => old('medium')]) !!}
         @if ($errors->has('medium'))
         <div class="error">{{ $errors->first('medium') }}</div>
         @endif
@@ -97,7 +103,7 @@
 <div class="row">
     <div class="form-group col-sm-6">
        {!! Form::label('weight', 'Weight: (in grams)') !!}
-        {!! Form::text('weight', null, ['class' => 'form-control','value' => old('weight'),'required' => true]) !!}
+        {!! Form::text('weight', null, ['class' => 'form-control','value' => old('weight')]) !!}
         @if ($errors->has('weight'))
         <div class="error">{{ $errors->first('weight') }}</div>
         @endif

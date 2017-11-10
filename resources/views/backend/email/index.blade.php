@@ -17,7 +17,7 @@
             <li class="active">Email Templates</li>
             </ol>
             <div class="page-header">
-                <h1>  Email Templates<small> | Control Panel</small> </h1>
+                <h1>  Email Templates </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

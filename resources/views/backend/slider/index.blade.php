@@ -16,7 +16,7 @@
             <li class="active">Sliders</li>
         </ol>
         <div class="page-header">
-            <h1> Slider <small> | Control Panel</small> </h1>
+            <h1> Slider </h1>
         </div>
         <!-- end: PAGE TITLE & BREADCRUMB -->
     </div>

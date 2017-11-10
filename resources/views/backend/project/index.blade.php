@@ -18,7 +18,7 @@
             <li class="active">Projects</li>
         </ol>
         <div class="page-header">
-            <h1> Project <small> | Control Panel</small> </h1>
+            <h1> Project </h1>
         </div>
         <!-- end: PAGE TITLE & BREADCRUMB -->
     </div>

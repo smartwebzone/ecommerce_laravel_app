@@ -127,7 +127,7 @@ class BookController extends Controller {
             }
             $data['price_after_tax'] = calculatePercentage($data['price'], $data['tax']);
             $this->book->create($data);
-            Flash::message('Book was successfully added');
+            Flash::message('Item was successfully added');
 
             return Redirect::route('admin.book');
         } catch (ValidationException $e) {
@@ -184,7 +184,7 @@ class BookController extends Controller {
             }
             $data['price_after_tax'] = calculatePercentage($data['price'], $data['tax']);
             $this->book->update($id, $data);
-            Flash::message('Book was successfully updated');
+            Flash::message('Item was successfully updated');
 
             return Redirect::route('admin.book');
         } catch (ValidationException $e) {
@@ -201,7 +201,7 @@ class BookController extends Controller {
      */
     public function destroy($id) {
         $this->book->delete($id);
-        Flash::message('Book was successfully deleted');
+        Flash::message('Item was successfully deleted');
 
         return Redirect::route('admin.book');
     }
@@ -233,27 +233,31 @@ class BookController extends Controller {
             $sheet->each(function($row) use(&$data) {
                 //$standard=\App\Models\Standard::where(['name'=>$row->class])->first();
                 if ($row->title) {
-                    $data['total_book'] ++;
-                    $book = array('name' => $row->title,
-                        'standard_id' => $data['standard_id'],
-                        'medium' => $row->medium,
-                        'company_id' => $data['company_id'],
-                        'book_code' => $row->code,
-                        'description' => ($row->description) ? $row->description : $row->title,
-                        'author' => ($row->author) ? $row->author : $row->title,
-                        'shipping_charges' => ($row->shipping) ? $row->shipping : 0,
-                        'price' => $row->rate,
-                        'tax' => $row->tax,
-                        'quantity' => $row->qty,
-                        'is_taxable' => ($row->tax) ? 1 : 0,
-                        'price_after_tax' => calculatePercentage($row->rate, $row->tax),
-                    );
-                    \App\Models\Book::create($book);
+                    $check_duplicate = \App\Models\Book::where(['name'=>$row->title,'standard_id'=>$data['standard_id'],'company_id'=>$data['company_id']])->first();
+                    if(!$check_duplicate){
+                        $data['total_book'] ++;
+                        $book = array('name' => $row->title,
+                            'standard_id' => $data['standard_id'],
+                            'medium' => $row->medium,
+                            'company_id' => $data['company_id'],
+                            'book_code' => $row->code,
+                            'description' => ($row->description) ? $row->description : $row->title,
+                            'author' => ($row->author) ? $row->author : $row->title,
+                            'hsn_code' => $row->hsn_code,
+                            'weight' => $row->weight,
+                            'price' => $row->rate,
+                            'tax' => $row->tax,
+                            'quantity' => $row->qty,
+                            'is_taxable' => ($row->tax) ? 1 : 0,
+                            'price_after_tax' => calculatePercentage($row->rate, $row->tax),
+                        );
+                        \App\Models\Book::create($book);
+                    }
                 }
             });
         });
 
-        Flash::message('Total ' . $data['total_book'] . ' Books was successfully uploaded');
+        Flash::message('Total ' . $data['total_book'] . ' items was successfully uploaded');
 
         return Redirect::route('admin.book');
     }

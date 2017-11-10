@@ -38,7 +38,7 @@
             <li class="active">Photo Gallery</li>
         </ol>
         <div class="page-header">
-            <h1> Photo Gallery <small> | Control Panel</small> </h1>
+            <h1> Photo Gallery </h1>
         </div>
         <!-- end: PAGE TITLE & BREADCRUMB -->
     </div>

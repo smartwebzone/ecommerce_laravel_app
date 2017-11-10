@@ -19,7 +19,7 @@
             <li class="active"></li>
             </ol>
             <div class="page-header">
-                <h1> Page <small> | Control Panel</small> </h1>
+                <h1> Page </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

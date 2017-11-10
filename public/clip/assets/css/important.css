@@ -49,3 +49,6 @@ ul.main-navigation-menu ul.sub-menu > ul.sub-menu > li > a { border: 0 none; dis
     line-height: 1.8;
     color: #f96a74;
 }
+.mandatory{
+    color:#FF0000!important;
+}

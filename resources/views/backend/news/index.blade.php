@@ -39,7 +39,7 @@
                 <li class="active">News</li>
             </ol>
             <div class="page-header">
-                <h1> News <small> | Control Panel</small> </h1>
+                <h1> News </h1>
             </div>
         </div>
     </div>

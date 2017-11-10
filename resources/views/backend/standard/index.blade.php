@@ -17,7 +17,7 @@
             <li class="active">Standards</li>
             </ol>
             <div class="page-header">
-                <h1>  Standards <small> | Control Panel</small> </h1>
+                <h1>  Standards </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

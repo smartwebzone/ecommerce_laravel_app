@@ -34,7 +34,7 @@
         </li>
         <li class="{{ setActive('admin/book*') }}">
             <a href="{{ url(getLang() . '/admin/book') }}"><i class="fa fa-book"></i>
-                <span class="title"> Books </span><span class="selected"></span>
+                <span class="title"> Items </span><span class="selected"></span>
             </a>
         </li>
         <li class="{{ setActive('admin/product*') }}">

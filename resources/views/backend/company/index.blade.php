@@ -17,7 +17,7 @@
             <li class="active">Companies</li>
             </ol>
             <div class="page-header">
-                <h1>  Companies <small> | Control Panel</small> </h1>
+                <h1>  Companies </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

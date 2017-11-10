@@ -17,7 +17,7 @@
             <li class="active">Keys</li>
             </ol>
             <div class="page-header">
-                <h1>  Keys <small> | Control Panel</small> </h1>
+                <h1>  Keys </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>
