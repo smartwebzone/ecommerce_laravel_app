@@ -1,24 +1,15 @@
-Front end changes
-if(shipping_state == product_state){
-   50% SGST and 50% CGST
-}else{
-   apply 100% IGST
-}
-
-Use same logic for shipping charge GST
-
-
-Back end changes/fixes
-
-Products list >> give status change button active/inactive and make sure we display only active products in front end
-
-Upload Book >> give facility to select Standard instead of loading them from excel sheet
-Upload Book >> If tax == null or tax == 0.00% then tax_type = Non taxable and tax = 0
-
-- Give filter in Order, Book and Product list
-- Checkbox for delete multiple items in Order, Book and Product
-  - Book filter fields - Company, Standard, Search textbox (Name, Description, Book Code, Author), Taxable - Yes/No, Status - Enabled/Disabled
-  - Product filter fields - Company, School, Standard, Title, , Taxable - Yes/No, Status - Enabled/Disabled
-  - Order filter fields - Order ID, Product, Search (Name, Email, Mobile), Date Range, Price Range, Status, Print Order (print whatever display in order screen)
-
-- Bulk delete facility. Give checkbox selection and delete only for Books, Products and Orders
+Backend Email Template review.
+Backend->Users->Type: Replace Student to User
+Backend->Page Titles: Remove | Control Panel Word
+Backend->Dashboard Page: Welcome Msg, Remove Grid
+Confirm Shipping State Logic
+Backend->Pages: Tool Tip on Action Button
+Backend->Book ADD/Edit->Medium/Weight/description/author -  Not Mandatory. Remove Shipping Charges from Book Add/Edit
+Backend->Book ADD/Edit  -  Put * in red for Mandatory Fileds
+Backend->Book: change "Book" Keyword to "Item" in Menu and inner page
+Backend->Product ADD/Edit-> Description/ Long Description -  Not Mandatory.
+Backend->Product ADD/Edit  -  Put * in red for Mandatory Fileds
+Backend->Product ADD/Edit  Show books as per Company/Standard/Tax Filter combination logic.
+Backend->Email Template: Set all order status in email template, forget password, registration (Remove Add Email Template Option). All remove dropdown to select template option in email template.
+Backend->Email Template: Order Status Change Email Link with Email Template
+Backend->Order: Preferred Delivery Date is now shown. Show in order grid preferred date. 
