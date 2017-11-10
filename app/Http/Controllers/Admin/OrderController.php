@@ -97,12 +97,12 @@ class OrderController extends Controller {
         $min = '';
         if ($request->min) {
             $min = $request->min;
-                $orders = $orders->where('total_amount', '>=', $min);
+            $orders = $orders->where('total_amount', '>=', $min);
         }
         $max = '';
         if ($request->max) {
             $max = $request->max;
-                $orders = $orders->where('total_amount', '<=', $max);
+            $orders = $orders->where('total_amount', '<=', $max);
         }
         $limit = $this->perPage;
         $offset = $request->page;
@@ -111,7 +111,7 @@ class OrderController extends Controller {
             return $this->export($orders, $request, $limit, $offset);
         }
         if ($request->export_all) {
-            return $this->export($orders,$request);
+            return $this->export($orders, $request);
         }
         if ($request->delete && $request->export_order) {
             $this->delete($orders, $request->export_order);
@@ -150,7 +150,7 @@ class OrderController extends Controller {
         $product = [null => 'ALL'] + $product;
         $statuss = \App\Models\Status::lists('name', 'id')->toArray();
         $statuss = [null => 'ALL'] + $statuss;
-        return view('backend.order.index', compact('orders','min','max','from','to', 'search', 'order_id', 'product', 'product_id', 'status', 'statuss'));
+        return view('backend.order.index', compact('orders', 'min', 'max', 'from', 'to', 'search', 'order_id', 'product', 'product_id', 'status', 'statuss'));
     }
 
     /**
@@ -235,11 +235,21 @@ class OrderController extends Controller {
             $data['order_no'] = $order->order_no;
             $data['status'] = \App\Models\Status::find($data['status_id']);
             $data['status'] = $data['status']->name;
-            Mail::send('emails.orderstatus', $data, function ($m) use ($data) {
-                $m->from('noreply@jeevandeep.com', 'Jeevandeep');
-                $m->to($data['email'], $data['name']);
-                $m->subject('Welcome to Jeevandeep');
-            });
+
+            $template = \App\Models\Email::where(['template' => 'Order Status'])->get();
+            // Send the welcome email
+            if ($template) {
+                $body = str_replace('<<student_name>>', $order->user->first_name . ' ' . $order->user->last_name, $template[0]->body);
+                $body = str_replace('<<order_no>>', $order->order_no, $body);
+                $body = str_replace('<<status>>', $data['status'], $body);
+
+                $body = nl2br($body);
+                Mail::send('emails.orderstatus', ['body' => $body], function ($m) use ($data,$template) {
+                    $m->from('noreply@jeevandeep.com', 'Jeevandeep');
+                    $m->to($data['email'], $data['name']);
+                    $m->subject($template[0]->subject);
+                });
+            }
             Flash::message('Order was successfully updated');
 
             return Redirect::route('admin.order.show', ['id' => $id]);
@@ -284,7 +294,7 @@ class OrderController extends Controller {
     }
 
     private function export($orders, $request = NULL, $limit = NULL, $offset = NULL) {
-        $ids=@$request->export_order;
+        $ids = @$request->export_order;
         if ($ids) {
             $orders = $orders->whereIn('id', explode(',', $ids));
         } else
@@ -296,14 +306,14 @@ class OrderController extends Controller {
             $orders = $orders->limit($limit);
         }
         $orders = $orders->get();
-        $search=@$request->search;
-        $from=@$request->from;
-        $to=@$request->to;
-        $min=@$request->min;
-        $max=@$request->max;
-        $product=@$request->product;
+        $search = @$request->search;
+        $from = @$request->from;
+        $to = @$request->to;
+        $min = @$request->min;
+        $max = @$request->max;
+        $product = @$request->product;
         // return view('backend.orders.export', compact('orders', 'search', 'order_id', 'product', 'product_id', 'status', 'statuss'));
-        $pdf = PDF::loadView('backend.orders.export', compact('orders','search','from','to','min','max','product'));
+        $pdf = PDF::loadView('backend.orders.export', compact('orders', 'search', 'from', 'to', 'min', 'max', 'product'));
         return $pdf->stream();
     }
 
