@@ -61,7 +61,7 @@ class StoreController extends Controller {
         if ($state && $school && $standard) {
             $shipping_address = getUserAddress('shipping');
             
-            $product = \App\Models\Product::where(['school_id' => $school, 'standard_id' => $standard])->get();
+            $product = \App\Models\Product::where(['school_id' => $school, 'standard_id' => $standard])->active()->get();
             //dd($shipping_address->state,$product[0]->company->state);
             $school = \App\Models\School::find($school);
             $standard = \App\Models\Standard::find($standard);
