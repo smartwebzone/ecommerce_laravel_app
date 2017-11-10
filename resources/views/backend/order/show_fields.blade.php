@@ -5,7 +5,8 @@
                 <tr>
                     <td colspan="5"><b>Order ID :</b> #{{ $order->order_no }}
                         <span style='float:right'>
-                            <b>Order Date</b> : {{ $order->order_date_formatted }}
+                            <label style="margin-right: 20px;"><b>Order Date</b> : {{ $order->order_date_formatted }} </label>
+                            <label><b>Preferred Delivery Date</b> : {{ $order->preferred_delivery_date_formatted }}</label>
                         </span></td>
                 </tr>
                 <tr>
@@ -168,10 +169,10 @@
         <div class="col-md-12">	
             <table class="table table-bordered ">
                 <tr>
-                    <td colspan="3"><h4>Books to Dispatch</h4></td>
+                    <td colspan="3"><h4>Items to Dispatch</h4></td>
                 </tr>
                 <tr>
-                    <th width="70%">Book</th>
+                    <th width="70%">Item</th>
                     <th class="text-center" width="15%">Quantity</th>
                 </tr>
                 @foreach($order->product as $prod)

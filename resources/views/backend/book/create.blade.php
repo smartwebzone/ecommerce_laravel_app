@@ -13,11 +13,11 @@
             <!-- start: PAGE TITLE & BREADCRUMB -->
             <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>    
-            <li><a href="{!! url(getLang() . '/admin/book') !!}"><i class="fa fa-book"></i> Books</a></li>
-            <li class="active">Add Book</li>
+            <li><a href="{!! url(getLang() . '/admin/book') !!}"><i class="fa fa-book"></i> Items</a></li>
+            <li class="active">Add Item</li>
             </ol>
             <div class="page-header">
-                <h1> Add Book </h1>
+                <h1> Add Item </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>
@@ -79,6 +79,6 @@
         $("input#slug").val(Text);
     });
     $("input#meta_description").blur(function () {
-        $('input#meta_description').val($('input#meta_description').val() + ' by The Jeevandeep Book');
+        $('input#meta_description').val($('input#meta_description').val() + ' by The Jeevandeep');
     });
 @endsection

@@ -18,7 +18,7 @@
             <li class="active">Orders</li>
         </ol>
         <div class="page-header">
-            <h1>  Orders <small> | Control Panel</small> </h1>
+            <h1>  Orders </h1>
         </div>
         <!-- end: PAGE TITLE & BREADCRUMB -->
     </div>
@@ -54,7 +54,7 @@
                                 <div class="control-group col-md-3">
                                     <label class="control-label" for="title">Order ID</label>
                                     <div class="controls">
-                                        <input placeholder="order_id" type="text" name="order_id" value="{{@$order_id}}" class="form-control">
+                                        <input placeholder="Order ID" type="text" name="order_id" value="{{@$order_id}}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="control-group col-md-3">
@@ -110,15 +110,14 @@
                                         <a class="btn btn-info" href="{{url(getLang().'/admin/order')}}">CLEAR</a>
                                     </div>
                                 </div>
-                                 <div class="control-group col-md-4 pull-right">
+                                 <div class="control-group col-md-9 pull-right">
                                         <label class="control-label" for="title">&nbsp;</label>
-                                        <div class="controls">
+                                        <div class="controls text-right">
                                         <input type="hidden" value="{{@$offset}}" name="offset">
                                         <input type="hidden" value="" class="export-order" name="export_order">
                                         
-                                        <button formtarget="_blank" disabled="" name="export" value="1" class="btn btn-success export-btn" type="submit">EXPORT</button>
-                                        <label class="control-label" for="title">&nbsp;</label>
-                                        <button formtarget="_blank" name="export_all" value="1" class="btn btn-success" type="submit">EXPORT ALL</button>
+                                        <button formtarget="_blank" disabled="" name="export" value="1" class="btn btn-success export-btn" type="submit">PRINT</button>
+<!--                                        <button formtarget="_blank" name="export_all" value="1" class="btn btn-success" type="submit">EXPORT ALL</button>-->
                                         <button  name="delete" disabled="" value="1" class="btn btn-danger export-btn" type="submit">Delete</button>
                                     </div>
                                 </div>

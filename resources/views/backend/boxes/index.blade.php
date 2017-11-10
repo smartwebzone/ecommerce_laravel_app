@@ -17,7 +17,7 @@
             <li class="active">Boxes</li>
             </ol>
             <div class="page-header">
-                <h1>  Boxes <small> | Control Panel</small> </h1>
+                <h1>  Boxes </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

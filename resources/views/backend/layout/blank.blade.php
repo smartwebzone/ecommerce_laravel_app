@@ -16,7 +16,7 @@
             <li class="active">Dashboard</li>
             </ol>
             <div class="page-header">
-                   <h1> Dashboard <small>Version 1.0</small> </h1>
+                   <h1> Dashboard </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

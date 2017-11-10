@@ -27,7 +27,7 @@ class Product extends Model implements ModelInterface {
     }
 
     public function school() {
-        return $this->belongsTo(School::class, 'school_id');
+        return $this->belongsTo(Company::class, 'school_id');
     }
 
     public function books() {
@@ -37,41 +37,48 @@ class Product extends Model implements ModelInterface {
     public function getPriceAttribute() {
         $totalmrp = 0;
         foreach ($this->books as $book):
-            $totalmrp+=$book->price_after_tax;
+            $totalmrp += $book->price_after_tax;
         endforeach;
-        
+
         $student_state = getUserShippingState();
-        $school_state = \App\Models\School::find($this->school_id)->state;
-        if(empty($student_state)){
-            $student_state = $school_state;
+        $company_state = \App\Models\Company::find($this->company_id)->state;
+        if (empty($student_state)) {
+            $student_state = $company_state;
         }
-        if($school_state == $student_state){
+        if ($company_state == $student_state) {
             $state_ship = 'instate_shipping_charges';
-        }else{
+        } else {
             $state_ship = 'outstate_shipping_charges';
         }
-        
+
         $shippingtax = (($this->$state_ship * 18) / 100);
-        $total = numberWithDecimal($shippingtax+$this->$state_ship+$totalmrp);
+        $total = numberWithDecimal($shippingtax + $this->$state_ship + $totalmrp);
         return $total;
     }
-    
-    function getShippingStateAttribute(){
+
+    function getShippingStateAttribute() {
         $student_state = getUserShippingState();
-        $school_state = \App\Models\School::find($this->school_id)->state;
-        if(empty($student_state)){
-            $student_state = $school_state;
+        $company_state = \App\Models\Company::find($this->company_id)->state;
+        if (empty($student_state)) {
+            $student_state = $company_state;
         }
-        if($school_state == $student_state){
+        if ($company_state == $student_state) {
             $state_ship = 'instate_shipping_charges';
-        }else{
+        } else {
             $state_ship = 'outstate_shipping_charges';
         }
         return $this->$state_ship;
     }
-    
+
     public function order() {
         return $this->belongsToMany(Order::class, 'order_product', 'product_id', 'order_id');
+    }
+
+    public function scopeActive($query) {
+        $query->where(function ($query) {
+            $query->where('status', '1');
+        });
+        return $query;
     }
 
 }

@@ -17,7 +17,7 @@
             <li class="active">Dealers</li>
             </ol>
             <div class="page-header">
-                <h1>  Dealers <small> | Control Panel</small> </h1>
+                <h1>  Dealers </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
                                <div class="space12">

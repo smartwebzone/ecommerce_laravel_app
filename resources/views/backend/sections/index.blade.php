@@ -14,7 +14,7 @@
             <li class="active">Sections</li>
             </ol>
             <div class="page-header">
-                <h1>  Sections <small> | Control Panel</small> </h1>
+                <h1>  Sections </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

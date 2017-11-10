@@ -15,10 +15,10 @@
         <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 
-            <li class="active">Books</li>
+            <li class="active">Items</li>
         </ol>
         <div class="page-header">
-            <h1>  Books <small> | Control Panel</small> </h1>
+            <h1>  Items </h1>
         </div>
         <!-- end: PAGE TITLE & BREADCRUMB -->
     </div>
@@ -50,8 +50,8 @@
 
                         <div class="space12">
                             <div class="btn-group btn-group-lg">
-                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/book/create') !!}"> <i class="fa fa-plus"></i> Add Book </a>
-                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/book/upload') !!}"> <i class="fa fa-upload"></i> Upload Book </a>
+                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/book/create') !!}"> <i class="fa fa-plus"></i> Add Item </a>
+                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/book/upload') !!}"> <i class="fa fa-upload"></i> Upload Items </a>
                             </div>
                         </div>
                         <div class="widget search col-md-12">
@@ -87,7 +87,7 @@
                                     <label class="control-label" for="title">&nbsp;</label>
                                     <div class="controls">
                                         <button class="btn btn-info" type="submit">FILTER</button>
-                                        <a class="btn btn-info" href="{{url(getLang().'/admin/book')}}">CLEAR</a>
+                                        <a class="btn btn-default" href="{{url(getLang().'/admin/book')}}">CLEAR</a>
                                         <input type="hidden" value="{{@$offset}}" name="offset">
                                             <input type="hidden" value="" class="delete-order" name="delete_book">
                                             <label class="control-label" for="title">&nbsp;</label>

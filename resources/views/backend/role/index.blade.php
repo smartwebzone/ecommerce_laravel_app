@@ -18,7 +18,7 @@
             <li class="active">Role</li>
         </ol>
         <div class="page-header">
-            <h1> Role <small> | Control Panel</small> </h1>
+            <h1> Role </h1>
         </div>
         <!-- end: PAGE TITLE & BREADCRUMB -->
     </div>

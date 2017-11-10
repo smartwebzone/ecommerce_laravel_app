@@ -13,11 +13,11 @@
             <!-- start: PAGE TITLE & BREADCRUMB -->
             <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li><a href="{!! url(getLang(). '/admin/book') !!}"><i class="fa fa-gears"></i>  Book</a></li>
-            <li class="active">Preview Book</li>
+            <li><a href="{!! url(getLang(). '/admin/book') !!}"><i class="fa fa-gears"></i>  Item</a></li>
+            <li class="active">Preview Item</li>
             </ol>
             <div class="page-header">
-                <h1>  book <small> | Preview Book</small> </h1>
+                <h1>  book <small> | Preview Item</small> </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>
@@ -52,8 +52,8 @@
 
                         <div class="space12">
                             <div class="btn-group btn-group-lg">
-                                <a class="btn btn-default" href="{!! url(getLang() . '/admin/book') !!}"> book</a>
-                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/book/create') !!}"> <i class="fa fa-plus"></i> Add  Book </a>
+                                <a class="btn btn-default" href="{!! url(getLang() . '/admin/book') !!}"> Item</a>
+                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/book/create') !!}"> <i class="fa fa-plus"></i> Add  Item </a>
                             </div>
                         </div>
 

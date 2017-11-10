@@ -14,7 +14,7 @@
     <tr>
         <td class="text-center">{{ srNo($key) }}</td>
         <td>{!! $row->first_name !!} {!! $row->last_name !!}</td>
-        <td class="text-center">{!! $row->isAdmin == 1 ? 'Admin' : 'Student' !!}</td>
+        <td class="text-center">{!! $row->isAdmin == 1 ? 'Admin' : 'User' !!}</td>
         <td>{{ $row->email }}</td>
         <td>{{ $row->mobile }}</td>
         <td class="text-center">{{ formatDate($row->created_at) }}</td>
@@ -22,8 +22,8 @@
         <td class="text-center" nowrap="nowrap">
             {!! Form::open(['route' => ['admin.user.destroy', $row->id], 'method' => 'delete']) !!}
             <div class='btn-group'>
-                <a href="{!! route('admin.user.edit', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                <a href="{!! route('admin.user.edit', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
+                {!! Form::button('<i class="glyphicon glyphicon-trash" title="Delete"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
             </div>
             {!! Form::close() !!}
         </td>

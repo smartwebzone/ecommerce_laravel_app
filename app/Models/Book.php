@@ -26,4 +26,11 @@ class Book extends Model implements ModelInterface {
         return $this->belongsTo(Company::class, 'company_id');
     }
 
+    public function scopeActive($query) {
+        $query->where(function ($query) {
+            $query->where('status', '1');
+        });
+        return $query;
+    }
+
 }

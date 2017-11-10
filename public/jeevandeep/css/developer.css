@@ -1,11 +1,37 @@
 .error,.errormsg{
-    color:#FF0000 !important;
+    color:#D7244C !important;
 }
 input.error,select.error,textarea.error{
-    border: 1px solid #FF0000 !important;
+    border: 1px solid #D7244C !important;
+}
+.input-group.error input,.input-group.error select,.input-group.error textarea{
+    color:#D7244C!important;
 }
 .user-cart {
     float: right !important;
     margin-right: 15px !important;
     width: auto !important;
+}
+.error ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:#D7244C!important;
+}
+.error :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:#D7244C!important;
+    opacity:1;
+}
+.error ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:#D7244C!important;
+    opacity:1;
+}
+.error :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:#D7244C!important;
+}
+.error ::-ms-input-placeholder { /* Microsoft Edge */
+    color:#D7244C!important;
+}
+.child-label-red label{
+    color:#D7244C!important;
+}
+.child-label-red label.label_same_as_address{
+    color:#000!important;
 }

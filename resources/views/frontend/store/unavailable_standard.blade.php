@@ -30,7 +30,7 @@ Jeevandeep Prakashan Pvt. Ltd.
     <div class="enquire login-register cf">
         <h2><i class="fa fa-book"></i>Online Store</h2>
         <div class="select-div">Request to add new Standard
-        <a href="" onclick="window.history.go(-1); return false;" class="back"><i class="fa fa-chevron-circle-left"></i> Back</a>
+            <a href="" onclick="window.history.go(-1); return false;" class="back"><i class="fa fa-chevron-circle-left"></i> Back</a>
         </div>
         @if(Session::has('error'))
         <div class="flash-message alert alert-danger">
@@ -80,9 +80,17 @@ Jeevandeep Prakashan Pvt. Ltd.
 <script>
     $().ready(function () {
         $(".validate_form").validate({
-            errorPlacement: function(){
-            return false;  // suppresses error message text
-        }
+            highlight: function (element) {
+                $(element).closest('div.input-group').addClass('error');
+                $(element).closest('.form-group').addClass('child-label-red');
+            },
+            unhighlight: function (element) {
+                $(element).closest('div.input-group').removeClass('error');
+                $(element).closest('.form-group').removeClass('child-label-red');
+            },
+            errorPlacement: function () {
+                return false;  // suppresses error message text
+            }
         });
     });
 </script>

@@ -17,7 +17,7 @@
             <li class="active">Locations</li>
             </ol>
             <div class="page-header">
-                <h1>  Locations <small> | Control Panel</small> </h1>
+                <h1>  Locations </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

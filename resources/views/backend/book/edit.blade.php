@@ -13,11 +13,11 @@
             <!-- start: PAGE TITLE & BREADCRUMB -->
             <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>    
-            <li><a href="{!! url(getLang() . '/admin/book') !!}"><i class="fa fa-book"></i> Books</a></li>
-            <li class="active">Update Book</li>
+            <li><a href="{!! url(getLang() . '/admin/book') !!}"><i class="fa fa-book"></i> Items</a></li>
+            <li class="active">Update Item</li>
             </ol>
             <div class="page-header">
-                <h1> Update Book </h1>
+                <h1> Update Item </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>
