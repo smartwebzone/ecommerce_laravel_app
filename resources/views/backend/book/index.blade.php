@@ -87,7 +87,7 @@
                                     <label class="control-label" for="title">&nbsp;</label>
                                     <div class="controls">
                                         <button class="btn btn-info" type="submit">FILTER</button>
-                                        <a class="btn btn-info" href="{{url(getLang().'/admin/book')}}">CLEAR</a>
+                                        <a class="btn btn-default" href="{{url(getLang().'/admin/book')}}">CLEAR</a>
                                         <input type="hidden" value="{{@$offset}}" name="offset">
                                             <input type="hidden" value="" class="delete-order" name="delete_book">
                                             <label class="control-label" for="title">&nbsp;</label>

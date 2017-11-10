@@ -70,10 +70,10 @@
         @endif
     </div>
     <div class="form-group col-sm-6">
-        {!! Form::label('shipping_charges', 'Shipping charges:') !!}
-        {!! Form::text('shipping_charges', null, ['class' => 'form-control','value' => old('shipping_charges'),'required' => true]) !!}
-        @if ($errors->has('shipping_charges'))
-        <div class="error">{{ $errors->first('shipping_charges') }}</div>
+        {!! Form::label('hsn_code', 'HSN Code :') !!}
+        {!! Form::text('hsn_code', null, ['class' => 'form-control','value' => old('hsn_code'),'required' => true]) !!}
+        @if ($errors->has('hsn_code'))
+        <div class="error">{{ $errors->first('hsn_code') }}</div>
         @endif
     </div>
 </div>

@@ -64,15 +64,15 @@
                                         </div>
                                     </div>
                                     <div class="control-group col-md-4">
-                                        <label class="control-label" for="charge_status">Standard</label>
-                                        <div class="controls">
-                                            {!! Form::select('standard_id', $standard, $standard_id, array('class' => 'form-control', 'value'=>Input::old('standard_id'))) !!}
-                                        </div>
-                                    </div>
-                                    <div class="control-group col-md-4">
                                         <label class="control-label" for="charge_status">School</label>
                                         <div class="controls">
                                             {!! Form::select('school_id', $school, $school_id, array('class' => 'form-control', 'value'=>Input::old('school_id'))) !!}
+                                        </div>
+                                    </div>
+                                    <div class="control-group col-md-4">
+                                        <label class="control-label" for="charge_status">Standard</label>
+                                        <div class="controls">
+                                            {!! Form::select('standard_id', $standard, $standard_id, array('class' => 'form-control', 'value'=>Input::old('standard_id'))) !!}
                                         </div>
                                     </div>
                                 </div>
