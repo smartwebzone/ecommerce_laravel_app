@@ -127,7 +127,7 @@ class BookController extends Controller {
             }
             $data['price_after_tax'] = calculatePercentage($data['price'], $data['tax']);
             $this->book->create($data);
-            Flash::message('Book was successfully added');
+            Flash::message('Item was successfully added');
 
             return Redirect::route('admin.book');
         } catch (ValidationException $e) {
@@ -184,7 +184,7 @@ class BookController extends Controller {
             }
             $data['price_after_tax'] = calculatePercentage($data['price'], $data['tax']);
             $this->book->update($id, $data);
-            Flash::message('Book was successfully updated');
+            Flash::message('Item was successfully updated');
 
             return Redirect::route('admin.book');
         } catch (ValidationException $e) {
@@ -201,7 +201,7 @@ class BookController extends Controller {
      */
     public function destroy($id) {
         $this->book->delete($id);
-        Flash::message('Book was successfully deleted');
+        Flash::message('Item was successfully deleted');
 
         return Redirect::route('admin.book');
     }
@@ -257,7 +257,7 @@ class BookController extends Controller {
             });
         });
 
-        Flash::message('Total ' . $data['total_book'] . ' Books was successfully uploaded');
+        Flash::message('Total ' . $data['total_book'] . ' items was successfully uploaded');
 
         return Redirect::route('admin.book');
     }
