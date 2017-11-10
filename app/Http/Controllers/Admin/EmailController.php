@@ -49,6 +49,7 @@ class EmailController extends Controller {
      * @return Response
      */
     public function create() {
+        dd();
         $template = Config::get('email_templates.templates');
         $template = [null => 'Please Select'] + $template;
         return view('backend.email.create', compact('template'));
@@ -95,6 +96,8 @@ class EmailController extends Controller {
     public function edit($id) {
         $email = $this->email->find($id);
         $template = Config::get('email_templates.templates');
+        $template = \App\Models\Email::lists('template','template')->toArray();
+        
         $template = [null => 'Please Select'] + $template;
         return view('backend.email.edit', compact('email', 'template'));
     }

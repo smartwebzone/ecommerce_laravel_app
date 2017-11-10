@@ -57,15 +57,15 @@ class StoreController extends Controller {
         }
         $state = Session::get('state');
         $school = Session::get('school');
-        $standard = Session::get('standard');        
+        $standard = Session::get('standard');
         if ($state && $school && $standard) {
             $shipping_address = getUserAddress('shipping');
-            
+
             $product = \App\Models\Product::where(['school_id' => $school, 'standard_id' => $standard])->active()->get();
             //dd($shipping_address->state,$product[0]->company->state);
             $school = \App\Models\School::find($school);
             $standard = \App\Models\Standard::find($standard);
-            return view('frontend.store.selectproduct', compact('school', 'standard', 'product','shipping_address'))->with('cart', 'total');
+            return view('frontend.store.selectproduct', compact('school', 'standard', 'product', 'shipping_address'))->with('cart', 'total');
         } else {
             return Redirect::route('store.selectSchool');
         }
@@ -75,7 +75,7 @@ class StoreController extends Controller {
         if (!Sentinel::check()) {
             return Redirect::route('signin');
         }
-        if($request->action == 'confirm'){
+        if ($request->action == 'confirm') {
             if ($request->product) {
                 Session::put('product', $request->product);
                 return Redirect::route('store.confirm');
@@ -122,15 +122,15 @@ class StoreController extends Controller {
             }
             $product = \App\Models\Product::find(Session::get('product'));
             $preferred_delivery_date = NULL;
-            if($request->month && $request->date){
+            if ($request->month && $request->date) {
                 $date = date_parse($request->month);
-                $pdate = date('Y').'-'.$date['month'].'-'.$request->date;
-                $preferred_delivery_date = date('Y-m-d',strtotime($pdate));
+                $pdate = date('Y') . '-' . $date['month'] . '-' . $request->date;
+                $preferred_delivery_date = date('Y-m-d', strtotime($pdate));
             }
-            if($preferred_delivery_date == '0000-00-00'){
+            if ($preferred_delivery_date == '0000-00-00') {
                 $preferred_delivery_date = NULL;
             }
-            $delete_cart = \App\Models\Cart::where('user_id',Sentinel::getuser()->id)->delete();
+            $delete_cart = \App\Models\Cart::where('user_id', Sentinel::getuser()->id)->delete();
             $carts = array();
             foreach ($product as $ps):
                 $cartdata = array(
@@ -141,16 +141,16 @@ class StoreController extends Controller {
                 $cart = \App\Models\Cart::create($cartdata);
                 $carts[] = $cartdata;
             endforeach;
-            
+
             Session::forget('product');
             return Redirect::route('store.cart');
         }
 
         $cart_data = \App\Models\Cart::where(['user_id' => Sentinel::getuser()->id])->get();
         $orders = \App\Models\Order::where(['user_id' => Sentinel::getuser()->id])->whereRaw('DATE(NOW()) = DATE(order_date)')->get();
-        
+
         $total_products = count($cart_data) + count($orders);
-        
+
         return view('frontend.store.cart', compact('product', 'cart_data', 'orders', 'total_products'));
     }
 
@@ -172,11 +172,11 @@ class StoreController extends Controller {
             endforeach;
             $shippingtax = (($ps->shipping_state * 18) / 100);
             $totalshipping = $shippingtax + $ps->shipping_state;
-            $user=  \App\Models\User::find( Sentinel::getuser()->id);
-            $billing=$user->address()->where('address_type', 'billing')->first();
-            $shipping=$user->address()->where('address_type', 'shipping')->first();
-            if(!$billing){
-                $billing=$shipping;
+            $user = \App\Models\User::find(Sentinel::getuser()->id);
+            $billing = $user->address()->where('address_type', 'billing')->first();
+            $shipping = $user->address()->where('address_type', 'shipping')->first();
+            if (!$billing) {
+                $billing = $shipping;
             }
             $order = array('user_id' => Sentinel::getuser()->id,
                 'amount' => $subtotal,
@@ -203,32 +203,45 @@ class StoreController extends Controller {
                         'product_id' => $ps->id,
                         'qty' => 1,
                         'price' => $ps->price]);
-            $ord=  \App\Models\Order::find($ord->id);
-             Mail::send('emails.orders', ['order'=>$ord], function ($m) use ($user) {
-                $m->from('noreply@jeevandeep.com', 'Jeevandeep');
-                $m->to($user->email, $user->first_name.' '.$user->last_name);
-                $m->subject('Welcome to Jeevandeep');
-            });
-            $delete_cart = \App\Models\Cart::where('user_id',Sentinel::getuser()->id)->where('product_id',$product_id)->delete();
+            $ord = \App\Models\Order::find($ord->id);
+
+            $template = \App\Models\Email::where(['template' => 'Order'])->get();
+            // Send the welcome email
+            if ($template) {
+                $body = str_replace('<<student_name>>', 'ds', $template[0]->body);
+
+
+                $body = nl2br($body);
+                $body = explode("<<order_details>>", $body);
+                $head = explode("\n", $body[0]);
+                $foot = explode("\n", $body[1]);
+                Mail::send('emails.orders', ['order' => $ord, 'head' => $head, 'foot' => $foot], function ($m) use ($user,$template) {
+                    $m->from('noreply@jeevandeep.com', 'Jeevandeep');
+                    $m->to($user->email, $user->first_name . ' ' . $user->last_name);
+                    $m->subject($template[0]->subject);
+                });
+            }
+            $delete_cart = \App\Models\Cart::where('user_id', Sentinel::getuser()->id)->where('product_id', $product_id)->delete();
         }
         return Redirect::route('store.cart', ['success' => '1']);
     }
-    
+
     public function unavailable_school(Request $request) {
-        if($request->action == 'add'){
+        if ($request->action == 'add') {
             $missing_school = \App\Models\Missingschool::Create(['name' => $request->name,
                         'description' => $request->description]);
             return Redirect::route('store.selectSchool')->with('success', 'Your request to add new school sent successfully.');
         }
         return View('frontend.store.unavailable_school');
     }
-    
+
     public function unavailable_standard(Request $request) {
-        if($request->action == 'add'){
+        if ($request->action == 'add') {
             $missing_standard = \App\Models\Missingstandard::Create(['name' => $request->name,
                         'description' => $request->description]);
             return Redirect::route('store.selectSchool')->with('success', 'Your request to add new standard sent successfully.');
         }
         return View('frontend.store.unavailable_standard');
     }
+
 }
