@@ -161,7 +161,7 @@ My Profile | Jeevandeep Prakashan Pvt. Ltd.
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                                 <div class="icon-addon">
-                                    {!! Form::text('zip', @$shipping_address['zip'], ['placeholder'=> 'PINCODE', 'class' => 'form-control required']) !!}
+                                    {!! Form::text('zip', @$shipping_address['zip'], ['placeholder'=> 'PINCODE', 'class' => 'form-control']) !!}
                                 </div>
                             </div>
                             <div class="input-group">
@@ -177,7 +177,7 @@ My Profile | Jeevandeep Prakashan Pvt. Ltd.
                             <label>BILLING ADDRESS
                                 <div class="checkbox selectCheck cf">
                                     <input type="checkbox" name="same_as_address" id="same_as_address" value="1">
-                                    <label for="same_as_address">Check this box to copy the shipping address</label>
+                                    <label for="same_as_address" class="label_same_as_address">Check this box to copy the shipping address</label>
                                 </div>
                             </label>
                             <div class="input-group">
@@ -201,7 +201,7 @@ My Profile | Jeevandeep Prakashan Pvt. Ltd.
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
                                 <div class="icon-addon">
-                                    {!! Form::text('billzip', @$billing_address['zip'], ['placeholder'=> 'PINCODE', 'class' => 'form-control required']) !!}
+                                    {!! Form::text('billzip', @$billing_address['zip'], ['placeholder'=> 'PINCODE', 'class' => 'form-control']) !!}
                                 </div>
                             </div>
                             <div class="input-group">
@@ -227,9 +227,31 @@ My Profile | Jeevandeep Prakashan Pvt. Ltd.
 <script>
     $().ready(function () {
         $(".validate_form").validate({
-            errorPlacement: function(){
-            return false;  // suppresses error message text
-        }
+            rules: {
+                zip: {
+                    required: true,
+                    digits: true,
+                    minlength: 6,
+                    maxlength: 6,
+                },
+                billzip: {
+                    required: true,
+                    digits: true,
+                    minlength: 6,
+                    maxlength: 6,
+                },
+            },
+            highlight: function (element) {
+                $(element).closest('div.input-group').addClass('error');
+                $(element).closest('.form-group').addClass('child-label-red');
+            },
+            unhighlight: function (element) {
+                $(element).closest('div.input-group').removeClass('error');
+                $(element).closest('.form-group').removeClass('child-label-red');
+            },
+            errorPlacement: function () {
+                return false;  // suppresses error message text
+            }
         });
         $("#same_as_address").click(function () {
             if ($('#same_as_address').is(':checked')) {
