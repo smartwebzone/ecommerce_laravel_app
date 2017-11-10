@@ -182,11 +182,19 @@ class AuthController extends Controller {
         $data = array(
             'link' => url('/confirmEmail?secret=' . $user->verify)
         );
-        Mail::send('emails.verify', $data, function ($m) use ($user) {
-            $m->from('noreply@jeevandeep.com', 'Jeevandeep');
-            $m->to($user->email, 'User');
-            $m->subject('Welcome to Jeevandeep');
-        });
+        $template = \App\Models\Email::where(['template' => 'Email Validation'])->get();
+        // Send the welcome email
+        if ($template) {
+            $body = str_replace('<<link>>', $data['link'], $template[0]->body);
+
+
+            $body = nl2br($body);
+            Mail::send('emails.verify', ['body' => $body], function ($m) use ($user,$template) {
+                $m->from('noreply@jeevandeep.com', 'Jeevandeep');
+                $m->to($user->email, 'User');
+                $m->subject($template[0]->subject);
+            });
+        }
         return Redirect::to('validate');
     }
 
@@ -329,10 +337,10 @@ class AuthController extends Controller {
         $body = str_replace('<<password>>', $request->password_signup, $body);
 
         $body = nl2br($body);
-        Mail::send('emails.welcome', ['body' => $body], function ($m) use ($user) {
+        Mail::send('emails.welcome', ['body' => $body], function ($m) use ($user,$data) {
             $m->from('noreply@jeevandeep.com', 'Jeevandeep');
             $m->to($user->email, $user->first_name . ' ' . $user->last_name);
-            $m->subject('Welcome to Jeevandeep');
+            $m->subject($data[0]->subject);
         });
         return Redirect::route('store.selectProduct');
     }
@@ -396,20 +404,27 @@ class AuthController extends Controller {
             if (!$activation) {
                 return Redirect::route('forgot-password')->with('error', 'Account not activated');
             }
-            $reminder = Reminder::exists($user) ?: Reminder::create($user);
+            $reminder = Reminder::exists($user) ? : Reminder::create($user);
             // Data to be used on the email view
             $data = array(
                 'user' => $user,
                 //'forgotPasswordUrl' => URL::route('forgot-password-confirm', $user->getResetPasswordCode()),
                 'forgotPasswordUrl' => URL::route('forgot-password-confirm', [$user->id, $reminder->code]),
             );
+            $template = \App\Models\Email::where(['template' => 'Forgot Password'])->get();
+            // Send the welcome email
+            if ($template) {
+                $body = str_replace('<<student_name>>', $user->first_name . ' ' . $user->last_name, $template[0]->body);
+                $body = str_replace('<<reset_password_link>>', $data['forgotPasswordUrl'], $body);
 
-            // Send the activation code through email
-            Mail::send('emails.password', $data, function ($m) use ($user) {
-                $m->from('noreply@jeevandeep.com', 'Jeevandeep');
-                $m->to($user->email, $user->first_name . ' ' . $user->last_name);
-                $m->subject('Account Password Recovery');
-            });
+                $body = nl2br($body);
+                // Send the activation code through email
+                Mail::send('emails.password', ['body' => $body], function ($m) use ($user,$template) {
+                    $m->from('noreply@jeevandeep.com', 'Jeevandeep');
+                    $m->to($user->email, $user->first_name . ' ' . $user->last_name);
+                    $m->subject($template->subject);
+                });
+            }
         } catch (UserNotFoundException $e) {
             // Even though the email was not found, we will pretend
             // we have sent the password reset code through email,
@@ -524,15 +539,15 @@ class AuthController extends Controller {
         $orders = \App\Models\Order::where(['user_id' => Sentinel::getuser()->id])->get();
         return View('frontend.auth.my_orders', compact('orders'));
     }
-    
+
     public function invoice($id) {
-        
-        $order = \App\Models\Order::where('user_id',Sentinel::getuser()->id)->where('id',$id)->get();
-        if(count($order) == 0){
+
+        $order = \App\Models\Order::where('user_id', Sentinel::getuser()->id)->where('id', $id)->get();
+        if (count($order) == 0) {
             return Redirect::route('my_orders')->with('error', 'Invalid request');
         }
         $order = $order[0];
-        $option_added = [];    
+        $option_added = [];
         //dd($order->user);
         //return view('backend.orders.invoice', compact('orderDetails', 'order', 'options'));
         $pdf = PDF::loadView('backend.orders.invoice', compact('orderDetails', 'order', 'options'));

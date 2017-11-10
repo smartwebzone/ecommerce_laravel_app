@@ -5,9 +5,10 @@
     <div class="content-wrap">
 
         <div class="container clearfix">
-            <div class="postcontent nobottommargin clearfix">
-                <p>Hi {{ $order->user->first_name.' '.$order->user->last_name }},</p>
-                <p>Thank you for your purchase. If you have any questions that we can help with, please feel free to email us at info@jeevandeep.com. Thanks so much!</p>
+            <div class="postcontent nobottommargin clearfix">                
+                @foreach($head as $h)
+                {!! $h !!}
+                @endforeach
             </div>
             <div class="clearfix">
                 <h3>Order Details</h3>
@@ -93,8 +94,9 @@
     <br/>
     <div class="row">
         <div class="col-md-12">
-          Thanks,<br/>
-          Jeevandeep Team
+            @foreach($foot as $f)
+            {!! $f !!}
+            @endforeach
         </div>
     </div>   
 </section><!-- #content end -->

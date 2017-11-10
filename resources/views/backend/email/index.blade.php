@@ -47,11 +47,7 @@
                         @include('flash::message')
                         <div class="clearfix"></div>
 
-                        <div class="space12">
-                            <div class="btn-group btn-group-lg">
-                                <a class="btn btn-default hidden-xs" href="{!!  url(getLang() . '/admin/email/create') !!}"> <i class="fa fa-plus"></i> Add Email Template </a>
-                            </div>
-                        </div>
+                        
 
                         <div class="col-md-12">
    @include('backend.email.table')
