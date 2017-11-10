@@ -1,6 +1,7 @@
 <div class="row">
     <div class="form-group col-sm-4">
         {!! Form::label('company_id', 'Company:') !!}
+        <span class="mandatory">*</span>
         {!! Form::select('company_id', $company, NULL, array('class' => 'form-control', 'value'=>Input::old('company_id'),'required' => true)) !!}
         @if ($errors->has('company_id'))
         <div class="error">{{ $errors->first('company_id') }}</div>
@@ -8,6 +9,7 @@
     </div>
     <div class="form-group col-sm-4">
         {!! Form::label('school_id', 'School:') !!}
+        <span class="mandatory">*</span>
         {!! Form::select('school_id', $school, NULL, array('class' => 'form-control','id'=>'school', 'value'=>Input::old('school_id'),'required' => true)) !!}
         @if ($errors->has('school_id'))
         <div class="error">{{ $errors->first('school_id') }}</div>
@@ -15,6 +17,7 @@
     </div>
     <div class="form-group col-sm-4">
         {!! Form::label('standard_id', 'Standard:') !!}
+        <span class="mandatory">*</span>
         {!! Form::select('standard_id', array('Please Select'), NULL, array('class' => 'form-control','id'=>'standard', 'value'=>Input::old('standard_id'),'required' => true)) !!}
         @if ($errors->has('standard_id'))
         <div class="error">{{ $errors->first('standard_id') }}</div>
@@ -24,6 +27,7 @@
 <div class="row">
     <div class="form-group col-sm-6">
         {!! Form::label('title', 'Title:') !!}
+        <span class="mandatory">*</span>
         {!! Form::text('title', null, ['class' => 'form-control', 'value' => old('title'),'required' => true]) !!}
         @if ($errors->has('title'))
         <div class="error">{{ $errors->first('title') }}</div>
@@ -31,7 +35,7 @@
     </div>
     <div class="form-group col-sm-6">
         {!! Form::label('description', 'Description:') !!}
-        {!! Form::text('description', null, ['class' => 'form-control','value' => old('description'),'required' => true]) !!}
+        {!! Form::text('description', null, ['class' => 'form-control','value' => old('description')]) !!}
         @if ($errors->has('description'))
         <div class="error">{{ $errors->first('description') }}</div>
         @endif
@@ -40,7 +44,7 @@
 <div class="row">
     <div class="form-group col-sm-12">
         {!! Form::label('long_description', 'Long Description:') !!}
-        {!! Form::textarea('long_description', null, ['class' => 'form-control','value' => old('long_description'),'required' => true,'rows'=>3]) !!}
+        {!! Form::textarea('long_description', null, ['class' => 'form-control','value' => old('long_description'),'rows'=>3]) !!}
         @if ($errors->has('long_description'))
         <div class="error">{{ $errors->first('long_description') }}</div>
         @endif
@@ -49,6 +53,7 @@
 <div class="row">
     <div class="form-group col-sm-6">
         {!! Form::label('instate_shipping_charges', 'In State Shipping Charges:') !!}
+        <span class="mandatory">*</span>
         {!! Form::text('instate_shipping_charges', null, ['class' => 'form-control','value' => old('instate_shipping_charges'),'required' => true]) !!}
         @if ($errors->has('instate_shipping_charges'))
         <div class="error">{{ $errors->first('instate_shipping_charges') }}</div>
@@ -56,6 +61,7 @@
     </div>
     <div class="form-group col-sm-6">
         {!! Form::label('outstate_shipping_charges', 'Out State Shipping Charges:') !!}
+        <span class="mandatory">*</span>
         {!! Form::text('outstate_shipping_charges', null, ['class' => 'form-control','value' => old('outstate_shipping_charges'),'required' => true]) !!}
         @if ($errors->has('outstate_shipping_charges'))
         <div class="error">{{ $errors->first('outstate_shipping_charges') }}</div>

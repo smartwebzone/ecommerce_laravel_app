@@ -19,8 +19,8 @@
                     <a href="{!! route('admin.dealers.show', [$dealer->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                     <a href="{!! route('admin.user.index', ['dealer_id='.$dealer->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-user"></i> {{count($dealer->user)}}</a>
                     <a href="{!! route('admin.orders.index', ['dealer_id='.$dealer->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-circle-arrow-left"></i> {{$dealer->order}}</a>
-                    <a href="{!! route('admin.dealers.edit', [$dealer->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    <a href="{!! route('admin.dealers.edit', [$dealer->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
+                    {!! Form::button('<i class="glyphicon glyphicon-trash" title="Delete"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
                 {!! Form::close() !!}
             </td>

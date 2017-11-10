@@ -26,9 +26,9 @@
         <td class="text-center" nowrap="nowrap">
             {!! Form::open(['route' => ['admin.book.destroy', $row->id], 'method' => 'delete']) !!}
             <div class='btn-group'>
-                <a href="{!! route('admin.book.edit', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                <a onclick="return confirm('Are you sure want to generate clone?')" href="{!! route('admin.book.copy', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-copy"></i></a>
-                {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                <a href="{!! route('admin.book.edit', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
+                <a onclick="return confirm('Are you sure want to generate clone?')" href="{!! route('admin.book.copy', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-copy" title="Clone"></i></a>
+                {!! Form::button('<i class="glyphicon glyphicon-trash" title="Delete"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
             </div>
             {!! Form::close() !!}
         </td>
