@@ -15,6 +15,7 @@ use Redirect;
 use Sentinel;
 use Excel;
 use Config;
+use Illuminate\Http\Request;
 
 /**
  * Class BookController.
@@ -37,11 +38,62 @@ class BookController extends Controller {
      *
      * @return Response
      */
-    public function index() {
-        $pagiData = $this->book->paginate(Input::get('page', 1), $this->perPage, true);
-        $book = Pagination::makeLengthAware($pagiData->items, $pagiData->totalItems, $this->perPage);
+    public function index(Request $request) {
+        // $pagiData = $this->book->paginate(Input::get('page', 1), $this->perPage, true);
+        //$book = Pagination::makeLengthAware($pagiData->items, $pagiData->totalItems, $this->perPage);
+        $book = \App\Models\Book::orderBy('created_at', 'desc');
+        $company_id = '';
+        if ($request->company_id) {
+            $company_id = $request->company_id;
+            $book = $book->where('company_id', '=', $company_id);
+        }
+        $standard_id = '';
+        if ($request->standard_id) {
+            $standard_id = $request->standard_id;
+            $book = $book->where('standard_id', '=', $standard_id);
+        }
+        $is_taxable = '';
+        //dd($request->is_taxable);
+        if (($request->is_taxable)) {
+            $is_taxabl = ($request->is_taxable==2) ? 1 : 0;
+            $is_taxable = $request->is_taxable;
+            $book = $book->where('is_taxable', '=', $is_taxabl);
+        }
 
-        return view('backend.book.index', compact('book'));
+        $search = '';
+        if ($request->search) {
+            $search = $request->search;
+            $book->where(function ($usr) use($search) {
+                $usr->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('description', 'like', '%' . $search . '%')
+                        ->orWhere('author', 'like', '%' . $search . '%')
+                        ->orWhere('book_code', 'like', '%' . $search . '%');
+            });
+        }
+        if ($request->delete && $request->delete_book) {
+            $this->delete($book, $request->delete_book);
+            Flash::message('Book successfully deleted');
+            return Redirect::route('admin.book');
+        }
+        $book = $book->paginate($this->perPage);
+        if ($company_id) {
+            $book = $book->appends(['company_id' => $company_id]);
+        }
+        if ($standard_id) {
+            $book = $book->appends(['standard_id' => $standard_id]);
+        }
+        if ($search) {
+            $book = $book->appends(['search' => $search]);
+        }
+        if ($is_taxable) {
+            $book = $book->appends(['is_taxable' => $is_taxable]);
+        }
+        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = [null => 'Please Select'] + $standard;
+
+        $company = \App\Models\Company::lists('name', 'id')->toArray();
+        $company = [null => 'Please Select'] + $company;
+        return view('backend.book.index', compact('book', 'company','search', 'standard', 'company_id','is_taxable', 'standard_id'));
     }
 
     /**
@@ -174,16 +226,16 @@ class BookController extends Controller {
     public function import() {
         $data = Input::all();
         $data['added_by'] = Sentinel::getUser()->id;
-        $data['total_book']=0;
+        $data['total_book'] = 0;
         //Config::set('excel.import.startRow', 9);
         $reader = Excel::load($data['upload'])->ignoreEmpty();
         $reader->each(function($sheet) use(&$data) {
             $sheet->each(function($row) use(&$data) {
-                $standard=\App\Models\Standard::where(['name'=>$row->class])->first();
-                if ($row->title && $standard) {
-                    $data['total_book']++;
+                //$standard=\App\Models\Standard::where(['name'=>$row->class])->first();
+                if ($row->title) {
+                    $data['total_book'] ++;
                     $book = array('name' => $row->title,
-                        'standard_id' => $standard->id,
+                        'standard_id' => $data['standard_id'],
                         'medium' => $row->medium,
                         'company_id' => $data['company_id'],
                         'book_code' => $row->code,
@@ -201,7 +253,7 @@ class BookController extends Controller {
             });
         });
 
-        Flash::message('Total '.$data['total_book'].' Books was successfully uploaded');
+        Flash::message('Total ' . $data['total_book'] . ' Books was successfully uploaded');
 
         return Redirect::route('admin.book');
     }
@@ -214,6 +266,12 @@ class BookController extends Controller {
         $company = \App\Models\Company::lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
         return view('backend.book.upload', compact('standard', 'company'));
+    }
+    private function delete($books, $ids) {
+        if ($ids) {
+            $books = $books->whereIn('id', explode(',', $ids));
+            $books->delete();
+        }
     }
 
 }

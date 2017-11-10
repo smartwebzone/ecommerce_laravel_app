@@ -57,12 +57,15 @@ class StoreController extends Controller {
         }
         $state = Session::get('state');
         $school = Session::get('school');
-        $standard = Session::get('standard');
+        $standard = Session::get('standard');        
         if ($state && $school && $standard) {
+            $shipping_address = getUserAddress('shipping');
+            
             $product = \App\Models\Product::where(['school_id' => $school, 'standard_id' => $standard])->get();
+            //dd($shipping_address->state,$product[0]->company->state);
             $school = \App\Models\School::find($school);
             $standard = \App\Models\Standard::find($standard);
-            return view('frontend.store.selectproduct', compact('school', 'standard', 'product'))->with('cart', 'total');
+            return view('frontend.store.selectproduct', compact('school', 'standard', 'product','shipping_address'))->with('cart', 'total');
         } else {
             return Redirect::route('store.selectSchool');
         }

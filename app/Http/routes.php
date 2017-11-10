@@ -281,6 +281,8 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
 
         Route::get('product/book/{id}', ['as' => 'admin.product.book', 'uses' => 'ProductController@book']);
         Route::patch('product/book_update/{product}', ['as' => 'admin.product.book.update', 'uses' => 'ProductController@book_update']);
+        
+        Route::post('product/switchstatus', ['as' => 'admin.product.switchstatus', 'uses' => 'ProductController@switchstatus']);
 
         Route::get('/product/{id}/delete', 'ProductController@delete');
         Route::get('/product/{id}/show', 'ProductController@show');
