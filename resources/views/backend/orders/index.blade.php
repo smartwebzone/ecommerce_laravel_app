@@ -14,7 +14,7 @@
             <li class="active">Orders</li>
         </ol>
         <div class="page-header">
-            <h1>  Orders <small> | Control Panel</small> </h1>
+            <h1>  Orders </h1>
         </div>
         <!-- end: PAGE TITLE & BREADCRUMB -->
     </div>

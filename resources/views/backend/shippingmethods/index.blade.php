@@ -17,7 +17,7 @@
             <li class="active">Shippingmethods</li>
             </ol>
             <div class="page-header">
-                <h1>  Shippingmethods <small> | Control Panel</small> </h1>
+                <h1>  Shipping Methods </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

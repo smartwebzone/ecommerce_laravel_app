@@ -14,7 +14,7 @@
     <tr>
         <td class="text-center">{{ srNo($key) }}</td>
         <td>{!! $row->first_name !!} {!! $row->last_name !!}</td>
-        <td class="text-center">{!! $row->isAdmin == 1 ? 'Admin' : 'Student' !!}</td>
+        <td class="text-center">{!! $row->isAdmin == 1 ? 'Admin' : 'User' !!}</td>
         <td>{{ $row->email }}</td>
         <td>{{ $row->mobile }}</td>
         <td class="text-center">{{ formatDate($row->created_at) }}</td>

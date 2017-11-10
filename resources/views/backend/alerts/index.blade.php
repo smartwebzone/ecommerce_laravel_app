@@ -17,7 +17,7 @@
             <li class="active">Alerts</li>
             </ol>
             <div class="page-header">
-                <h1>  Alerts <small> | Control Panel</small> </h1>
+                <h1>  Alerts </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

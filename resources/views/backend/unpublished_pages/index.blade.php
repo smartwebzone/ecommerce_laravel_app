@@ -14,7 +14,7 @@
             <li class="active">Unpublished Pages</li>
             </ol>
             <div class="page-header">
-                <h1>  Unpublished Pages <small> | Control Panel</small> </h1>
+                <h1>  Unpublished Pages </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

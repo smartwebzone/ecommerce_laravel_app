@@ -17,7 +17,7 @@
             <li class="active">Video Categories</li>
             </ol>
             <div class="page-header">
-                <h1>  Video Categories <small> | Control Panel</small> </h1>
+                <h1>  Video Categories </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

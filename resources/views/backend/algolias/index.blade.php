@@ -14,7 +14,7 @@
             <li class="active">Search Pages</li>
             </ol>
             <div class="page-header">
-                <h1>  Search Pages <small> | Control Panel</small> </h1>
+                <h1>  Search Pages </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

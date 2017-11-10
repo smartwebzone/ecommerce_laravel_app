@@ -14,7 +14,7 @@
             <li class="active">tier</li>
             </ol>
             <div class="page-header">
-                <h1>  tier <small> | Control Panel</small> </h1>
+                <h1>  Tier </h1>
             </div>
             <!-- end: PAGE TITLE & BREADCRUMB -->
         </div>

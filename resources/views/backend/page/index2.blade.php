@@ -30,7 +30,7 @@
     </script>
     <section class="content-header">
         <h1> Page
-            <small> | Control Panel</small>
+            <small></small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{!! URL::route('admin.dashboard') !!}">Dashboard</a></li>
