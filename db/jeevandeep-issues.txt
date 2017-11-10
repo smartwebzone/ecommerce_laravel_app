@@ -1,15 +1,2 @@
-Backend Email Template review.
-Backend->Users->Type: Replace Student to User
-Backend->Page Titles: Remove | Control Panel Word
-Backend->Dashboard Page: Welcome Msg, Remove Grid
-Confirm Shipping State Logic
-Backend->Pages: Tool Tip on Action Button
-Backend->Book ADD/Edit->Medium/Weight/description/author -  Not Mandatory. Remove Shipping Charges from Book Add/Edit
-Backend->Book ADD/Edit  -  Put * in red for Mandatory Fileds
-Backend->Book: change "Book" Keyword to "Item" in Menu and inner page
-Backend->Product ADD/Edit-> Description/ Long Description -  Not Mandatory.
-Backend->Product ADD/Edit  -  Put * in red for Mandatory Fileds
-Backend->Product ADD/Edit  Show books as per Company/Standard/Tax Filter combination logic.
-Backend->Email Template: Set all order status in email template, forget password, registration (Remove Add Email Template Option). All remove dropdown to select template option in email template.
-Backend->Email Template: Order Status Change Email Link with Email Template
+Backend Email Template changes
 Backend->Order: Preferred Delivery Date is now shown. Show in order grid preferred date. 
