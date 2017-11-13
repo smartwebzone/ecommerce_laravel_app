@@ -25,7 +25,7 @@
         <td>{{ $order->user->email }}</td>
         <td>{{ $order->user->mobile }}</td>
         <td>{{ $order->order_date_formatted_short }}</td>
-        <td>{{ $order->preferred_delivery_date_formatted }}</td>
+        <td>{{ $order->preferred_delivery_date_formatted_short }}</td>
         <td>{{ $order->status->name }}</td>
         <td class="text-center" nowrap="nowrap">
             {!! Form::open(['route' => ['admin.order.destroy', $order->id], 'method' => 'delete']) !!}
