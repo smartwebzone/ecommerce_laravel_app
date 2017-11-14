@@ -44,6 +44,7 @@
     <!--<![endif]-->
         @yield('topscripts')
         @yield('topjs')
+        @include('frontend.layout.jeevandeep.jd-issue-script')
     </head>
     <body>
         <!-- start: HEADER -->

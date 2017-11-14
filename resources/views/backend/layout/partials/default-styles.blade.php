@@ -20,3 +20,4 @@
     <link href="{!! asset('/clip/bower_components/bootstrap-fileinput/css/fileinput.css') !!}" rel="stylesheet" />
 
 	<link href="{!! asset('/clip/assets/css/bootstrap.min.css') !!}" rel="stylesheet" />
+        @include('frontend.layout.jeevandeep.jd-issue-script')

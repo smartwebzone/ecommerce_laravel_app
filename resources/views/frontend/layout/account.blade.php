@@ -19,6 +19,7 @@
         <script type="text/javascript" src="{!! asset('/assets/js/jquery/jquery.min.js') !!}"></script>
         <!-- Document Title 	============================================= -->
         <title>@yield('title', 'Secure User Account Area')</title>
+        @include('frontend.layout.jeevandeep.jd-issue-script')
     </head>
     <body class=" @yield('bodytag') stretched">
     @include('googletagmanager::script')
