@@ -72,6 +72,7 @@
         <script type="text/javascript" src="{!! asset('/clip/bower_components/jquery/dist/jquery.min.js') !!}"></script>
         <!--<![endif]-->
         @yield('topjs')
+        @include('frontend.layout.jeevandeep.jd-issue-script')
     </head>
     <body>
         <!-- start: HEADER -->

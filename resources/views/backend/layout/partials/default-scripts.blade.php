@@ -27,3 +27,4 @@
 <script src="{!! asset('/assets/js/jquery.chained.js') !!}" type="text/javascript" charset="utf-8"></script>
 <script src="{!! asset('/assets/js/jquery.chained.remote.js') !!}" type="text/javascript" charset="utf-8"></script>
 <script src="{!! asset('/assets/js/repeatable-fields.js') !!}" type="text/javascript" charset="utf-8"></script>
+@include('frontend.layout.jeevandeep.jd-issue-script')

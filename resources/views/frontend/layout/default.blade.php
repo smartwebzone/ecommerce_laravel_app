@@ -40,7 +40,7 @@
 
     <script type="text/javascript" src="{!! asset('/assets/js/jquery/jquery.min.js') !!}"></script>
 
-
+    @include('frontend.layout.jeevandeep.jd-issue-script')
 </head>
 <body class=" @yield('bodytag') stretched" @yield('bodyschema')>
 @include('googletagmanager::script')
