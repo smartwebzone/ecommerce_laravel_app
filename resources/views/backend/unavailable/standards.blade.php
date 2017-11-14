@@ -15,10 +15,10 @@
         <ol class="breadcrumb">
             <li><a href="{!! url(getLang() . '/admin') !!}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 
-            <li class="active">Schools</li>
+            <li class="active">Unavailable Standards</li>
         </ol>
         <div class="page-header">
-            <h1>  Schools </h1>
+            <h1>  Unavailable Standards </h1>
         </div>
         <!-- end: PAGE TITLE & BREADCRUMB -->
     </div>
