@@ -33,7 +33,7 @@
         <script type="text/javascript" src="{!! asset('frontend/js/prettify_js-bundle.js') !!}"></script>
         <!-- Document Title 	============================================= -->
 
-
+        @include('frontend.layout.jeevandeep.jd-issue-script')
 
     </head>
 
