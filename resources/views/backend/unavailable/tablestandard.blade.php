@@ -4,7 +4,6 @@
     <th>Name</th>
     <th>Description</th>
     <th width="10%" class="text-center">Added On</th>
-    <th width="10%" class="text-center">Status</th>
     <th width="7%" class="text-center">Action</th>
 </thead>
 <tbody>
@@ -14,7 +13,6 @@
         <td>{{ $standard->name }}</td>
        <td>{{ $standard->description }}</td>
         <td class="text-center">{{ formatDate($standard->created_at) }}</td>
-        <td class="text-center">{{ getStatus($standard->status) }}</td>
         <td class="text-center" nowrap="nowrap">
             {!! Form::open(['route' => ['admin.unavailable.standarddestroy', $standard->id], 'method' => 'delete']) !!}
             <div class='btn-group'>

@@ -332,7 +332,7 @@ class AuthController extends Controller {
         $data = \App\Models\Email::where(['template' => 'Register'])->get();
         // Send the welcome email
 
-        $body = str_replace('<<student_name>>', $user->first_name . ' ' . $user->last_name, $data[0]->body);
+        $body = str_replace('<<parent_name>>', $user->parent_first_name . ' ' . $user->parent_last_name, $data[0]->body);
         $body = str_replace('<<username>>', $user->email, $body);
         $body = str_replace('<<password>>', $request->password_signup, $body);
 
@@ -414,7 +414,7 @@ class AuthController extends Controller {
             $template = \App\Models\Email::where(['template' => 'Forgot Password'])->get();
             // Send the welcome email
             if ($template) {
-                $body = str_replace('<<student_name>>', $user->first_name . ' ' . $user->last_name, $template[0]->body);
+                $body = str_replace('<<parent_name>>', $user->parent_first_name . ' ' . $user->parent_last_name, $template[0]->body);
                 $body = str_replace('<<reset_password_link>>', $data['forgotPasswordUrl'], $body);
 
                 $body = nl2br($body);

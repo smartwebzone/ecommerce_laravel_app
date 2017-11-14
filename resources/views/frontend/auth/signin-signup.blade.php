@@ -75,7 +75,7 @@ Jeevandeep Prakashan Pvt. Ltd.
             {!! Form::open(['route' => 'registerEmail',  'id' => 'register-form',  'name' => 'register-form', 'class' => 'loginForm cf',  'method' => 'post']) !!}
             <input type="hidden" name="redirect" value="{!! @$redirect !!}" class="form-control" />
             <input type="hidden" name="refrer" value="{!! @$refrer !!}" class="form-control" />
-            <div class="form-sub-title"><span>Register</span> if you are a returning user</div>
+            <div class="form-sub-title"><span>Register</span> if you are a new user</div>
             <li class="form-group">
                 <label>EMAIL ID</label>
                 <div class="input-group">

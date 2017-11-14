@@ -107,7 +107,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <div class="icon-addon">
-                        {!! Form::text('last_name', null, ['placeholder'=> 'FAMILY NAME', 'class' => 'form-control required']) !!}
+                        {!! Form::text('last_name', null, ['placeholder'=> 'LAST NAME', 'class' => 'form-control required']) !!}
                     </div>
 
                 </div>

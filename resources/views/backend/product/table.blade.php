@@ -14,9 +14,11 @@
     @foreach($product as $key => $row)
     <?php
     $disable_class = ($row->order()->count() > 0 ? 'disabled' : '');
+    $checkbox_disable = ($row->order()->count() > 0 ? 'disabled="disabled"' : '');
+    $order_check_class = ($row->order()->count() > 0 ? '' : 'order-check');
     ?>
     <tr>
-        <td class="text-center"><input type="checkbox" data="{{$row->id}}" class="order-check" name="order_check"></td>
+        <td class="text-center"><input type="checkbox" data="{{$row->id}}" class="{{$order_check_class}} {{$disable_class}}" name="order_check" {{$checkbox_disable}}></td>
         <td class="text-center">{{ srNo($key) }}</td>
         <td>{{ $row->title }}</td>
         <td>{{ $row->company->find($row->company_id)->name }}</td>

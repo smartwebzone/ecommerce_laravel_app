@@ -31,7 +31,7 @@ Jeevandeep Prakashan Pvt. Ltd.
     <div class="cf">
         @include('frontend.layout.jeevandeep.header')
         <div class="select-div">Select products that you wish to purchase</div>
-        <div class="please-select">Welcome <span>{{Sentinel::getUser()->first_name.' '.Sentinel::getUser()->last_name}}</span>. All available products for the <span>{{$school->name}}, </span>for <span>{{$standard->name}}</span> are listed here. Please select the product or products that you wish to purchase and click 'Proceed'.</div>
+        <div class="please-select">Welcome <span>{{Sentinel::getUser()->parent_first_name.' '.Sentinel::getUser()->parent_last_name}}</span>. All available products for the <span>{{$school->name}}, </span>for <span>{{$standard->name}}</span> are listed here. Please select the product or products that you wish to purchase and click 'Proceed'.</div>
         @if(Session::has('error'))
         <div class="flash-message alert alert-danger">
             {{ session('error') }}

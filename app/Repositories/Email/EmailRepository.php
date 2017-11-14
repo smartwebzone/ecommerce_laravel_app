@@ -32,7 +32,6 @@ class EmailRepository extends RepositoryAbstract implements EmailInterface, Crud
      * @var array
      */
     protected static $rules = [
-        'template' => 'required',
         'name' => 'required',
         'subject' => 'required',
         'body' => 'required',
