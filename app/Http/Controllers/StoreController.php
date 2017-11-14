@@ -208,7 +208,7 @@ class StoreController extends Controller {
             $template = \App\Models\Email::where(['template' => 'Order'])->get();
             // Send the welcome email
             if ($template) {
-                $body = str_replace('<<student_name>>', 'ds', $template[0]->body);
+                $body = str_replace('<<parent_name>>', $order->user->parent_first_name . ' ' . $order->user->parent_last_name, $template[0]->body);
 
 
                 $body = nl2br($body);

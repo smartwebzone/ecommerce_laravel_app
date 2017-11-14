@@ -239,7 +239,7 @@ class OrderController extends Controller {
             $template = \App\Models\Email::where(['template' => 'Order Status'])->get();
             // Send the welcome email
             if ($template) {
-                $body = str_replace('<<student_name>>', $order->user->first_name . ' ' . $order->user->last_name, $template[0]->body);
+                $body = str_replace('<<parent_name>>', $order->user->parent_first_name . ' ' . $order->user->parent_last_name, $template[0]->body);
                 $body = str_replace('<<order_no>>', $order->order_no, $body);
                 $body = str_replace('<<status>>', $data['status'], $body);
 
