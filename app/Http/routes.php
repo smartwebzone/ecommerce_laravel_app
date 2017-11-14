@@ -67,7 +67,10 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
     Route::get('/store/cart', ['as' => 'store.cart', 'uses' => 'StoreController@cart']);
     Route::post('/store/cart', ['as' => 'store.cart', 'uses' => 'StoreController@cart']);
     Route::post('/store/pay', ['as' => 'store.pay', 'uses' => 'StoreController@pay']);
-
+    Route::post('/store/pay', ['as' => 'store.pay', 'uses' => 'StoreController@pay']);
+     Route::post('/store/paysuccess', ['as' => 'store.paysuccess', 'uses' => 'StoreController@paysuccess']);
+    Route::post('/store/payfailure', ['as' => 'store.payfailure', 'uses' => 'StoreController@payfailure']);
+    
     Route::get('/information/create/ajax-school', function() {
         $state = Input::get('state');
         $subcategories = \App\Models\School::where('state', $state)->get();
