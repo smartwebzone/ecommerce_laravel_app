@@ -161,6 +161,224 @@ class StoreController extends Controller {
         if ($request->product_id) {
             $product_id = $request->product_id;
             $ps = \App\Models\Product::find($product_id);
+            $key = $ps->company->payment_gateway_key;
+
+            // Merchant key here as provided by Payu
+
+            $MERCHANT_KEY = "zPr3a9nc";
+            // Merchant Salt as provided by Payu
+            if ($key == $MERCHANT_KEY) {
+                $SALT = "QJtl6hKDZG";
+            } else {
+                // Merchant key here as provided by Payu
+                $MERCHANT_KEY = "xoA6hykW";
+                // Merchant Salt as provided by Payu
+                $SALT = "VutkKcEJrP";
+            }
+
+            // End point - change to https://secure.payu.in for LIVE mode
+            $PAYU_BASE_URL = "https://secure.payu.in";
+
+            $action = '';
+            $formError = 0;
+
+
+            $txnid = substr(hash('sha256', mt_rand() . microtime()), 0, 20);
+
+            $hash = '';
+            // Hash Sequence
+            $hashSequence = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10";
+
+
+            $subtotal = 0;
+            $totaltax = 0;
+            $totalmrp = 0;
+            $totalshipping = 0;
+            foreach ($ps->books as $book):
+                $subtotal += $book->price;
+                $totalmrp += $book->price_after_tax;
+                $totaltax += $book->price_after_tax - $book->price;
+            endforeach;
+            $shippingtax = (($ps->shipping_state * 18) / 100);
+            $totalshipping = $shippingtax + $ps->shipping_state;
+            $user = \App\Models\User::find(Sentinel::getuser()->id);
+            $billing = $user->address()->where('address_type', 'billing')->first();
+            $shipping = $user->address()->where('address_type', 'shipping')->first();
+            if (!$billing) {
+                $billing = $shipping;
+            }
+            $posted = array('key' => $MERCHANT_KEY,
+                'txnid' => $txnid,
+                'amount' => $ps->price,
+                'firstname' => $user->first_name,
+                'lastname' => $user->last_name,
+                'address1' => $billing->address1,
+                'address2' => $billing->address2,
+                'city' => $billing->city,
+                'state' => $billing->state,
+                'country' => 'IN',
+                'zip' => $billing->zip,
+                'email' => $user->email,
+                'phone' => $user->mobile,
+                'productinfo' => $product_id,
+                'surl' => url(getLang() . '/store/paysuccess'),
+                'furl' => url(getLang() . '/store/payfailure'),
+                'service_provider' => 'payu_paisa',
+            );
+            $hashVarsSeq = explode('|', $hashSequence);
+            $hash_string = '';
+            foreach ($hashVarsSeq as $hash_var) {
+                $hash_string .= isset($posted[$hash_var]) ? $posted[$hash_var] : '';
+                $hash_string .= '|';
+            }
+
+            $hash_string .= $SALT;
+
+            $hash = strtolower(hash('sha512', $hash_string));
+            $action = $PAYU_BASE_URL . '/_payment';
+            $posted['hash'] = $hash;
+
+//dd($action);           
+            $ch = curl_init();
+
+//set the url, number of POST vars, POST data
+            curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) Gecko/20041001 Firefox/0.10.1");
+            curl_setopt($ch, CURLOPT_URL, $action);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $posted);
+            curl_setopt($ch, CURLOPT_HEADER, true);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+
+//execute post
+            $result = curl_exec($ch);
+            curl_close($ch);
+        }
+    }
+
+    public function payfailure(Request $request) {
+        $status = $_POST["status"];
+        $firstname = $_POST["firstname"];
+        $amount = $_POST["amount"];
+        $txnid = $_POST["txnid"];
+        $posted_hash = $_POST["hash"];
+        $key = $_POST["key"];
+        $productinfo = $_POST["productinfo"];
+        $email = $_POST["email"];
+        $salt = "GQs7yium";
+        $product_id = $productinfo;
+        If (isset($_POST["additionalCharges"])) {
+            $additionalCharges = $_POST["additionalCharges"];
+            $retHashSeq = $additionalCharges . '|' . $salt . '|' . $status . '|||||||||||' . $email . '|' . $firstname . '|' . $productinfo . '|' . $amount . '|' . $txnid . '|' . $key;
+        } else {
+
+            $retHashSeq = $salt . '|' . $status . '|||||||||||' . $email . '|' . $firstname . '|' . $productinfo . '|' . $amount . '|' . $txnid . '|' . $key;
+        }
+        $hash = hash("sha512", $retHashSeq);
+
+        if ($hash != $posted_hash) {
+            return Redirect::route('store.cart', ['error' => 'Invalid Transaction. Please try again']);
+        } else if ($product_id) {
+            return Redirect::route('store.cart', ['error' => "Your order status is " . $status]);
+        }
+    }
+
+    public function paysuccess(Request $request) {
+        $status = $_POST["status"];
+        $firstname = $_POST["firstname"];
+        $amount = $_POST["amount"];
+        $txnid = $_POST["txnid"];
+        $posted_hash = $_POST["hash"];
+        $key = $_POST["key"];
+        $productinfo = $_POST["productinfo"];
+        $email = $_POST["email"];
+        $salt = "GQs7yium";
+        $product_id = $productinfo;
+        If (isset($_POST["additionalCharges"])) {
+            $additionalCharges = $_POST["additionalCharges"];
+            $retHashSeq = $additionalCharges . '|' . $salt . '|' . $status . '|||||||||||' . $email . '|' . $firstname . '|' . $productinfo . '|' . $amount . '|' . $txnid . '|' . $key;
+        } else {
+
+            $retHashSeq = $salt . '|' . $status . '|||||||||||' . $email . '|' . $firstname . '|' . $productinfo . '|' . $amount . '|' . $txnid . '|' . $key;
+        }
+        $hash = hash("sha512", $retHashSeq);
+
+        if ($hash != $posted_hash) {
+            return Redirect::route('store.cart', ['error' => 'Invalid Transaction. Please try again']);
+        } else if ($product_id) {
+
+            $ps = \App\Models\Product::find($product_id);
+            $subtotal = 0;
+            $totaltax = 0;
+            $totalmrp = 0;
+            $totalshipping = 0;
+            foreach ($ps->books as $book):
+                $subtotal += $book->price;
+                $totalmrp += $book->price_after_tax;
+                $totaltax += $book->price_after_tax - $book->price;
+            endforeach;
+            $shippingtax = (($ps->shipping_state * 18) / 100);
+            $totalshipping = $shippingtax + $ps->shipping_state;
+            $user = \App\Models\User::find(Sentinel::getuser()->id);
+            $billing = $user->address()->where('address_type', 'billing')->first();
+            $shipping = $user->address()->where('address_type', 'shipping')->first();
+            if (!$billing) {
+                $billing = $shipping;
+            }
+            $order = array('user_id' => Sentinel::getuser()->id,
+                'amount' => $subtotal,
+                'tax' => $totaltax,
+                'shipping' => $totalshipping,
+                'total_amount' => $ps->price,
+                'status_id' => 1,
+                'preferred_delivery_date' => $request->preferred_delivery_date,
+                'billing_address1' => $billing->address1,
+                'billing_address2' => $billing->address2,
+                'billing_area' => $billing->area,
+                'billing_city' => $billing->city,
+                'billing_state' => $billing->state,
+                'billing_zip' => $billing->zip,
+                'shipping_address1' => $shipping->address1,
+                'shipping_address2' => $shipping->address2,
+                'shipping_area' => $shipping->area,
+                'shipping_city' => $shipping->city,
+                'shipping_state' => $shipping->state,
+                'shipping_zip' => $shipping->zip,
+            );
+            $ord = \App\Models\Order::Create($order);
+            $ord_prod = \App\Models\OrderProduct::Create(['order_id' => $ord->id,
+                        'product_id' => $ps->id,
+                        'qty' => 1,
+                        'price' => $ps->price]);
+            $ord = \App\Models\Order::find($ord->id);
+
+            $template = \App\Models\Email::where(['template' => 'Order'])->get();
+            // Send the welcome email
+            if ($template) {
+                $body = str_replace('<<student_name>>', 'ds', $template[0]->body);
+
+
+                $body = nl2br($body);
+                $body = explode("<<order_details>>", $body);
+                $head = explode("\n", $body[0]);
+                $foot = explode("\n", $body[1]);
+                Mail::send('emails.orders', ['order' => $ord, 'head' => $head, 'foot' => $foot], function ($m) use ($user, $template) {
+                    $m->from('noreply@jeevandeep.com', 'Jeevandeep');
+                    $m->to($user->email, $user->first_name . ' ' . $user->last_name);
+                    $m->subject($template[0]->subject);
+                });
+            }
+            $delete_cart = \App\Models\Cart::where('user_id', Sentinel::getuser()->id)->where('product_id', $product_id)->delete();
+        }
+        return Redirect::route('store.cart', ['success' => '1']);
+    }
+
+    public function payold(Request $request) {
+        if (!Sentinel::check()) {
+            return Redirect::route('signin');
+        }
+        if ($request->product_id) {
+            $product_id = $request->product_id;
+            $ps = \App\Models\Product::find($product_id);
             $subtotal = 0;
             $totaltax = 0;
             $totalmrp = 0;
@@ -215,7 +433,7 @@ class StoreController extends Controller {
                 $body = explode("<<order_details>>", $body);
                 $head = explode("\n", $body[0]);
                 $foot = explode("\n", $body[1]);
-                Mail::send('emails.orders', ['order' => $ord, 'head' => $head, 'foot' => $foot], function ($m) use ($user,$template) {
+                Mail::send('emails.orders', ['order' => $ord, 'head' => $head, 'foot' => $foot], function ($m) use ($user, $template) {
                     $m->from('noreply@jeevandeep.com', 'Jeevandeep');
                     $m->to($user->email, $user->first_name . ' ' . $user->last_name);
                     $m->subject($template[0]->subject);
