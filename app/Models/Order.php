@@ -72,6 +72,13 @@ class Order extends Model implements ModelInterface {
             return 'Not provided';
         }
     }
+    public function getPreferredDeliveryDateFormattedShortAttribute() {
+        if($this->preferred_delivery_date && $this->preferred_delivery_date != '0000-00-00'){
+            return date('d-M-y', strtotime($this->preferred_delivery_date));
+        }else{
+            return 'Not provided';
+        }
+    }
 
     public function getOrderNoAttribute() {
         return $this->id + $this->order_start;
