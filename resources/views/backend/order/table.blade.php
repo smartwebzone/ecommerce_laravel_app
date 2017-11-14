@@ -9,6 +9,7 @@
     <th>Email</th>
     <th>Contact</th>
     <th>Added On</th>
+    <th>Preferred Date</th>
     <th>Status</th>
     <th width="9%" class="text-center">Action</th>
 </thead>
@@ -24,6 +25,7 @@
         <td>{{ $order->user->email }}</td>
         <td>{{ $order->user->mobile }}</td>
         <td>{{ $order->order_date_formatted_short }}</td>
+        <td>{{ $order->preferred_delivery_date_formatted_short }}</td>
         <td>{{ $order->status->name }}</td>
         <td class="text-center" nowrap="nowrap">
             {!! Form::open(['route' => ['admin.order.destroy', $order->id], 'method' => 'delete']) !!}
