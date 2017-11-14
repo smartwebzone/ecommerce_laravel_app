@@ -30,6 +30,9 @@ Jeevandeep Prakashan Pvt. Ltd.
     <!-- Start Select School -->
     <div class="cf">
         @include('frontend.layout.jeevandeep.header')
+        @if(app('request')->input('error'))
+        <div class="alert alert-danger">{{app('request')->input('error')}}</div>
+        @endif
         @if(count($cart_data) > 0 || app('request')->input('success') == 1)
         <div class="select-div"><i class="fa fa-credit-card"></i>Proceed to payment</div>
         <div class="please-select">You have selected {{inWords($total_products)}} in your shopping cart. You are required to complete your transactions for the {{inWords($total_products)}} one after another. Please click 'Pay Now' to continue.</div>
