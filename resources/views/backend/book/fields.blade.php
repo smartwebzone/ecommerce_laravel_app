@@ -1,18 +1,10 @@
 <div class="row">
-    <div class="form-group col-sm-6">
+    <div class="form-group col-sm-12">
         {!! Form::label('company_id', 'Company:') !!}
         <span class="mandatory">*</span>
         {!! Form::select('company_id', $company, NULL, array('class' => 'form-control', 'value'=>Input::old('company_id'),'required' => true)) !!}
         @if ($errors->has('company_id'))
         <div class="error">{{ $errors->first('company_id') }}</div>
-        @endif
-    </div>
-    <div class="form-group col-sm-6">
-        {!! Form::label('standard_id', 'Standard:') !!}
-        <span class="mandatory">*</span>
-        {!! Form::select('standard_id', $standard, NULL, array('class' => 'form-control', 'value'=>Input::old('standard_id'),'required' => true)) !!}
-        @if ($errors->has('standard_id'))
-        <div class="error">{{ $errors->first('standard_id') }}</div>
         @endif
     </div>
 </div>

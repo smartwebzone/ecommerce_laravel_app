@@ -47,11 +47,6 @@ class BookController extends Controller {
             $company_id = $request->company_id;
             $book = $book->where('company_id', '=', $company_id);
         }
-        $standard_id = '';
-        if ($request->standard_id) {
-            $standard_id = $request->standard_id;
-            $book = $book->where('standard_id', '=', $standard_id);
-        }
         $is_taxable = '';
         //dd($request->is_taxable);
         if (($request->is_taxable)) {
@@ -79,21 +74,15 @@ class BookController extends Controller {
         if ($company_id) {
             $book = $book->appends(['company_id' => $company_id]);
         }
-        if ($standard_id) {
-            $book = $book->appends(['standard_id' => $standard_id]);
-        }
         if ($search) {
             $book = $book->appends(['search' => $search]);
         }
         if ($is_taxable) {
             $book = $book->appends(['is_taxable' => $is_taxable]);
         }
-        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
-        $standard = [null => 'Please Select'] + $standard;
-
         $company = \App\Models\Company::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
-        return view('backend.book.index', compact('book', 'company','search', 'standard', 'company_id','is_taxable', 'standard_id'));
+        return view('backend.book.index', compact('book', 'company','search', 'company_id','is_taxable'));
     }
 
     /**
@@ -102,12 +91,9 @@ class BookController extends Controller {
      * @return Response
      */
     public function create() {
-        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
-        $standard = [null => 'Please Select'] + $standard;
-
         $company = \App\Models\Company::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
-        return view('backend.book.create', compact('company', 'standard'));
+        return view('backend.book.create', compact('company'));
     }
 
     /**
@@ -157,12 +143,9 @@ class BookController extends Controller {
      */
     public function edit($id) {
         $book = $this->book->find($id);
-        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
-        $standard = [null => 'Please Select'] + $standard;
-
         $company = \App\Models\Company::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
-        return view('backend.book.edit', compact('book', 'standard', 'company'));
+        return view('backend.book.edit', compact('book', 'company'));
     }
 
     /**
@@ -232,9 +215,8 @@ class BookController extends Controller {
         $reader = Excel::load($data['upload'])->ignoreEmpty();
         $reader->each(function($sheet) use(&$data) {
             $sheet->each(function($row) use(&$data) {
-                //$standard=\App\Models\Standard::where(['name'=>$row->class])->first();
                 if ($row->title) {
-                    $check_duplicate = \App\Models\Book::where(['name'=>$row->title,'standard_id'=>$data['standard_id'],'company_id'=>$data['company_id']])->first();
+                    $check_duplicate = \App\Models\Book::where(['name'=>$row->title,'company_id'=>$data['company_id']])->first();
                     $check_duplicate1 = \App\Models\Book::where(['book_code'=>$row->code,'deleted_at'=>NULL])->first();
                     if(!$check_duplicate && !$check_duplicate1){
                         $data['total_book'] ++;
@@ -242,7 +224,6 @@ class BookController extends Controller {
                             $row->tax = $row->tax * 100;
                         }
                         $book = array('name' => $row->title,
-                            'standard_id' => $data['standard_id'],
                             'medium' => $row->medium,
                             'company_id' => $data['company_id'],
                             'book_code' => $row->code,
@@ -268,13 +249,9 @@ class BookController extends Controller {
     }
 
     public function upload() {
-
-        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
-        $standard = [null => 'Please Select'] + $standard;
-
         $company = \App\Models\Company::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
-        return view('backend.book.upload', compact('standard', 'company'));
+        return view('backend.book.upload', compact('company'));
     }
     private function delete($books, $ids) {
         if ($ids) {

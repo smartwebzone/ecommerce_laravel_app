@@ -18,10 +18,6 @@ class Book extends Model implements ModelInterface {
     public $table = 'book_master';
     public $timestamps = false;
 
-    public function standard() {
-        return $this->belongsTo(Standard::class, 'standard_id');
-    }
-
     public function company() {
         return $this->belongsTo(Company::class, 'company_id');
     }

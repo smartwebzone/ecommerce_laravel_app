@@ -80,5 +80,8 @@ class Product extends Model implements ModelInterface {
         });
         return $query;
     }
-
+    
+    public function getIsTaxableFormattedAttribute() {
+        return ($this->is_taxable == 1 ? 'Yes' : 'No');
+    }
 }
