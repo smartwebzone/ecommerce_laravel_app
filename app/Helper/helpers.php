@@ -211,17 +211,17 @@ function getStatus($status_db) {
     return $status;
 }
 
-function getPreviousPurchaseText($product_id){
+function getPreviousPurchaseText($product_id) {
     $text = '';
     $user = App\Models\User::find(Sentinel::getUser()->id);
-    if($user->orders()->count() > 0){
-        $orders = $user->orders()->orderBy('id','desc')->get();
-        foreach($orders as $order){
+    if ($user->orders()->count() > 0) {
+        $orders = $user->orders()->orderBy('id', 'desc')->get();
+        foreach ($orders as $order) {
             $order_id = $order->id;
             $order = \App\Models\Order::find($order_id);
-            if($order->product()->where('product_id',$product_id)->count() > 0){
-                $order_date = date('d F Y',strtotime($order->order_date));
-                $text = 'You have previously purchased this product on '.$order_date.'.';
+            if ($order->product()->where('product_id', $product_id)->count() > 0) {
+                $order_date = date('d F Y', strtotime($order->order_date));
+                $text = 'You have previously purchased this product on ' . $order_date . '.';
                 return $text;
             }
         }
@@ -229,74 +229,85 @@ function getPreviousPurchaseText($product_id){
     return $text;
 }
 
-function numberWithDecimal($number){
-    if(empty($number)){
+function numberWithDecimal($number) {
+    if (empty($number)) {
         $number = 0;
     }
     return number_format($number, 2, '.', '');
 }
 
-function getUserShippingState(){
+function getUserShippingState() {
     $shipping_state = '';
     if (Sentinel::check()) {
         $user = \App\Models\User::find(Sentinel::getUser()->id);
-        if($user->address()->where('address_type','shipping')->count() > 0){
-            $shipping_address = $user->address()->where('address_type','shipping')->get();
+        if ($user->address()->where('address_type', 'shipping')->count() > 0) {
+            $shipping_address = $user->address()->where('address_type', 'shipping')->get();
             $shipping_state = @$shipping_address[0]->state;
         }
     }
     return $shipping_state;
 }
 
-function getUserAddress($address_type){
+function getUserAddress($address_type) {
     $address = array();
     if (Sentinel::check()) {
         $user = App\Models\User::find(Sentinel::getUser()->id);
-        if($user->address()->where('address_type',$address_type)->count() > 0){
-            $address = $user->address()->where('address_type',$address_type)->orderBy('id','desc')->get();
+        if ($user->address()->where('address_type', $address_type)->count() > 0) {
+            $address = $user->address()->where('address_type', $address_type)->orderBy('id', 'desc')->get();
             $address = $address[0];
         }
     }
     return $address;
 }
 
-function getStateDropdown(){
-    $state = \App\Models\State::lists('name', 'name')->toArray();
+function getStateDropdown() {
+    $state = \App\Models\State::orderBy('name', 'asc')->lists('name', 'name')->toArray();
     $state = [null => 'STATE'] + $state;
     return $state;
 }
 
-function inWords($number){
-    $ns = array(1 => 'one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve');
+function inWords($number) {
+    $ns = array(1 => 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve');
     $str = @$ns[$number];
-    if(empty($str)){
+    if (empty($str)) {
         $str = $number;
     }
-    if($number > 1){
+    if ($number > 1) {
         $str .= ' products';
-    }else{
+    } else {
         $str .= ' product';
     }
     return $str;
 }
 
-function getCartCount(){
+function getCartCount() {
     $count = 0;
     if (Sentinel::check()) {
         $count = \App\Models\Cart::where(['user_id' => Sentinel::getuser()->id])->get()->count();
-        if($count == 0){
+        if ($count == 0) {
             $count = count(Session::get('product'));
         }
     }
     return $count;
 }
 
-function srNo($key,$per_page = 10){
-    if(app('request')->input('page')){
+function srNo($key, $per_page = 10) {
+    if (app('request')->input('page')) {
         $page = app('request')->input('page');
-    }else{
+    } else {
         $page = 1;
     }
-    $sr_no = ($per_page * ($page-1)) + $key + 1;
+    $sr_no = ($per_page * ($page - 1)) + $key + 1;
     return $sr_no;
+}
+
+function calculateBasePrice($mrp, $tax) {
+    if (!$mrp) {
+        return 0;
+    }
+    if ($tax == 0) {
+        return $mrp;
+    }
+    $base_price = ($mrp * 100) / (100 + $tax);
+    return $base_price;
 }

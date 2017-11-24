@@ -28,7 +28,7 @@ class EmailController extends Controller {
     public function __construct(EmailInterface $email) {
         $this->email = $email;
         View::share('active', 'blog');
-        $this->perPage = 10;
+        $this->perPage = 50;
     }
 
     /**
