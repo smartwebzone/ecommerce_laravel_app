@@ -42,10 +42,9 @@ Jeevandeep Prakashan Pvt. Ltd.
         </div>
         @endif
             {!! Form::open(['action' => 'StoreController@selectSchoolPost','class'=>"select-school-drop cf" , 'method' => 'post']) !!}
-        	<li>
+            <li class="pb15">
             	<label>SELECT STATE</label>
-                <div class="errormsg pull-right">{{ $errors->first('state') }}</div>
-                <a class="btn btn-select btn-select-light">
+                <a class="btn btn-select btn-select-light nobottommargin">
                     <input type="hidden" class="btn-select-input" id="state" name="state" value="{{Input::old('state')}}" />
                     <span class="btn-select-value">{{Input::old('state')?Input::old('state'):'SELECT STATE'}}</span>
                     <span class="btn-select-arrow glyphicon"><i class="fa fa-chevron-circle-down"></i></span>
@@ -56,12 +55,11 @@ Jeevandeep Prakashan Pvt. Ltd.
                     </ul>
                    
                 </a>
-                 
+                <div class="errormsg">{{ $errors->first('state') }}</div> 
             </li>
-            <li>
+            <li class="pb15">
             	<label>SELECT SCHOOL</label>
-                <div class="errormsg pull-right">{{ $errors->first('school') }}</div>
-                <a class="btn btn-select btn-select-light">
+                <a class="school_dd btn btn-select btn-select-light nobottommargin disabled">
                     <input type="hidden" class="btn-select-input" id="school" name="school" value="{{Input::old('school')}}" />
                     <span class="btn-select-value school-value">SELECT SCHOOL</span>
                     <span class="btn-select-arrow glyphicon"><i class="fa fa-chevron-circle-down"></i></span>
@@ -69,17 +67,18 @@ Jeevandeep Prakashan Pvt. Ltd.
                         
                     </ul>
                 </a>
+                <div class="errormsg">{{ $errors->first('school') }}</div>
             </li>
-            <li>
+            <li class="pb15">
             	<label>SELECT STANDARD</label>
-                <div class="errormsg pull-right">{{ $errors->first('standard') }}</div>
-                <a class="btn btn-select btn-select-light">
+                <a class="standard_dd btn btn-select btn-select-light nobottommargin disabled">
                     <input type="hidden" class="btn-select-input" id="standard" name="standard" value="" />
                     <span class="btn-select-value standard-value">SELECT STANDARD</span>
                     <span class="btn-select-arrow glyphicon"><i class="fa fa-chevron-circle-down"></i></span>
                     <ul id="standard-option">
                     </ul>
                 </a>
+                <div class="errormsg">{{ $errors->first('standard') }}</div>
             </li>
             <li class="pt20 pb15">
             <button type="submit" class="btn btnS"><i class="fa fa-link"></i>PROCEED</button></li>
@@ -103,6 +102,8 @@ $(document).ready(function () {
     });
     
     $('#state').on('change', function(e){
+        $('.errormsg').hide();
+        $('.school_dd').removeClass('disabled');
         var state = e.target.value;
 
         $.get('{{ url('en/information') }}/create/ajax-school?state=' + state, function(data) {
@@ -114,9 +115,14 @@ $(document).ready(function () {
             });
             $('#school-option').append('<li data-id="not_available" class="italic" style="color:#FF0000">Not Available</li>');
         });
+        $('.standard_dd').addClass('disabled');
+        $('#standard-option').empty();
+        $('.standard-value').html('SELECT STANDARD');
     });
     
     $('#school').on('change', function(e){
+        $('.errormsg').hide();
+        $('.standard_dd').removeClass('disabled');
         var school_id = e.target.value;
         if(school_id == 'not_available'){
             window.location.href = "{{route('unavailable_school')}}";
@@ -142,6 +148,7 @@ $(document).ready(function () {
     @endif
     
     $('#standard').on('change', function(e){
+        $('.errormsg').hide();
         var standard_id = e.target.value;
         if(standard_id == 'not_available'){
             window.location.href = "{{route('unavailable_standard')}}";

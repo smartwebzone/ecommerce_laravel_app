@@ -34,7 +34,7 @@ class ProductRepository extends RepositoryAbstract implements ProductInterface, 
     protected static $rules = [
         'company_id' => 'required',
         'standard_id' => 'required',
-        'title' => 'required',
+        'title' => 'required|unique:product_master,title',
         'instate_shipping_charges' => 'regex:/^\d*(\.\d{1,2})?$/',
         'outstate_shipping_charges' => 'regex:/^\d*(\.\d{1,2})?$/'
     ];
@@ -114,10 +114,12 @@ class ProductRepository extends RepositoryAbstract implements ProductInterface, 
      * @TODO ADD UPLOAD AND NEW VALIDATION TO UPDATE LIKE WAS ADDED TO STORE:
      */
     public function update($id, $attributes) {
-        $rules = ['title' => 'required|min:3|unique:product_master,title,' . $id];
         $this->product = $this->find($id);
 
-        if ($this->isValid($attributes, static::$rules)) {
+        $rules = static::$rules;
+        $rules['title'] = 'required|unique:product_master,title,'.$id;
+        
+        if ($this->isValid($attributes, $rules)) {
             if (!isset($attributes['is_taxable'])) {
                 $attributes['is_taxable'] = 0;
             }

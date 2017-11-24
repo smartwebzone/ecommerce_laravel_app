@@ -52,11 +52,11 @@
 </div>
 <div class="row">
     <div class="form-group col-sm-6">
-        {!! Form::label('price', 'Price:') !!}
+        {!! Form::label('price_after_tax', 'MRP:') !!}
         <span class="mandatory">*</span>
-        {!! Form::text('price', null, ['class' => 'form-control','value' => old('price'),'required' => true]) !!}
-        @if ($errors->has('price'))
-        <div class="error">{{ $errors->first('price') }}</div>
+        {!! Form::text('price_after_tax', null, ['class' => 'form-control','value' => old('price_after_tax'),'required' => true]) !!}
+        @if ($errors->has('price_after_tax'))
+        <div class="error">{{ $errors->first('price_after_tax') }}</div>
         @endif
     </div>
     <div class="form-group col-sm-2">
@@ -84,13 +84,13 @@
     </div>
 </div>
 <div class="row">
-     <div class="form-group col-sm-6">
+<!--    <div class="form-group col-sm-6">
         {!! Form::label('quantity', 'Quantity:') !!}
         {!! Form::text('quantity', null, ['class' => 'form-control','value' => old('quantity')]) !!}
         @if ($errors->has('quantity'))
         <div class="error">{{ $errors->first('quantity') }}</div>
         @endif
-    </div>
+    </div>-->
    
     <div class="form-group col-sm-6">
        {!! Form::label('medium', 'Medium:') !!}
@@ -99,8 +99,6 @@
         <div class="error">{{ $errors->first('medium') }}</div>
         @endif
     </div>
-</div>
-<div class="row">
     <div class="form-group col-sm-6">
        {!! Form::label('weight', 'Weight: (in grams)') !!}
         {!! Form::text('weight', null, ['class' => 'form-control','value' => old('weight')]) !!}
@@ -108,6 +106,8 @@
         <div class="error">{{ $errors->first('weight') }}</div>
         @endif
     </div>
+</div>
+<div class="row">
      <div class="form-group col-sm-6">
         {!! Form::label('status', 'Status:') !!}
         <label class="checkbox">
