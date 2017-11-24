@@ -29,7 +29,7 @@ class StoreController extends Controller {
     }
 
     public function selectSchool(Request $request) {
-        $state = State::get();
+        $state = State::orderBy('name','asc')->get();
 
         return view('frontend.store.index', compact('state'))->with('cart', 'total');
     }
