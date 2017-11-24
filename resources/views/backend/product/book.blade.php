@@ -51,20 +51,16 @@
                             <div class="row book-contents">
                                 <div class="form-group col-sm-12">
                                     <div class="form-group col-sm-3">
-                                        {!! Form::label('Product', 'Product Name:') !!}
+                                        {!! Form::label('Product Name:') !!}
                                         {{$product->title}}
                                     </div>
                                     <div class="form-group col-sm-3">
-                                        {!! Form::label('Company', 'Company:') !!}
+                                        {!! Form::label('Company:') !!}
                                         {{$product->company->name}}
                                     </div>
                                     <div class="form-group col-sm-3">
-                                        {!! Form::label('School', 'School:') !!}
-                                        {{$product->school->name}}
-                                    </div>
-                                    <div class="form-group col-sm-3">
-                                        {!! Form::label('Standard', 'Standard:') !!}
-                                        {{$product->standard->name}}
+                                        {!! Form::label('Is Taxable:') !!}
+                                        {{$product->is_taxable_formatted}}
                                     </div>
                                 </div>
 
@@ -113,7 +109,7 @@
                                     <div class="form-group col-sm-1">
                                         {!! Form::label('Quantity', 'Quantity:') !!}
 
-                                        {!! Form::text('quantity[]', null, ['class' => 'form-control', 'value' => old('quantity'),'required' => true]) !!}
+                                        {!! Form::text('quantity[]', 1, ['class' => 'form-control', 'value' => old('quantity'),'required' => true]) !!}
 
                                         @if ($errors->has('book_id'))
                                         <div class="error">{{ $errors->first('book_id') }}</div>
@@ -155,7 +151,7 @@
         <div class="form-group col-sm-1">
             {!! Form::label('Quantity', 'Quantity:') !!}
 
-            {!! Form::text('quantity[]', null, ['class' => 'form-control', 'value' => old('quantity'),'required' => true]) !!}
+            {!! Form::text('quantity[]', 1, ['class' => 'form-control', 'value' => old('quantity'),'required' => true]) !!}
 
             @if ($errors->has('book_id'))
             <div class="error">{{ $errors->first('book_id') }}</div>

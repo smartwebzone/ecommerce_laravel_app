@@ -58,25 +58,19 @@
                             <form role="form" method="GET">
 
                                 
-                                <div class="control-group col-md-3">
+                                <div class="control-group col-md-4">
                                     <label class="control-label" for="charge_status">Company</label>
                                     <div class="controls">
                                         {!! Form::select('company_id', $company, $company_id, array('class' => 'form-control', 'value'=>Input::old('company_id'))) !!}
                                     </div>
                                 </div>
-                                <div class="control-group col-md-3">
-                                    <label class="control-label" for="charge_status">Standard</label>
-                                    <div class="controls">
-                                        {!! Form::select('standard_id', $standard, $standard_id, array('class' => 'form-control', 'value'=>Input::old('standard_id'))) !!}
-                                    </div>
-                                </div>
-                                <div class="control-group col-md-3">
+                                <div class="control-group col-md-4">
                                     <label class="control-label" for="title">Search</label>
                                     <div class="controls">
                                         <input placeholder="Search" type="text" name="search" value="{{@$search}}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="control-group col-md-3">
+                                <div class="control-group col-md-4">
                                     <label class="control-label" for="status_filter">Taxable</label>
                                     <div class="controls">
                                         <!--{!! Form::checkbox('is_taxable', 1, (isset($book->is_taxable))?$book->is_taxable:true,['data-toggle' => 'toggle', 'data-on' => 'Enabled', 'data-off'=>'Disabled', 'data-onstyle' => 'success', 'data-offstyle' => 'danger', 'value'=>Input::old('is_taxable')]) !!}-->
