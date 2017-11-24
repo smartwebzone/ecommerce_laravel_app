@@ -33,7 +33,6 @@ class BookRepository extends RepositoryAbstract implements BookInterface, Crudab
      */
     protected static $rules = [
         'company_id' => 'required',
-        'standard_id' => 'required',
         'name' => 'required',
         'book_code' => 'required|unique:book_master,book_code',
         'price_after_tax' => 'required|regex:/^\d*(\.\d{1,2})?$/',
