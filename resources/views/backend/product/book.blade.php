@@ -128,7 +128,7 @@
                                 @endif
 
                             </div>
-                            <div class="form-group col-sm-12">
+                            <div class="form-group col-sm-12" style="margin-bottom:150px;">
                                 {!! Form::submit('Save', ['class' => 'btn btn-primary','required' => true]) !!}
                                 <a class="btn btn-default" href="{{route('admin.product')}}">Back</a>
                             </div>
