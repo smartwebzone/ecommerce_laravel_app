@@ -28,7 +28,7 @@ class ProductController extends Controller {
     public function __construct(ProductInterface $product) {
         $this->product = $product;
         View::share('active', 'blog');
-        $this->perPage = 10;
+        $this->perPage = 50;
     }
 
     /**
@@ -99,13 +99,13 @@ class ProductController extends Controller {
         if ($status) {
             $product = $product->appends(['status' => $status]);
         }
-        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
         $school = \App\Models\School::lists('name', 'id')->toArray();
         $school = [null => 'Please Select'] + $school;
 
-        $company = \App\Models\Company::lists('name', 'id')->toArray();
+        $company = \App\Models\Company::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
         return view('backend.product.index', compact('product', 'title', 'is_taxable', 'status', 'company', 'school', 'school_id', 'standard', 'company_id', 'standard_id'));
     }
@@ -124,13 +124,13 @@ class ProductController extends Controller {
      * @return Response
      */
     public function create() {
-        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
         $school = \App\Models\School::lists('name', 'id')->toArray();
         $school = [null => 'Please Select'] + $school;
 
-        $company = \App\Models\Company::lists('name', 'id')->toArray();
+        $company = \App\Models\Company::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
         return view('backend.product.create', compact('company', 'standard', 'school'));
     }
@@ -178,13 +178,13 @@ class ProductController extends Controller {
         if ($product->order()->count() > 0) {
             die("Action not allowed");
         }
-        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
         $school = \App\Models\School::lists('name', 'id')->toArray();
         $school = [null => 'Please Select'] + $school;
 
-        $company = \App\Models\Company::lists('name', 'id')->toArray();
+        $company = \App\Models\Company::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
         return view('backend.product.edit', compact('product', 'standard', 'company', 'school'));
     }

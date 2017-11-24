@@ -30,7 +30,7 @@ class SchoolController extends Controller {
     public function __construct(SchoolInterface $school) {
         $this->school = $school;
         View::share('active', 'blog');
-        $this->perPage = 10;
+        $this->perPage = 50;
     }
 
     /**
@@ -51,9 +51,9 @@ class SchoolController extends Controller {
      * @return Response
      */
     public function create() {
-        $state = \App\Models\State::lists('name', 'name')->toArray();
+        $state = \App\Models\State::orderBy('name', 'asc')->lists('name', 'name')->toArray();
         $state = [null => 'Please Select'] + $state;
-        $standard = Standard::lists('name', 'id')->toArray();
+        $standard = Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         return view('backend.school.create', compact('state', 'standard'));
     }
 
@@ -107,9 +107,9 @@ class SchoolController extends Controller {
         foreach($school_standards as $row){
             $existing_standards[] = $row->id;
         }
-        $state = \App\Models\State::lists('name', 'name')->toArray();
+        $state = \App\Models\State::orderBy('name', 'asc')->lists('name', 'name')->toArray();
         $state = [null => 'Please Select'] + $state;
-        $standard = Standard::lists('name', 'id')->toArray();
+        $standard = Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         return view('backend.school.edit', compact('school', 'state', 'standard', 'existing_standards'));
     }
 

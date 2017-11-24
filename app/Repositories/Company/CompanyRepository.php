@@ -45,7 +45,7 @@ class CompanyRepository extends RepositoryAbstract implements CompanyInterface, 
      * @var array
      */
     protected static $rules = [
-        'name' => 'required',
+        'name' => 'required|unique:company_master,name',
         'phone' => 'required',
         'email' => 'required|email',
         'contact_person' => 'required',
@@ -133,8 +133,11 @@ class CompanyRepository extends RepositoryAbstract implements CompanyInterface, 
      */
     public function update($id, $attributes) {
         $this->company = $this->find($id);
-
-        if ($this->isValid($attributes, static::$rules)) {
+        
+        $rules = static::$rules;
+        $rules['name'] = 'required|unique:company_master,name,'.$id;
+        
+        if ($this->isValid($attributes, $rules)) {
             if (!isset($attributes['status'])) {
                 $attributes['status'] = 0;
             }

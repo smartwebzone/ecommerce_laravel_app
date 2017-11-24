@@ -30,7 +30,7 @@ class BookController extends Controller {
     public function __construct(BookInterface $book) {
         $this->book = $book;
         View::share('active', 'blog');
-        $this->perPage = 10;
+        $this->perPage = 50;
     }
 
     /**
@@ -88,10 +88,10 @@ class BookController extends Controller {
         if ($is_taxable) {
             $book = $book->appends(['is_taxable' => $is_taxable]);
         }
-        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
-        $company = \App\Models\Company::lists('name', 'id')->toArray();
+        $company = \App\Models\Company::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
         return view('backend.book.index', compact('book', 'company','search', 'standard', 'company_id','is_taxable', 'standard_id'));
     }
@@ -102,10 +102,10 @@ class BookController extends Controller {
      * @return Response
      */
     public function create() {
-        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
-        $company = \App\Models\Company::lists('name', 'id')->toArray();
+        $company = \App\Models\Company::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
         return view('backend.book.create', compact('company', 'standard'));
     }
@@ -125,7 +125,7 @@ class BookController extends Controller {
                 $data['is_taxable'] = 0;
                 $data['tax'] = 0;
             }
-            $data['price_after_tax'] = calculatePercentage($data['price'], $data['tax']);
+            $data['price'] = calculateBasePrice($data['price_after_tax'], $data['tax']);
             $this->book->create($data);
             Flash::message('Item was successfully added');
 
@@ -157,10 +157,10 @@ class BookController extends Controller {
      */
     public function edit($id) {
         $book = $this->book->find($id);
-        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
-        $company = \App\Models\Company::lists('name', 'id')->toArray();
+        $company = \App\Models\Company::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
         return view('backend.book.edit', compact('book', 'standard', 'company'));
     }
@@ -182,7 +182,7 @@ class BookController extends Controller {
                 $data['is_taxable'] = 0;
                 $data['tax'] = 0;
             }
-            $data['price_after_tax'] = calculatePercentage($data['price'], $data['tax']);
+            $data['price'] = calculateBasePrice($data['price_after_tax'], $data['tax']);
             $this->book->update($id, $data);
             Flash::message('Item was successfully updated');
 
@@ -224,6 +224,7 @@ class BookController extends Controller {
     }
 
     public function import() {
+        error_reporting(0);
         $data = Input::all();
         $data['added_by'] = Sentinel::getUser()->id;
         $data['total_book'] = 0;
@@ -234,8 +235,12 @@ class BookController extends Controller {
                 //$standard=\App\Models\Standard::where(['name'=>$row->class])->first();
                 if ($row->title) {
                     $check_duplicate = \App\Models\Book::where(['name'=>$row->title,'standard_id'=>$data['standard_id'],'company_id'=>$data['company_id']])->first();
-                    if(!$check_duplicate){
+                    $check_duplicate1 = \App\Models\Book::where(['book_code'=>$row->code,'deleted_at'=>NULL])->first();
+                    if(!$check_duplicate && !$check_duplicate1){
                         $data['total_book'] ++;
+                        if($row->tax > 0){
+                            $row->tax = $row->tax * 100;
+                        }
                         $book = array('name' => $row->title,
                             'standard_id' => $data['standard_id'],
                             'medium' => $row->medium,
@@ -245,11 +250,11 @@ class BookController extends Controller {
                             'author' => ($row->author) ? $row->author : $row->title,
                             'hsn_code' => $row->hsn_code,
                             'weight' => $row->weight,
-                            'price' => $row->rate,
+                            'price' => calculateBasePrice($row->rate, $row->tax),
                             'tax' => $row->tax,
                             'quantity' => $row->qty,
                             'is_taxable' => ($row->tax) ? 1 : 0,
-                            'price_after_tax' => calculatePercentage($row->rate, $row->tax),
+                            'price_after_tax' => $row->rate
                         );
                         \App\Models\Book::create($book);
                     }
@@ -264,10 +269,10 @@ class BookController extends Controller {
 
     public function upload() {
 
-        $standard = \App\Models\Standard::lists('name', 'id')->toArray();
+        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
-        $company = \App\Models\Company::lists('name', 'id')->toArray();
+        $company = \App\Models\Company::orderBy('name', 'asc')->lists('name', 'id')->toArray();
         $company = [null => 'Please Select'] + $company;
         return view('backend.book.upload', compact('standard', 'company'));
     }

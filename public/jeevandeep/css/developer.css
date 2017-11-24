@@ -35,3 +35,7 @@ input.error,select.error,textarea.error{
 .child-label-red label.label_same_as_address{
     color:#000!important;
 }
+.nobottommargin{
+    margin-bottom: 0px !important;
+}
+}

@@ -27,7 +27,7 @@ class StandardController extends Controller {
     public function __construct(StandardInterface $standard) {
         $this->standard = $standard;
         View::share('active', 'blog');
-        $this->perPage = 10;
+        $this->perPage = 50;
     }
 
     /**

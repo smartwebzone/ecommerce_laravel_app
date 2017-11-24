@@ -27,7 +27,7 @@ class CompanyController extends Controller {
     public function __construct(CompanyInterface $company) {
         $this->company = $company;
         View::share('active', 'blog');
-        $this->perPage = 10;
+        $this->perPage = 50;
     }
 
     /**
@@ -48,7 +48,7 @@ class CompanyController extends Controller {
      * @return Response
      */
     public function create() {
-         $state = \App\Models\State::lists('name','name')->toArray();
+         $state = \App\Models\State::orderBy('name', 'asc')->lists('name','name')->toArray();
          $state = [null=>'Please Select'] + $state;
         return view('backend.company.create', compact('state'));
     }
@@ -93,7 +93,7 @@ class CompanyController extends Controller {
      */
     public function edit($id) {
         $company = $this->company->find($id);
-        $state = \App\Models\State::lists('name','name')->toArray();
+        $state = \App\Models\State::orderBy('name', 'asc')->lists('name','name')->toArray();
         $state = [null=>'Please Select'] + $state;
         return view('backend.company.edit', compact('company','state'));
     }
