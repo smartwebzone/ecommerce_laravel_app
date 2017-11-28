@@ -217,7 +217,7 @@ class BookController extends Controller {
             $sheet->each(function($row) use(&$data) {
                 if ($row->title) {
                     $check_duplicate = \App\Models\Book::where(['name'=>$row->title,'company_id'=>$data['company_id']])->first();
-                    $check_duplicate1 = \App\Models\Book::where(['book_code'=>$row->code,'deleted_at'=>NULL])->first();
+                    $check_duplicate1 = \App\Models\Book::where(['book_code'=>$row->code,'price_after_tax'=>$row->rate,'deleted_at'=>NULL])->first();
                     if(!$check_duplicate && !$check_duplicate1){
                         $data['total_book'] ++;
                         if($row->tax > 0){
