@@ -34,7 +34,7 @@ class BookRepository extends RepositoryAbstract implements BookInterface, Crudab
     protected static $rules = [
         'company_id' => 'required',
         'name' => 'required',
-        'book_code' => 'required|unique:book_master,book_code',
+        'book_code' => 'required|unique:book_master,book_code,NULL,id,deleted_at,NULL',
         'price_after_tax' => 'required|regex:/^\d*(\.\d{1,2})?$/',
         'tax' => 'regex:/^\d*(\.\d{1,2})?$/',
         'shipping_charges' => 'regex:/^\d*(\.\d{1,2})?$/'
@@ -121,7 +121,7 @@ class BookRepository extends RepositoryAbstract implements BookInterface, Crudab
         $this->book = $this->find($id);
 
         $rules = static::$rules;
-        $rules['book_code'] = 'required|unique:book_master,book_code,'.$id;
+        $rules['book_code'] = 'required|unique:book_master,book_code,'.$id.',id,deleted_at,NULL';
         
         if ($this->isValid($attributes, $rules)) {
             if (!isset($attributes['status'])) {

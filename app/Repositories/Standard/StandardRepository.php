@@ -32,7 +32,7 @@ class StandardRepository extends RepositoryAbstract implements StandardInterface
      * @var array
      */
     protected static $rules = [
-        'name' => 'required|unique:standard_master,name'
+        'name' => 'required|unique:standard_master,name,NULL,id,deleted_at,NULL'
     ];
 
     /**
@@ -114,7 +114,7 @@ class StandardRepository extends RepositoryAbstract implements StandardInterface
         $this->standard = $this->find($id);
         
         $rules = static::$rules;
-        $rules['name'] = 'required|unique:standard_master,name,'.$id;
+        $rules['name'] = 'required|unique:standard_master,name,'.$id.',id,deleted_at,NULL';
         
         if ($this->isValid($attributes, $rules)) {
             if (!isset($attributes['status'])) {
