@@ -200,6 +200,7 @@ class BookController extends Controller {
         $newBook = $book->replicate();
         $newBook->save();
         $newBook->name = 'Copy of ' . $book->name;
+        $newBook->book_code = 'Copy of ' . $book->book_code;
         $newBook->save();
         Flash::message('Clone successfully generated');
 
