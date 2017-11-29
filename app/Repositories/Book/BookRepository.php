@@ -34,7 +34,7 @@ class BookRepository extends RepositoryAbstract implements BookInterface, Crudab
     protected static $rules = [
         'company_id' => 'required',
         'name' => 'required',
-        'book_code' => 'required|unique:book_master,book_code',
+        'book_code' => 'required|unique:book_master,book_code,NULL,id,price_after_tax,NULL,deleted_at,NULL',
         'price_after_tax' => 'required|regex:/^\d*(\.\d{1,2})?$/',
         'tax' => 'regex:/^\d*(\.\d{1,2})?$/',
         'shipping_charges' => 'regex:/^\d*(\.\d{1,2})?$/'
@@ -98,7 +98,9 @@ class BookRepository extends RepositoryAbstract implements BookInterface, Crudab
      * @TODO CHECK FUNCTIONALITY OF NEW UPLOADER AND SAVING OF NEW FIELDS
      */
     public function create($attributes) {
-        if ($this->isValid($attributes, static::$rules)) {
+        $rules = static::$rules;
+        $rules['book_code'] = 'required|unique:book_master,book_code,'.$attributes['book_code'].',id,price_after_tax,'.$attributes['price_after_tax'].',deleted_at,NULL';
+        if ($this->isValid($attributes, $rules)) {
             if (!isset($attributes['status'])) {
                 $attributes['status'] = 0;
             }
@@ -119,9 +121,8 @@ class BookRepository extends RepositoryAbstract implements BookInterface, Crudab
      */
     public function update($id, $attributes) {
         $this->book = $this->find($id);
-
         $rules = static::$rules;
-        $rules['book_code'] = 'required|unique:book_master,book_code,'.$id;
+        $rules['book_code'] = 'required|unique:book_master,book_code,'.$id.',id,price_after_tax,'.$attributes['price_after_tax'].',deleted_at,NULL';
         
         if ($this->isValid($attributes, $rules)) {
             if (!isset($attributes['status'])) {

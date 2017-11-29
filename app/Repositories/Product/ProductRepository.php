@@ -34,7 +34,7 @@ class ProductRepository extends RepositoryAbstract implements ProductInterface, 
     protected static $rules = [
         'company_id' => 'required',
         'standard_id' => 'required',
-        'title' => 'required|unique:product_master,title',
+        'title' => 'required|unique:product_master,title,NULL,id,deleted_at,NULL',
         'instate_shipping_charges' => 'regex:/^\d*(\.\d{1,2})?$/',
         'outstate_shipping_charges' => 'regex:/^\d*(\.\d{1,2})?$/'
     ];
@@ -117,7 +117,7 @@ class ProductRepository extends RepositoryAbstract implements ProductInterface, 
         $this->product = $this->find($id);
 
         $rules = static::$rules;
-        $rules['title'] = 'required|unique:product_master,title,'.$id;
+        $rules['title'] = 'required|unique:product_master,title,'.$id.',id,deleted_at,NULL';
         
         if ($this->isValid($attributes, $rules)) {
             if (!isset($attributes['is_taxable'])) {

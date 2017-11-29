@@ -38,4 +38,7 @@ input.error,select.error,textarea.error{
 .nobottommargin{
     margin-bottom: 0px !important;
 }
+.ul-scroll{
+    overflow-y: scroll;
+    max-height: 250px;
 }
