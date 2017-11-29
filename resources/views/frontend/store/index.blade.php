@@ -48,7 +48,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <input type="hidden" class="btn-select-input" id="state" name="state" value="{{Input::old('state')}}" />
                     <span class="btn-select-value">{{Input::old('state')?Input::old('state'):'SELECT STATE'}}</span>
                     <span class="btn-select-arrow glyphicon"><i class="fa fa-chevron-circle-down"></i></span>
-                    <ul>
+                    <ul class="ul-scroll">
                         @foreach($state as $st)
                         <li data-id="{{$st->name}}">{{$st->name}}</li>
                         @endforeach
@@ -63,7 +63,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <input type="hidden" class="btn-select-input" id="school" name="school" value="{{Input::old('school')}}" />
                     <span class="btn-select-value school-value">SELECT SCHOOL</span>
                     <span class="btn-select-arrow glyphicon"><i class="fa fa-chevron-circle-down"></i></span>
-                    <ul id="school-option">
+                    <ul id="school-option" class="ul-scroll">
                         
                     </ul>
                 </a>
@@ -75,7 +75,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <input type="hidden" class="btn-select-input" id="standard" name="standard" value="" />
                     <span class="btn-select-value standard-value">SELECT STANDARD</span>
                     <span class="btn-select-arrow glyphicon"><i class="fa fa-chevron-circle-down"></i></span>
-                    <ul id="standard-option">
+                    <ul id="standard-option" class="ul-scroll">
                     </ul>
                 </a>
                 <div class="errormsg">{{ $errors->first('standard') }}</div>

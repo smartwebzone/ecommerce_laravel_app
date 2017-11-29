@@ -66,7 +66,7 @@
 
                                 @foreach($product->books as $key=>$bk)
                                 <div class="form-group col-sm-12 books">
-                                    <div class="form-group col-sm-4">
+                                    <div class="form-group col-sm-9">
                                         {!! Form::label('book', 'Item:') !!}
 
                                         {!! Form::select('book_id[]', $book, $bk->id, array('class' => 'form-control select2 book', 'value'=>Input::old('book_id'),'required' => true)) !!}
@@ -97,7 +97,7 @@
                                 @if(!$product->books->count())
 
                                 <div class="form-group col-sm-12 books">
-                                    <div class="form-group col-sm-4">
+                                    <div class="form-group col-sm-9">
                                         {!! Form::label('book', 'Item:') !!}
 
                                         {!! Form::select('book_id[]', $book, null, array('class' => 'form-control select2 book', 'value'=>Input::old('book_id'),'required' => true)) !!}
@@ -139,7 +139,7 @@
 </div>
 <div class="hide" id="book-clone">
     <div class="form-group col-sm-12 books">
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-9">
             {!! Form::label('book', 'Item:') !!}
 
             {!! Form::select('book_id[]', $book, null, array('class' => 'form-control select2 bookclone', 'value'=>Input::old('book_id'),'required' => true)) !!}
