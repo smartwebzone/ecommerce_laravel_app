@@ -311,3 +311,9 @@ function calculateBasePrice($mrp, $tax) {
     $base_price = ($mrp * 100) / (100 + $tax);
     return $base_price;
 }
+
+function getProductItemHighestTax($product_id){
+    $product = new App\Models\Product();
+    $highest_tax = $product->getProductItemHighestTax($product_id);
+    return $highest_tax;
+}
