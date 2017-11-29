@@ -422,7 +422,7 @@ class AuthController extends Controller {
                 Mail::send('emails.password', ['body' => $body], function ($m) use ($user,$template) {
                     $m->from('noreply@jeevandeep.com', 'Jeevandeep');
                     $m->to($user->email, $user->first_name . ' ' . $user->last_name);
-                    $m->subject($template->subject);
+                    $m->subject($template[0]->subject);
                 });
             }
         } catch (UserNotFoundException $e) {
