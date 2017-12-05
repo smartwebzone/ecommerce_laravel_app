@@ -312,8 +312,17 @@ function calculateBasePrice($mrp, $tax) {
     return $base_price;
 }
 
-function getProductItemHighestTax($product_id){
+function getProductItemHighestTax($product_id) {
     $product = new App\Models\Product();
     $highest_tax = $product->getProductItemHighestTax($product_id);
     return $highest_tax;
+}
+
+function parseIndianDate($date, $format = 'Y-m-d') {
+    if(!$date){
+        return NULL;
+    }
+    $date_exp = explode('/',$date);
+    $date = $date_exp[1].'/'.$date_exp[0].'/'.$date_exp[2];
+    return date('Y-m-d',strtotime($date));
 }

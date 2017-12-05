@@ -135,7 +135,14 @@ class UserController extends Controller {
                 return Redirect::action('Admin\UserController@create')->withErrors($validation)->withInput();
             }
             $user = Sentinel::registerAndActivate($input);
+            $user->parent_first_name = $input['parent_first_name'];
+            $user->parent_middle_name = $input['parent_middle_name'];
+            $user->parent_last_name = $input['parent_last_name'];
+            $user->first_name = $input['first_name'];
+            $user->middle_name = $input['middle_name'];
+            $user->last_name = $input['last_name'];
             $user->mobile = $input['mobile'];
+            $user->landline = $input['landline'];
             $user->save();
             
             $role = (isset($input['isAdmin']) && $input['isAdmin'] == 1) ? 'superadmin' : 'student';

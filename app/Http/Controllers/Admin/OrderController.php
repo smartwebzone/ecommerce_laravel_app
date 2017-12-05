@@ -159,7 +159,7 @@ class OrderController extends Controller {
      * @return Response
      */
     public function create() {
-        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
+        $standard = \App\Models\Standard::orderBy('position', 'asc')->orderBy('id', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
         $company = \App\Models\School::lists('name', 'id')->toArray();
@@ -207,7 +207,7 @@ class OrderController extends Controller {
      */
     public function edit($id) {
         $order = $this->order->find($id);
-        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
+        $standard = \App\Models\Standard::orderBy('position', 'asc')->orderBy('id', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
         $company = \App\Models\School::lists('name', 'id')->toArray();

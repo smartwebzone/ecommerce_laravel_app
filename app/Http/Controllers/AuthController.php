@@ -108,6 +108,7 @@ class AuthController extends Controller {
         $cart_old = Session::get('cart');
 
         try {
+            
             // Try to log the user in
             $ip_subnet = getIpSubnetMarkFromEmail($request->get('email'));
 
@@ -132,9 +133,9 @@ class AuthController extends Controller {
             //dd($request->get('email'));
             $user = Sentinel::findByCredentials(['email' => $request->get('email')]);
             if ($user) {
-                $msg = 'Wrong username or password';
+                $msg = 'Please enter a valid Email ID and Password';
             } else {
-                $msg = 'Account not found';
+                $msg = 'The Email ID you have entered is not registered with us. Please contact the Jeevandeep Administrator at enquiries@jeevandeep.in for further assistance.';
             }
             if ($request->get('top-login')) {
                 $this->messageBag->add('top-login', Lang::get($msg));
@@ -159,11 +160,14 @@ class AuthController extends Controller {
     }
 
     public function postRegisterEmail(Request $request) {
+        $messages = [
+            'email_signup.unique' => 'Your email ID is already registered with us. If you have forgotten your password, please reset it. You can also contact us at enquiries@jeevandeep.in for further assistance.'
+        ];
         $rules = array(
             'email_signup' => 'required|email|unique:users,email',
         );
 
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         $validator->setAttributeNames([
             'email_signup' => 'Email address']);
@@ -432,7 +436,7 @@ class AuthController extends Controller {
         }
 
         //  Redirect to the forgot password
-        return Redirect::to(URL::previous() . '#toforgot')->with('success', 'Check email to reset password.');
+        return Redirect::to(URL::previous() . '#toforgot')->with('success', "We have sent an email at your provided email address. Please check your INBOX and click on the reset password link. If you do not receive the email, please check your junk mailbox, else re-enter your email and click 'Forgot Password'. If nothing works, please contact us at enquiries@jeevandeep.in.");
     }
 
     /**

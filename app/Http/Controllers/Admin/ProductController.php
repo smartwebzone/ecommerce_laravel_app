@@ -100,7 +100,7 @@ class ProductController extends Controller {
         if ($status) {
             $product = $product->appends(['status' => $status]);
         }
-        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
+        $standard = \App\Models\Standard::orderBy('position', 'asc')->orderBy('id', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
         $school = \App\Models\School::lists('name', 'id')->toArray();
@@ -125,7 +125,7 @@ class ProductController extends Controller {
      * @return Response
      */
     public function create() {
-        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
+        $standard = \App\Models\Standard::orderBy('position', 'asc')->orderBy('id', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
         $school = \App\Models\School::lists('name', 'id')->toArray();
@@ -179,7 +179,7 @@ class ProductController extends Controller {
         if ($product->order()->count() > 0) {
             die("Action not allowed");
         }
-        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
+        $standard = \App\Models\Standard::orderBy('position', 'asc')->orderBy('id', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
         $school = \App\Models\School::lists('name', 'id')->toArray();

@@ -53,7 +53,7 @@ class SchoolController extends Controller {
     public function create() {
         $state = \App\Models\State::orderBy('name', 'asc')->lists('name', 'name')->toArray();
         $state = [null => 'Please Select'] + $state;
-        $standard = Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
+        $standard = Standard::orderBy('position', 'asc')->orderBy('id', 'asc')->lists('name', 'id')->toArray();
         return view('backend.school.create', compact('state', 'standard'));
     }
 
@@ -109,7 +109,7 @@ class SchoolController extends Controller {
         }
         $state = \App\Models\State::orderBy('name', 'asc')->lists('name', 'name')->toArray();
         $state = [null => 'Please Select'] + $state;
-        $standard = Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
+        $standard = Standard::orderBy('position', 'asc')->orderBy('id', 'asc')->lists('name', 'id')->toArray();
         return view('backend.school.edit', compact('school', 'state', 'standard', 'existing_standards'));
     }
 

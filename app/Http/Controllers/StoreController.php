@@ -35,11 +35,16 @@ class StoreController extends Controller {
     }
 
     public function selectSchoolPost(Request $request) {
+        $messages = [
+            'state.required' => 'Please select the State',
+            'school.required' => 'Please select the School',
+            'standard.required' => 'Please select the Standard',
+        ];
         $this->validate($request, [
             'state' => 'required',
             'school' => 'required',
             'standard' => 'required',
-        ]);
+        ],$messages);
 
         Session::put('state', $request->state);
         Session::put('school', $request->school);
@@ -121,15 +126,7 @@ class StoreController extends Controller {
                 $address->users()->attach($user);
             }
             $product = \App\Models\Product::find(Session::get('product'));
-            $preferred_delivery_date = NULL;
-            if ($request->month && $request->date) {
-                $date = date_parse($request->month);
-                $pdate = date('Y') . '-' . $date['month'] . '-' . $request->date;
-                $preferred_delivery_date = date('Y-m-d', strtotime($pdate));
-            }
-            if ($preferred_delivery_date == '0000-00-00') {
-                $preferred_delivery_date = NULL;
-            }
+            $preferred_delivery_date = parseIndianDate($_POST['preferred_delivery_date']);
             $delete_cart = \App\Models\Cart::where('user_id', Sentinel::getuser()->id)->delete();
             $carts = array();
             foreach ($product as $ps):
@@ -294,7 +291,7 @@ class StoreController extends Controller {
         $hash = hash("sha512", $retHashSeq);
 
         if ($hash != $posted_hash) {
-            return Redirect::route('store.cart', ['error' => 'Invalid Transaction. Please try again']);
+            return Redirect::route('store.cart', ['error' => 'Your transaction was unsuccessful. If your account has been debited, kindly send an email to solutions@jeevandeep.in. Please mention your account email, phone number, and details of the transaction. We  we will look into it immediately.']);
         } else if ($product_id) {
             return Redirect::route('store.cart', ['error' => "Your order status is " . $status]);
         }
@@ -327,7 +324,7 @@ class StoreController extends Controller {
         $hash = hash("sha512", $retHashSeq);
 
         if ($hash != $posted_hash) {
-            return Redirect::route('store.cart', ['error' => 'Invalid Transaction. Please try again']);
+            return Redirect::route('store.cart', ['error' => 'Your transaction was unsuccessful. If your account has been debited, kindly send an email to solutions@jeevandeep.in. Please mention your account email, phone number, and details of the transaction. We  we will look into it immediately.']);
         } else if ($product_id) {
 
             $ps = \App\Models\Product::find($product_id);
