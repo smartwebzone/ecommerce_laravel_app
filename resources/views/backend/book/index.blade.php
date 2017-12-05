@@ -58,27 +58,26 @@
                             <form role="form" method="GET">
 
                                 
-                                <div class="control-group col-md-4">
+                                <div class="form-group col-md-4">
                                     <label class="control-label" for="charge_status">Company</label>
                                     <div class="controls">
                                         {!! Form::select('company_id', $company, $company_id, array('class' => 'form-control', 'value'=>Input::old('company_id'))) !!}
                                     </div>
                                 </div>
-                                <div class="control-group col-md-4">
+                                <div class="form-group col-md-4">
                                     <label class="control-label" for="title">Search</label>
                                     <div class="controls">
                                         <input placeholder="Search" type="text" name="search" value="{{@$search}}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="control-group col-md-4">
+                                <div class="form-group col-md-4">
                                     <label class="control-label" for="status_filter">Taxable</label>
                                     <div class="controls">
                                         <!--{!! Form::checkbox('is_taxable', 1, (isset($book->is_taxable))?$book->is_taxable:true,['data-toggle' => 'toggle', 'data-on' => 'Enabled', 'data-off'=>'Disabled', 'data-onstyle' => 'success', 'data-offstyle' => 'danger', 'value'=>Input::old('is_taxable')]) !!}-->
                                         {!! Form::select('is_taxable', [''=>'ALL',1=>'No',2=>'Yes'], $is_taxable, array('class' => 'form-control', 'value'=>Input::old('is_taxable'))) !!}
                                     </div>
                                 </div>
-                                <div class="control-group col-md-3">
-                                    <label class="control-label" for="title">&nbsp;</label>
+                                <div class="form-group col-md-12">
                                     <div class="controls">
                                         <button class="btn btn-info" type="submit">FILTER</button>
                                         <a class="btn btn-default" href="{{url(getLang().'/admin/book')}}">CLEAR</a>
@@ -86,7 +85,7 @@
                                             <input type="hidden" value="" class="delete-order" name="delete_book">
                                             <label class="control-label" for="title">&nbsp;</label>
 
-                                            <button  name="delete" disabled="" value="1" class="btn btn-danger delete-btn" type="submit">Delete</button>
+                                            <button  name="delete" disabled="" value="1" class="btn btn-danger delete-btn" type="submit">Delete Selected Items</button>
                                     </div>
                                 </div>
                                     

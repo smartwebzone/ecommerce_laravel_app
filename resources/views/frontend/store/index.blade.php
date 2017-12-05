@@ -20,7 +20,13 @@ Jeevandeep Prakashan Pvt. Ltd.
 @section('bodyschema')@endsection
 @section('bodytag')@endsection
 
-@section('header_styles')@endsection
+@section('header_styles')
+<style type="text/css">
+.help-block{
+    margin-bottom: 0px;
+}
+</style>    
+@endsection
 
 
 @section('content')
@@ -102,7 +108,7 @@ $(document).ready(function () {
     });
     
     $('#state').on('change', function(e){
-        $('.errormsg').hide();
+        $(this).parent().parent('li').find('.errormsg').hide();
         $('.school_dd').removeClass('disabled');
         var state = e.target.value;
 
@@ -113,7 +119,7 @@ $(document).ready(function () {
             $.each(data, function(index,subCatObj){
                 $('#school-option').append('<li data-id="'+subCatObj.id+'">'+subCatObj.name+'</li>');
             });
-            $('#school-option').append('<li data-id="not_available" class="italic" style="color:#FF0000">Not Available</li>');
+            //$('#school-option').append('<li data-id="not_available" class="italic" style="color:#FF0000">Not Available</li>');
         });
         $('.standard_dd').addClass('disabled');
         $('#standard-option').empty();
@@ -121,7 +127,7 @@ $(document).ready(function () {
     });
     
     $('#school').on('change', function(e){
-        $('.errormsg').hide();
+        $(this).parent().parent('li').find('.errormsg').hide();
         $('.standard_dd').removeClass('disabled');
         var school_id = e.target.value;
         if(school_id == 'not_available'){
@@ -133,7 +139,7 @@ $(document).ready(function () {
             $.each(data, function(index,subCatObj){
                 $('#standard-option').append('<li data-id="'+subCatObj.id+'">'+subCatObj.name+'</li>');
             });
-            $('#standard-option').append('<li data-id="not_available" class="italic" style="color:#FF0000">Not Available</li>');
+            //$('#standard-option').append('<li data-id="not_available" class="italic" style="color:#FF0000">Not Available</li>');
         });
     });
     @if(Input::old("state"))
@@ -148,7 +154,7 @@ $(document).ready(function () {
     @endif
     
     $('#standard').on('change', function(e){
-        $('.errormsg').hide();
+        $(this).parent().parent('li').find('.errormsg').hide();
         var standard_id = e.target.value;
         if(standard_id == 'not_available'){
             window.location.href = "{{route('unavailable_standard')}}";

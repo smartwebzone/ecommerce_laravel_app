@@ -51,66 +51,65 @@
                         <div class="widget search col-md-12">
                             <form role="form" method="GET">
 
-                                <div class="control-group col-md-3">
+                                <div class="form-group col-md-3">
                                     <label class="control-label" for="title">Order ID</label>
                                     <div class="controls">
                                         <input placeholder="Order ID" type="text" name="order_id" value="{{@$order_id}}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="control-group col-md-3">
+                                <div class="form-group col-md-3">
                                     <label class="control-label" for="charge_status">Product</label>
                                     <div class="controls">
                                         {!! Form::select('product_id', $product, $product_id, array('class' => 'form-control', 'value'=>Input::old('product_id'))) !!}
                                     </div>
                                 </div>
-                                <div class="control-group col-md-3">
+                                <div class="form-group col-md-3">
                                     <label class="control-label" for="title">Search</label>
                                     <div class="controls">
                                         <input placeholder="Search" type="text" name="search" value="{{@$search}}" class="form-control">
                                     </div>
                                 </div>
-                                 <div class="control-group col-md-3">
+                                 <div class="form-group col-md-3">
                                         <label class="control-label" for="status_filter">Status</label>
                                         <div class="controls">
                                             {!! Form::select('status', $statuss, @$status, array('class' => 'form-control', 'value'=>Input::old('status'))) !!}
                                         </div>
                                     </div>
-                                 <div class="control-group col-md-3">
+                                 <div class="form-group col-md-3">
                                     <label class="control-label" for="title">From Date</label>
 
                                     <div class="controls">
                                         <input type="date" name="from" value="{{@$from}}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="control-group col-md-3">
+                                <div class="form-group col-md-3">
                                     <label class="control-label" for="title">To Date</label>
 
                                     <div class="controls">
                                         <input type="date" name="to" value="{{@$to}}" class="form-control">
                                     </div>
                                 </div>
-                                 <div class="control-group col-md-3">
+                                 <div class="form-group col-md-3">
                                     <label class="control-label" for="title">From Price</label>
 
                                     <div class="controls">
                                         <input type="text" name="min" value="{{@$min}}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="control-group col-md-3">
+                                <div class="form-group col-md-3">
                                     <label class="control-label" for="title">To Price</label>
 
                                     <div class="controls">
                                         <input type="text" name="max" value="{{@$max}}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="control-group col-md-3">
-                                    <label class="control-label" for="title">&nbsp;</label>
+                                <div class="form-group col-md-3">
                                     <div class="controls">
                                         <button class="btn btn-info" type="submit">FILTER</button>
                                         <a class="btn btn-info" href="{{url(getLang().'/admin/order')}}">CLEAR</a>
                                     </div>
                                 </div>
-                                 <div class="control-group col-md-9 pull-right">
+                                 <div class="form-group col-md-9 pull-right">
                                         <label class="control-label" for="title">&nbsp;</label>
                                         <div class="controls text-right">
                                         <input type="hidden" value="{{@$offset}}" name="offset">

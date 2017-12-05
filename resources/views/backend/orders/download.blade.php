@@ -5,7 +5,7 @@
 <html class="no-js">
     <!--<![endif]-->
     <head>
-        <title>Jeevandeep Admin</title>
+        <title>Invoice</title>
         <link rel="shortcut icon" href="{!! asset('/clip/favicon.ico') !!}" />
         <!-- start: META -->
         <meta charset="utf-8" />
@@ -27,7 +27,7 @@
                         <div class="col-xs-6">
                             <address>
                                 <strong>Billed To:</strong><br>
-                                {{ $order->user->first_name }} {{ $order->user->last_name }}<br>
+                                {{ $order->user->parent_first_name }} {{ $order->user->parent_last_name }}<br>
                                 <a href="mailto:{{ $order->user->email }}">{{ $order->user->email }}</a><br>
                                 {{ $order->user->userinfo->phone }}
                             </address>

@@ -47,20 +47,12 @@
                 <span class="title"> Email Templates </span><span class="selected"></span>
             </a>
         </li>
-        <li class="{{ setActive('admin/missingschool*') }} hide">
-            <a href="javascript:void(0)"> <i class="fa fa-list"></i> <span class="title">Unavailable Master</span>
-                <i class="fa fa-angle-right pull-right"></i> </a>
-                <ul class="sub-menu">
-                    <li><a href="{{ url(getLang() . '/admin/missingschool') }}"><i class="fa fa-university"></i> Schools</a>
-                    <li><a href="{{ url(getLang() . '/admin/missingstandard/standards') }}"><i class="fa fa-paperclip"></i> Standards</a>
-                </ul>
-        </li>
         <li class="{{ setActive('admin/user*') }}">
             <a href="{{ url(getLang() . '/admin/user') }}"><i class="fa fa-users"></i>
                 <span class="title"> Users </span><span class="selected"></span>
             </a>
         </li>
-        <li class="{{ setActive(['admin/unavailable*']) }}">
+<!--        <li class="{{ setActive(['admin/unavailable*']) }}">
             <a class="{{ setActive('admin') }}" href="javascript:void(0)"><i class="clip-home-3"></i> <span class="title"> Unavailable </span><span class="selected"></span> </a>
             <ul class="sub-menu">
                 <li class="{{ setActive('admin/unavailable/schools*') }}">
@@ -74,7 +66,7 @@
                     </a>
                 </li>
             </ul>
-        </li>
+        </li>-->
         <li class="{{ setActive('admin/order*') }}">
             <a href="{{ url(getLang() . '/admin/order') }}"><i class="fa fa-shopping-cart"></i>
                 <span class="title"> Orders </span><span class="selected"></span>

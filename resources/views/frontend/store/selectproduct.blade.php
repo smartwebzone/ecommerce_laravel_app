@@ -132,9 +132,9 @@ Jeevandeep Prakashan Pvt. Ltd.
                                 <td class="gst nobg"></td>
                                 <td class="mrp greybg">INR {{numberWithDecimal($totalmrp)}}</td>
                             </tr>
-                            <tr>
-                                <td colspan="6" class="nobg" height="2"></td>
-                            </tr>
+                        </table> 
+                        <div class="table-hr"></div>
+                        <table>
                             <tr>
                                 <td class="name text-right">shipping costs</td>
                                 <td class="quantity nobg"></td>
@@ -181,9 +181,6 @@ Jeevandeep Prakashan Pvt. Ltd.
                                 <td class="subtotal nobg"></td>
                                 <td class="gst nobg"></td>
                                 <td class="mrp greybg">INR {{numberWithDecimal($shippingtax+$ps->shipping_state)}}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="6" class="nobg" height="2"></td>
                             </tr>
                         </table>
                         <div class="table-hr"></div>

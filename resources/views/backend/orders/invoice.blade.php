@@ -10,7 +10,7 @@ foreach($order->product as $item){
 <html class="no-js">
     <!--<![endif]-->
     <head>
-        <title>Jeevandeep Admin</title>
+        <title>Invoice</title>
         <link rel="shortcut icon" href="{!! asset('/clip/favicon.ico') !!}" />
         <!-- start: META -->
         <meta charset="utf-8" />
@@ -64,7 +64,7 @@ foreach($order->product as $item){
                                             <td width="33%" class="text-left">
                                                 <h4>Customer Details:</h4>
                                                 <div class="">
-                                                    <strong>{{ $order->user->first_name }} {{ $order->user->last_name }}</strong>
+                                                    <strong>{{ $order->user->parent_first_name }} {{ $order->user->parent_last_name }}</strong>
                                                     <br/>{{ $order->user->email }}
                                                     <br/>{{ $order->user->mobile }}
                                                 </div>
