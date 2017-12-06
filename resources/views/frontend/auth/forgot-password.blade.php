@@ -57,6 +57,9 @@ Jeevandeep Prakashan Pvt. Ltd.
                 <button  type="submit" class="btn btnS"><i class="fa fa-link"></i>FORGOT PASSWORD</button>
                 <button type="submit" style="display: none; text-align: left;" class="btn btnS text-left"><i class="fa fa-link"></i>FORGOT PASSWORD</button>
             </li>
+            <li class="forgot">
+                <i class="fa fa-link"></i><a href="{{route('signin')}}">Back</a>
+            </li>
             {!! Form::close() !!}
         </div>
     </div>

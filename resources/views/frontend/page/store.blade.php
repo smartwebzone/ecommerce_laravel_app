@@ -31,7 +31,7 @@ Jeevandeep Prakashan Pvt. Ltd.
 			<h3>PURCHASE Your School's books online</h3>
             <a href="{!! url(getLang() . '/school') !!}" class="shop-online">SHOP ONLINE<i class="fa fa-link"></i></a>
             <p class="available">*Available only for select School's and Standards.</p>
-            <p class="fontI">Click "Shop Online" to check if your School is listed. If your School is not listed, you can request for it and we will try our best to make it available as soon as we can.</p>
+            <p class="fontI">Click 'Shop Online' to check if your School is listed. If your School is not listed, you can contact us at enquiries@jeevandeep.in.</p>
 		</div>
 	</div>
 </div>
