@@ -94,7 +94,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                                 <td class="gst nobg"></td>
                                 <td class="mrp nobg"></td>
                             </tr>
-                            <?php if($shipping_address->state==$ps->company->state){?>
+                            <?php if(@$shipping_address->state==$ps->company->state){?>
                             <tr>
                                 <td class="name text-right">SGST in inr</td>
                                 <td class="quantity nobg"></td>
@@ -144,7 +144,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                                 <td class="mrp">INR {{numberWithDecimal($ps->shipping_state)}}</td>
                             </tr>
                             <?php $shippingtax = (($ps->shipping_state * getProductItemHighestTax($ps->id)) / 100); ?>
-                            <?php if($shipping_address->state==$ps->company->state){?>
+                            <?php if(@$shipping_address->state==$ps->company->state){?>
                             <tr>
                                 <td class="name text-right">SGST on shipping costs in inr</td>
                                 <td class="quantity nobg"></td>

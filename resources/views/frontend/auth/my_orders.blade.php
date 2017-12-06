@@ -48,7 +48,8 @@ My Orders | Jeevandeep Prakashan Pvt. Ltd.
                 <table>
                     <thead>
                         <tr>
-                            <th class="my-col-1">ORDER ID</th>
+                            <th class="my-col-3">ORDER ID</th>
+                            <th class="my-col-1">PRODUCT TITLE</th>
                             <th class="my-col-2">DATE OF PURCHASE</th>
                             <th class="my-col-3">ORDER TOTAL</th>
                             <th class="my-col-4">ORDER STATUS</th>
@@ -59,8 +60,9 @@ My Orders | Jeevandeep Prakashan Pvt. Ltd.
                         @foreach($orders as $om)
                         @foreach($om->product as $op)
                         <tr>
+                            <td class="my-col-3"><div>{{$om->order_no}}</div></td>
                             <td class="my-col-1"><div>{{$op->title}}</div></td>
-                            <td class="my-col-2"><div>{{$om->order_date_formatted}}</div></td>
+                            <td class="my-col-2"><div>{{$om->order_date_formatted_short}}</div></td>
                             <td class="my-col-3"><div>INR {{$op->price}}</div></td>
                             <td class="my-col-4"><div>{{$om->order_status_text}}</div></td>
                             <td class="my-col-5"><div><a href="{!! route('invoice', [$om->id]) !!}" target="_blank"><i class="fa fa-download"></i><span>Download</span></a></div></td>

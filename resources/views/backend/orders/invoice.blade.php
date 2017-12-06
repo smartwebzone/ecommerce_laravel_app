@@ -55,21 +55,39 @@ foreach($order->product as $item){
                                 </table>
                             </div>
                         </div>
-                        <hr>
+                        <hr style="padding:0px;margin:0px;">
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="print_table">
                                     <tbody>
                                         <tr>
-                                            <td width="33%" class="text-left">
+                                            <td width="25%" class="text-left">
+                                                <h4>Order Details:</h4>
+                                                <div class="">
+                                                    <strong>Order ID</strong>
+                                                    <br/>{{ $order->order_no }}
+                                                    <br/><strong>Order Date</strong>
+                                                    <br/>{{ $order->order_date_formatted }}
+                                                    <br/><strong>Preferred Delivery Date</strong>
+                                                    <br/>{{ $order->preferred_delivery_date_formatted }}
+                                                    <br/><strong>Order Status</strong>
+                                                    <br/>{{ $order->status->name }}
+                                                </div>
+                                            </td>
+                                            <td width="25%" class="text-left">
                                                 <h4>Customer Details:</h4>
                                                 <div class="">
-                                                    <strong>{{ $order->user->parent_first_name }} {{ $order->user->parent_last_name }}</strong>
+                                                    <strong>Parent / Guardian Name</strong>
+                                                    <br/>{{ $order->user->parent_name }}
+                                                    <br/><strong>Child Name</strong>
+                                                    <br/>{{ $order->user->child_name }}
+                                                    <br/><strong>Email ID</strong>
                                                     <br/>{{ $order->user->email }}
+                                                    <br/><strong>Phone</strong>
                                                     <br/>{{ $order->user->mobile }}
                                                 </div>
                                             </td>
-                                            <td class="text-left">
+                                            <td width="25%" class="text-left">
                                                 <h4>Billing Information:</h4>
                                                 <div class="">
                                                     <address>
@@ -80,7 +98,7 @@ foreach($order->product as $item){
                                                     </address>
                                                 </div>    
                                             </td>
-                                            <td class="text-left">
+                                            <td width="25%" class="text-left">
                                                 <h4>Shipping Information:</h4>
                                                 <div class="">
                                                     <address>
@@ -98,7 +116,7 @@ foreach($order->product as $item){
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table">
+                                <table class="print_table table">
                                     <thead>
                                         <tr>
                                             <th width="60%"> Product </th>
@@ -114,10 +132,7 @@ foreach($order->product as $item){
                                         @foreach($order->product as $item)
                                        
                                         <tr>
-                                            <td>
-                                                {{ $item->title }} 
-                                              
-                                            </td>
+                                            <td>{{ $item->title }} </td>
                                             <td class="text-right">{!! ($order->amount) !!}</td>
                                             <td class="text-center">1</td>
                                             <td class="text-right">{{ ($order->amount) }}</td>
@@ -157,13 +172,26 @@ foreach($order->product as $item){
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12">
-                                <table class="print_table">
-                                    <tbody>
-                                        <tr>
-                                            <td> Order Status : {{ $order->status->name }} </td>
-                                        </tr>
-                                    </tbody>   
+                            <div class="col-md-12">	
+                                <table class="print_table table table-bordered ">
+                                    <tr>
+                                        <td colspan="2"><h4>Items to Dispatch</h4></td>
+                                    </tr>
+                                    <tr>
+                                        <th width="70%">Item</th>
+                                        <th class="text-center" width="15%">Quantity</th>
+                                    </tr>
+                                    @foreach($order->product as $prod)
+                                    @foreach($item->books as $bk)
+
+                                    <tr>
+                                        <td class="text-left">
+                                            {{ $bk->name }}
+                                        </td>
+                                        <td class="text-center">{{ $bk->pivot->quantity }}</td>
+                                    </tr>
+                                    @endforeach
+                                    @endforeach
                                 </table>
                             </div>
                         </div>

@@ -228,6 +228,15 @@ My Profile | Jeevandeep Prakashan Pvt. Ltd.
     $().ready(function () {
         $(".validate_form").validate({
             rules: {
+                mobile: {
+                    required: true,
+                    digits: true,
+                    minlength: 10,
+                },
+                landline: {
+                    digits: true,
+                    minlength: 10,
+                },
                 zip: {
                     required: true,
                     digits: true,
