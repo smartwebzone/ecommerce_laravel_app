@@ -85,7 +85,7 @@ class StoreController extends Controller {
                 Session::put('product', $request->product);
                 return Redirect::route('store.confirm');
             } else {
-                return Redirect::route('store.selectProduct')->with('error', 'Please select atleast 1 product to proceed.');
+                return Redirect::route('store.selectProduct')->with('error', 'Please select at least one product to proceed.');
             }
         }
         if (!Session::get('product')) {

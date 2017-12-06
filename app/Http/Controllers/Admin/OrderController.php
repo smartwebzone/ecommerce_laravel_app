@@ -284,7 +284,7 @@ class OrderController extends Controller {
     }
 
     public function invoice($id) {
-
+        error_reporting(0);
         $order = \App\Models\Order::find($id);
         $option_added = [];
         //dd($order->user);

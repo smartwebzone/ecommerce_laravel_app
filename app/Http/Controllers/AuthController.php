@@ -71,17 +71,23 @@ class AuthController extends Controller {
     }
 
     public function getconfirmEmail(Request $request) {
-        if (!Sentinel::check() && $request->secret) {
-            $user = User::where(['verify' => $request->secret])->first();
+        $secret = $request->secret;
+        $user_id = base64_decode($request->key);
+        if ($secret && $user_id) {
+            $user = User::where(['id' => $user_id, 'verify' => $secret])->first();
 
             if ($user) {
-                $user->is_active = 1;
-                $user->verify = 'COMPLETED';
-                $user->save();
-                Sentinel::activate($user);
-                Sentinel::authenticate($user);
-                $role = Sentinel::findRoleByName('Student');
-                $role->users()->attach($user);
+                if($user->is_active == 0){
+                    $user->is_active = 1;
+                    $user->save();
+                    Sentinel::activate($user);
+                    $role = Sentinel::findRoleByName('Student');
+                    $role->users()->detach($user);
+                    $role->users()->attach($user);
+                }
+                if(!Sentinel::check()){
+                    Sentinel::authenticate($user);
+                }
                 return Redirect::to('profile');
             }
         }
@@ -184,7 +190,7 @@ class AuthController extends Controller {
                     'verify' => str_random(16)
         ));
         $data = array(
-            'link' => url('/confirmEmail?secret=' . $user->verify)
+            'link' => url('/confirmEmail?secret=' . $user->verify.'&key='. base64_encode($user->id))
         );
         $template = \App\Models\Email::where(['template' => 'Email Validation'])->get();
         // Send the welcome email

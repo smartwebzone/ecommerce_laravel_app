@@ -34,5 +34,12 @@ class User extends EloquentUser {
     public function address() {
         return $this->belongsToMany(Address::class, 'address_user', 'user_id', 'address_id');
     }
-
+    
+    public function getParentNameAttribute() {
+        return $this->parent_first_name.' '.$this->parent_last_name;
+    }
+    
+    public function getChildNameAttribute() {
+        return $this->first_name.' '.$this->last_name;
+    }
 }
