@@ -35,6 +35,15 @@ class StoreController extends Controller {
     }
 
     public function selectSchoolPost(Request $request) {
+        if($request->state){
+            Session::put('state', $request->state);
+        }
+        if($request->school){
+            Session::put('school', $request->school);
+        }
+        if($request->standard){
+            Session::put('standard', $request->standard);
+        }
         $messages = [
             'state.required' => 'Please select the State',
             'school.required' => 'Please select the School',
@@ -46,9 +55,6 @@ class StoreController extends Controller {
             'standard' => 'required',
         ],$messages);
 
-        Session::put('state', $request->state);
-        Session::put('school', $request->school);
-        Session::put('standard', $request->standard);
         if (Sentinel::getUser()) {
             return Redirect::route('store.selectProduct');
         } else {
