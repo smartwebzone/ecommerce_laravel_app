@@ -33,18 +33,30 @@ Jeevandeep Prakashan Pvt. Ltd.
         @if(app('request')->input('error'))
         <div class="alert alert-danger">{{app('request')->input('error')}}</div>
         @endif
+        @if(Session::has('error'))
+        <div class="flash-message alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
+        @if(Session::has('success'))
+        <div class="flash-message alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
         @if(count($cart_data) > 0 || app('request')->input('success') == 1)
-        <div class="select-div"><i class="fa fa-credit-card"></i>Proceed to payment</div>
-        <div class="please-select">You have selected {{inWords($total_products)}} in your shopping cart. You are required to complete your transactions for the {{inWords($total_products)}} one after another. Please click 'Pay Now' to continue.</div>
+        <div class="select-div"><i class="fa fa-shopping-basket"></i>Your Shopping Cart</div>
+        <div class="please-select">This is your shopping cart. If you have any items pending payment, please click 'Pay Now' to continue.</div>
         <div class="cf">
             <table class="cart-table">
                 <tr>
+                    <th>&nbsp;</th>
                     <th class="col-td-1">product</th>
                     <th align="center" class="col-td-2">TOTAL PAYABLE</th>
                     <th class="col-td-3">&nbsp;</th>
                 </tr>
                 @foreach($cart_data as $row)
                 <tr>
+                    <td class="text-center"><div><a href="{{route('store.cart.delete',$row->id)}}" onclick="return confirm('Are you sure want to delete this prodct from cart?')"><i class="fa fa-trash" style="margin-right:0px;"></i></a></div></td>
                     <td><div><i class="fa fa-shopping-bag"></i>{{$row->product()->find($row->product_id)->title}}</div></td>
                     <td class="col-td-2"><div>INR {{$row->product()->find($row->product_id)->price}}</div></td>
                     <td class="col-td-pay">

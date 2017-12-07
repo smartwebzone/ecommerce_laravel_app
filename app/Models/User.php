@@ -13,7 +13,7 @@ class User extends EloquentUser {
 
     protected $table = 'users';
     protected $guarded = ['id'];
-    protected $fillable = ['isAdmin', 'uuid', 'email', 'password', 'mobile', 'last_login', 'first_name', 'middle_name', 'last_name','verify'];
+    protected $fillable = ['isAdmin', 'uuid', 'email', 'password', 'mobile', 'last_login', 'first_name', 'middle_name', 'last_name', 'parent_first_name', 'parent_middle_name', 'parent_last_name', 'landline', 'verify'];
 
     public function setUuid($uuid) {
         return Uuid::generate(3, $this->first_name . $this->last_name, Uuid::NS_DNS);
@@ -34,5 +34,12 @@ class User extends EloquentUser {
     public function address() {
         return $this->belongsToMany(Address::class, 'address_user', 'user_id', 'address_id');
     }
-
+    
+    public function getParentNameAttribute() {
+        return $this->parent_first_name.' '.$this->parent_last_name;
+    }
+    
+    public function getChildNameAttribute() {
+        return $this->first_name.' '.$this->last_name;
+    }
 }

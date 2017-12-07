@@ -1,7 +1,7 @@
 <div class="row">
     <div class="form-group col-sm-12">
         {!! Form::label('company_id', 'Company:') !!}
-        <span class="mandatory">*</span>
+        
         {!! Form::select('company_id', $company, NULL, array('class' => 'form-control', 'value'=>Input::old('company_id'),'required' => true)) !!}
         @if ($errors->has('company_id'))
         <div class="error">{{ $errors->first('company_id') }}</div>
@@ -11,7 +11,7 @@
 <div class="row">
     <div class="form-group col-sm-6">
         {!! Form::label('name', 'Name:') !!}
-        <span class="mandatory">*</span>
+        
         {!! Form::text('name', null, ['class' => 'form-control', 'value' => old('name'),'required' => true]) !!}
         @if ($errors->has('name'))
         <div class="error">{{ $errors->first('name') }}</div>
@@ -35,7 +35,7 @@
     </div>
     <div class="form-group col-sm-6">
         {!! Form::label('book_code', 'Code:') !!}
-        <span class="mandatory">*</span>
+        
         {!! Form::text('book_code', null, ['class' => 'form-control','value' => old('book_code'),'required' => true]) !!}
         @if ($errors->has('book_code'))
         <div class="error">{{ $errors->first('book_code') }}</div>
@@ -45,7 +45,7 @@
 <div class="row">
     <div class="form-group col-sm-6">
         {!! Form::label('price_after_tax', 'MRP:') !!}
-        <span class="mandatory">*</span>
+        
         {!! Form::text('price_after_tax', null, ['class' => 'form-control','value' => old('price_after_tax'),'required' => true]) !!}
         @if ($errors->has('price_after_tax'))
         <div class="error">{{ $errors->first('price_after_tax') }}</div>
@@ -61,7 +61,7 @@
 <div class="row">
     <div class="form-group col-sm-6 tax">
         {!! Form::label('tax', 'Tax: (%) ') !!}
-        <span class="mandatory">*</span>
+        
         {!! Form::text('tax', null, ['class' => 'form-control','value' => old('tax')]) !!}
         @if ($errors->has('tax'))
         <div class="error">{{ $errors->first('tax') }}</div>

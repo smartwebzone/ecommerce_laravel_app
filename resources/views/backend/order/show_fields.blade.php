@@ -66,15 +66,15 @@
                     <td colspan="2"><h4>Customer Details : </h4></td>
                 </tr>
                 <tr>
-                    <td>First name</td>
-                    <td>{{ $order->user->first_name }}</td>
+                    <td>Parent / Guardian Name</td>
+                    <td>{{ $order->user->parent_name }}</td>
                 </tr>
                 <tr>
-                    <td>Last name</td>
-                    <td>{{ $order->user->last_name }}</td>
+                    <td>Child Name</td>
+                    <td>{{ $order->user->child_name }}</td>
                 </tr>
                 <tr>
-                    <td>Email</td>
+                    <td>Email ID</td>
                     <td><a href="mailto:{{ $order->user->email }}">{{ $order->user->email }}</a></td>
                 </tr>
                 <tr>
@@ -169,7 +169,7 @@
         <div class="col-md-12">	
             <table class="table table-bordered ">
                 <tr>
-                    <td colspan="3"><h4>Items to Dispatch</h4></td>
+                    <td colspan="2"><h4>Items to Dispatch</h4></td>
                 </tr>
                 <tr>
                     <th width="70%">Item</th>

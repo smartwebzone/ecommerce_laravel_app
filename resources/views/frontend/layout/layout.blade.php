@@ -79,6 +79,13 @@
 
     <script type="text/javascript">
     (function($){
+        $(".errormsg").each(function(){
+            if($(this).text().trim().length > 0 && !$(this).hasClass('help-block')){
+                $(this).addClass('help-block');
+            }else{
+                $(this).removeClass('help-block');
+            }
+        });
     @yield('inlinejs')
     })(jQuery);
     </script>

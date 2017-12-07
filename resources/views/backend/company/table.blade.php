@@ -11,6 +11,9 @@
 </thead>
 <tbody>
     @foreach($company as $key=>$row)
+    <?php
+    $allow_delete = ($row->products()->count() > 0 ? false : true);
+    ?>
     <tr>
         <td class="text-center">{{ srNo($key) }}</td>
         <td>{{ $row->name }}</td>
@@ -24,7 +27,11 @@
             <div class='btn-group'>
 <!--                    <a href="{!! route('admin.company.show', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>-->
                 <a href="{!! route('admin.company.edit', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
+                @if($allow_delete)
                 {!! Form::button('<i class="glyphicon glyphicon-trash" title="Delete"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                @else
+                <a href="javascript:;" class='btn btn-danger btn-xs disabled'><i class="glyphicon glyphicon-trash" title="Delete"></i></a>
+                @endif
             </div>
             {!! Form::close() !!}
         </td>

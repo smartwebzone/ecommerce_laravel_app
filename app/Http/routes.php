@@ -66,6 +66,7 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
     Route::get('/store/confirm', ['as' => 'store.confirm', 'uses' => 'StoreController@confirm']);
     Route::get('/store/cart', ['as' => 'store.cart', 'uses' => 'StoreController@cart']);
     Route::post('/store/cart', ['as' => 'store.cart', 'uses' => 'StoreController@cart']);
+    Route::get('/store/cart/delete/{id}', ['as' => 'store.cart.delete', 'uses' => 'StoreController@cart_delete']);
     Route::post('/store/pay', ['as' => 'store.pay', 'uses' => 'StoreController@pay']);
     Route::post('/store/pay', ['as' => 'store.pay', 'uses' => 'StoreController@pay']);
      Route::post('/store/paysuccess', ['as' => 'store.paysuccess', 'uses' => 'StoreController@paysuccess']);

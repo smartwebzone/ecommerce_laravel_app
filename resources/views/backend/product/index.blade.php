@@ -57,19 +57,19 @@
                             <form role="form" method="GET">
 
                                 <div class="row">
-                                    <div class="control-group col-md-4">
+                                    <div class="form-group col-md-4">
                                         <label class="control-label" for="charge_status">Company</label>
                                         <div class="controls">
                                             {!! Form::select('company_id', $company, $company_id, array('class' => 'form-control', 'value'=>Input::old('company_id'))) !!}
                                         </div>
                                     </div>
-                                    <div class="control-group col-md-4">
+                                    <div class="form-group col-md-4">
                                         <label class="control-label" for="charge_status">School</label>
                                         <div class="controls">
                                             {!! Form::select('school_id', $school, $school_id, array('class' => 'form-control', 'value'=>Input::old('school_id'))) !!}
                                         </div>
                                     </div>
-                                    <div class="control-group col-md-4">
+                                    <div class="form-group col-md-4">
                                         <label class="control-label" for="charge_status">Standard</label>
                                         <div class="controls">
                                             {!! Form::select('standard_id', $standard, $standard_id, array('class' => 'form-control', 'value'=>Input::old('standard_id'))) !!}
@@ -77,20 +77,20 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="control-group col-md-4">
+                                    <div class="form-group col-md-4">
                                         <label class="control-label" for="title">Title</label>
                                         <div class="controls">
                                             <input placeholder="Title" type="text" name="title" value="{{@$title}}" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="control-group col-md-4">
+                                    <div class="form-group col-md-4">
                                         <label class="control-label" for="status_filter">Taxable</label>
                                         <div class="controls">
                                             <!--{!! Form::checkbox('is_taxable', 1,$is_taxable,['data-toggle' => 'toggle', 'data-on' => 'Enabled', 'data-off'=>'Disabled', 'data-onstyle' => 'success', 'data-offstyle' => 'danger', 'value'=>Input::old('is_taxable')]) !!}-->
                                             {!! Form::select('is_taxable', [''=>'ALL',1=>'No',2=>'Yes'], $is_taxable, array('class' => 'form-control', 'value'=>Input::old('is_taxable'))) !!}
                                         </div>
                                     </div>
-                                    <div class="control-group col-md-4">
+                                    <div class="form-group col-md-4">
                                         <label class="control-label" for="status_filter">Status</label>
                                         <div class="controls">
                                             <!--{!! Form::checkbox('status', 1, $status,['data-toggle' => 'toggle', 'data-on' => 'Enabled', 'data-off'=>'Disabled', 'data-onstyle' => 'success', 'data-offstyle' => 'danger', 'value'=>Input::old('status')]) !!}-->
@@ -99,22 +99,21 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="control-group col-md-3">
-                                        <label class="control-label" for="title">&nbsp;</label>
+                                    <div class="form-group col-md-12">
                                         <div class="controls">
                                             <button class="btn btn-info" type="submit">FILTER</button>
                                             <a class="btn btn-info" href="{{url(getLang().'/admin/product')}}">CLEAR</a>
                                        
                                             <input type="hidden" value="{{@$offset}}" name="offset">
                                             <input type="hidden" value="" class="delete-order" name="delete_product">
-                                            <label class="control-label" for="title">&nbsp;</label>
-
-                                            <button  name="delete" disabled="" value="1" class="btn btn-danger delete-btn" type="submit">Delete</button>
                                         </div>
                                     </div>
                                 </div>
 
                             </form>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <button  name="delete" disabled="" value="1" class="btn btn-danger delete-btn" type="submit">DELETE SELECTED PRODUCTS</button>
                         </div>
                         <div class="col-md-12">
                             @include('backend.product.table')

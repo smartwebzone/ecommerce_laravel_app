@@ -1,7 +1,8 @@
 <table class="table table-responsive table-hover" id="user-table">
     <thead>
     <th width="5%" class="text-center">#</th>
-    <th>Name</th>
+    <th>Parent Name</th>
+    <th>Child Name</th>
     <th class="text-center">Type</th>
     <th>Email ID</th>
     <th>Phone</th>
@@ -13,6 +14,7 @@
     @foreach($users as $key => $row)
     <tr>
         <td class="text-center">{{ srNo($key) }}</td>
+        <td>{!! $row->parent_first_name !!} {!! $row->parent_last_name !!}</td>
         <td>{!! $row->first_name !!} {!! $row->last_name !!}</td>
         <td class="text-center">{!! $row->isAdmin == 1 ? 'Admin' : 'User' !!}</td>
         <td>{{ $row->email }}</td>

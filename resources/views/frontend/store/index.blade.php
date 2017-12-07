@@ -20,7 +20,13 @@ Jeevandeep Prakashan Pvt. Ltd.
 @section('bodyschema')@endsection
 @section('bodytag')@endsection
 
-@section('header_styles')@endsection
+@section('header_styles')
+<style type="text/css">
+.help-block{
+    margin-bottom: 0px;
+}
+</style>    
+@endsection
 
 
 @section('content')
@@ -45,8 +51,8 @@ Jeevandeep Prakashan Pvt. Ltd.
             <li class="pb15">
             	<label>SELECT STATE</label>
                 <a class="btn btn-select btn-select-light nobottommargin">
-                    <input type="hidden" class="btn-select-input" id="state" name="state" value="{{Input::old('state')}}" />
-                    <span class="btn-select-value">{{Input::old('state')?Input::old('state'):'SELECT STATE'}}</span>
+                    <input type="hidden" class="btn-select-input" id="state" name="state" value="{{Session::get('state')}}" />
+                    <span class="btn-select-value">{{Session::get('state')?Session::get('state'):'SELECT STATE'}}</span>
                     <span class="btn-select-arrow glyphicon"><i class="fa fa-chevron-circle-down"></i></span>
                     <ul class="ul-scroll">
                         @foreach($state as $st)
@@ -60,7 +66,7 @@ Jeevandeep Prakashan Pvt. Ltd.
             <li class="pb15">
             	<label>SELECT SCHOOL</label>
                 <a class="school_dd btn btn-select btn-select-light nobottommargin disabled">
-                    <input type="hidden" class="btn-select-input" id="school" name="school" value="{{Input::old('school')}}" />
+                    <input type="hidden" class="btn-select-input" id="school" name="school" value="{{Session::get("school")}}" />
                     <span class="btn-select-value school-value">SELECT SCHOOL</span>
                     <span class="btn-select-arrow glyphicon"><i class="fa fa-chevron-circle-down"></i></span>
                     <ul id="school-option" class="ul-scroll">
@@ -72,7 +78,7 @@ Jeevandeep Prakashan Pvt. Ltd.
             <li class="pb15">
             	<label>SELECT STANDARD</label>
                 <a class="standard_dd btn btn-select btn-select-light nobottommargin disabled">
-                    <input type="hidden" class="btn-select-input" id="standard" name="standard" value="" />
+                    <input type="hidden" class="btn-select-input" id="standard" name="standard" value="{{Session::get("standard")}}" />
                     <span class="btn-select-value standard-value">SELECT STANDARD</span>
                     <span class="btn-select-arrow glyphicon"><i class="fa fa-chevron-circle-down"></i></span>
                     <ul id="standard-option" class="ul-scroll">
@@ -102,7 +108,7 @@ $(document).ready(function () {
     });
     
     $('#state').on('change', function(e){
-        $('.errormsg').hide();
+        $(this).parent().parent('li').find('.errormsg').hide();
         $('.school_dd').removeClass('disabled');
         var state = e.target.value;
 
@@ -113,7 +119,7 @@ $(document).ready(function () {
             $.each(data, function(index,subCatObj){
                 $('#school-option').append('<li data-id="'+subCatObj.id+'">'+subCatObj.name+'</li>');
             });
-            $('#school-option').append('<li data-id="not_available" class="italic" style="color:#FF0000">Not Available</li>');
+            //$('#school-option').append('<li data-id="not_available" class="italic" style="color:#FF0000">Not Available</li>');
         });
         $('.standard_dd').addClass('disabled');
         $('#standard-option').empty();
@@ -121,7 +127,7 @@ $(document).ready(function () {
     });
     
     $('#school').on('change', function(e){
-        $('.errormsg').hide();
+        $(this).parent().parent('li').find('.errormsg').hide();
         $('.standard_dd').removeClass('disabled');
         var school_id = e.target.value;
         if(school_id == 'not_available'){
@@ -133,27 +139,37 @@ $(document).ready(function () {
             $.each(data, function(index,subCatObj){
                 $('#standard-option').append('<li data-id="'+subCatObj.id+'">'+subCatObj.name+'</li>');
             });
-            $('#standard-option').append('<li data-id="not_available" class="italic" style="color:#FF0000">Not Available</li>');
+            //$('#standard-option').append('<li data-id="not_available" class="italic" style="color:#FF0000">Not Available</li>');
         });
     });
-    @if(Input::old("state"))
+    @if(Session::get('state'))
          $('#state').change();
-         @if(Input::old("school"))
+         @if(Session::get("school"))
              setTimeout(function(){
-                $('#school-option').find('li[data-id="'+'{{Input::old("school")}}'+'"]').addClass('selected');
-                $('.school-value').html($('#school-option').find('li[data-id="{{Input::old("school")}}"]').html());
+                $('#school-option').find('li[data-id="'+'{{Session::get("school")}}'+'"]').addClass('selected');
+                $('.school-value').html($('#school-option').find('li[data-id="{{Session::get("school")}}"]').html());
                  $('#school').change();
                  }, 1000);
          @endif
     @endif
     
     $('#standard').on('change', function(e){
-        $('.errormsg').hide();
+        $(this).parent().parent('li').find('.errormsg').hide();
         var standard_id = e.target.value;
         if(standard_id == 'not_available'){
             window.location.href = "{{route('unavailable_standard')}}";
         }
     });
+    @if(Session::get('school'))
+         $('#school').change();
+         @if(Session::get("standard"))
+             setTimeout(function(){
+                $('#standard-option').find('li[data-id="'+'{{Session::get("standard")}}'+'"]').addClass('selected');
+                $('.standard-value').html($('#standard-option').find('li[data-id="{{Session::get("standard")}}"]').html());
+                 $('#standard').change();
+                 }, 2000);
+         @endif
+    @endif
 });
 
 $(document).on('click', '.btn-select', function (e) {

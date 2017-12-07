@@ -29,21 +29,32 @@ class StoreController extends Controller {
     }
 
     public function selectSchool(Request $request) {
-        $state = State::orderBy('name','asc')->get();
+        $state = State::orderBy('name', 'asc')->get();
 
         return view('frontend.store.index', compact('state'))->with('cart', 'total');
     }
 
     public function selectSchoolPost(Request $request) {
+        if ($request->state) {
+            Session::put('state', $request->state);
+        }
+        if ($request->school) {
+            Session::put('school', $request->school);
+        }
+        if ($request->standard) {
+            Session::put('standard', $request->standard);
+        }
+        $messages = [
+            'state.required' => 'Please select the State',
+            'school.required' => 'Please select the School',
+            'standard.required' => 'Please select the Standard',
+        ];
         $this->validate($request, [
             'state' => 'required',
             'school' => 'required',
             'standard' => 'required',
-        ]);
+                ], $messages);
 
-        Session::put('state', $request->state);
-        Session::put('school', $request->school);
-        Session::put('standard', $request->standard);
         if (Sentinel::getUser()) {
             return Redirect::route('store.selectProduct');
         } else {
@@ -52,9 +63,6 @@ class StoreController extends Controller {
     }
 
     public function selectProduct(Request $request) {
-        if (Session::get('product')) {
-            Session::forget('product');
-        }
         $state = Session::get('state');
         $school = Session::get('school');
         $standard = Session::get('standard');
@@ -77,22 +85,24 @@ class StoreController extends Controller {
         }
         if ($request->action == 'confirm') {
             if ($request->product) {
-                Session::put('product', $request->product);
+                foreach ($request->product as $product_id) {
+                    addProductToCart($product_id);
+                }
                 return Redirect::route('store.confirm');
             } else {
-                return Redirect::route('store.selectProduct')->with('error', 'Please select atleast 1 product to proceed.');
+                return Redirect::route('store.selectProduct')->with('error', 'Please select at least one product to proceed.');
             }
         }
-        if (!Session::get('product')) {
+        if (getCartCount() < 1) {
             return Redirect::route('store.selectSchool');
         }
         $school = Session::get('school');
         $standard = Session::get('standard');
-        $product = \App\Models\Product::find(Session::get('product'));
+        $cart_data = \App\Models\Cart::where(['user_id' => Sentinel::getuser()->id])->get();
         $school = \App\Models\School::find($school);
         $standard = \App\Models\Standard::find($standard);
         $shipping_address = getUserAddress('shipping');
-        return view('frontend.store.confirm', compact('product', 'school', 'standard', 'shipping_address'))->with('cart', 'total');
+        return view('frontend.store.confirm', compact('cart_data', 'school', 'standard', 'shipping_address'))->with('cart', 'total');
     }
 
     public function cart(Request $request) {
@@ -120,29 +130,8 @@ class StoreController extends Controller {
                 $address = \App\Models\Address::create($data);
                 $address->users()->attach($user);
             }
-            $product = \App\Models\Product::find(Session::get('product'));
-            $preferred_delivery_date = NULL;
-            if ($request->month && $request->date) {
-                $date = date_parse($request->month);
-                $pdate = date('Y') . '-' . $date['month'] . '-' . $request->date;
-                $preferred_delivery_date = date('Y-m-d', strtotime($pdate));
-            }
-            if ($preferred_delivery_date == '0000-00-00') {
-                $preferred_delivery_date = NULL;
-            }
-            $delete_cart = \App\Models\Cart::where('user_id', Sentinel::getuser()->id)->delete();
-            $carts = array();
-            foreach ($product as $ps):
-                $cartdata = array(
-                    'user_id' => Sentinel::getuser()->id,
-                    'product_id' => $ps->id,
-                    'preferred_delivery_date' => $preferred_delivery_date
-                );
-                $cart = \App\Models\Cart::create($cartdata);
-                $carts[] = $cartdata;
-            endforeach;
-
-            Session::forget('product');
+            $preferred_delivery_date = parseIndianDate($_POST['preferred_delivery_date']);
+            updateCartPreferredDeliveryDate($preferred_delivery_date);
             return Redirect::route('store.cart');
         }
 
@@ -151,7 +140,7 @@ class StoreController extends Controller {
 
         $total_products = count($cart_data) + count($orders);
 
-        return view('frontend.store.cart', compact('product', 'cart_data', 'orders', 'total_products'));
+        return view('frontend.store.cart', compact('cart_data', 'orders', 'total_products'));
     }
 
     public function pay(Request $request) {
@@ -199,7 +188,7 @@ class StoreController extends Controller {
                 $totalmrp += $book->price_after_tax;
                 $totaltax += $book->price_after_tax - $book->price;
             endforeach;
-            $shippingtax = (($ps->shipping_state * 18) / 100);
+            $shippingtax = (($ps->shipping_state * getProductItemHighestTax($product_id)) / 100);
             $totalshipping = $shippingtax + $ps->shipping_state;
             $user = \App\Models\User::find(Sentinel::getuser()->id);
             $billing = $user->address()->where('address_type', 'billing')->first();
@@ -237,21 +226,31 @@ class StoreController extends Controller {
             $hash = strtolower(hash('sha512', $hash_string));
             $action = $PAYU_BASE_URL . '/_payment';
             $posted['hash'] = $hash;
+            echo '<body onload="closethisasap();">';
+            echo '<form name="redirectpost" method="post" action="' . $action . '">';
 
-//dd($action);           
-            $ch = curl_init();
+            if (!is_null($posted)) {
+                foreach ($posted as $k => $v) {
+                    echo '<input type="hidden" name="' . $k . '" value="' . $v . '"> ';
+                }
+            }
+            echo '<script type="text/javascript">
+            function closethisasap() {
+                document.forms["redirectpost"].submit();
+            }
+        </script></body></form>';
 
-//set the url, number of POST vars, POST data
-            curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) Gecko/20041001 Firefox/0.10.1");
-            curl_setopt($ch, CURLOPT_URL, $action);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $posted);
-            curl_setopt($ch, CURLOPT_HEADER, true);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-
-//execute post
-            $result = curl_exec($ch);
-            curl_close($ch);
+//            $ch = curl_init();
+//
+//            curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) Gecko/20041001 Firefox/0.10.1");
+//            curl_setopt($ch, CURLOPT_URL, $action);
+//            curl_setopt($ch, CURLOPT_POSTFIELDS, $posted);
+//            curl_setopt($ch, CURLOPT_HEADER, true);
+//            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+//            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+//
+//            $result = curl_exec($ch);
+//            curl_close($ch);
         }
     }
 
@@ -264,7 +263,15 @@ class StoreController extends Controller {
         $key = $_POST["key"];
         $productinfo = $_POST["productinfo"];
         $email = $_POST["email"];
-        $salt = "GQs7yium";
+        //$salt = "GQs7yium";
+        $MERCHANT_KEY = "zPr3a9nc";
+        // Merchant Salt as provided by Payu
+        if ($key == $MERCHANT_KEY) {
+            $salt = "QJtl6hKDZG";
+        } else {
+            $salt = "VutkKcEJrP";
+        }
+
         $product_id = $productinfo;
         If (isset($_POST["additionalCharges"])) {
             $additionalCharges = $_POST["additionalCharges"];
@@ -276,7 +283,7 @@ class StoreController extends Controller {
         $hash = hash("sha512", $retHashSeq);
 
         if ($hash != $posted_hash) {
-            return Redirect::route('store.cart', ['error' => 'Invalid Transaction. Please try again']);
+            return Redirect::route('store.cart', ['error' => 'Your transaction was unsuccessful. If your account has been debited, kindly send an email to solutions@jeevandeep.in. Please mention your account email, phone number, and details of the transaction. We  we will look into it immediately.']);
         } else if ($product_id) {
             return Redirect::route('store.cart', ['error' => "Your order status is " . $status]);
         }
@@ -291,19 +298,25 @@ class StoreController extends Controller {
         $key = $_POST["key"];
         $productinfo = $_POST["productinfo"];
         $email = $_POST["email"];
-        $salt = "GQs7yium";
+        //$salt = "GQs7yium";
+        $MERCHANT_KEY = "zPr3a9nc";
+        // Merchant Salt as provided by Payu
+        if ($key == $MERCHANT_KEY) {
+            $salt = "QJtl6hKDZG";
+        } else {
+            $salt = "VutkKcEJrP";
+        }
         $product_id = $productinfo;
         If (isset($_POST["additionalCharges"])) {
             $additionalCharges = $_POST["additionalCharges"];
             $retHashSeq = $additionalCharges . '|' . $salt . '|' . $status . '|||||||||||' . $email . '|' . $firstname . '|' . $productinfo . '|' . $amount . '|' . $txnid . '|' . $key;
         } else {
-
             $retHashSeq = $salt . '|' . $status . '|||||||||||' . $email . '|' . $firstname . '|' . $productinfo . '|' . $amount . '|' . $txnid . '|' . $key;
         }
         $hash = hash("sha512", $retHashSeq);
 
         if ($hash != $posted_hash) {
-            return Redirect::route('store.cart', ['error' => 'Invalid Transaction. Please try again']);
+            return Redirect::route('store.cart', ['error' => 'Your transaction was unsuccessful. If your account has been debited, kindly send an email to solutions@jeevandeep.in. Please mention your account email, phone number, and details of the transaction. We  we will look into it immediately.']);
         } else if ($product_id) {
 
             $ps = \App\Models\Product::find($product_id);
@@ -316,7 +329,7 @@ class StoreController extends Controller {
                 $totalmrp += $book->price_after_tax;
                 $totaltax += $book->price_after_tax - $book->price;
             endforeach;
-            $shippingtax = (($ps->shipping_state * 18) / 100);
+            $shippingtax = (($ps->shipping_state * getProductItemHighestTax($product_id)) / 100);
             $totalshipping = $shippingtax + $ps->shipping_state;
             $user = \App\Models\User::find(Sentinel::getuser()->id);
             $billing = $user->address()->where('address_type', 'billing')->first();
@@ -372,78 +385,6 @@ class StoreController extends Controller {
         return Redirect::route('store.cart', ['success' => '1']);
     }
 
-    public function payold(Request $request) {
-        if (!Sentinel::check()) {
-            return Redirect::route('signin');
-        }
-        if ($request->product_id) {
-            $product_id = $request->product_id;
-            $ps = \App\Models\Product::find($product_id);
-            $subtotal = 0;
-            $totaltax = 0;
-            $totalmrp = 0;
-            $totalshipping = 0;
-            foreach ($ps->books as $book):
-                $subtotal += $book->price;
-                $totalmrp += $book->price_after_tax;
-                $totaltax += $book->price_after_tax - $book->price;
-            endforeach;
-            $shippingtax = (($ps->shipping_state * 18) / 100);
-            $totalshipping = $shippingtax + $ps->shipping_state;
-            $user = \App\Models\User::find(Sentinel::getuser()->id);
-            $billing = $user->address()->where('address_type', 'billing')->first();
-            $shipping = $user->address()->where('address_type', 'shipping')->first();
-            if (!$billing) {
-                $billing = $shipping;
-            }
-            $order = array('user_id' => Sentinel::getuser()->id,
-                'amount' => $subtotal,
-                'tax' => $totaltax,
-                'shipping' => $totalshipping,
-                'total_amount' => $ps->price,
-                'status_id' => 1,
-                'preferred_delivery_date' => $request->preferred_delivery_date,
-                'billing_address1' => $billing->address1,
-                'billing_address2' => $billing->address2,
-                'billing_area' => $billing->area,
-                'billing_city' => $billing->city,
-                'billing_state' => $billing->state,
-                'billing_zip' => $billing->zip,
-                'shipping_address1' => $shipping->address1,
-                'shipping_address2' => $shipping->address2,
-                'shipping_area' => $shipping->area,
-                'shipping_city' => $shipping->city,
-                'shipping_state' => $shipping->state,
-                'shipping_zip' => $shipping->zip,
-            );
-            $ord = \App\Models\Order::Create($order);
-            $ord_prod = \App\Models\OrderProduct::Create(['order_id' => $ord->id,
-                        'product_id' => $ps->id,
-                        'qty' => 1,
-                        'price' => $ps->price]);
-            $ord = \App\Models\Order::find($ord->id);
-
-            $template = \App\Models\Email::where(['template' => 'Order'])->get();
-            // Send the welcome email
-            if ($template) {
-                $body = str_replace('<<parent_name>>', $order->user->parent_first_name . ' ' . $order->user->parent_last_name, $template[0]->body);
-
-
-                $body = nl2br($body);
-                $body = explode("<<order_details>>", $body);
-                $head = explode("\n", $body[0]);
-                $foot = explode("\n", $body[1]);
-                Mail::send('emails.orders', ['order' => $ord, 'head' => $head, 'foot' => $foot], function ($m) use ($user, $template) {
-                    $m->from('noreply@jeevandeep.com', 'Jeevandeep');
-                    $m->to($user->email, $user->first_name . ' ' . $user->last_name);
-                    $m->subject($template[0]->subject);
-                });
-            }
-            $delete_cart = \App\Models\Cart::where('user_id', Sentinel::getuser()->id)->where('product_id', $product_id)->delete();
-        }
-        return Redirect::route('store.cart', ['success' => '1']);
-    }
-
     public function unavailable_school(Request $request) {
         if ($request->action == 'add') {
             $missing_school = \App\Models\Missingschool::Create(['name' => $request->name,
@@ -460,6 +401,13 @@ class StoreController extends Controller {
             return Redirect::route('store.selectSchool')->with('success', 'Your request to add new standard sent successfully.');
         }
         return View('frontend.store.unavailable_standard');
+    }
+
+    public function cart_delete($id) {
+        deleteFromCart($id);
+        return \Redirect()->back()->with([
+            'success' => 'Product deleted from cart successfully.'
+        ]);
     }
 
 }

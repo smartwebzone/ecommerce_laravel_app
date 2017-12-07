@@ -311,3 +311,47 @@ function calculateBasePrice($mrp, $tax) {
     $base_price = ($mrp * 100) / (100 + $tax);
     return $base_price;
 }
+
+function getProductItemHighestTax($product_id) {
+    $product = new App\Models\Product();
+    $highest_tax = $product->getProductItemHighestTax($product_id);
+    return $highest_tax;
+}
+
+function parseIndianDate($date, $format = 'Y-m-d') {
+    if (!$date) {
+        return NULL;
+    }
+    $date_exp = explode('/', $date);
+    $date = $date_exp[1] . '/' . $date_exp[0] . '/' . $date_exp[2];
+    return date('Y-m-d', strtotime($date));
+}
+
+function addProductToCart($product_id, $preferred_delivery_date = NULL) {
+    $cartdata = array(
+        'user_id' => Sentinel::getuser()->id,
+        'product_id' => $product_id,
+        'preferred_delivery_date' => $preferred_delivery_date
+    );
+    $existing_cart = \App\Models\Cart::where('user_id', Sentinel::getuser()->id)->where('product_id', $product_id)->first();
+    if($existing_cart){
+        if($preferred_delivery_date){
+            $existing_cart->preferred_delivery_date = $preferred_delivery_date;
+        }
+        $existing_cart->save();
+    }else{
+        $cart = \App\Models\Cart::create($cartdata);
+    }
+}
+function updateCartPreferredDeliveryDate($preferred_delivery_date = NULL){
+    if($preferred_delivery_date){
+        $update_data = array('preferred_delivery_date' => $preferred_delivery_date);
+        App\Models\Cart::where('user_id',Sentinel::getuser()->id)->update($update_data);
+    }
+}
+function deleteFromCart($id){
+    $cart = \App\Models\Cart::where('user_id', Sentinel::getuser()->id)->where('id', $id)->first();
+    if($cart){
+        $cart->delete();
+    }
+}

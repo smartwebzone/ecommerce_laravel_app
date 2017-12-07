@@ -94,21 +94,73 @@ Jeevandeep Prakashan Pvt. Ltd.
     <!-- End Select School -->
 </div>
 <!-- End wrapper -->
+@endsection
 
+@section('footer_scripts')
 <script>
-    $(document).ready(function () {
-        $('#register-form-username,#first_name,#last_name').blur(function () {
-            $('input[name="register-form-username"]').val(
-                    $('#first_name').val() + " " +
-                    $('#last_name').val());
+    $().ready(function () {
+        $("#login-form").validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true,
+                },
+                password: {
+                    required: true,
+                },
+            },
+            messages: {
+                email: {
+                    required: "",
+                    email: "Please enter a valid Email ID",
+                },
+                password: {
+                    required: "",
+                },
+            },
+            highlight: function (element) {
+                $(element).closest('div.input-group').addClass('error');
+                $(element).closest('.form-group').addClass('child-label-red');
+            },
+            unhighlight: function (element) {
+                $(element).closest('div.input-group').removeClass('error');
+                $(element).closest('.form-group').removeClass('child-label-red');
+            },
+            errorElement: "span",
+            errorPlacement: function (error,element) {
+                $(error).addClass('help-block');
+                $(element).closest('div.input-group').after(error);
+            }
         });
-        $('input[name="register-form-username"]').val(
-                $('#first_name').val() + " " +
-                $('#last_name').val());
+        $("#register-form").validate({
+            rules: {
+                email_signup: {
+                    required: true,
+                    email: true,
+                },
+            },
+            messages: {
+                email_signup: {
+                    required: "",
+                    email: "Please enter a valid Email ID",
+                },
+            },
+            highlight: function (element) {
+                $(element).closest('div.input-group').addClass('error');
+                $(element).closest('.form-group').addClass('child-label-red');
+            },
+            unhighlight: function (element) {
+                $(element).closest('div.input-group').removeClass('error');
+                $(element).closest('.form-group').removeClass('child-label-red');
+            },
+            errorElement: "span",
+            errorPlacement: function (error,element) {
+                $(error).addClass('help-block');
+                $(element).closest('div.input-group').after(error);
+            }
+        });
     });
 </script>
 @endsection
-
-@section('footer_scripts')@endsection
 @section('pp_footer_scripts')@endsection
 @section('inlinejs')@endsection

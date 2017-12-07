@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Interfaces\ModelInterface as ModelInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class Product.
@@ -51,7 +52,7 @@ class Product extends Model implements ModelInterface {
             $state_ship = 'outstate_shipping_charges';
         }
 
-        $shippingtax = (($this->$state_ship * 18) / 100);
+        $shippingtax = (($this->$state_ship * getProductItemHighestTax($this->id)) / 100);
         $total = numberWithDecimal($shippingtax + $this->$state_ship + $totalmrp);
         return $total;
     }
@@ -83,5 +84,20 @@ class Product extends Model implements ModelInterface {
     
     public function getIsTaxableFormattedAttribute() {
         return ($this->is_taxable == 1 ? 'Yes' : 'No');
+    }
+    
+    public function getProductItemHighestTax($product_id) {
+        if(!$product_id){
+            return 0;
+        }
+        $data = Product::join('product_books', 'product_books.product_id', '=', 'product_master.id')
+                 ->join('book_master', 'book_master.id', '=', 'product_books.book_id')
+                 ->select(DB::raw('max(book_master.tax) as highest_tax'));
+        $data = $data->where('product_master.id','=',$product_id);
+        $data = $data->where('book_master.deleted_at','=',NULL);
+        $data = $data->get();
+        $highest_tax = $data[0]->highest_tax;
+        $highest_tax = (float)$highest_tax;
+        return $highest_tax;
     }
 }

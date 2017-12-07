@@ -18,4 +18,8 @@ class Company extends Model implements ModelInterface {
     public $table = 'company_master';
     public $timestamps = false;
 
+    public function products() {
+        return $this->hasMany(Product::class);
+    }
+
 }

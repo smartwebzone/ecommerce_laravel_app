@@ -28,7 +28,7 @@ My Profile | Jeevandeep Prakashan Pvt. Ltd.
 <div class="wrapper content create-profile my-account cf">
     @include('frontend.layout.jeevandeep.header')
     <div class="select-div"><strong>My Account</strong></div>
-    <div class="please-select">Welcome <span>{{Sentinel::getUser()->first_name.' '.Sentinel::getUser()->last_name}}</span> to your Jeevandeep Online Store account. You can view or edit your profile, view your orders and their status as well as download invoices for your completed orders from this page.</div>
+    <div class="please-select">Welcome <span>{{Sentinel::getUser()->parent_first_name.' '.Sentinel::getUser()->parent_last_name}}</span> to your Jeevandeep Online Store account. You can view or edit your profile, view your orders and their status as well as download invoices for your completed orders from this page.</div>
     @if(Session::has('error'))
     <div class="flash-message alert alert-danger">
         {{ session('error') }}
@@ -228,6 +228,15 @@ My Profile | Jeevandeep Prakashan Pvt. Ltd.
     $().ready(function () {
         $(".validate_form").validate({
             rules: {
+                mobile: {
+                    required: true,
+                    digits: true,
+                    minlength: 10,
+                },
+                landline: {
+                    digits: true,
+                    minlength: 10,
+                },
                 zip: {
                     required: true,
                     digits: true,

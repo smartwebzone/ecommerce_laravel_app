@@ -106,6 +106,13 @@ class OrderController extends Controller {
         }
         $limit = $this->perPage;
         $offset = $request->page;
+        if ($request->change_status && $request->export_order) {
+            $order_ids = explode(',',$request->export_order);
+            $update_data = array('status_id' => $request->change_status);
+            \App\Models\Order::whereIn('id',$order_ids)->update($update_data);
+            Flash::message('Order status changed successfully');
+            return Redirect::route('admin.order');
+        }
         if ($request->export) {
             $offset = $request->offset;
             return $this->export($orders, $request, $limit, $offset);
@@ -149,7 +156,6 @@ class OrderController extends Controller {
         $product = \App\Models\Product::lists('title', 'id')->toArray();
         $product = [null => 'ALL'] + $product;
         $statuss = \App\Models\Status::lists('name', 'id')->toArray();
-        $statuss = [null => 'ALL'] + $statuss;
         return view('backend.order.index', compact('orders', 'min', 'max', 'from', 'to', 'search', 'order_id', 'product', 'product_id', 'status', 'statuss'));
     }
 
@@ -159,7 +165,7 @@ class OrderController extends Controller {
      * @return Response
      */
     public function create() {
-        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
+        $standard = \App\Models\Standard::orderBy('position', 'asc')->orderBy('id', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
         $company = \App\Models\School::lists('name', 'id')->toArray();
@@ -207,7 +213,7 @@ class OrderController extends Controller {
      */
     public function edit($id) {
         $order = $this->order->find($id);
-        $standard = \App\Models\Standard::orderBy('name', 'asc')->lists('name', 'id')->toArray();
+        $standard = \App\Models\Standard::orderBy('position', 'asc')->orderBy('id', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
         $company = \App\Models\School::lists('name', 'id')->toArray();
@@ -284,7 +290,7 @@ class OrderController extends Controller {
     }
 
     public function invoice($id) {
-
+        error_reporting(0);
         $order = \App\Models\Order::find($id);
         $option_added = [];
         //dd($order->user);

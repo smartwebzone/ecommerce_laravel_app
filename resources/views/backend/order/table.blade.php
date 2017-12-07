@@ -32,7 +32,7 @@
             <div class='btn-group'>
                 <a href="{!! route('admin.order.show', [$order->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                 <a target="_blank" href="{!! route('admin.order.invoice', [$order->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-file"></i></a>
-                {!! Form::button('<i class="glyphicon glyphicon-trash" title="Delete"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+<!--                {!! Form::button('<i class="glyphicon glyphicon-trash" title="Delete"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}-->
             </div>
             {!! Form::close() !!}
         </td>

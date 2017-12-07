@@ -44,47 +44,17 @@ if($order->fraud_flag == 'Suspicious'){
                 $sub_total = 0;
                 ?>
                 @foreach($orderDetails as $item)
-                <?php
-                $price = $item->product->prices->find($item->price_id);
-                $suborderDetails = App\Models\OrderSubProduct::where('order_product_id', $item->id)->get();
-                $subprice = 0;
-                $sub_prd = '';
-                ?>
                 <tr>
                     <td class="text-center"><img width="64" height="64" src="{{ asset('/uploads/products/thumb/')  }}/{{ $item->product->thumbnail }}" /></td>
                     <td class="text-left">
                         {{ $item->product->name }}
-                        @if($item->product->prices->count()>1)
-                        ({!!(@$price->title)?@$price->title:@$price->model!!})
-                        @endif
                         <?php
-                        if ($suborderDetails) {
-                            foreach ($suborderDetails as $sd):
-                                $prods_price = App\Models\Product::find($sd->product_id)->prices->first();
-                            $prods_price_id = $prods_price->id;
-                                        if ($sd->price_id) {
-                                            $prods_price_id = $sd->price_id;
-                                        }
-                                $subprice += $sd->order_price;//App\Models\Price::find($prods_price_id)->final_price;
-                                $sub_prd = App\Models\ProductSubProducts::where('product_id', $item->product_id)->where('sub_product_id', $sd->product_id)->first();
-                                 echo (@$sub_prd->id)?(' - '.@$sub_prd->label_custom.' '):'';
-                            endforeach;
-                        }
-                       
-                        $sub_total += ($item->order_price + $subprice) * $item->amount;
+                        $sub_total += $item->order_price * $item->amount;
                         ?>
-                        
-                        @if($item->options)
-                        @foreach($options as $optionValue)
-                        @if(in_array($optionValue->id,explode(',',$item->options)))
-                        - {{ $optionValue->value }}
-                        @endif
-                        @endforeach
-                        @endif 
                     </td>
-                    <td class="text-right">{{ formatDollar($item->order_price+$subprice) }}</td>
+                    <td class="text-right">{{ formatDollar($item->order_price) }}</td>
                     <td class="text-center">{{ $item->amount }}</td>
-                    <td class="text-right">{{ formatDollar((@$item->order_price+$subprice)*$item->amount) }}</td>
+                    <td class="text-right">{{ formatDollar(@$item->order_price*$item->amount) }}</td>
                 </tr>
                 @endforeach
                 <tr>
@@ -277,70 +247,11 @@ if($order->fraud_flag == 'Suspicious'){
                     <th class="text-center" width="15%">Quantity</th>
                 </tr>
                 @foreach($orderDetails as $item)
-                <?php
-                $price = $item->product->prices->find($item->price_id);
-                ?>
                 <tr>
                     <td class="text-center"><img width="64" height="64" src="{{ asset('/uploads/products/thumb/')  }}/{{ $item->product->thumbnail }}" /></td>
-                    <td class="text-left">
-                        {{ $item->product->name }}
-                        @if($item->product->prices->count()>1)
-                        ({!!(@$price->title)?@$price->title:@$price->model!!})
-                        @endif
-                        @if($item->options)
-                        @foreach($options as $optionValue)
-                        @if(in_array($optionValue->id,explode(',',$item->options)))
-                        - {{ $optionValue->value }}
-                        @endif
-                        @endforeach
-                        @endif 
-                    </td>
+                    <td class="text-left">{{ $item->product->name }}</td>
                     <td class="text-center">{{ $item->amount }}</td>
                 </tr>
-                <?php
-                $suborderDetails = App\Models\OrderSubProduct::where('order_product_id', $item->id)->get();
-                if($suborderDetails){
-                    
-                    foreach ($suborderDetails as $sd):
-                        $suboptions = '';
-                        if($sd->options){
-                            $suboptions='(';
-                            $sub_options=  \App\Models\OptionValue::whereIn('id', explode(',',$sd->options))->get();
-                            foreach($sub_options as $so):
-                                //dd($so->option->name);
-                                $suboptions.=$so->option->name.' : '.$so->value. ', ';
-                            endforeach;
-                            $suboptions=  trim($suboptions, ', ').')';
-                        }
-                        $sub_product_details = App\Models\Product::where('id', $sd->product_id)->first();
-                        $sub_price = $sub_product_details->prices->find($sd->price_id);
-                       
-                        ?>
-                        <tr>
-                            <td class="text-center"><img width="64" height="64" src="{{ asset('/uploads/products/thumb/')  }}/{{ $sub_product_details->thumbnail }}" /></td>
-                            <td class="text-left">{!! $sub_product_details->name.' '.$suboptions !!}
-                             @if($sub_price)
-                                ({!!(@$sub_price->title)?@$sub_price->title:@$sub_price->model!!})
-                            @endif
-                            </td>
-                            <td class="text-center">{!!  $sd->amount !!}</td>
-                        </tr>
-                        <?php
-                    endforeach;
-                }
-                ?>
-                @if($item->product->ProductSubProducts->where('optional',0)->count()>0)
-                @foreach($item->product->ProductSubProducts->where('optional',0) as $row)
-                <?php
-                $sub_product_details = App\Models\Product::where('id', $row->sub_product_id)->first();
-                ?>
-                <tr>
-                    <td class="text-center"><img width="64" height="64" src="{{ asset('/uploads/products/thumb/')  }}/{{ $sub_product_details->thumbnail }}" /></td>
-                    <td class="text-left">{!! $sub_product_details->name !!}</td>
-                    <td class="text-center">{!!  $item->amount*$row->quantity !!}</td>
-                </tr>
-                @endforeach
-                @endif
                 @endforeach
             </table>
         </div>
