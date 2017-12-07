@@ -48,9 +48,8 @@
                             <div class="btn-group btn-group-lg">
                             </div>
                         </div>
+                        <form role="form" method="GET" class="order_form">
                         <div class="widget search col-md-12">
-                            <form role="form" method="GET">
-
                                 <div class="form-group col-md-3">
                                     <label class="control-label" for="title">Order ID</label>
                                     <div class="controls">
@@ -72,7 +71,7 @@
                                  <div class="form-group col-md-3">
                                         <label class="control-label" for="status_filter">Status</label>
                                         <div class="controls">
-                                            {!! Form::select('status', $statuss, @$status, array('class' => 'form-control', 'value'=>Input::old('status'))) !!}
+                                            {!! Form::select('status', [null => 'ALL'] + $statuss, @$status, array('class' => 'form-control', 'value'=>Input::old('status'))) !!}
                                         </div>
                                     </div>
                                  <div class="form-group col-md-3">
@@ -103,26 +102,34 @@
                                         <input type="text" name="max" value="{{@$max}}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-12">
                                     <div class="controls">
                                         <button class="btn btn-info" type="submit">FILTER</button>
                                         <a class="btn btn-info" href="{{url(getLang().'/admin/order')}}">CLEAR</a>
                                     </div>
                                 </div>
-                                 <div class="form-group col-md-9 pull-right">
-                                        <label class="control-label" for="title">&nbsp;</label>
-                                        <div class="controls text-right">
-                                        <input type="hidden" value="{{@$offset}}" name="offset">
-                                        <input type="hidden" value="" class="export-order" name="export_order">
-                                        
-                                        <button formtarget="_blank" disabled="" name="export" value="1" class="btn btn-success export-btn" type="submit">PRINT</button>
-<!--                                        <button formtarget="_blank" name="export_all" value="1" class="btn btn-success" type="submit">EXPORT ALL</button>-->
-                                        <button  name="delete" disabled="" value="1" class="btn btn-danger export-btn" type="submit">Delete</button>
-                                    </div>
-                                </div>
-
-                            </form>
                         </div>
+                        <div class="col-md-12">
+                            <button formtarget="_blank" disabled="" name="export" value="1" class="btn btn-success export-btn" type="submit">PRINT SELECTED ORDERS</button>
+                            <div class="btn-group">
+                                <a href="javascript:;" data-toggle="dropdown" class="btn btn-primary dropdown-toggle disabled status_btn">
+                                    CHANGE STATUS <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu status_dropdown" role="menu">
+                                    @foreach($statuss as $k => $v)
+                                    <li role="presentation">
+                                        <a href="javascript:;" tabindex="-1" role="menuitem" data-id={!!$k!!}>
+                                            {!!$v!!}
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+							<input type="hidden" value="" name="change_status" id="change_status">
+                            <input type="hidden" value="{{@$offset}}" name="offset">
+                            <input type="hidden" value="" class="export-order" name="export_order">
+                        </div>
+                        </form>
                         <div class="col-md-12">
                             @include('backend.order.table')
                         </div>
@@ -142,9 +149,11 @@
         if ($('.check-all').prop('checked')){
             $('.export-btn').removeAttr('disabled');
             $('.order-check').prop('checked', true);
+			$('.status_btn').removeClass('disabled');
         }else{
             $('.export-btn').attr('disabled','');
-        $('.order-check').prop('checked', false);
+			$('.order-check').prop('checked', false);
+			$('.status_btn').removeClass('disabled').addClass('disabled');
         }
          var a = ''
         $('.order-check').each(function(){
@@ -163,12 +172,23 @@
          });
          if(a){
              $('.export-btn').removeAttr('disabled');
+			 $('.status_btn').removeClass('disabled');
          }else{
              
              $('.export-btn').attr('disabled','');
+			 $('.status_btn').removeClass('disabled').addClass('disabled');
          }
         $('.export-order').val(a.replace(/^,|,$/g,''));
     });
+	$( ".status_dropdown li a" ).on( "click", function() {
+	    var status_id = $(this).attr('data-id');
+		var status_name = $(this).text().trim();
+		var conf = confirm('Are you sure want to change status of selected orders to '+status_name);
+		if(conf == true){
+			$('#change_status').val(status_id);
+			$('.order_form').submit();
+		}
+	});
 </script>
 @endsection
 @section('clipinline-off')

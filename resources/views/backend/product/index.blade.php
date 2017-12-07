@@ -99,21 +99,21 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-12">
                                         <div class="controls">
                                             <button class="btn btn-info" type="submit">FILTER</button>
                                             <a class="btn btn-info" href="{{url(getLang().'/admin/product')}}">CLEAR</a>
                                        
                                             <input type="hidden" value="{{@$offset}}" name="offset">
                                             <input type="hidden" value="" class="delete-order" name="delete_product">
-                                            <label class="control-label" for="title">&nbsp;</label>
-
-                                            <button  name="delete" disabled="" value="1" class="btn btn-danger delete-btn" type="submit">Delete</button>
                                         </div>
                                     </div>
                                 </div>
 
                             </form>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <button  name="delete" disabled="" value="1" class="btn btn-danger delete-btn" type="submit">DELETE SELECTED PRODUCTS</button>
                         </div>
                         <div class="col-md-12">
                             @include('backend.product.table')

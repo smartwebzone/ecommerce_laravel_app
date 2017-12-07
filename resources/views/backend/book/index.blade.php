@@ -83,13 +83,13 @@
                                         <a class="btn btn-default" href="{{url(getLang().'/admin/book')}}">CLEAR</a>
                                         <input type="hidden" value="{{@$offset}}" name="offset">
                                             <input type="hidden" value="" class="delete-order" name="delete_book">
-                                            <label class="control-label" for="title">&nbsp;</label>
-
-                                            <button  name="delete" disabled="" value="1" class="btn btn-danger delete-btn" type="submit">Delete Selected Items</button>
                                     </div>
                                 </div>
                                     
                             </form>
+                        </div>
+                        <div class="col-md-12">
+                            <button  name="delete" disabled="" value="1" class="btn btn-danger delete-btn" type="submit">DELETE SELECTED ITEMS</button>
                         </div>
                         <div class="col-md-12">
                             @include('backend.book.table')
