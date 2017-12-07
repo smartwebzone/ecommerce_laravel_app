@@ -106,6 +106,13 @@ class OrderController extends Controller {
         }
         $limit = $this->perPage;
         $offset = $request->page;
+        if ($request->change_status && $request->export_order) {
+            $order_ids = explode(',',$request->export_order);
+            $update_data = array('status_id' => $request->change_status);
+            \App\Models\Order::whereIn('id',$order_ids)->update($update_data);
+            Flash::message('Order status changed successfully');
+            return Redirect::route('admin.order');
+        }
         if ($request->export) {
             $offset = $request->offset;
             return $this->export($orders, $request, $limit, $offset);
@@ -149,7 +156,6 @@ class OrderController extends Controller {
         $product = \App\Models\Product::lists('title', 'id')->toArray();
         $product = [null => 'ALL'] + $product;
         $statuss = \App\Models\Status::lists('name', 'id')->toArray();
-        $statuss = [null => 'ALL'] + $statuss;
         return view('backend.order.index', compact('orders', 'min', 'max', 'from', 'to', 'search', 'order_id', 'product', 'product_id', 'status', 'statuss'));
     }
 
