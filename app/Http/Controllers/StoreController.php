@@ -63,9 +63,6 @@ class StoreController extends Controller {
     }
 
     public function selectProduct(Request $request) {
-        if (Session::get('product')) {
-            Session::forget('product');
-        }
         $state = Session::get('state');
         $school = Session::get('school');
         $standard = Session::get('standard');
@@ -88,22 +85,24 @@ class StoreController extends Controller {
         }
         if ($request->action == 'confirm') {
             if ($request->product) {
-                Session::put('product', $request->product);
+                foreach($request->product as $product_id){
+                    addProductToCart($product_id);
+                }
                 return Redirect::route('store.confirm');
             } else {
                 return Redirect::route('store.selectProduct')->with('error', 'Please select at least one product to proceed.');
             }
         }
-        if (!Session::get('product')) {
+        if (getCartCount() < 1) {
             return Redirect::route('store.selectSchool');
         }
         $school = Session::get('school');
         $standard = Session::get('standard');
-        $product = \App\Models\Product::find(Session::get('product'));
+        $cart_data = \App\Models\Cart::where(['user_id' => Sentinel::getuser()->id])->get();
         $school = \App\Models\School::find($school);
         $standard = \App\Models\Standard::find($standard);
         $shipping_address = getUserAddress('shipping');
-        return view('frontend.store.confirm', compact('product', 'school', 'standard', 'shipping_address'))->with('cart', 'total');
+        return view('frontend.store.confirm', compact('cart_data', 'school', 'standard', 'shipping_address'))->with('cart', 'total');
     }
 
     public function cart(Request $request) {
@@ -131,21 +130,8 @@ class StoreController extends Controller {
                 $address = \App\Models\Address::create($data);
                 $address->users()->attach($user);
             }
-            $product = \App\Models\Product::find(Session::get('product'));
             $preferred_delivery_date = parseIndianDate($_POST['preferred_delivery_date']);
-            $delete_cart = \App\Models\Cart::where('user_id', Sentinel::getuser()->id)->delete();
-            $carts = array();
-            foreach ($product as $ps):
-                $cartdata = array(
-                    'user_id' => Sentinel::getuser()->id,
-                    'product_id' => $ps->id,
-                    'preferred_delivery_date' => $preferred_delivery_date
-                );
-                $cart = \App\Models\Cart::create($cartdata);
-                $carts[] = $cartdata;
-            endforeach;
-
-            Session::forget('product');
+            updateCartPreferredDeliveryDate($preferred_delivery_date);
             return Redirect::route('store.cart');
         }
 
@@ -154,7 +140,7 @@ class StoreController extends Controller {
 
         $total_products = count($cart_data) + count($orders);
 
-        return view('frontend.store.cart', compact('product', 'cart_data', 'orders', 'total_products'));
+        return view('frontend.store.cart', compact('cart_data', 'orders', 'total_products'));
     }
 
     public function pay(Request $request) {
