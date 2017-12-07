@@ -58,7 +58,7 @@
                         <div class="widget search col-md-12">
                             <form role="form" method="GET">
                                  
-                                <div class="control-group col-md-3">
+                                <div class="form-group col-md-3">
                                     <label class="control-label" for="status_filter">Order Status</label>
                                     <div class="controls">
                                         <select name="status" id="status_filter" class="form-control">
@@ -72,7 +72,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="control-group col-md-3">
+                                <div class="form-group col-md-3">
                                     <label class="control-label" for="charge_status">Charge Status</label>
                                     <div class="controls">
                                         <select name="charge_status" id="charge_status" class="form-control">
@@ -82,14 +82,14 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="control-group col-md-3">
+                                <div class="form-group col-md-3">
                                     <label class="control-label" for="title">From Date</label>
 
                                     <div class="controls">
                                         <input type="date" name="from" value="{{@$from}}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="control-group col-md-3">
+                                <div class="form-group col-md-3">
                                     <label class="control-label" for="title">To Date</label>
 
                                     <div class="controls">
@@ -97,7 +97,7 @@
                                     </div>
                                 </div>
                                
-                                <div class="control-group col-md-3">
+                                <div class="form-group col-md-3">
                                     <label class="control-label" for="type">User Type</label>
 
                                     <div class="controls">
@@ -110,14 +110,14 @@
                                         </select>
                                     </div>
                                 </div>
-                                 <div class="control-group col-md-3">
+                                 <div class="form-group col-md-3">
                                     <label class="control-label" for="title">Customer</label>
 
                                     <div class="controls">
                                         <input type="text" placeholder="Name / Email / Phone" name="cust" value="{{@$cust}}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="control-group col-md-3">
+                                <div class="form-group col-md-3">
                                     <label class="control-label" for="type">Exported</label>
 
                                     <div class="controls">
@@ -129,13 +129,12 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="control-group col-md-3">
-                                    <label class="control-label" for="title">&nbsp;</label>
+                                <div class="form-group col-md-3">
                                     <div class="controls">
                                         <button class="btn btn-info" type="submit">FILTER</button>
                                     </div>
                                 </div>
-                                 <div class="control-group col-md-3">
+                                 <div class="form-group col-md-3">
                                         <label class="control-label" for="title">&nbsp;</label>
                                         <div class="controls">
                                         <input type="hidden" value="{{@$offset}}" name="offset">

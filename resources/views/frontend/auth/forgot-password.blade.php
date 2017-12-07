@@ -57,6 +57,9 @@ Jeevandeep Prakashan Pvt. Ltd.
                 <button  type="submit" class="btn btnS"><i class="fa fa-link"></i>FORGOT PASSWORD</button>
                 <button type="submit" style="display: none; text-align: left;" class="btn btnS text-left"><i class="fa fa-link"></i>FORGOT PASSWORD</button>
             </li>
+            <li class="forgot">
+                <i class="fa fa-link"></i><a href="{{route('signin')}}">Back</a>
+            </li>
             {!! Form::close() !!}
         </div>
     </div>
@@ -65,6 +68,38 @@ Jeevandeep Prakashan Pvt. Ltd.
 <!-- End wrapper -->
 @endsection
 
-@section('footer_scripts')@endsection
+@section('footer_scripts')
+<script>
+    $().ready(function () {
+        $("#forgot-password-form").validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true,
+                },
+            },
+            messages: {
+                email: {
+                    required: "",
+                    email: "Please enter a valid Email ID",
+                },
+            },
+            highlight: function (element) {
+                $(element).closest('div.input-group').addClass('error');
+                $(element).closest('.form-group').addClass('child-label-red');
+            },
+            unhighlight: function (element) {
+                $(element).closest('div.input-group').removeClass('error');
+                $(element).closest('.form-group').removeClass('child-label-red');
+            },
+            errorElement: "span",
+            errorPlacement: function (error,element) {
+                $(error).addClass('help-block');
+                $(element).closest('div.input-group').after(error);
+            }
+        });
+    });
+</script>
+@endsection
 @section('pp_footer_scripts')@endsection
 @section('inlinejs')@endsection

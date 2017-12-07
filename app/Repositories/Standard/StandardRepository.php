@@ -46,7 +46,7 @@ class StandardRepository extends RepositoryAbstract implements StandardInterface
      * @return mixed
      */
     public function all() {
-        return $this->standard->orderBy('name', 'asc')->get();
+        return $this->standard->orderBy('position', 'asc')->orderBy('id', 'asc')->get();
     }
 
     /**
@@ -63,7 +63,7 @@ class StandardRepository extends RepositoryAbstract implements StandardInterface
         $result->totalItems = 0;
         $result->items = [];
 
-        $query = $this->standard->orderBy('name');
+        $query = $this->standard->orderBy('position','asc')->orderBy('id', 'asc');
 
         $standard = $query->skip($limit * ($page - 1))->take($limit)->get();
 

@@ -179,7 +179,13 @@
             jQuery(document).ready(function() {
                 Main.init();
                 FormElements.init();
-
+                
+                $("form :input").each(function(){
+                    var attr = $(this).attr('required');
+                    if (typeof attr !== typeof undefined && attr !== false) {
+                        $(this).closest('div').children('label').first().after('<span class="mandatory">*</span>');
+                    }
+                });
 
 
 

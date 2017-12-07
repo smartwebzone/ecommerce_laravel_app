@@ -20,7 +20,14 @@ Jeevandeep Prakashan Pvt. Ltd.
 @section('bodyschema')@endsection
 @section('bodytag')@endsection
 
-@section('header_styles')@endsection
+@section('header_styles')
+<link rel="stylesheet" href="{!! asset('/jeevandeep/css/datepicker3.min.css') !!}" type="text/css" />
+<style type="text/css">
+.datepicker.datepicker-inline td, .datepicker.datepicker-inline th, .datepicker.dropdown-menu td, .datepicker.dropdown-menu th {
+    padding: 5px !important;
+}
+</style>
+@endsection
 
 
 @section('content')
@@ -30,7 +37,7 @@ Jeevandeep Prakashan Pvt. Ltd.
     <!-- Start Lets Connect -->
     @include('frontend.layout.jeevandeep.header')
     <div class="select-div"><strong>Confirm Shipping Address and Select preferred delivery Date</strong></div>
-    <div class="please-select">Hi <span>{{Sentinel::getUser()->first_name.' '.Sentinel::getUser()->last_name}}</span>. You have selected the following products for the <span>{{$school->name}}</span> for <span>{{$standard->name}}</span>. Please confirm your shipping address for these products and your preferred delivery date and then click 'Proceed'.</div>
+    <div class="please-select">Hi <span>{{Sentinel::getUser()->parent_first_name.' '.Sentinel::getUser()->parent_last_name}}</span>. You have selected the following products for the <span>{{$school->name}}</span> for <span>{{$standard->name}}</span>. Please confirm your shipping address for these products and your preferred delivery date and then click 'Proceed'.</div>
     <div class="seleceted-product-price">
         <table>
             <tr>
@@ -38,10 +45,10 @@ Jeevandeep Prakashan Pvt. Ltd.
                 <th class="set-price">TOTAL PAYABLE</th>
             </tr>
 
-            @foreach($product as $ps)
+            @foreach($cart_data as $row)
             <tr>
-                <td class="set"><i class="fa fa-shopping-bag"></i>{{$ps->title}}</td>
-                <td class="set-price">INR {{$ps->price}}</td>
+                <td class="set"><i class="fa fa-shopping-bag"></i>{{$row->product()->find($row->product_id)->title}}</td>
+                <td class="set-price">INR {{$row->product()->find($row->product_id)->price}}</td>
             </tr>
             @endforeach
         </table>
@@ -95,88 +102,19 @@ Jeevandeep Prakashan Pvt. Ltd.
                 </div>
             </li>
         </ul>
-        <!--                <ul>
-                            <li>
-                                <div class="checkbox checkbox-primary selectCheck cf">
-                                    <input id="22" type="checkbox">
-                                    <label for="22">Check this box if the shipping address is correct, else edit and click 'Save and Proceed'.</label>
-                                </div>
-                            </li>
-                        </ul>-->
     </div>
 
-    <div class="confirm-add"><h5><i class="fa fa-calendar"></i>preferred delivery date</h5></div>
+    <div class="confirm-add" style="margin-left:0px; margin-right: 0px;"><h5><i class="fa fa-calendar"></i>preferred delivery date</h5></div>
     <div class="cf">
-        <ul>
-            <div class="cf">
-                <ul>
-                    <li class="form-group">
-                        <label>SELECT MONTH</label>
-                        <a class="btn btn-select btn-select-light">
-                            <input type="hidden" class="btn-select-input" id="" name="month" value="" />
-                            <span class="btn-select-value">SELECT MONTH</span>
-                            <span class="btn-select-arrow glyphicon"><i class="fa fa-chevron-circle-down"></i></span>
-                            <ul>
-                                <li>January</li>
-                                <li>February</li>
-                                <li>March</li>
-                                <li>April</li>
-                                <li>May</li>
-                                <li>June</li>
-                                <li>July</li>
-                                <li>August</li>
-                                <li>September</li>
-                                <li>October</li>
-                                <li>November</li>
-                                <li>December</li>
-                            </ul>
-                        </a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="form-group">
-                        <label>SELECT DATE</label>
-                        <a class="btn btn-select btn-select-light">
-                            <input type="hidden" class="btn-select-input" id="" name="date" value="" />
-                            <span class="btn-select-value">SELECT DATE</span>
-                            <span class="btn-select-arrow glyphicon"><i class="fa fa-chevron-circle-down"></i></span>
-                            <ul>
-                                <li>01</li>
-                                <li>02</li>
-                                <li>03</li>
-                                <li>04</li>
-                                <li>05</li>
-                                <li>06</li>
-                                <li>07</li>
-                                <li>08</li>
-                                <li>09</li>
-                                <li>10</li>
-                                <li>11</li>
-                                <li>12</li>
-                                <li>13</li>
-                                <li>14</li>
-                                <li>15</li>
-                                <li>16</li>
-                                <li>17</li>
-                                <li>18</li>
-                                <li>19</li>
-                                <li>20</li>
-                                <li>21</li>
-                                <li>22</li>
-                                <li>23</li>
-                                <li>24</li>
-                                <li>25</li>
-                                <li>26</li>
-                                <li>27</li>
-                                <li>28</li>
-                                <li>29</li>
-                                <li>30</li>
-                                <li>31</li>
-                            </ul>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+        <ul class="first">
+            <li class="form-group mb7">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-chevron-circle-down"></i></span>
+                    <div class="icon-addon">
+                        {!! Form::text('preferred_delivery_date', null, ['placeholder'=> 'Select Date', 'class' => 'form-control required', 'id' => 'preferred_delivery_date']) !!}
+                    </div>
+                </div>
+            </li>
         </ul>
     </div>
     <div class="fullBtn pt20 pb25">
@@ -188,8 +126,14 @@ Jeevandeep Prakashan Pvt. Ltd.
 @endsection
 
 @section('footer_scripts')
+<script type="text/javascript" src="{!! asset('/jeevandeep/js/bootstrap-datepicker.min.js') !!}"></script>
 <script>
     $(document).ready(function () {
+        $('#preferred_delivery_date').datepicker({
+            format: "dd/mm/yyyy",
+            startDate:new Date(),
+            autoclose: true,
+        });
         $(".validate_form").validate({
             highlight: function (element) {
                 $(element).closest('div.input-group').addClass('error');

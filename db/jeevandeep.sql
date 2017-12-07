@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2017 at 03:28 PM
+-- Generation Time: Dec 07, 2017 at 03:48 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -64,7 +64,13 @@ INSERT INTO `activations` (`id`, `user_id`, `code`, `completed`, `completed_at`,
 (18, 17, 'MldwezIz8B3LbcWwThcLtepfGcOnJVrU', 1, '2017-11-04 01:15:27', '2017-11-04 01:15:27', '2017-11-04 01:15:27'),
 (19, 18, 'Cb1EqJpV3s4p5zvmScVX0gbd9cUqTZvJ', 1, '2017-11-05 15:32:16', '2017-11-05 15:32:16', '2017-11-05 15:32:16'),
 (20, 19, 'iJlteuLqwJXzbNSEXzZYMvZqQeK1Bt7O', 1, '2017-11-05 17:31:34', '2017-11-05 17:31:34', '2017-11-05 17:31:34'),
-(21, 20, 'wgSCOXPZhkbv6gDo6NSsRPNGFzhlDWLP', 1, '2017-11-06 23:25:19', '2017-11-06 23:25:19', '2017-11-06 23:25:19');
+(21, 20, 'wgSCOXPZhkbv6gDo6NSsRPNGFzhlDWLP', 1, '2017-11-06 23:25:19', '2017-11-06 23:25:19', '2017-11-06 23:25:19'),
+(22, 22, 'RwKeXzQP9NXsRkZp8dIzF6hzu1yPxwM6', 1, '2017-11-13 22:09:14', '2017-11-13 22:09:14', '2017-11-13 22:09:14'),
+(23, 23, 'vBzWUZobDnSUfBJoGNFtTArfFmrpq2jw', 1, '2017-11-13 22:13:13', '2017-11-13 22:13:13', '2017-11-13 22:13:13'),
+(24, 24, 'FP3qLtAvQVi4ZCICkA3xY5qPwA01TApR', 1, '2017-11-29 02:24:46', '2017-11-29 02:24:46', '2017-11-29 02:24:46'),
+(28, 32, 'R6p0a5pZtPtvbUu5FPSEduz05DhnbUkb', 1, '2017-12-05 18:49:07', '2017-12-05 18:49:06', '2017-12-05 18:49:07'),
+(29, 33, 'IHdaUtDHRguBNghQ1dLxJ8Nix3lguhI1', 1, '2017-12-05 18:51:47', '2017-12-05 18:51:47', '2017-12-05 18:51:47'),
+(30, 34, '2fYlMjjSKHjALLbcReT1Jmg0PoGIqp8t', 1, '2017-12-05 19:04:52', '2017-12-05 19:04:52', '2017-12-05 19:04:52');
 
 -- --------------------------------------------------------
 
@@ -94,10 +100,12 @@ CREATE TABLE `address_master` (
 --
 
 INSERT INTO `address_master` (`id`, `address_type`, `address1`, `address2`, `area`, `city`, `state`, `zip`, `add_date`, `added_by`, `update_date`, `updated_by`, `deleted_at`) VALUES
-(1, 'shipping', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Gujarat', '380058', '2017-11-06 11:32:38', 19, '2017-11-06 11:32:38', NULL, NULL),
-(2, 'billing', 'A-102', 'Jalaram Chambers', 'Bhaktinagar', 'Navsari', 'Gujarat', '396445', '2017-11-06 11:32:38', 19, '2017-11-06 11:32:38', NULL, NULL),
+(1, 'shipping', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Maharastra', '380058', '2017-11-06 11:32:38', 19, '2017-11-10 16:26:27', NULL, NULL),
+(2, 'billing', 'A-102', 'Jalaram Chambers', 'Bhaktinagar', 'Navsari', 'Maharastra', '396445', '2017-11-06 11:32:38', 19, '2017-11-10 16:22:07', NULL, NULL),
 (3, 'shipping', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', '2017-11-07 17:30:27', 20, '2017-11-07 17:30:27', NULL, NULL),
-(4, 'billing', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', '2017-11-07 17:30:28', 20, '2017-11-07 17:30:28', NULL, NULL);
+(4, 'billing', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', '2017-11-07 17:30:28', 20, '2017-11-07 17:30:28', NULL, NULL),
+(5, 'shipping', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'GUJARAT', '396445', '2017-11-10 14:40:58', 1, '2017-12-05 20:33:24', NULL, NULL),
+(6, 'billing', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'GUJARAT', '396445', '2017-11-10 14:40:58', 1, '2017-12-05 20:33:24', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -119,7 +127,9 @@ INSERT INTO `address_user` (`address_id`, `user_id`) VALUES
 (1, 19),
 (2, 19),
 (3, 20),
-(4, 20);
+(4, 20),
+(5, 1),
+(6, 1);
 
 -- --------------------------------------------------------
 
@@ -131,7 +141,7 @@ DROP TABLE IF EXISTS `book_master`;
 CREATE TABLE `book_master` (
   `id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
-  `standard_id` int(11) NOT NULL,
+  `standard_id` int(11) DEFAULT NULL,
   `medium` text,
   `name` varchar(100) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
@@ -144,6 +154,7 @@ CREATE TABLE `book_master` (
   `shipping_charges` decimal(10,2) DEFAULT NULL,
   `quantity` int(11) UNSIGNED NOT NULL,
   `weight` decimal(10,2) DEFAULT NULL,
+  `hsn_code` varchar(50) DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
   `added_by` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -157,12 +168,30 @@ CREATE TABLE `book_master` (
 -- Dumping data for table `book_master`
 --
 
-INSERT INTO `book_master` (`id`, `company_id`, `standard_id`, `medium`, `name`, `description`, `author`, `book_code`, `price`, `is_taxable`, `tax`, `price_after_tax`, `shipping_charges`, `quantity`, `weight`, `status`, `added_by`, `created_at`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 2, 1, '', 'Science', 'Science book', 'R.K sharma', 'PL3298382983', '150.00', 0, '0.00', '150.00', '20.00', 0, NULL, 1, 1, '2017-10-25 17:42:13', '2017-11-06 05:49:26', 1, NULL, NULL),
-(2, 1, 1, '', 'Physics', 'Newton\'s all laws', 'Newton', 'N123456', '200.00', 1, '12.00', '224.00', '20.00', 0, NULL, 1, 1, '2017-11-04 11:34:38', '2017-11-06 05:46:23', 1, NULL, NULL),
-(3, 1, 1, '', 'Mathematics', 'Algebra, Trigonometric, etc', 'Rohit Modi', 'R123', '180.00', 1, '18.00', '212.40', '20.00', 0, NULL, 1, 1, '2017-11-04 11:35:11', '2017-11-06 05:45:39', 1, NULL, NULL),
-(4, 2, 1, '', 'Social Science', 'Social Science Textbook', 'Rob Madson', 'B123567', '195.00', 0, '0.00', '195.00', '20.00', 0, NULL, 1, 1, '2017-11-06 05:48:43', '2017-11-06 05:49:19', 1, NULL, NULL),
-(5, 1, 2, 'English', 'General Knowledge', 'General Knowledge Textbook', 'Rob Dev', 'Test12345', '190.00', 1, '15.00', '218.50', '10.00', 1, '50.10', 1, 1, '2017-11-07 12:44:47', '2017-11-07 13:34:33', 1, NULL, NULL);
+INSERT INTO `book_master` (`id`, `company_id`, `standard_id`, `medium`, `name`, `description`, `author`, `book_code`, `price`, `is_taxable`, `tax`, `price_after_tax`, `shipping_charges`, `quantity`, `weight`, `hsn_code`, `status`, `added_by`, `created_at`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
+(1, 2, 1, '', 'Science', 'Science book', 'R.K sharma', 'PL3298382983', '150.00', 0, '0.00', '150.00', '20.00', 0, NULL, NULL, 1, 1, '2017-10-25 17:42:13', '2017-11-06 05:49:26', 1, NULL, NULL),
+(2, 1, 1, '', 'Physics', 'Newton\'s all laws', 'Newton', 'N123456', '200.00', 1, '12.00', '224.00', '20.00', 0, NULL, NULL, 1, 1, '2017-11-04 11:34:38', '2017-11-06 05:46:23', 1, NULL, NULL),
+(3, 1, 1, '', 'Mathematics', 'Algebra, Trigonometric, etc', 'Rohit Modi', 'R123', '180.00', 1, '18.00', '212.40', '20.00', 0, '0.00', '', 1, 1, '2017-11-04 11:35:11', '2017-11-10 12:59:34', 1, NULL, NULL),
+(4, 2, 1, '', 'Social Science', 'Social Science Textbook', 'Rob Madson', 'B123567', '195.00', 0, '0.00', '195.00', '20.00', 0, NULL, NULL, 1, 1, '2017-11-06 05:48:43', '2017-11-06 05:49:19', 1, NULL, NULL),
+(5, 1, 2, 'English', 'General Knowledge', 'General Knowledge Textbook', 'Rob Dev', 'Test12345', '190.00', 1, '15.00', '218.50', '10.00', 1, '50.10', '1234', 1, 1, '2017-11-07 12:44:47', '2017-11-10 12:14:24', 1, NULL, NULL),
+(6, 1, 1, 'English', 'Periwinkle Blossoms Pattern & Motor Skills', 'Periwinkle Blossoms Pattern & Motor Skills', 'Ayesha Baig', 'PNE107', '97.00', 0, '0.00', '97.00', NULL, 75, '20.00', '4901', 1, 0, '2017-11-10 11:20:43', '2017-11-10 11:26:58', NULL, '2017-11-09 22:56:58', NULL),
+(7, 2, 2, 'English', 'Periwinkle Blossoms Pattern & Motor Skills', 'Periwinkle Blossoms Pattern & Motor Skills', 'Ayesha Baig', 'PNE108', '97.00', 0, '0.00', '97.00', NULL, 75, '20.00', '4901', 1, 0, '2017-11-10 11:26:52', '2017-11-24 07:36:35', NULL, '2017-11-09 22:56:58', NULL),
+(8, 1, 1, '', 'Test item', '', '', 'T123', '100.00', 1, '0.00', '100.00', NULL, 0, '0.00', '', 1, 1, '2017-11-10 12:39:58', '2017-11-10 12:40:08', NULL, '2017-11-10 00:10:08', NULL),
+(9, 1, 1, '', 'Pencil', '', '', 'P123', '100.00', 1, '12.00', '112.00', NULL, 0, '0.00', '', 1, 1, '2017-11-14 15:27:01', '2017-11-14 15:27:01', NULL, NULL, NULL),
+(10, 1, 1, '', 'Rubber', '', '', 'R1234', '10.00', 1, '5.00', '10.50', NULL, 0, '0.00', '', 1, 1, '2017-11-14 15:27:30', '2017-11-14 15:27:30', NULL, NULL, NULL),
+(11, 1, 1, '', 'Sharpener ', '', '', 'S123', '5.00', 1, '12.00', '5.60', NULL, 0, '0.00', '', 1, 1, '2017-11-14 15:28:16', '2017-11-14 15:28:16', NULL, NULL, NULL),
+(12, 1, 1, '', 'Color Box', '', '', 'C123', '50.00', 1, '12.00', '56.00', NULL, 0, '0.00', '', 1, 1, '2017-11-14 15:28:36', '2017-11-14 15:28:36', NULL, NULL, NULL),
+(13, 1, 1, '', 'Mark', '', '', 'M123', '100.00', 1, '18.00', '118.00', NULL, 0, '0.00', '', 1, 1, '2017-11-14 15:28:55', '2017-11-14 15:28:55', NULL, NULL, NULL),
+(15, 2, 2, 'English', 'Periwinkle Blossoms Pattern & Motor Skills', 'Periwinkle Blossoms Pattern & Motor Skills', 'Ayesha Baig', 'PNE107', '97.00', 0, '0.00', '97.00', NULL, 75, '20.00', '4901', 1, 0, '2017-11-24 07:46:38', '2017-11-24 07:46:38', NULL, NULL, NULL),
+(16, 2, 2, 'Gujarati', 'Gujarati Book', 'Periwinkle Blossoms Pattern & Motor Skills', 'Ayesha Baig', 'PNE109', '100.00', 1, '0.12', '100.12', NULL, 75, '20.00', '4902', 1, 0, '2017-11-24 07:46:38', '2017-11-24 08:55:11', 1, NULL, NULL),
+(17, 2, 2, 'English', 'Periwinkle Blossoms Pattern & Motor Skills - 2', 'Periwinkle Blossoms Pattern & Motor Skills', 'Ayesha Baig', 'PNE1010', '100.00', 1, '0.00', '100.00', NULL, 75, '20.00', '4901', 1, 0, '2017-11-24 08:05:35', '2017-11-24 08:28:39', 1, NULL, NULL),
+(18, 2, 2, 'English', 'Periwinkle Blossoms Pattern & Motor Skills - 3', 'Periwinkle Blossoms Pattern & Motor Skills', 'Ayesha Baig', 'PNE1011', '86.61', 1, '12.00', '97.00', NULL, 75, '20.00', '4901', 1, 0, '2017-11-24 08:29:17', '2017-11-24 08:54:57', 1, NULL, NULL),
+(19, 2, 1, '', 'Hello', 'How are you', '', 'A123456', '84.75', 1, '18.00', '100.00', NULL, 0, '0.00', '', 1, 1, '2017-11-24 08:31:48', '2017-11-24 08:54:48', 1, NULL, NULL),
+(21, 2, NULL, '', 'Why this kolavery D o D', '', '', 'W124', '86.96', 1, '15.00', '100.00', NULL, 0, '0.00', '', 1, 1, '2017-11-24 10:55:21', '2017-11-24 10:55:21', NULL, NULL, NULL),
+(22, 2, NULL, 'English', 'Periwinkle Blossoms Pattern & Motor Skills - 4', 'Periwinkle Blossoms Pattern & Motor Skills', 'Ayesha Baig', 'W124', '107.14', 1, '12.00', '120.00', NULL, 75, '20.00', '4901', 1, 0, '2017-11-24 10:56:38', '2017-11-28 11:31:11', 1, NULL, NULL),
+(23, 2, NULL, '', 'Test', '', '', 'W124', '150.00', 1, '0.00', '150.00', NULL, 0, '0.00', '', 1, 1, '2017-11-28 11:31:41', '2017-11-28 11:32:28', 1, NULL, NULL),
+(24, 1, NULL, '', 'Test', '', '', 'W124', '154.55', 1, '10.00', '170.00', NULL, 0, '0.00', '', 1, 1, '2017-11-28 11:34:33', '2017-11-28 11:34:53', 1, NULL, NULL),
+(25, 1, NULL, '', 'Test', '', '', 'W124', '95.45', 1, '10.00', '105.00', NULL, 0, '0.00', '', 1, 1, '2017-11-28 11:35:31', '2017-11-28 11:35:31', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -228,8 +257,9 @@ CREATE TABLE `company_master` (
 --
 
 INSERT INTO `company_master` (`id`, `name`, `phone`, `email`, `contact_person`, `address1`, `address2`, `area`, `city`, `state`, `zip`, `payment_gateway`, `payment_gateway_key`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 'Safal Infotech', '9974916374', 'ajaydpatel15@gmail.com', 'Ajay Patel', '208, Rudra Arcade', 'Hemlet Cross Road', 'Navrangpura', 'Ahmedabad', 'Gujarat', '380009', 'PayUMoney', 'PjshhdHjksjk281JHJhj(@hjdshsj', 1, '2017-10-23 18:00:50', 1, '2017-11-04 10:06:17', 1, NULL, NULL),
-(2, 'Yashvi IT Solutions', '9510983350', 'rohitpmodi@gmail.com', 'Rohit Modi', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Gujarat', '380058', 'PayUMoney', '6787678678HHGJHGHJ', 1, '2017-11-06 04:41:16', 1, '2017-11-06 04:41:16', NULL, NULL, NULL);
+(1, 'Safal Infotech', '9974916374', 'ajaydpatel15@gmail.com', 'Ajay Patel', '208, Rudra Arcade', 'Hemlet Cross Road', 'Navrangpura', 'Ahmedabad', 'Gujarat', '380009', 'PayUMoney', 'zPr3a9nc', 1, '2017-10-23 18:00:50', 1, '2017-12-07 08:49:18', 1, NULL, NULL),
+(2, 'Yashvi IT Solutions', '9510983350', 'rohitpmodi@gmail.com', 'Rohit Modi', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Gujarat', '380058', 'PayUMoney', 'xoA6hykW', 1, '2017-11-06 04:41:16', 1, '2017-11-14 15:08:12', 1, NULL, NULL),
+(3, 'Jeevandeep', '9510983350', 'admin@jeevandeep.in', 'Ajay Patel', 'M-303', 'Aarohi', 'South Bopal', 'Ahmedabad', 'MAHARASTRA', '380058', '', '', 1, '2017-12-07 09:24:34', 1, '2017-12-07 09:24:34', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -241,7 +271,7 @@ DROP TABLE IF EXISTS `email_templates`;
 CREATE TABLE `email_templates` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `template` enum('Register','Order','Forgot Password') DEFAULT NULL,
+  `template` enum('Register','Order','Forgot Password','Email Validation','Order Status') DEFAULT NULL,
   `subject` varchar(255) DEFAULT NULL,
   `body` text,
   `status` tinyint(4) NOT NULL DEFAULT '1',
@@ -259,7 +289,10 @@ CREATE TABLE `email_templates` (
 
 INSERT INTO `email_templates` (`id`, `name`, `template`, `subject`, `body`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
 (1, 'Register', 'Register', 'Welcome to Jeevandeep Online Portal', 'Hello <<student_name>>,\r\n\r\nWelcome to Jeevandeep online portal.\r\n\r\nPlease find below login credentials.\r\nUsername : <<username>>\r\nPassword : <<password>>\r\n\r\nThanks,\r\nJeevandeep Team', 1, '2017-10-15 11:17:29', 1, '2017-10-15 11:48:00', 1, NULL, NULL),
-(2, 'Forgot Password', 'Forgot Password', 'Forgot your password?', 'Hi <<student_name>>,\r\n\r\nYou have requested for a new password. Please click on below link to reset your password.\r\n<<reset_password_link>>\r\n\r\nThanks,\r\nJeevandeep Team', 1, '2017-10-15 11:46:08', 1, '2017-10-15 11:46:08', NULL, NULL, NULL);
+(2, 'Forgot Password', 'Forgot Password', 'Forgot your password?', 'Hi <<parent_name>>,\r\n\r\nYou have requested for a new password. Please click on below link to reset your password.\r\n<<reset_password_link>>\r\n\r\nThanks,\r\nJeevandeep Team', 1, '2017-10-15 11:46:08', 1, '2017-11-29 15:07:53', 1, NULL, NULL),
+(3, 'Order Generate', 'Order', 'Jeevandeep Order', 'Hi <<student_name>>,\n\nThank you for your purchase. If you have any questions that we can help with, please feel free to email us at info@jeevandeep.com. Thanks so much!\n<<order_details>>\nThanks,\nJeevandeep Team', 1, '2017-11-10 19:36:58', 1, '2017-11-10 21:49:16', 1, NULL, NULL),
+(4, 'Change Order status', 'Order Status', 'Order was successfully updated', 'Hi <<student_name>>,\r\n\r\nYour Order #<<order_no>> is <strong><<status>></strong>.\r\n\r\nThank you,\r\nJeevandeep!', 1, '2017-11-10 19:40:03', 1, '2017-11-10 19:55:44', NULL, NULL, NULL),
+(5, 'Send email validation link', 'Email Validation', 'Welcome to Jeevandeep', 'Hi User,\nTo sign in to our site, confirm you email by clicking below link:\n<strong>Verify:</strong> <<link>>\n<strong>Password:</strong> Password you set when creating account\n\nThank you, Jeevandeep!', 1, '2017-11-10 19:45:04', 1, '2017-11-14 10:38:52', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -388,8 +421,8 @@ CREATE TABLE `order_master` (
 INSERT INTO `order_master` (`id`, `user_id`, `amount`, `tax`, `shipping`, `total_amount`, `status_id`, `order_date`, `transaction_id`, `reference_no`, `preferred_delivery_date`, `billing_address1`, `billing_address2`, `billing_area`, `billing_city`, `billing_state`, `billing_zip`, `shipping_address1`, `shipping_address2`, `shipping_area`, `shipping_city`, `shipping_state`, `shipping_zip`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`, `issue_raised`, `order_notes`) VALUES
 (1, 19, '380.00', '56.40', '23.60', '460.00', 1, '2017-11-06 06:06:11', NULL, NULL, '2017-10-06', 'A-102', 'Jalaram Chambers', 'Bhaktinagar', 'Navsari', 'Gujarat', '396445', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Gujarat', '380058', '2017-11-06 06:06:11', NULL, NULL, NULL, '0', NULL),
 (2, 19, '345.00', '0.00', '35.40', '380.40', 1, '2017-11-06 06:06:19', NULL, NULL, '2017-10-06', 'A-102', 'Jalaram Chambers', 'Bhaktinagar', 'Navsari', 'Gujarat', '396445', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Gujarat', '380058', '2017-11-06 06:06:19', NULL, NULL, NULL, '0', NULL),
-(3, 20, '380.00', '56.40', '23.60', '460.00', 4, '2017-11-07 12:09:08', NULL, NULL, '2017-10-05', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', '2017-11-07 12:23:52', 1, NULL, NULL, '0', NULL),
-(4, 20, '345.00', '0.00', '35.40', '380.40', 1, '2017-11-07 12:09:16', NULL, NULL, '2017-10-05', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', '2017-11-07 12:09:16', NULL, NULL, NULL, '0', NULL);
+(3, 20, '380.00', '56.40', '23.60', '460.00', 1, '2017-11-07 12:09:08', NULL, NULL, '2017-10-05', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', '2017-12-07 14:43:19', 1, NULL, NULL, '0', NULL),
+(4, 20, '345.00', '0.00', '35.40', '380.40', 1, '2017-11-07 12:09:16', NULL, NULL, '2017-10-05', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', '2017-12-07 14:43:19', NULL, NULL, NULL, '0', NULL);
 
 -- --------------------------------------------------------
 
@@ -491,7 +524,57 @@ INSERT INTO `persistences` (`id`, `user_id`, `code`, `created_at`, `updated_at`)
 (84, 1, 'J1eh1ZMKhSwcAWinqOyFlOlTq8lQJ2Ao', '2017-11-06 23:46:23', '2017-11-06 23:46:23'),
 (85, 20, 'HLs28i1bZHGIlEhLUwsYPJc5bcDdDpoP', '2017-11-06 23:59:00', '2017-11-06 23:59:00'),
 (86, 20, 'QE3PfMF1mnOeAT9rbFiERE2qzormeI1e', '2017-11-07 00:00:14', '2017-11-07 00:00:14'),
-(87, 20, 'nFO0XjQm9rnEXc5lXLDEEaAONRbPLoaa', '2017-11-07 00:03:59', '2017-11-07 00:03:59');
+(87, 20, 'nFO0XjQm9rnEXc5lXLDEEaAONRbPLoaa', '2017-11-07 00:03:59', '2017-11-07 00:03:59'),
+(88, 19, 'psjyXQ8sjrJ0tVambhLc1C6lI4Lcx7df', '2017-11-07 06:30:05', '2017-11-07 06:30:05'),
+(89, 1, 'pSluWrTEwKCv1eqBlrGJih7urkGKWW8z', '2017-11-07 06:37:12', '2017-11-07 06:37:12'),
+(90, 1, 'jOFSMGKbdbnDRLHcGsUeA4nH5YDlqf7s', '2017-11-08 23:22:06', '2017-11-08 23:22:06'),
+(91, 1, 'ZWHklQlM8fDSWOFX75aveOvDr8B4vuAJ', '2017-11-08 23:43:43', '2017-11-08 23:43:43'),
+(92, 1, '7vGGkrHUUKDDrULHCZW0FZ3rCKyHiDos', '2017-11-09 12:15:56', '2017-11-09 12:15:56'),
+(93, 1, 'LsctMdEQccN0DVadBm9FZJ83rdoCSf4i', '2017-11-09 19:21:47', '2017-11-09 19:21:47'),
+(94, 19, '3HxPTwOoZpOuzLu7kzPNuINNGqmReZy6', '2017-11-09 22:21:27', '2017-11-09 22:21:27'),
+(95, 1, '8EalVdwXV4HCOaI0wGxwzlnY27wLqZvV', '2017-11-09 22:23:36', '2017-11-09 22:23:36'),
+(96, 1, 'aJLtLIdi5etH6sxfH4EkEUrMjSP2VQ1j', '2017-11-09 22:28:31', '2017-11-09 22:28:31'),
+(97, 1, '462gNm5zQ80jKVXOarsT5SCbD3wZEsBE', '2017-11-10 10:33:42', '2017-11-10 10:33:42'),
+(98, 1, '4G4xUuUuhJ7ubHrUHZu4FvGH3C0SmpOb', '2017-11-13 07:23:38', '2017-11-13 07:23:38'),
+(99, 1, 'rpO5rTxP7glOdgxSL1YDZvRnqY8vqtVJ', '2017-11-13 21:42:50', '2017-11-13 21:42:50'),
+(100, 1, 'gcc4NN5kQx7Uff5wcxdb3d1PaKZgV4Bb', '2017-11-13 21:59:07', '2017-11-13 21:59:07'),
+(102, 19, 'ewgE6DnQs99t4cCZHEcjJT7GnBg2cH4P', '2017-11-13 22:07:04', '2017-11-13 22:07:04'),
+(103, 22, 'IyzzlTFX2lsWzCrMVKtvUowRWv3ww5SZ', '2017-11-13 22:09:14', '2017-11-13 22:09:14'),
+(104, 23, '4159zBd83Lf2XxTMv8VWtghE1bg4uhcv', '2017-11-13 22:13:13', '2017-11-13 22:13:13'),
+(105, 19, 'WGZGeRCY3P84QQE66Gvo39cRqpGv3no5', '2017-11-13 22:53:10', '2017-11-13 22:53:10'),
+(106, 19, 'RorqpbmJ00UOWPCKYejk96yW0gm3daGk', '2017-11-13 22:53:33', '2017-11-13 22:53:33'),
+(108, 1, 'fC0CBWjkpB0AoTnqpyJmSIyD7dyqBX07', '2017-11-13 22:56:14', '2017-11-13 22:56:14'),
+(109, 1, 'ZRgyhlL6ADgvPbxyAzXZxrxmgvx7x6VB', '2017-11-14 02:37:33', '2017-11-14 02:37:33'),
+(110, 1, 'SxKAChNxrglHIUd8fu7XydJBDZgIVctP', '2017-11-14 02:37:33', '2017-11-14 02:37:33'),
+(111, 1, 'vUmMXRbSkcuXpBcH1kxlMDQBF2lfJU0f', '2017-11-16 22:50:24', '2017-11-16 22:50:24'),
+(112, 1, 'q46EVu6U1tJw7muCDtMFUD3NI08aRiv8', '2017-11-17 00:30:14', '2017-11-17 00:30:14'),
+(113, 1, 'BMwgKYmafrIV6vI44KW5cp4yqJsCyUGl', '2017-11-17 09:53:04', '2017-11-17 09:53:04'),
+(114, 1, 'IpxIC3UGNDvv7MsVsJyUOWT1nAA5Vi5P', '2017-11-23 18:19:42', '2017-11-23 18:19:42'),
+(115, 1, '5f1coeySQEzLTAGCJmpDb6DO3VIVD44I', '2017-11-27 21:53:22', '2017-11-27 21:53:22'),
+(116, 1, 'lhBlZFreIOMWVnzF3ejzwPiKNa3DAYh7', '2017-11-28 19:44:32', '2017-11-28 19:44:32'),
+(117, 1, 'U05uwalNWcWl3jR7kCQkVYyuvbMaKVAl', '2017-11-28 19:44:33', '2017-11-28 19:44:33'),
+(119, 1, '2JVbSSpjXLUBNDIaotrELQFUz9p6pHMA', '2017-11-28 19:45:37', '2017-11-28 19:45:37'),
+(120, 24, '56TI8Q15oDlyIczNXNUpvCxHbIlXUwI5', '2017-11-29 02:24:46', '2017-11-29 02:24:46'),
+(121, 1, '0zX377Eh2oaI0Q3JHTjlN1gtcPAVCqMF', '2017-11-29 02:30:09', '2017-11-29 02:30:09'),
+(122, 1, '2eXXyYcNdjQivzNqg5f7OTXVlbUH4LbR', '2017-12-05 00:53:20', '2017-12-05 00:53:20'),
+(123, 1, 'dBwcf2IHBJgjhByADGN7f4CFaRLaF3jW', '2017-12-05 07:26:22', '2017-12-05 07:26:22'),
+(124, 1, 'yQ8wthkjNU3YZqVnC7Cdj1XW6EgdBQQa', '2017-12-05 07:49:27', '2017-12-05 07:49:27'),
+(125, 1, 'ZbewtC4ipisWPHjaH8dVUtu3HxwSg6jz', '2017-12-05 09:59:03', '2017-12-05 09:59:03'),
+(126, 29, '2tbA6m7zflBsT2uRTnr5JGOLTrf7QHNl', '2017-12-05 18:35:19', '2017-12-05 18:35:19'),
+(127, 29, 'XvCi6rSkJiNIPvDRHinqgGHSYFaxuQ2C', '2017-12-05 18:40:34', '2017-12-05 18:40:34'),
+(128, 29, 'r6EkJ3LOiCq6VPG9mc0LiDFlpcEcrIP9', '2017-12-05 18:42:13', '2017-12-05 18:42:13'),
+(129, 32, 'ZmyrAJrjan8bLtPgFURQvhaEQao001IG', '2017-12-05 18:49:07', '2017-12-05 18:49:07'),
+(130, 33, '4lxX4hRHg2W5lFqbGdm6L5WpvTruKHSU', '2017-12-05 18:51:47', '2017-12-05 18:51:47'),
+(131, 34, 'WIPZaV62oALS1rM1xQv7aoCPkQRhCRnU', '2017-12-05 19:04:52', '2017-12-05 19:04:52'),
+(132, 34, 'koQZoxvRsbvMDDyEXiOf5aXYAdhMlbJC', '2017-12-05 19:06:04', '2017-12-05 19:06:04'),
+(133, 1, 'HHXVl1N0PJlXta5yhg6R3oUrMfLdfY0W', '2017-12-05 19:23:53', '2017-12-05 19:23:53'),
+(134, 19, 'FhBYjKDmDWAnqSz1mVDTEc1o5i4rnjTm', '2017-12-05 19:24:25', '2017-12-05 19:24:25'),
+(135, 1, 'CpS66mZ6qfl7Us4YVhnrK4KODk3svG94', '2017-12-05 19:26:25', '2017-12-05 19:26:25'),
+(136, 1, '44rqfEl8i0ynGayuZ1jwNLkS5OLlY3K8', '2017-12-05 19:31:52', '2017-12-05 19:31:52'),
+(137, 1, 'PCK5DkmG9SVeQbCObI7QRJESX1g3GHyE', '2017-12-05 19:32:16', '2017-12-05 19:32:16'),
+(138, 1, 'uSKU0kOyNMPvbv1L0RTmJS5bGSKrgTTM', '2017-12-06 19:15:57', '2017-12-06 19:15:57'),
+(140, 19, 'oWXqtndakzK2n0KG7QrZZsN5J8bfHxE0', '2017-12-06 21:09:38', '2017-12-06 21:09:38'),
+(141, 1, 'lskODAs75XUZG1e2CjXrPBM0hF2EUGd3', '2017-12-06 21:13:08', '2017-12-06 21:13:08');
 
 -- --------------------------------------------------------
 
@@ -517,7 +600,7 @@ INSERT INTO `product_books` (`product_id`, `book_id`, `quantity`) VALUES
 (26, 4, 1),
 (27, 2, 1),
 (27, 3, 1),
-(28, 5, 1);
+(28, 5, 15);
 
 -- --------------------------------------------------------
 
@@ -552,9 +635,11 @@ CREATE TABLE `product_master` (
 
 INSERT INTO `product_master` (`id`, `school_id`, `standard_id`, `company_id`, `is_taxable`, `title`, `description`, `long_description`, `instate_shipping_charges`, `outstate_shipping_charges`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
 (20, 1, 1, 1, 1, 'Gread 8-12 Set 1', 'Algebra, Trigonometric, etc', 'Cras auctor ante non elementum malesuada. Cras posuere, est ac convallis auctor, ligula risus fermentum nibh, vitae efficitur libero mauris sed lectus. Sed varius turpis a tellus pulvinar tempus. In elit eros, iaculis a pulvinar at, suscipit viverra nisi. Suspendisse faucibus nunc ac massa consectetur sagittis. Etiam euismod nunc lorem. In nisi justo, consequat at ante vestibulum, tristique sagittis nisi.', '20.00', '50.00', 1, '2017-10-25 17:17:13', 1, '2017-11-06 05:50:36', 1, NULL, NULL),
-(26, 1, 1, 1, 0, 'Gread 8-12 Set 2', 'Science, Social Science', 'Pellentesque justo libero, placerat a venenatis ut, rutrum ut sem. Curabitur in elit sit amet risus imperdiet ultrices sit amet eu ligula. Aliquam eleifend vulputate sem eget rutrum. Nulla a ornare felis. Nulla facilisi. Nam commodo, diam et mattis vestibulum, nisl nisi fringilla sapien, eget cursus elit metus nec magna. Nulla a sapien arcu. Ut viverra augue in sapien dapibus, at efficitur turpis molestie. Praesent nunc nisi, ultrices vel semper eu, dapibus at ex. Morbi sagittis lacinia libero. Donec auctor aliquam ex, non dictum ante laoreet sed.', '30.00', '60.00', 1, '2017-11-04 11:26:27', 1, '2017-11-07 13:29:45', 1, NULL, NULL),
-(27, 1, 1, 1, 1, 'Copy of Gread 8-12 Set 1', 'Algebra, Trigonometric, etc', 'Cras auctor ante non elementum malesuada. Cras posuere, est ac convallis auctor, ligula risus fermentum nibh, vitae efficitur libero mauris sed lectus. Sed varius turpis a tellus pulvinar tempus. In elit eros, iaculis a pulvinar at, suscipit viverra nisi. Suspendisse faucibus nunc ac massa consectetur sagittis. Etiam euismod nunc lorem. In nisi justo, consequat at ante vestibulum, tristique sagittis nisi.', '20.00', '50.00', 1, '2017-11-07 12:41:57', 1, '2017-11-07 13:36:54', 1, '2017-11-07 01:06:54', NULL),
-(28, 2, 2, 1, 1, 'Grade 6 Set 1', 'Test desc', 'Test desc long', '40.00', '60.00', 1, '2017-11-07 12:46:15', 1, '2017-11-07 13:37:01', 1, '2017-11-07 01:07:01', NULL);
+(26, 1, 1, 1, 0, 'Gread 8-12 Set 2', 'Science, Social Science', 'Pellentesque justo libero, placerat a venenatis ut, rutrum ut sem. Curabitur in elit sit amet risus imperdiet ultrices sit amet eu ligula. Aliquam eleifend vulputate sem eget rutrum. Nulla a ornare felis. Nulla facilisi. Nam commodo, diam et mattis vestibulum, nisl nisi fringilla sapien, eget cursus elit metus nec magna. Nulla a sapien arcu. Ut viverra augue in sapien dapibus, at efficitur turpis molestie. Praesent nunc nisi, ultrices vel semper eu, dapibus at ex. Morbi sagittis lacinia libero. Donec auctor aliquam ex, non dictum ante laoreet sed.', '30.00', '60.00', 1, '2017-11-04 11:26:27', 1, '2017-11-10 11:03:24', 1, NULL, NULL),
+(27, 1, 1, 1, 1, 'Copy of Gread 8-12 Set 1', 'Algebra, Trigonometric, etc', 'Cras auctor ante non elementum malesuada. Cras posuere, est ac convallis auctor, ligula risus fermentum nibh, vitae efficitur libero mauris sed lectus. Sed varius turpis a tellus pulvinar tempus. In elit eros, iaculis a pulvinar at, suscipit viverra nisi. Suspendisse faucibus nunc ac massa consectetur sagittis. Etiam euismod nunc lorem. In nisi justo, consequat at ante vestibulum, tristique sagittis nisi.', '20.00', '50.00', 1, '2017-11-07 12:41:57', 1, '2017-12-07 09:44:45', 1, '2017-12-06 21:14:45', NULL),
+(28, 2, 2, 1, 1, 'Grade 6 Set 1', 'Test desc', 'Test desc long', '40.00', '60.00', 1, '2017-11-07 12:46:15', 1, '2017-11-13 09:09:53', 1, NULL, NULL),
+(29, 1, 1, 1, 1, 'Test product', '', '', '20.00', '40.00', 1, '2017-11-10 12:50:35', 1, '2017-11-10 12:50:35', NULL, NULL, NULL),
+(30, 2, 2, 2, 0, 'Hello', '', '', '50.00', '100.00', 1, '2017-11-24 11:03:17', 1, '2017-11-24 11:03:17', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -627,9 +712,16 @@ CREATE TABLE `role_users` (
 --
 
 INSERT INTO `role_users` (`user_id`, `role_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2017-11-03 23:45:51', '2017-11-03 23:45:51'),
+(1, 1, '2017-12-05 02:56:01', '2017-12-05 02:56:01'),
 (19, 5, '2017-11-05 17:31:34', '2017-11-05 17:31:34'),
-(20, 5, '2017-11-06 23:25:19', '2017-11-06 23:25:19');
+(20, 5, '2017-11-06 23:25:19', '2017-11-06 23:25:19'),
+(22, 5, '2017-11-13 22:09:15', '2017-11-13 22:09:15'),
+(23, 5, '2017-11-13 22:13:14', '2017-11-13 22:13:14'),
+(24, 5, '2017-11-29 02:24:46', '2017-11-29 02:24:46'),
+(29, 5, '2017-12-05 18:42:13', '2017-12-05 18:42:13'),
+(32, 5, '2017-12-05 18:49:07', '2017-12-05 18:49:07'),
+(33, 5, '2017-12-05 18:51:48', '2017-12-05 18:51:48'),
+(34, 5, '2017-12-05 19:04:52', '2017-12-05 19:04:52');
 
 -- --------------------------------------------------------
 
@@ -723,6 +815,7 @@ CREATE TABLE `standard_master` (
   `name` varchar(100) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
+  `position` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `added_by` int(11) NOT NULL,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -735,9 +828,11 @@ CREATE TABLE `standard_master` (
 -- Dumping data for table `standard_master`
 --
 
-INSERT INTO `standard_master` (`id`, `name`, `description`, `status`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
-(1, 'Gread 8-12', '99999999', 1, '2017-10-23 18:02:26', 1, '2017-10-23 18:02:26', NULL, NULL, NULL),
-(2, 'Grade 6', 'Algebra, Trigonometric, etc', 1, '2017-10-23 18:12:47', 1, '2017-11-04 10:06:40', 1, NULL, NULL);
+INSERT INTO `standard_master` (`id`, `name`, `description`, `status`, `position`, `created_at`, `added_by`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`) VALUES
+(1, 'Gread 8-12', '99999999', 1, 1, '2017-10-23 18:02:26', 1, '2017-12-05 13:21:44', NULL, NULL, NULL),
+(2, 'Grade 6', 'Algebra, Trigonometric, etc', 1, 2, '2017-10-23 18:12:47', 1, '2017-12-05 13:21:44', 1, NULL, NULL),
+(3, 'Grade 7', '', 1, 3, '2017-11-28 11:10:35', 1, '2017-12-05 13:21:44', NULL, '2017-11-27 22:40:39', NULL),
+(4, 'Grade 7', '', 1, 4, '2017-11-28 11:14:37', 1, '2017-12-05 13:21:44', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -757,8 +852,42 @@ CREATE TABLE `state_master` (
 --
 
 INSERT INTO `state_master` (`id`, `name`, `code`) VALUES
-(1, 'Gujarat', 'GJ'),
-(2, 'Maharastra', 'MH');
+(1, 'GUJARAT', 'GJ'),
+(2, 'MAHARASTRA', 'MH'),
+(3, 'ANDHRA PRADESH', 'AP'),
+(4, 'ASSAM', 'AS'),
+(5, 'ARUNACHAL PRADESH', 'ARP'),
+(6, 'BIHAR', 'BR'),
+(7, 'HARYANA', 'HR'),
+(8, 'HIMACHAL PRADESH', 'HP'),
+(9, 'JAMMU & KASHMIR', 'JK'),
+(10, 'KARNATAKA', 'KA'),
+(11, 'KERALA', 'KL'),
+(12, 'MADHYA PRADESH', 'MP'),
+(13, 'MANIPUR', 'MN'),
+(14, 'MEGHALAYA', 'ML'),
+(15, 'MIZORAM', 'MZ'),
+(16, 'NAGALAND', 'NL'),
+(17, 'ORISSA', 'OD'),
+(18, 'PUNJAB', 'PB'),
+(19, 'RAJASTHAN', 'RJ'),
+(20, 'SIKKIM', 'SK'),
+(21, 'TAMIL NADU', 'TN'),
+(22, 'TRIPURA', 'TR'),
+(23, 'UTTAR PRADESH', 'UP'),
+(24, 'WEST BENGAL', 'WB'),
+(25, 'GOA', 'GA'),
+(26, 'PONDICHERY', 'PY'),
+(27, 'LAKSHDWEEP', 'LD'),
+(28, 'DAMAN & DIU', 'DD'),
+(29, 'DADRA & NAGAR', 'DN'),
+(30, 'CHANDIGARH', 'CH'),
+(31, 'ANDAMAN & NICOBAR', 'AN'),
+(32, 'UTTARAKHAND', 'UK'),
+(33, 'JHARKHAND', 'JH'),
+(34, 'CHATTISGARH', 'CGH'),
+(35, 'DELHI', 'DL'),
+(36, 'TELANGANA', 'TG');
 
 -- --------------------------------------------------------
 
@@ -785,7 +914,6 @@ CREATE TABLE `status_master` (
 INSERT INTO `status_master` (`id`, `name`, `add_date`, `added_by`, `update_date`, `updated_by`, `deleted_on`, `deleted_by`) VALUES
 (1, 'Pending', '2017-11-05 00:00:00', 0, '2017-11-07 17:53:25', NULL, NULL, NULL),
 (2, 'Confirmed', '2017-11-05 22:35:38', NULL, '2017-11-05 22:35:38', NULL, NULL, NULL),
-(3, 'Shipping', '2017-11-05 22:35:49', NULL, '2017-11-05 22:35:49', NULL, NULL, NULL),
 (4, 'Shipped', '2017-11-05 22:35:55', NULL, '2017-11-05 22:35:55', NULL, NULL, NULL),
 (5, 'Completed', '2017-11-05 22:36:08', NULL, '2017-11-07 17:57:37', NULL, NULL, NULL),
 (6, 'Cancelled', '2017-11-05 22:36:16', NULL, '2017-11-05 22:36:16', NULL, NULL, NULL),
@@ -868,7 +996,66 @@ INSERT INTO `throttle` (`id`, `user_id`, `type`, `ip`, `created_at`, `updated_at
 (54, 1, 'user', NULL, '2017-11-05 17:10:31', '2017-11-05 17:10:31'),
 (55, NULL, 'global', NULL, '2017-11-05 17:10:37', '2017-11-05 17:10:37'),
 (56, NULL, 'ip', '::1', '2017-11-05 17:10:37', '2017-11-05 17:10:37'),
-(57, 1, 'user', NULL, '2017-11-05 17:10:37', '2017-11-05 17:10:37');
+(57, 1, 'user', NULL, '2017-11-05 17:10:37', '2017-11-05 17:10:37'),
+(58, NULL, 'global', NULL, '2017-11-08 23:21:17', '2017-11-08 23:21:17'),
+(59, NULL, 'ip', '::1', '2017-11-08 23:21:17', '2017-11-08 23:21:17'),
+(60, 1, 'user', NULL, '2017-11-08 23:21:17', '2017-11-08 23:21:17'),
+(61, NULL, 'global', NULL, '2017-11-08 23:21:23', '2017-11-08 23:21:23'),
+(62, NULL, 'ip', '::1', '2017-11-08 23:21:23', '2017-11-08 23:21:23'),
+(63, 1, 'user', NULL, '2017-11-08 23:21:23', '2017-11-08 23:21:23'),
+(64, NULL, 'global', NULL, '2017-11-08 23:43:27', '2017-11-08 23:43:27'),
+(65, NULL, 'ip', '::1', '2017-11-08 23:43:27', '2017-11-08 23:43:27'),
+(66, NULL, 'global', NULL, '2017-11-09 22:21:11', '2017-11-09 22:21:11'),
+(67, NULL, 'ip', '::1', '2017-11-09 22:21:11', '2017-11-09 22:21:11'),
+(68, NULL, 'global', NULL, '2017-11-09 22:21:16', '2017-11-09 22:21:16'),
+(69, NULL, 'ip', '::1', '2017-11-09 22:21:16', '2017-11-09 22:21:16'),
+(70, NULL, 'global', NULL, '2017-11-13 22:10:20', '2017-11-13 22:10:20'),
+(71, NULL, 'ip', '::1', '2017-11-13 22:10:20', '2017-11-13 22:10:20'),
+(72, 22, 'user', NULL, '2017-11-13 22:10:20', '2017-11-13 22:10:20'),
+(73, NULL, 'global', NULL, '2017-11-13 22:11:06', '2017-11-13 22:11:06'),
+(74, NULL, 'ip', '::1', '2017-11-13 22:11:06', '2017-11-13 22:11:06'),
+(75, 22, 'user', NULL, '2017-11-13 22:11:06', '2017-11-13 22:11:06'),
+(76, NULL, 'global', NULL, '2017-11-13 22:11:21', '2017-11-13 22:11:21'),
+(77, NULL, 'ip', '::1', '2017-11-13 22:11:21', '2017-11-13 22:11:21'),
+(78, NULL, 'global', NULL, '2017-11-13 22:12:18', '2017-11-13 22:12:18'),
+(79, NULL, 'ip', '::1', '2017-11-13 22:12:18', '2017-11-13 22:12:18'),
+(80, NULL, 'global', NULL, '2017-11-13 22:12:39', '2017-11-13 22:12:39'),
+(81, NULL, 'ip', '::1', '2017-11-13 22:12:39', '2017-11-13 22:12:39'),
+(82, 22, 'user', NULL, '2017-11-13 22:12:39', '2017-11-13 22:12:39'),
+(83, NULL, 'global', NULL, '2017-11-23 21:50:40', '2017-11-23 21:50:40'),
+(84, NULL, 'ip', '::1', '2017-11-23 21:50:40', '2017-11-23 21:50:40'),
+(85, NULL, 'global', NULL, '2017-12-05 07:39:06', '2017-12-05 07:39:06'),
+(86, NULL, 'ip', '::1', '2017-12-05 07:39:07', '2017-12-05 07:39:07'),
+(87, NULL, 'global', NULL, '2017-12-05 07:39:19', '2017-12-05 07:39:19'),
+(88, NULL, 'ip', '::1', '2017-12-05 07:39:19', '2017-12-05 07:39:19'),
+(89, NULL, 'global', NULL, '2017-12-05 07:39:25', '2017-12-05 07:39:25'),
+(90, NULL, 'ip', '::1', '2017-12-05 07:39:25', '2017-12-05 07:39:25'),
+(91, 1, 'user', NULL, '2017-12-05 07:39:25', '2017-12-05 07:39:25'),
+(92, NULL, 'global', NULL, '2017-12-05 07:44:48', '2017-12-05 07:44:48'),
+(93, NULL, 'ip', '::1', '2017-12-05 07:44:48', '2017-12-05 07:44:48'),
+(94, NULL, 'global', NULL, '2017-12-05 08:29:57', '2017-12-05 08:29:57'),
+(95, NULL, 'ip', '::1', '2017-12-05 08:29:57', '2017-12-05 08:29:57'),
+(96, NULL, 'global', NULL, '2017-12-05 08:39:23', '2017-12-05 08:39:23'),
+(97, NULL, 'ip', '::1', '2017-12-05 08:39:23', '2017-12-05 08:39:23'),
+(98, NULL, 'global', NULL, '2017-12-05 09:13:58', '2017-12-05 09:13:58'),
+(99, NULL, 'ip', '::1', '2017-12-05 09:13:58', '2017-12-05 09:13:58'),
+(100, NULL, 'global', NULL, '2017-12-05 09:26:00', '2017-12-05 09:26:00'),
+(101, NULL, 'ip', '::1', '2017-12-05 09:26:00', '2017-12-05 09:26:00'),
+(102, 1, 'user', NULL, '2017-12-05 09:26:00', '2017-12-05 09:26:00'),
+(103, NULL, 'global', NULL, '2017-12-05 09:26:52', '2017-12-05 09:26:52'),
+(104, NULL, 'ip', '::1', '2017-12-05 09:26:52', '2017-12-05 09:26:52'),
+(105, 1, 'user', NULL, '2017-12-05 09:26:52', '2017-12-05 09:26:52'),
+(106, NULL, 'global', NULL, '2017-12-05 09:28:36', '2017-12-05 09:28:36'),
+(107, NULL, 'ip', '::1', '2017-12-05 09:28:36', '2017-12-05 09:28:36'),
+(108, 1, 'user', NULL, '2017-12-05 09:28:36', '2017-12-05 09:28:36'),
+(109, NULL, 'global', NULL, '2017-12-05 09:28:42', '2017-12-05 09:28:42'),
+(110, NULL, 'ip', '::1', '2017-12-05 09:28:42', '2017-12-05 09:28:42'),
+(111, NULL, 'global', NULL, '2017-12-05 09:28:52', '2017-12-05 09:28:52'),
+(112, NULL, 'ip', '::1', '2017-12-05 09:28:52', '2017-12-05 09:28:52'),
+(113, 1, 'user', NULL, '2017-12-05 09:28:52', '2017-12-05 09:28:52'),
+(114, NULL, 'global', NULL, '2017-12-05 09:53:56', '2017-12-05 09:53:56'),
+(115, NULL, 'ip', '::1', '2017-12-05 09:53:56', '2017-12-05 09:53:56'),
+(116, 1, 'user', NULL, '2017-12-05 09:53:56', '2017-12-05 09:53:56');
 
 -- --------------------------------------------------------
 
@@ -906,9 +1093,22 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `isAdmin`, `email`, `password`, `first_name`, `middle_name`, `last_name`, `parent_first_name`, `parent_middle_name`, `parent_last_name`, `mobile`, `landline`, `last_login`, `status`, `created_at`, `updated_at`, `deleted_at`, `deleted_by`, `uuid`, `is_active`, `verify`) VALUES
-(1, 1, 'rob@devsimplify.com', '$2y$10$jiEY8c90BRrVLdFiykHAyOi4m2g0I/rZ.2kFb.QoAn5Q.Ijs4r1MO', 'Rob', 'Prakashchandra', 'Dev', NULL, NULL, NULL, '9510983350', NULL, '2017-11-06 23:46:24', 1, '2017-11-07 12:16:24', '2017-11-06 23:46:24', NULL, NULL, NULL, 1, ''),
-(19, 0, 'rohitpmodi@gmail.com', '$2y$10$wwuv413/.g1Z6tBQouMImOGLXWYyVQWRGr23kdIbThEMjk6XRvPB.', 'Yashvi', 'Rohitkumar', 'Modi', 'Rohit', 'Prakashchandra', 'Modi', '9510983350', '02637252003', '2017-11-06 06:02:44', 1, '2017-11-06 06:02:44', '2017-11-05 17:32:44', NULL, NULL, NULL, 1, 'COMPLETED'),
-(20, 0, 'ajaydpatel15@gmail.com', '$2y$10$SBkyUjXT6T7XuU1anQ1NI.s7/c3rR62v1kCFQkpUFYDMFu8Xu/uym', 'Malhar', 'A', 'Modi', 'Ajay', 'D', 'Patel', '9974916374', '079252003', '2017-11-07 00:03:59', 1, '2017-11-07 12:33:59', '2017-11-07 00:03:59', NULL, NULL, NULL, 1, 'COMPLETED');
+(1, 1, 'rob@devsimplify.com', '$2y$10$ppEsrJBB6Ut9ffX3cYVrlOBO30FgBn8M.ApVL2gncf4upykgUGpD2', 'Robson', 'P', 'Modi', 'Prakashchandra', 'Mohanlal', 'Modi', '9537720859', '02637252003', '2017-12-06 21:13:08', 1, '2017-12-07 09:43:08', '2017-12-06 21:13:08', NULL, NULL, NULL, 1, ''),
+(19, 0, 'rohitpmodi@gmail.com', '$2y$10$wwuv413/.g1Z6tBQouMImOGLXWYyVQWRGr23kdIbThEMjk6XRvPB.', 'Yashvi', 'Rohitkumar', 'Modi', 'Rohit', 'Prakashchandra', 'Modi', '9510983350', '02637252003', '2017-12-06 21:09:38', 1, '2017-12-07 09:39:38', '2017-12-06 21:09:38', NULL, NULL, NULL, 1, 'COMPLETED'),
+(20, 0, 'ajaydpatel15@gmail.com', '$2y$10$SBkyUjXT6T7XuU1anQ1NI.s7/c3rR62v1kCFQkpUFYDMFu8Xu/uym', 'Malhar', 'A', 'Modi', 'Ajay', 'D', 'Patel', '9974916374', '079252003', '2017-11-07 00:03:59', 1, '2017-11-07 12:33:59', '2017-11-07 00:03:59', NULL, NULL, NULL, 1, 'COMPLETED'),
+(21, 0, 'rohitpmodi+6@gmail.com', '$2y$10$bdcIecZdAa6UHcVD/7jdxu7I52ZtQBfGyvjj2r423H6oAxLcDnLUW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-14 10:37:46', 1, '2017-11-13 22:07:46', '2017-11-13 22:07:46', NULL, NULL, NULL, 0, 'jCHSxVgg0wtfghpf'),
+(22, 0, 'rohitpmodi+15@gmail.com', '$2y$10$AFSEKp.GWzmVJireNr7M5uVr93Bf5TNqKvy5rC66oc4ttCLCHLgGS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-13 22:09:14', 1, '2017-11-14 10:39:14', '2017-11-13 22:09:14', NULL, NULL, NULL, 1, 'COMPLETED'),
+(23, 0, 'rohitpmodi+16@gmail.com', '$2y$10$MXpOVrCb901VjVdFrLgWWOIfsX27dpCRgyAFT.1l88GVUP1aT1IM2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-13 22:13:13', 1, '2017-11-14 10:43:13', '2017-11-13 22:13:13', NULL, NULL, NULL, 1, 'COMPLETED'),
+(24, 0, 'rohitpmodi+8@gmail.com', '$2y$10$Vc2GU2Xtu3LutwHghokL1.IaTS/sgim/azY/dGBdNwo85z0fC2Pm2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-29 02:24:46', 1, '2017-11-29 14:54:46', '2017-11-29 02:24:46', NULL, NULL, NULL, 1, 'COMPLETED'),
+(25, 0, 'rohitpmodi+11@gmail.com', '$2y$10$9RAJee9nYgSoSUD7prkrsuFB9KM.GpHeC4srNn05nnEcRLb9vDBa.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-11-29 14:57:32', 1, '2017-11-29 02:27:32', '2017-11-29 02:27:32', NULL, NULL, NULL, 0, 'TKQF35yLPOteAYPx'),
+(26, 0, 'xsdfsfsdf@gmail.com', '$2y$10$TMgNvQ3Sp9C7BlBdRHnVyOvJi4Oy34.EV3m3hYcsfIK.z/MYSf8oG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-12-05 21:57:16', 1, '2017-12-05 09:27:16', '2017-12-05 09:27:16', NULL, NULL, NULL, 0, 'zBKJW9DmWWDwg38p'),
+(27, 0, 'rohitpmodi+612@gmail.com', '$2y$10$B47g49Yhxn64jZqIcn9lnetvVHk.r8iBspPxN4VorFV9vZ3sQiw1S', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-12-05 22:55:04', 1, '2017-12-05 10:25:04', '2017-12-05 10:25:04', NULL, NULL, NULL, 0, 'c25VeweScs6ebiFL'),
+(28, 0, 'rohitpmodi6@gmail.com', '$2y$10$6wueaaHmoxP2Q5PJLQ2uwOFG5SGNc2RXjlC891rqGOGQhysjg3GKa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-12-05 22:57:30', 1, '2017-12-05 10:27:30', '2017-12-05 10:27:30', NULL, NULL, NULL, 0, 'q8yjGIlDkq57bxjX'),
+(30, 0, 'rohitpmodi+3@gmail.com', '$2y$10$CwLh1cCplvFTCK1VQ7voK.i4hi5V6j930.TAOR.k7OsTOJSgZXzQO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-12-06 07:14:37', 1, '2017-12-05 18:44:37', '2017-12-05 18:44:37', NULL, NULL, NULL, 0, '4udn8OKSaEsMX5CY'),
+(31, 0, 'rohitpmodi+4@gmail.com', '$2y$10$fRbqH7Nur1gl3HJ/C/eUFuyn4JY3GuUxkRJVeM/kgOETLUBPrwvue', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-12-06 07:18:01', 1, '2017-12-05 18:48:01', '2017-12-05 18:48:01', NULL, NULL, NULL, 0, 'yeG0TTpXBYOVa10K'),
+(32, 0, 'rohitpmodi+5@gmail.com', '$2y$10$HytnImTtVK4sNFIAXwJnFe9wGpt.zV/dUuiaGPuBCuryO5sBeOGm2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-12-05 18:49:07', 1, '2017-12-06 07:19:07', '2017-12-05 18:49:07', NULL, NULL, NULL, 1, 'COMPLETED'),
+(33, 0, 'rohitpmodi+7@gmail.com', '$2y$10$GtYlW/cTGsFZNL9g6e4FmeLuBkmoZ6i.rmCSvO1acYH2OS3aAdUp6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-12-05 18:51:47', 1, '2017-12-06 07:21:47', '2017-12-05 18:51:47', NULL, NULL, NULL, 1, 'COMPLETED'),
+(34, 0, 'rohitpmodi+9@gmail.com', '$2y$10$4jFd2HhlbulJeaoLJ9.8SuPrxneXEZeaSetbVMMQgIwKYOWtTC8lS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-12-05 19:06:04', 1, '2017-12-06 07:36:04', '2017-12-05 19:06:04', NULL, NULL, NULL, 1, 'I6ZulFGwZ2RjmebB');
 
 --
 -- Indexes for dumped tables
@@ -938,6 +1138,7 @@ ALTER TABLE `address_user`
 --
 ALTER TABLE `book_master`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `book_code` (`book_code`,`price_after_tax`,`deleted_at`) USING BTREE,
   ADD KEY `company_id` (`company_id`),
   ADD KEY `standard_id` (`standard_id`);
 
@@ -960,7 +1161,8 @@ ALTER TABLE `city_master`
 -- Indexes for table `company_master`
 --
 ALTER TABLE `company_master`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`,`deleted_at`);
 
 --
 -- Indexes for table `email_templates`
@@ -1020,6 +1222,7 @@ ALTER TABLE `product_books`
 --
 ALTER TABLE `product_master`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `title` (`title`,`deleted_at`),
   ADD KEY `standard_id` (`standard_id`),
   ADD KEY `company_id` (`company_id`),
   ADD KEY `school_id` (`school_id`);
@@ -1066,7 +1269,8 @@ ALTER TABLE `settings`
 -- Indexes for table `standard_master`
 --
 ALTER TABLE `standard_master`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`,`deleted_at`);
 
 --
 -- Indexes for table `state_master`
@@ -1102,32 +1306,32 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activations`
 --
 ALTER TABLE `activations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `address_master`
 --
 ALTER TABLE `address_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `book_master`
 --
 ALTER TABLE `book_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `company_master`
 --
 ALTER TABLE `company_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `email_templates`
 --
 ALTER TABLE `email_templates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `form_posts`
 --
@@ -1152,17 +1356,17 @@ ALTER TABLE `order_master`
 -- AUTO_INCREMENT for table `persistences`
 --
 ALTER TABLE `persistences`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
 --
 -- AUTO_INCREMENT for table `product_master`
 --
 ALTER TABLE `product_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `reminders`
 --
 ALTER TABLE `reminders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `roles`
 --
@@ -1182,12 +1386,12 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `standard_master`
 --
 ALTER TABLE `standard_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `state_master`
 --
 ALTER TABLE `state_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `status_master`
 --
@@ -1197,12 +1401,12 @@ ALTER TABLE `status_master`
 -- AUTO_INCREMENT for table `throttle`
 --
 ALTER TABLE `throttle`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- Constraints for dumped tables
 --

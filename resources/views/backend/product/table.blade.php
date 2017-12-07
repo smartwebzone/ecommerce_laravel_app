@@ -16,6 +16,7 @@
     $disable_class = ($row->order()->count() > 0 ? 'disabled' : '');
     $checkbox_disable = ($row->order()->count() > 0 ? 'disabled="disabled"' : '');
     $order_check_class = ($row->order()->count() > 0 ? '' : 'order-check');
+    $allow_delete = ($row->order()->count() > 0 ? false : true);
     ?>
     <tr>
         <td class="text-center"><input type="checkbox" data="{{$row->id}}" class="{{$order_check_class}} {{$disable_class}}" name="order_check" {{$checkbox_disable}}></td>
@@ -36,7 +37,11 @@
                 <a href="{!! route('admin.product.book', [$row->id]) !!}" class='btn btn-default btn-xs {{$disable_class}}'><i class="fa fa-book"></i></a>
                 <a href="{!! route('admin.product.edit', [$row->id]) !!}" class='btn btn-default btn-xs {{$disable_class}}'><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
                 <a title="Clone" onclick="return confirm('Are you sure want to generate clone?')" href="{!! route('admin.product.copy', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-copy" title="Clone"></i></a>
-                {!! Form::button('<i class="glyphicon glyphicon-trash" title="Delete"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs '.$disable_class, 'onclick' => "return confirm('Are you sure?')"]) !!}
+                @if($allow_delete)
+                {!! Form::button('<i class="glyphicon glyphicon-trash" title="Delete"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                @else
+                <a href="javascript:;" class='btn btn-danger btn-xs disabled'><i class="glyphicon glyphicon-trash" title="Delete"></i></a>
+                @endif
             </div>
             {!! Form::close() !!}
         </td>
