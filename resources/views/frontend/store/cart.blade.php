@@ -34,8 +34,8 @@ Jeevandeep Prakashan Pvt. Ltd.
         <div class="alert alert-danger">{{app('request')->input('error')}}</div>
         @endif
         @if(count($cart_data) > 0 || app('request')->input('success') == 1)
-        <div class="select-div"><i class="fa fa-credit-card"></i>Proceed to payment</div>
-        <div class="please-select">You have selected {{inWords($total_products)}} in your shopping cart. You are required to complete your transactions for the {{inWords($total_products)}} one after another. Please click 'Pay Now' to continue.</div>
+        <div class="select-div"><i class="fa fa-shopping-basket"></i>Your Shopping Cart</div>
+        <div class="please-select">This is your shopping cart. If you have any items pending payment, please click 'Pay Now' to continue.</div>
         <div class="cf">
             <table class="cart-table">
                 <tr>

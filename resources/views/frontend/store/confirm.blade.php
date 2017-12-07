@@ -45,10 +45,10 @@ Jeevandeep Prakashan Pvt. Ltd.
                 <th class="set-price">TOTAL PAYABLE</th>
             </tr>
 
-            @foreach($product as $ps)
+            @foreach($cart_data as $row)
             <tr>
-                <td class="set"><i class="fa fa-shopping-bag"></i>{{$ps->title}}</td>
-                <td class="set-price">INR {{$ps->price}}</td>
+                <td class="set"><i class="fa fa-shopping-bag"></i>{{$row->product()->find($row->product_id)->title}}</td>
+                <td class="set-price">INR {{$row->product()->find($row->product_id)->price}}</td>
             </tr>
             @endforeach
         </table>
