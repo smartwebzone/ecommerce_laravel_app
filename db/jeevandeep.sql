@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2017 at 10:45 AM
+-- Generation Time: Dec 07, 2017 at 03:48 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -207,15 +207,6 @@ CREATE TABLE `cart` (
   `preferred_delivery_date` date DEFAULT NULL,
   `add_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `user_id`, `product_id`, `preferred_delivery_date`, `add_date`) VALUES
-(3, 1, 20, '2017-12-24', '2017-12-05 20:39:28'),
-(4, 1, 26, '2017-12-24', '2017-12-07 13:49:29'),
-(5, 1, 27, NULL, '2017-12-07 14:08:59');
 
 -- --------------------------------------------------------
 
@@ -430,8 +421,8 @@ CREATE TABLE `order_master` (
 INSERT INTO `order_master` (`id`, `user_id`, `amount`, `tax`, `shipping`, `total_amount`, `status_id`, `order_date`, `transaction_id`, `reference_no`, `preferred_delivery_date`, `billing_address1`, `billing_address2`, `billing_area`, `billing_city`, `billing_state`, `billing_zip`, `shipping_address1`, `shipping_address2`, `shipping_area`, `shipping_city`, `shipping_state`, `shipping_zip`, `updated_at`, `updated_by`, `deleted_at`, `deleted_by`, `issue_raised`, `order_notes`) VALUES
 (1, 19, '380.00', '56.40', '23.60', '460.00', 1, '2017-11-06 06:06:11', NULL, NULL, '2017-10-06', 'A-102', 'Jalaram Chambers', 'Bhaktinagar', 'Navsari', 'Gujarat', '396445', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Gujarat', '380058', '2017-11-06 06:06:11', NULL, NULL, NULL, '0', NULL),
 (2, 19, '345.00', '0.00', '35.40', '380.40', 1, '2017-11-06 06:06:19', NULL, NULL, '2017-10-06', 'A-102', 'Jalaram Chambers', 'Bhaktinagar', 'Navsari', 'Gujarat', '396445', 'M-303', 'Aarohi Elegance', 'South Bopal', 'Ahmedabad', 'Gujarat', '380058', '2017-11-06 06:06:19', NULL, NULL, NULL, '0', NULL),
-(3, 20, '380.00', '56.40', '23.60', '460.00', 4, '2017-11-07 12:09:08', NULL, NULL, '2017-10-05', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', '2017-11-07 12:23:52', 1, NULL, NULL, '0', NULL),
-(4, 20, '345.00', '0.00', '35.40', '380.40', 1, '2017-11-07 12:09:16', NULL, NULL, '2017-10-05', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', '2017-11-07 12:09:16', NULL, NULL, NULL, '0', NULL);
+(3, 20, '380.00', '56.40', '23.60', '460.00', 1, '2017-11-07 12:09:08', NULL, NULL, '2017-10-05', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', '2017-12-07 14:43:19', 1, NULL, NULL, '0', NULL),
+(4, 20, '345.00', '0.00', '35.40', '380.40', 1, '2017-11-07 12:09:16', NULL, NULL, '2017-10-05', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', 'Sagar Apartment', 'Vyasvadi', 'Bhavsar Hostel', 'Ahmedabad', 'Gujarat', '380006', '2017-12-07 14:43:19', NULL, NULL, NULL, '0', NULL);
 
 -- --------------------------------------------------------
 
@@ -1330,7 +1321,7 @@ ALTER TABLE `book_master`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `company_master`
 --
