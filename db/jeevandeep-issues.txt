@@ -1,2 +1,0 @@
-Backend Email Template changes
-Backend->Order: Preferred Delivery Date is now shown. Show in order grid preferred date. 
