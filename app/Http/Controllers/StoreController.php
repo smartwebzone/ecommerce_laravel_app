@@ -35,13 +35,13 @@ class StoreController extends Controller {
     }
 
     public function selectSchoolPost(Request $request) {
-        if($request->state){
+        if ($request->state) {
             Session::put('state', $request->state);
         }
-        if($request->school){
+        if ($request->school) {
             Session::put('school', $request->school);
         }
-        if($request->standard){
+        if ($request->standard) {
             Session::put('standard', $request->standard);
         }
         $messages = [
@@ -53,7 +53,7 @@ class StoreController extends Controller {
             'state' => 'required',
             'school' => 'required',
             'standard' => 'required',
-        ],$messages);
+                ], $messages);
 
         if (Sentinel::getUser()) {
             return Redirect::route('store.selectProduct');
@@ -85,7 +85,7 @@ class StoreController extends Controller {
         }
         if ($request->action == 'confirm') {
             if ($request->product) {
-                foreach($request->product as $product_id){
+                foreach ($request->product as $product_id) {
                     addProductToCart($product_id);
                 }
                 return Redirect::route('store.confirm');
@@ -401,6 +401,13 @@ class StoreController extends Controller {
             return Redirect::route('store.selectSchool')->with('success', 'Your request to add new standard sent successfully.');
         }
         return View('frontend.store.unavailable_standard');
+    }
+
+    public function cart_delete($id) {
+        deleteFromCart($id);
+        return \Redirect()->back()->with([
+            'success' => 'Product deleted from cart successfully.'
+        ]);
     }
 
 }

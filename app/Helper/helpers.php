@@ -349,3 +349,9 @@ function updateCartPreferredDeliveryDate($preferred_delivery_date = NULL){
         App\Models\Cart::where('user_id',Sentinel::getuser()->id)->update($update_data);
     }
 }
+function deleteFromCart($id){
+    $cart = \App\Models\Cart::where('user_id', Sentinel::getuser()->id)->where('id', $id)->first();
+    if($cart){
+        $cart->delete();
+    }
+}
