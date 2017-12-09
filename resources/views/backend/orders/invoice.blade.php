@@ -1,5 +1,5 @@
 <?php
-foreach($order->product as $item){
+foreach ($order->product as $item) {
     $invoice_title = ($item->is_taxable == 1 ? 'TAX INVOICE' : 'BILL OF SUPPLY');
 }
 ?>
@@ -27,6 +27,7 @@ foreach($order->product as $item){
             .print_table{border:none; width:100%;cellpadding:0;cellspacing:0}
             .print_table td{vertical-align: top;}
             .no_border_table td{border-bottom:solid 1px #fff;}
+            .greybg{background: #d3d3d3}
         </style>
     </head>
     <body>
@@ -94,7 +95,7 @@ foreach($order->product as $item){
                                                         {{ $order->billing_address1.' '.$order->billing_address2 }}
                                                         <br>
                                                         {{ $order->billing_city.", ".$order->billing_state.", ".$order->billing_zip }}
-                                                       
+
                                                     </address>
                                                 </div>    
                                             </td>
@@ -105,7 +106,7 @@ foreach($order->product as $item){
                                                         {{ $order->shipping_address1.' '.$order->shipping_address2 }}
                                                         <br>
                                                         {{ $order->shipping_city.", ".$order->shipping_state.", ".$order->shipping_zip }}
-                                                       
+
                                                     </address>
                                                 </div>    
                                             </td>
@@ -117,60 +118,64 @@ foreach($order->product as $item){
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="print_table table">
+
+                                    <?php
+                                    $sub_total = 0;
+                                    ?>
+                                    @foreach($order->product as $item)
+                                    <?php
+                                    $ps = $item;
+                                    ?>
                                     <thead>
                                         <tr>
-                                            <th width="60%"> Product </th>
-                                            <th width="15%" class="hidden-480 text-right"> Unit Price </th>
+                                            <th colspan="6"> Product : {{$item->pivot->title}} </th>
+<!--                                            <th width="15%" class="hidden-480 text-right"> Unit Price </th>
                                             <th width="10%" class="hidden-480 text-center"> Quantity </th>
-                                            <th width="15%" class="text-right"> Total </th>
+                                            <th width="15%" class="text-right"> Total </th>-->
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                        $sub_total = 0;
-                                        ?>
-                                        @foreach($order->product as $item)
-                                       
-                                        <tr>
+                                        @include('common/orderproductdetail')
+<!--                                        <tr>
                                             <td>{{ $item->title }} </td>
                                             <td class="text-right">{!! ($order->amount) !!}</td>
                                             <td class="text-center">1</td>
                                             <td class="text-right">{{ ($order->amount) }}</td>
-                                        </tr>
+                                        </tr>-->
                                         @endforeach
 
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12 invoice-block">
-                                <ul class="list-unstyled amounts">
-                                    <li>
-                                        <strong>SubTotal :</strong> {{ ($order->amount) }}
-                                    </li>
-                                    @if($order->shipping)
-                                    <li>
-                                        <strong>Shipping :</strong> {{ ($order->shipping) }}
-                                    </li>
-                                    @endif
-                                    @if($order->tax)
-                                    <li>
-                                        <strong>Tax :</strong> {{ ($order->tax) }}
-                                    </li>
-                                    @endif
-                                    @if($order->discount_amount > 0)
-                                    <li>
-                                        <strong>Discount :</strong>  -{{ ($order->discount_amount) }}
-                                    </li>
-                                    @endif
-                                    <li>
-                                        <strong>Total :</strong> {{ ($order->total_amount) }}
-                                    </li>                                </ul>
-                                <br>
-
-                            </div>
-                        </div>
+                        <!--                        <div class="row">
+                                                    <div class="col-sm-12 invoice-block">
+                                                        <ul class="list-unstyled amounts">
+                                                            <li>
+                                                                <strong>SubTotal :</strong> {{ ($order->amount) }}
+                                                            </li>
+                                                            @if($order->shipping)
+                                                            <li>
+                                                                <strong>Shipping :</strong> {{ ($order->shipping) }}
+                                                            </li>
+                                                            @endif
+                                                            @if($order->tax)
+                                                            <li>
+                                                                <strong>Tax :</strong> {{ ($order->tax) }}
+                                                            </li>
+                                                            @endif
+                                                            @if($order->discount_amount > 0)
+                                                            <li>
+                                                                <strong>Discount :</strong>  -{{ ($order->discount_amount) }}
+                                                            </li>
+                                                            @endif
+                                                            <li>
+                                                                <strong>Total :</strong> {{ ($order->total_amount) }}
+                                                            </li>                                </ul>
+                                                        <br>
+                        
+                                                    </div>
+                                                </div>-->
                         <div class="row">
                             <div class="col-md-12">	
                                 <table class="print_table table table-bordered ">
