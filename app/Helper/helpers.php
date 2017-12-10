@@ -355,3 +355,7 @@ function deleteFromCart($id){
         $cart->delete();
     }
 }
+function getPreferredDeliveryDate($product_id){
+    $cart = \App\Models\Cart::where('user_id', Sentinel::getuser()->id)->where('product_id', $product_id)->first();
+    return $cart->preferred_delivery_date;
+}
