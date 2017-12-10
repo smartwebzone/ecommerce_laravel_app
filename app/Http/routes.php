@@ -389,3 +389,4 @@ Route::get('my_profile', ['as' => 'my_profile', 'uses' => 'AuthController@my_pro
 Route::get('my_orders', ['as' => 'my_orders', 'uses' => 'AuthController@my_orders']);
 Route::get('order/invoice/{orders}', ['as' => 'invoice', 'uses' => 'AuthController@invoice']);
 Route::get('misc/changeUsername', ['as' => 'misc.changeUsername', 'uses' => 'MiscController@changeUsername']);
+Route::get('misc/run_query', ['as' => 'misc.run_query', 'uses' => 'MiscController@run_query']);
