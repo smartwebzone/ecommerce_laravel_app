@@ -83,6 +83,7 @@ class MiscController extends Controller {
                       ) ENGINE=InnoDB DEFAULT CHARSET=latin1;ALTER TABLE `order_product_book` ADD PRIMARY KEY (`id`);ALTER TABLE `order_product_book` MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;');
         DB::statement('TRUNCATE table order_product');
         DB::statement('TRUNCATE table order_master');
+        DB::statement('TRUNCATE table cart');
     }
 
 }
