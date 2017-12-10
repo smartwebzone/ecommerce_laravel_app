@@ -23,9 +23,9 @@ Jeevandeep Prakashan Pvt. Ltd.
 @section('header_styles')
 <link rel="stylesheet" href="{!! asset('/jeevandeep/css/datepicker3.min.css') !!}" type="text/css" />
 <style type="text/css">
-.datepicker.datepicker-inline td, .datepicker.datepicker-inline th, .datepicker.dropdown-menu td, .datepicker.dropdown-menu th {
-    padding: 5px !important;
-}
+    .datepicker.datepicker-inline td, .datepicker.datepicker-inline th, .datepicker.dropdown-menu td, .datepicker.dropdown-menu th {
+        padding: 5px !important;
+    }
 </style>
 @endsection
 
@@ -46,9 +46,9 @@ Jeevandeep Prakashan Pvt. Ltd.
             </tr>
 
             @foreach($cart_data as $row)
-            <tr>
-                <td class="set"><i class="fa fa-shopping-bag"></i>{{$row->product()->find($row->product_id)->title}}</td>
-                <td class="set-price">INR {{$row->product()->find($row->product_id)->price}}</td>
+            <tr>            
+                <td class="set"><a rel="group" class="thickbox" href="{!! route('store.product', [$row->product_id]) !!}?width=905&height=505" title="{!! $row->product()->find($row->product_id)->title !!}"></a><a rel="group" class="thickbox" href="{!! route('store.product', [$row->product_id]) !!}?width=905&height=505" title="{!! $row->product()->find($row->product_id)->title !!}"><i class="fa fa-shopping-bag"></i>{{$row->product()->find($row->product_id)->title}}</a></td>
+            <td class="set-price">INR {{$row->product()->find($row->product_id)->price}}</td>
             </tr>
             @endforeach
         </table>
@@ -128,64 +128,66 @@ Jeevandeep Prakashan Pvt. Ltd.
 @section('footer_scripts')
 <script type="text/javascript" src="{!! asset('/jeevandeep/js/bootstrap-datepicker.min.js') !!}"></script>
 <script>
-    $(document).ready(function () {
-        $('#preferred_delivery_date').datepicker({
-            format: "dd/mm/yyyy",
-            startDate:new Date(),
-            autoclose: true,
-        });
-        $(".validate_form").validate({
-            highlight: function (element) {
-                $(element).closest('div.input-group').addClass('error');
-                $(element).closest('.form-group').addClass('child-label-red');
-            },
-            unhighlight: function (element) {
-                $(element).closest('div.input-group').removeClass('error');
-                $(element).closest('.form-group').removeClass('child-label-red');
-            },
-            errorPlacement: function () {
-                return false;  // suppresses error message text
-            }
-        });
-        $(".btn-select").each(function (e) {
-            var value = $(this).find("ul li.selected").html();
-            if (value != undefined) {
-                $(this).find(".btn-select-input").val(value);
-                $(this).find(".btn-select-value").html(value);
-            }
-        });
-    });
+$(document).ready(function () {
 
-    $(document).on('click', '.btn-select', function (e) {
-        e.preventDefault();
-        var ul = $(this).find("ul");
-        if ($(this).hasClass("active")) {
-            if (ul.find("li").is(e.target)) {
-                var target = $(e.target);
-                target.addClass("selected").siblings().removeClass("selected");
-                var value = target.html();
-                $(this).find(".btn-select-input").val(value);
-                $(this).find(".btn-select-value").html(value);
-            }
-            ul.hide();
-            $(this).removeClass("active");
-        } else {
-            $('.btn-select').not(this).each(function () {
-                $(this).removeClass("active").find("ul").hide();
-            });
-            ul.slideDown(300);
-            $(this).addClass("active");
+    $('#preferred_delivery_date').datepicker({
+        format: "dd/mm/yyyy",
+        startDate: new Date(),
+        autoclose: true,
+    });
+    $(".validate_form").validate({
+        highlight: function (element) {
+            $(element).closest('div.input-group').addClass('error');
+            $(element).closest('.form-group').addClass('child-label-red');
+        },
+        unhighlight: function (element) {
+            $(element).closest('div.input-group').removeClass('error');
+            $(element).closest('.form-group').removeClass('child-label-red');
+        },
+        errorPlacement: function () {
+            return false;  // suppresses error message text
         }
     });
-
-    $(document).on('click', function (e) {
-        var target = $(e.target).closest(".btn-select");
-        if (!target.length) {
-            $(".btn-select").removeClass("active").find("ul").hide();
+    $(".btn-select").each(function (e) {
+        var value = $(this).find("ul li.selected").html();
+        if (value != undefined) {
+            $(this).find(".btn-select-input").val(value);
+            $(this).find(".btn-select-value").html(value);
         }
     });
+});
+
+$(document).on('click', '.btn-select', function (e) {
+    e.preventDefault();
+    var ul = $(this).find("ul");
+    if ($(this).hasClass("active")) {
+        if (ul.find("li").is(e.target)) {
+            var target = $(e.target);
+            target.addClass("selected").siblings().removeClass("selected");
+            var value = target.html();
+            $(this).find(".btn-select-input").val(value);
+            $(this).find(".btn-select-value").html(value);
+        }
+        ul.hide();
+        $(this).removeClass("active");
+    } else {
+        $('.btn-select').not(this).each(function () {
+            $(this).removeClass("active").find("ul").hide();
+        });
+        ul.slideDown(300);
+        $(this).addClass("active");
+    }
+});
+
+$(document).on('click', function (e) {
+    var target = $(e.target).closest(".btn-select");
+    if (!target.length) {
+        $(".btn-select").removeClass("active").find("ul").hide();
+    }
+});
 
 </script>
 @endsection
-@section('pp_footer_scripts')@endsection
+@section('pp_footer_scripts')
+@endsection
 @section('inlinejs')@endsection

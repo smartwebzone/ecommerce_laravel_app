@@ -1,28 +1,40 @@
+<style>
+    td.nobg {
+    border-right: none!important;
+    border-left: none!important;
+}
+.greybg{
+        font-weight: bold;
+}
+</style>
 <div class="container-fluid add-product show-order">
     <div class="row">
         <div class="col-md-12">	
             <table class="table table-bordered ">
+                
                 <tr>
-                    <td colspan="5"><b>Order ID :</b> #{{ $order->order_no }}
+                    <td colspan="6"><b>Order ID :</b> #{{ $order->order_no }}
                         <span style='float:right'>
                             <label style="margin-right: 20px;"><b>Order Date</b> : {{ $order->order_date_formatted }} </label>
                             <label><b>Preferred Delivery Date</b> : {{ $order->preferred_delivery_date_formatted }}</label>
                         </span></td>
                 </tr>
-                <tr>
-                    <th>Product</th>
-                    <th class="text-right">Unit Price</th>
-                    <th class="text-center">Quantity</th>
-                    <th class="text-right">Total</th>
-                </tr>
+                
                 <?php
                 $sub_total = 0;
                 ?>
                 @foreach($order->product as $item)
                 <tr>
+                    <th colspan="6">Product : {{$item->pivot->title}}</th>
+                </tr>
+                <?php
+                $ps=$item;
+                ?>
+                @include('common/orderproductdetail')
+<!--                <tr>
 
                     <td class="text-left">
-                        {{ $item->title }}
+                        {{ $item->pivot->title }}
                     </td>
                     <td class="text-right">{{ $order->amount }}</td>
                     <td class="text-center">1</td>
@@ -54,7 +66,7 @@
                 <tr>
                     <th colspan="3" class="text-right">Total</th>
                     <th class="text-right">{{ ($order->total_amount) }}</th>
-                </tr>
+                </tr>-->
             </table>
         </div>
     </div>

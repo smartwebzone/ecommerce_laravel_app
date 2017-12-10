@@ -18,17 +18,24 @@
                 <h3>Order Date : {{ $order->order_date_formatted }}</h3>
             </div>
             <table class="table cart" border="1" cellpadding="1" cellspacing="0" style="width:100%;">
-                <tr>
+<!--                <tr>
                     <th style="text-align:center !important;">Product</th>
                     <th style="text-align:center !important;">Unit Price</th>
                     <th style="text-align:center !important;">Quantity</th>
                     <th style="text-align:center !important;">Total</th>
-                </tr>
+                </tr>-->
                 <?php
                 $sub_total = 0;
                 ?>
                 @foreach($order->product as $item)
                 <tr>
+                    <th colspan="6">Product : {{$item->pivot->title}}</th>
+                </tr>
+                <?php
+                $ps=$item;
+                ?>
+                @include('common/orderproductdetail')
+<!--                <tr>
 
                     <td style="text-align:center !important;">
                         {{ $item->title }}
@@ -36,9 +43,9 @@
                     <td style="text-align:center !important;">{{ $order->amount }}</td>
                     <td style="text-align:center !important;">1</td>
                     <td style="text-align:center !important;">{{ $order->amount }}</td>
-                </tr>
+                </tr>-->
                 @endforeach
-                <tr>
+<!--                <tr>
                     <th colspan="3" style="text-align:center !important;">SubTotal</th>
                     <th style="text-align:center !important;">{{ $order->amount }}</th>
                 </tr>
@@ -63,7 +70,7 @@
                 <tr>
                     <th colspan="3" style="text-align:center !important;">Total</th>
                     <th style="text-align:center !important;">{{ ($order->total_amount) }}</th>
-                </tr>
+                </tr>-->
             </table>
         </div>
     </div>

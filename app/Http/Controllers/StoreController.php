@@ -328,6 +328,7 @@ class StoreController extends Controller {
                 $subtotal += $book->price;
                 $totalmrp += $book->price_after_tax;
                 $totaltax += $book->price_after_tax - $book->price;
+                
             endforeach;
             $shippingtax = (($ps->shipping_state * getProductItemHighestTax($product_id)) / 100);
             $totalshipping = $shippingtax + $ps->shipping_state;
@@ -361,7 +362,37 @@ class StoreController extends Controller {
             $ord_prod = \App\Models\OrderProduct::Create(['order_id' => $ord->id,
                         'product_id' => $ps->id,
                         'qty' => 1,
-                        'price' => $ps->price]);
+                        'price' => $ps->price,
+                        'school_id'=>$ps->school_id,
+                        'standard_id'=>$ps->standard_id,
+                        'company_id'=>$ps->company_id,
+                        'is_taxable'=>$ps->is_taxable,
+                        'title'=>$ps->title,
+                        'description'=>$ps->description,
+                        'long_description'=>$ps->long_description,
+                        'instate_shipping_charges'=>$ps->instate_shipping_charges,
+                        'outstate_shipping_charges'=>$ps->outstate_shipping_charges,
+                ]);
+            
+            foreach ($ps->books as $book):
+                $ord_prod_book = \App\Models\OrderProductBook::Create(['order_product_id' => $ord_prod->id,
+                        'medium' => $book->medium,
+                        'standard_id'=>$book->standard_id,
+                        'company_id'=>$book->company_id,
+                        'is_taxable'=>$book->is_taxable,
+                        'name'=>$book->name,
+                        'description'=>$book->description,
+                        'author'=>$book->author,
+                        'book_code'=>$book->book_code,
+                        'tax'=>$book->tax,
+                        'price'=>$book->price,
+                        'price_after_tax'=>$book->price_after_tax,
+                        'shipping_charges'=>$book->shipping_charges,
+                        'quantity'=>$book->quantity,
+                        'weight'=>$book->weight,
+                        'hsn_code'=>$book->hsn_code,
+                ]);
+            endforeach;
             $ord = \App\Models\Order::find($ord->id);
 
             $template = \App\Models\Email::where(['template' => 'Order'])->get();
@@ -408,6 +439,15 @@ class StoreController extends Controller {
         return \Redirect()->back()->with([
             'success' => 'Product deleted from cart successfully.'
         ]);
+    }
+    public function product($product_id) {
+        $ps = \App\Models\Product::find($product_id);
+        return view('frontend.store.productdetail', compact('ps'));
+    }
+    public function orderproduct($order_id) {
+        $order=  \App\Models\Order::find($order_id);
+        $ps = $order->product->first();
+        return view('frontend.store.productdetail', compact('ps','order_id'));
     }
 
 }
