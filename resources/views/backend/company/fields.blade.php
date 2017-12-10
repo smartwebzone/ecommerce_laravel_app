@@ -95,7 +95,14 @@
     </div>
 </div>
 <div class="row">
-    <div class="form-group col-sm-12">
+    <div class="form-group col-sm-6">
+        {!! Form::label('gstn', 'GSTN:') !!}
+        {!! Form::text('gstn', null, ['class' => 'form-control', 'value' => old('gstn'),'required' => true]) !!}
+        @if ($errors->has('gstn'))
+        <div class="error">{{ $errors->first('gstn') }}</div>
+        @endif
+    </div>
+    <div class="form-group col-sm-6">
         {!! Form::label('status', 'Status:') !!}
         <label class="checkbox">
             {!! Form::checkbox('status', 1, (isset($company->status))?$company->status:true,['data-toggle' => 'toggle', 'data-on' => 'Enabled', 'data-off'=>'Disabled', 'data-onstyle' => 'success', 'data-offstyle' => 'danger', 'value'=>Input::old('status')]) !!}
