@@ -411,6 +411,9 @@ class StoreController extends Controller {
                     $m->subject($template[0]->subject);
                 });
             }
+            $pdd = getPreferredDeliveryDate($product_id);
+            $ord->preferred_delivery_date = $pdd;
+            $ord->save();
             $delete_cart = \App\Models\Cart::where('user_id', Sentinel::getuser()->id)->where('product_id', $product_id)->delete();
         }
         return Redirect::route('store.cart', ['success' => '1']);

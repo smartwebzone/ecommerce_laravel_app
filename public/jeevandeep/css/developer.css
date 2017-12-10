@@ -42,3 +42,13 @@ input.error,select.error,textarea.error{
     overflow-y: scroll;
     max-height: 250px;
 }
+#TB_window,#TB_secondLine{
+    font:inherit !important;
+}
+a.disabled {
+    cursor: not-allowed !important;
+    filter: alpha(opacity=65) !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    opacity: .65 !important;
+}

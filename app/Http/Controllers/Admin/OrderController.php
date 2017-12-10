@@ -293,9 +293,10 @@ class OrderController extends Controller {
         error_reporting(0);
         $order = \App\Models\Order::find($id);
         $option_added = [];
+        $company_details = $order->product[0]->company;
         //dd($order->user);
-        //return view('backend.orders.invoice', compact('orderDetails', 'order', 'options'));
-        $pdf = PDF::loadView('backend.orders.invoice', compact('orderDetails', 'order', 'options'));
+        //return view('backend.orders.invoice', compact('orderDetails', 'order', 'options', 'company_details'));
+        $pdf = PDF::loadView('backend.orders.invoice', compact('orderDetails', 'order', 'options', 'company_details'));
         return $pdf->stream();
     }
 

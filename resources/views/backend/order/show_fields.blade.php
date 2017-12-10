@@ -31,42 +31,7 @@
                 $ps=$item;
                 ?>
                 @include('common/orderproductdetail')
-<!--                <tr>
-
-                    <td class="text-left">
-                        {{ $item->pivot->title }}
-                    </td>
-                    <td class="text-right">{{ $order->amount }}</td>
-                    <td class="text-center">1</td>
-                    <td class="text-right">{{ $order->amount }}</td>
-                </tr>
                 @endforeach
-                <tr>
-                    <th colspan="3" class="text-right">SubTotal</th>
-                    <th class="text-right">{{ $order->amount }}</th>
-                </tr>
-                @if($order->shipping)
-                <tr>
-                    <th colspan="3" class="text-right">Shipping</th>
-                    <th class="text-right">{{ ($order->shipping) }}</th>
-                </tr>
-                @endif
-                @if($order->tax)
-                <tr>
-                    <th colspan="3" class="text-right">Tax</th>
-                    <th class="text-right">{{ ($order->tax) }}</th>
-                </tr>
-                @endif
-                @if($order->discount_amount > 0)
-                <tr>
-                    <th colspan="3" class="text-right">Discount</th>
-                    <th class="text-right">- {{ ($order->discount_amount) }}</th>
-                </tr>
-                @endif
-                <tr>
-                    <th colspan="3" class="text-right">Total</th>
-                    <th class="text-right">{{ ($order->total_amount) }}</th>
-                </tr>-->
             </table>
         </div>
     </div>
@@ -181,22 +146,25 @@
         <div class="col-md-12">	
             <table class="table table-bordered ">
                 <tr>
-                    <td colspan="2"><h4>Items to Dispatch</h4></td>
+                    <td colspan="4"><h4>Items to Dispatch</h4></td>
                 </tr>
                 <tr>
-                    <th width="70%">Item</th>
+                    <th width="55%">Item</th>
+                    <th class="text-center" width="15%">Item Code</th>
+                    <th class="text-center" width="15%">HSN Code</th>
                     <th class="text-center" width="15%">Quantity</th>
                 </tr>
-                @foreach($order->product as $prod)
-                @foreach($item->books as $bk)
+                <?php 
+                $books = \App\Models\OrderProductBook::where(['order_product_id' => $ps->pivot->id])->get(); 
+                ?>
+                @foreach($books as $bk)
 
                 <tr>
-                    <td class="text-left">
-                        {{ $bk->name }}
-                    </td>
-                    <td class="text-center">{{ $bk->pivot->quantity }}</td>
+                    <td>{{ $bk->name }}</td>
+                    <td class="text-center">{{ $bk->book_code }}</td>
+                    <td class="text-center">{{ $bk->hsn_code }}</td>
+                    <td class="text-center">1</td>
                 </tr>
-                @endforeach
                 @endforeach
             </table>
         </div>

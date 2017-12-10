@@ -35,42 +35,7 @@
                 $ps=$item;
                 ?>
                 @include('common/orderproductdetail')
-<!--                <tr>
-
-                    <td style="text-align:center !important;">
-                        {{ $item->title }}
-                    </td>
-                    <td style="text-align:center !important;">{{ $order->amount }}</td>
-                    <td style="text-align:center !important;">1</td>
-                    <td style="text-align:center !important;">{{ $order->amount }}</td>
-                </tr>-->
                 @endforeach
-<!--                <tr>
-                    <th colspan="3" style="text-align:center !important;">SubTotal</th>
-                    <th style="text-align:center !important;">{{ $order->amount }}</th>
-                </tr>
-                @if($order->shipping)
-                <tr>
-                    <th colspan="3" style="text-align:center !important;">Shipping</th>
-                    <th style="text-align:center !important;">{{ ($order->shipping) }}</th>
-                </tr>
-                @endif
-                @if($order->tax)
-                <tr>
-                    <th colspan="3" style="text-align:center !important;">Tax</th>
-                    <th style="text-align:center !important;">{{ ($order->tax) }}</th>
-                </tr>
-                @endif
-                @if($order->discount_amount > 0)
-                <tr>
-                    <th colspan="3" style="text-align:center !important;">Discount</th>
-                    <th style="text-align:center !important;">- {{ ($order->discount_amount) }}</th>
-                </tr>
-                @endif
-                <tr>
-                    <th colspan="3" style="text-align:center !important;">Total</th>
-                    <th style="text-align:center !important;">{{ ($order->total_amount) }}</th>
-                </tr>-->
             </table>
         </div>
     </div>
@@ -81,18 +46,20 @@
             <table class="table cart" border="1" cellpadding="3" cellspacing="1" style="width:100%;">
                 <tr>
                     <th style="text-align:center !important;">Item</th>
+                    <th style="text-align:center !important;">Item Code</th>
+                    <th style="text-align:center !important;">HSN Code</th>
                     <th style="text-align:center !important;">Quantity</th>
                 </tr>
-                @foreach($order->product as $prod)
-                @foreach($item->books as $bk)
-
+                <?php 
+                $books = \App\Models\OrderProductBook::where(['order_product_id' => $ps->pivot->id])->get(); 
+                ?>
+                @foreach($books as $bk)
                 <tr>
-                    <td style="text-align:center !important;">
-                        {{ $bk->name }}
-                    </td>
-                    <td style="text-align:center !important;">{{ $bk->pivot->quantity }}</td>
+                    <td style="text-align:center !important;">{{ $bk->name }}</td>
+                    <td style="text-align:center !important;">{{ $bk->book_code }}</td>
+                    <td style="text-align:center !important;">{{ $bk->hsn_code }}</td>
+                    <td style="text-align:center !important;">1</td>
                 </tr>
-                @endforeach
                 @endforeach
             </table>
         </div>
