@@ -28,6 +28,9 @@
         <![endif]-->
 
         <script type="text/javascript" src="{!! asset('/assets/js/jquery/jquery.min.js') !!}"></script>
+        <link rel="stylesheet" href="{!! asset('/thickbox.css') !!}"></script>
+        
+        <script type="text/javascript" src="{!! asset('/thickbox.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('/jeevandeep/js/jquery.validate.js') !!}"></script>
 
         <script type="text/javascript" src="{!! asset('frontend/js/prettify_js-bundle.js') !!}"></script>

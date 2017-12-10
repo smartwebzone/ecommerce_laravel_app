@@ -46,7 +46,7 @@ class Order extends Model implements ModelInterface {
         $this->order_start=config('order.order_start');
     }
     public function product() {
-        return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id')->withPivot('qty');
+        return $this->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id')->withPivot('qty','title','description','id');
     }
 
     public function user() {
