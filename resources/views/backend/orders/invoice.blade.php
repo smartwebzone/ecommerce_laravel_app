@@ -28,6 +28,19 @@ foreach ($order->product as $item) {
             .print_table td{vertical-align: top;}
             .no_border_table td{border-bottom:solid 1px #fff;}
             .greybg{background: #d3d3d3}
+            .div_border{border: solid 1px #000;}
+            .three_col td{width:33.33%;padding:0px !important;border-color: #000 !important;}
+            .three_col{margin:0px !important;padding-top:7px !important;font-size: 12px !important;}
+            .table2 td{width:33.33%;padding:3px !important;border-color: #000 !important;}
+            .table2{margin:0px !important;padding-top:10px !important;font-size: 11px !important;}
+            .table3{margin:0px !important;padding-top:20px !important;font-size: 12px !important;}
+            .table3 td, .table3 td div{text-align:left !important;}
+            .table4{margin:0px !important;padding-top:5px !important;font-size: 12px !important;}
+            .table4 td,.table4 th{padding:3px !important;border-color: #000 !important;}
+            .table4 th{font-weight: normal;background: #EEE;}
+            .table5{margin:0px !important;padding-top:5px !important;font-size: 12px !important;}
+            .table5 td,.table5 th{padding:3px !important;border-color: #000 !important;}
+            .table5 tr:first-child td{background: #EEE;}
         </style>
     </head>
     <body>
@@ -38,167 +51,97 @@ foreach ($order->product as $item) {
                     <!-- start: PAGE CONTENT -->
                     <div class="invoice">
                         <div class="row">
-                            <div class="col-sm-12">
-                                <h3 style="text-align:center">{{$invoice_title}}</h3>
+                            <div class="col-sm-12 text-center">
+                                <font style="text-transform:uppercase">{{$company_details->name}}</font><br/>
+                                {{$company_details->address1.' ,'.$company_details->address2.' ,'.$company_details->area}}<br/>
+                                {{$company_details->city.' - '.$company_details->zip.'. '.$company_details->state}}<br/>
+                                Tel No. {{$company_details->phone}}
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12">
-                                <table class="print_table">
-                                    <tbody>
-                                        <tr>
-                                            <td width="50%" class="text-left">
-                                                <h4>JEEVANDEEP PRAKASHAN PVT. LTD.</h4>
-                                            </td>
-                                            <td class="text-right"><h4>#{{ $order->order_no }} / {{ $order->order_date_formatted }}</h4></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <hr style="padding:0px;margin:0px;">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <table class="print_table">
-                                    <tbody>
-                                        <tr>
-                                            <td width="25%" class="text-left">
-                                                <h4>Order Details:</h4>
-                                                <div class="">
-                                                    <strong>Order ID</strong>
-                                                    <br/>{{ $order->order_no }}
-                                                    <br/><strong>Order Date</strong>
-                                                    <br/>{{ $order->order_date_formatted }}
-                                                    <br/><strong>Preferred Delivery Date</strong>
-                                                    <br/>{{ $order->preferred_delivery_date_formatted }}
-                                                    <br/><strong>Order Status</strong>
-                                                    <br/>{{ $order->status->name }}
-                                                </div>
-                                            </td>
-                                            <td width="25%" class="text-left">
-                                                <h4>Customer Details:</h4>
-                                                <div class="">
-                                                    <strong>Parent / Guardian Name</strong>
-                                                    <br/>{{ $order->user->parent_name }}
-                                                    <br/><strong>Child Name</strong>
-                                                    <br/>{{ $order->user->child_name }}
-                                                    <br/><strong>Email ID</strong>
-                                                    <br/>{{ $order->user->email }}
-                                                    <br/><strong>Phone</strong>
-                                                    <br/>{{ $order->user->mobile }}
-                                                </div>
-                                            </td>
-                                            <td width="25%" class="text-left">
-                                                <h4>Billing Information:</h4>
-                                                <div class="">
-                                                    <address>
-                                                        {{ $order->billing_address1.' '.$order->billing_address2 }}
-                                                        <br>
-                                                        {{ $order->billing_city.", ".$order->billing_state.", ".$order->billing_zip }}
-
-                                                    </address>
-                                                </div>    
-                                            </td>
-                                            <td width="25%" class="text-left">
-                                                <h4>Shipping Information:</h4>
-                                                <div class="">
-                                                    <address>
-                                                        {{ $order->shipping_address1.' '.$order->shipping_address2 }}
-                                                        <br>
-                                                        {{ $order->shipping_city.", ".$order->shipping_state.", ".$order->shipping_zip }}
-
-                                                    </address>
-                                                </div>    
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table class="print_table table table-bordered three_col">
+                                <tr><td class="text-center">GSTN : {{$company_details->gstn}}</td><td class="text-center">{{$invoice_title}}</td><td class="text-center">{{$company_details->state}}</td></tr>
+                            </table>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12">
-                                <table class="print_table table">
-
-                                    <?php
-                                    $sub_total = 0;
-                                    ?>
-                                    @foreach($order->product as $item)
-                                    <?php
-                                    $ps = $item;
-                                    ?>
-                                    <thead>
-                                        <tr>
-                                            <th colspan="6"> Product : {{$item->pivot->title}} </th>
-<!--                                            <th width="15%" class="hidden-480 text-right"> Unit Price </th>
-                                            <th width="10%" class="hidden-480 text-center"> Quantity </th>
-                                            <th width="15%" class="text-right"> Total </th>-->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @include('common/orderproductdetail')
-<!--                                        <tr>
-                                            <td>{{ $item->title }} </td>
-                                            <td class="text-right">{!! ($order->amount) !!}</td>
-                                            <td class="text-center">1</td>
-                                            <td class="text-right">{{ ($order->amount) }}</td>
-                                        </tr>-->
-                                        @endforeach
-
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table class="print_table table table-bordered table2">
+                                <tr><td class="text-center">Date : {{ $order->order_date_formatted_short }}</td><td class="text-center">Order ID : {{$order->order_no}}</td><td class="text-center">Preferred Delivery Date : {{$order->preferred_delivery_date_formatted_short}}</td></tr>
+                            </table>
                         </div>
-                        <!--                        <div class="row">
-                                                    <div class="col-sm-12 invoice-block">
-                                                        <ul class="list-unstyled amounts">
-                                                            <li>
-                                                                <strong>SubTotal :</strong> {{ ($order->amount) }}
-                                                            </li>
-                                                            @if($order->shipping)
-                                                            <li>
-                                                                <strong>Shipping :</strong> {{ ($order->shipping) }}
-                                                            </li>
-                                                            @endif
-                                                            @if($order->tax)
-                                                            <li>
-                                                                <strong>Tax :</strong> {{ ($order->tax) }}
-                                                            </li>
-                                                            @endif
-                                                            @if($order->discount_amount > 0)
-                                                            <li>
-                                                                <strong>Discount :</strong>  -{{ ($order->discount_amount) }}
-                                                            </li>
-                                                            @endif
-                                                            <li>
-                                                                <strong>Total :</strong> {{ ($order->total_amount) }}
-                                                            </li>                                </ul>
-                                                        <br>
-                        
-                                                    </div>
-                                                </div>-->
                         <div class="row">
-                            <div class="col-md-12">	
-                                <table class="print_table table table-bordered ">
-                                    <tr>
-                                        <td colspan="2"><h4>Items to Dispatch</h4></td>
-                                    </tr>
-                                    <tr>
-                                        <th width="70%">Item</th>
-                                        <th class="text-center" width="15%">Quantity</th>
-                                    </tr>
-                                    @foreach($order->product as $prod)
-                                    @foreach($item->books as $bk)
-
+                            <table class="print_table table3">
+                                <tbody>
                                     <tr>
                                         <td class="text-left">
-                                            {{ $bk->name }}
+                                            <div class="">
+                                                <strong>Customer Details :</strong><br/>
+                                                Parent / Guardian Name : {{ $order->user->parent_name }}<br/>
+                                                Child Name : {{ $order->user->child_name }}<br/>
+                                                Email ID : {{ $order->user->email }}<br/>
+                                                Phone : {{ $order->user->mobile }}
+                                            </div>
                                         </td>
-                                        <td class="text-center">{{ $bk->pivot->quantity }}</td>
+                                        <td class="text-left">
+                                            <div class="">
+                                                <strong>Billing Information :</strong><br/>
+                                                {{ $order->billing_address1.' '.$order->billing_address2.' '.$order->billing_area }}<br>
+                                                {{ $order->billing_city.", ".$order->billing_state.", ".$order->billing_zip }}
+                                            </div>    
+                                        </td>
+                                        <td class="text-left">
+                                            <div class="">
+                                                <strong>Shipping Information :</strong><br/>
+                                                {{ $order->shipping_address1.' '.$order->shipping_address2.' '.$order->shipping_area }}<br>
+                                                {{ $order->shipping_city.", ".$order->shipping_state.", ".$order->shipping_zip }}
+                                            </div>    
+                                        </td>
                                     </tr>
-                                    @endforeach
-                                    @endforeach
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div style="padding-top:20px;"><b>Product :</b> {{$item->pivot->title}}</div>
+                            <table class="print_table table table-bordered table4">
+
+                                <?php
+                                $sub_total = 0;
+                                ?>
+                                @foreach($order->product as $item)
+                                <?php
+                                $ps = $item;
+                                ?>
+                                <tbody>
+                                    @include('common/orderproductdetail')
+                                </tbody>
+                                @endforeach
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div style="padding-top:20px;font-weight: bold;">Items to Dispatch</div>
+                            <table class="print_table table table-bordered table5">
+                                <tbody>
+                                <tr>
+                                    <td width="55%">Item</td>
+                                    <td class="text-center" width="15%">Item Code</td>
+                                    <td class="text-center" width="15%">HSN Code</td>
+                                    <td class="text-center" width="15%">Quantity</td>
+                                </tr>    
+                                <?php
+                                $books = \App\Models\OrderProductBook::where(['order_product_id' => $ps->pivot->id])->get(); 
+                                ?>
+                                @foreach($books as $bk)
+                                <tr>
+                                    <td>{{ $bk->name }}</td>
+                                    <td class="text-center">{{ $bk->book_code }}</td>
+                                    <td class="text-center">{{ $bk->hsn_code }}</td>
+                                    <td class="text-center">1</td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div style="padding-top:30px;text-align: right;">For <font style="text-transform:uppercase">{{$company_details->name}}</font></div>
                         </div>
                     </div>
                     <!-- end: PAGE CONTENT-->

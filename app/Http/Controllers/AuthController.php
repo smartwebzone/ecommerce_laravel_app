@@ -551,16 +551,17 @@ class AuthController extends Controller {
     }
 
     public function invoice($id) {
-
+        error_reporting(0);
         $order = \App\Models\Order::where('user_id', Sentinel::getuser()->id)->where('id', $id)->get();
         if (count($order) == 0) {
             return Redirect::route('my_orders')->with('error', 'Invalid request');
         }
         $order = $order[0];
         $option_added = [];
+        $company_details = $order->product[0]->company;
         //dd($order->user);
-        //return view('backend.orders.invoice', compact('orderDetails', 'order', 'options'));
-        $pdf = PDF::loadView('backend.orders.invoice', compact('orderDetails', 'order', 'options'));
+        //return view('backend.orders.invoice', compact('orderDetails', 'order', 'options', 'company_details'));
+        $pdf = PDF::loadView('backend.orders.invoice', compact('orderDetails', 'order', 'options', 'company_details'));
         return $pdf->stream();
     }
 

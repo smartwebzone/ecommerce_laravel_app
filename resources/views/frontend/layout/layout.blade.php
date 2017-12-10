@@ -26,11 +26,13 @@
         <!--[if lt IE 9]>
                 <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
         <![endif]-->
-
+        <script type="text/javascript">
+        var site_url = '{!!url()."/"!!}';
+        </script>    
         <script type="text/javascript" src="{!! asset('/assets/js/jquery/jquery.min.js') !!}"></script>
-        <link rel="stylesheet" href="{!! asset('/thickbox.css') !!}"></script>
+        <link rel="stylesheet" href="{!! asset('/jeevandeep/thickbox/thickbox.css') !!}"></script>
         
-        <script type="text/javascript" src="{!! asset('/thickbox.js') !!}"></script>
+        <script type="text/javascript" src="{!! asset('/jeevandeep/thickbox/thickbox.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('/jeevandeep/js/jquery.validate.js') !!}"></script>
 
         <script type="text/javascript" src="{!! asset('frontend/js/prettify_js-bundle.js') !!}"></script>

@@ -53,7 +53,8 @@ class CompanyRepository extends RepositoryAbstract implements CompanyInterface, 
         'area' => 'required',
         'city' => 'required',
         'state' => 'required',
-        'zip' => 'required|digits:6'
+        'zip' => 'required|digits:6',
+        'gstn' => 'required'
     ];
 
     /**
