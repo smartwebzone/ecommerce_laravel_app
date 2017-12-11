@@ -526,7 +526,7 @@ class AuthController extends Controller {
         }
 
         // Password successfully reseted
-        return Redirect::route('signin')->with('success', 'Password successfully reseted');
+        return Redirect::route('signin')->with('success', 'Your password has been reset successfully.');
     }
 
     /**
