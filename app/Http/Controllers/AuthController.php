@@ -157,7 +157,7 @@ class AuthController extends Controller {
             //dd($request->get('email'));
             $user = Sentinel::findByCredentials(['email' => $request->get('email')]);
             if ($user) {
-                $msg = 'Please enter a valid Email ID and Password';
+                $msg = 'Either your Email ID or Password is incorrect';
             } else {
                 $msg = 'The Email ID you have entered is not registered with us. Please contact the Jeevandeep Administrator at enquiries@jeevandeep.in for further assistance.';
             }
