@@ -111,6 +111,24 @@ class AuthController extends Controller {
      * @return Redirect
      */
     public function postSignin(Request $request) {
+        
+        $rules = array(
+            'email' => 'required|email',
+            'password' => 'required'
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+
+        $validator->setAttributeNames([
+            'email' => 'Email address',
+            'password' => 'Password']);
+
+        // If validation fails, we'll exit the operation now.
+        if ($validator->fails()) {
+            // Ooops.. something went wrong
+            return Redirect::to(URL::previous())->withInput()->withErrors($validator);
+        }
+        
         $cart_old = Session::get('cart');
 
         try {
