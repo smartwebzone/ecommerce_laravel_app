@@ -164,7 +164,7 @@ class AuthController extends Controller {
             if ($request->get('top-login')) {
                 $this->messageBag->add('top-login', Lang::get($msg));
             }
-            $this->messageBag->add('email', Lang::get($msg));
+            $this->messageBag->add('password', Lang::get($msg));
         } catch (NotActivatedException $e) {
             if ($request->get('top-login')) {
                 $this->messageBag->add('top-login', Lang::get('Account not activated'));
