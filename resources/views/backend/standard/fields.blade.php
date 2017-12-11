@@ -15,7 +15,14 @@
     </div>
 </div>
 <div class="row">
-    <div class="form-group col-sm-12">
+    <div class="form-group col-sm-6">
+        {!! Form::label('position', 'Position:') !!}
+        {!! Form::text('position', null, ['class' => 'form-control', 'value' => old('position'),'required' => true]) !!}
+        @if ($errors->has('position'))
+        <div class="error">{{ $errors->first('position') }}</div>
+        @endif
+    </div>
+    <div class="form-group col-sm-6">
         {!! Form::label('status', 'Status:') !!}
         <label class="checkbox">
             {!! Form::checkbox('status', 1, (isset($standard->status))?$standard->status:true,['data-toggle' => 'toggle', 'data-on' => 'Enabled', 'data-off'=>'Disabled', 'data-onstyle' => 'success', 'data-offstyle' => 'danger', 'value'=>Input::old('status')]) !!}

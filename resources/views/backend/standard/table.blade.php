@@ -2,6 +2,7 @@
     <thead>
     <th width="5%" class="text-center">#</th>
     <th>Name</th>
+    <th width="10%" class="text-center">Position</th>
     <th width="10%" class="text-center">Added On</th>
     <th width="10%" class="text-center">Status</th>
     <th width="7%" class="text-center">Action</th>
@@ -11,6 +12,7 @@
     <tr>
         <td class="text-center">{{ srNo($key) }}</td>
         <td>{{ $row->name }}</td>
+        <td class="text-center">{{ $row->position }}</td>
         <td class="text-center">{{ formatDate($row->created_at) }}</td>
         <td class="text-center">{{ getStatus($row->status) }}</td>
         <td class="text-center" nowrap="nowrap">
