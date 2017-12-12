@@ -61,11 +61,17 @@ My Orders | Jeevandeep Prakashan Pvt. Ltd.
                         @foreach($om->product as $op)
                         <tr>
                             <td class="my-col-3"><div>{{$om->order_no}}</div></td>
-                            <td class="my-col-1"><div><a rel="group" class="thickbox" href="{!! route('store.orderproduct', [$om->id]) !!}?width=905&height=505" title="{!! $op->pivot->title !!}">{{$op->title}}</a></div></td>
+                            <td class="my-col-1"><div><a rel="group" class="thickbox underline" href="{!! route('store.orderproduct', [$om->id]) !!}?width=905&height=505" title="{!! $op->pivot->title !!}">{{$op->title}}</a></div></td>
                             <td class="my-col-2"><div>{{$om->order_date_formatted_short}}</div></td>
                             <td class="my-col-3"><div>INR {{$om->total_amount}}</div></td>
                             <td class="my-col-4"><div>{{$om->order_status_text}}</div></td>
-                            <td class="my-col-5"><div><a href="{!! route('invoice', [$om->id]) !!}" target="_blank"><i class="fa fa-download"></i><span>Download</span></a></div></td>
+                            <td class="my-col-5">
+                                <div>
+                                    @if($om->order_status_text != 'Cancelled')
+                                    <a href="{!! route('invoice', [$om->id]) !!}" target="_blank"><i class="fa fa-download"></i><span>Download</span></a>
+                                    @endif
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                         @endforeach

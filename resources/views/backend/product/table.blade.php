@@ -34,8 +34,8 @@
             <div class='btn-group'>
 <!--                    <a href="{!! route('admin.product.show', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>-->
                 
-                <a href="{!! route('admin.product.book', [$row->id]) !!}" class='btn btn-default btn-xs {{$disable_class}}'><i class="fa fa-book"></i></a>
-                <a href="{!! route('admin.product.edit', [$row->id]) !!}" class='btn btn-default btn-xs {{$disable_class}}'><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
+                <a href="{!! route('admin.product.book', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="fa fa-book"></i></a>
+                <a href="{!! route('admin.product.edit', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit" title="Edit"></i></a>
                 <a title="Clone" onclick="return confirm('Are you sure want to generate clone?')" href="{!! route('admin.product.copy', [$row->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-copy" title="Clone"></i></a>
                 @if($allow_delete)
                 {!! Form::button('<i class="glyphicon glyphicon-trash" title="Delete"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}

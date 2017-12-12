@@ -43,7 +43,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                 <?php $totaltax = 0; ?>
                 <?php $totalmrp = 0; ?>
                 <?php
-                $books = $ps->books;
+                $books = \App\Models\OrderProductBook::where(['order_product_id' => $ps->pivot->id])->get();
                 ?>
                 @foreach($books as $book)
                 <tr>
@@ -69,33 +69,36 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <td class="gst nobg"></td>
                     <td class="mrp nobg"></td>
                 </tr>
-                <?php if (@$shipping_address->state == $ps->company->state) { ?>
+                    @if($order->sgst_tax > 0)
                     <tr>
                         <td class="name text-right">SGST in inr</td>
                         <td class="quantity nobg"></td>
                         <td class="cost nobg"></td>
                         <td class="subtotal nobg"></td>
-                        <td class="gst">INR {{numberWithDecimal($totaltax/2)}}</td>
+                        <td class="gst">INR {{numberWithDecimal($order->sgst_tax)}}</td>
                         <td class="mrp nobg"></td>
                     </tr>
+                    @endif
+                    @if($order->cgst_tax > 0)
                     <tr>
                         <td class="name text-right">CGST in inr</td>
                         <td class="quantity nobg"></td>
                         <td class="cost nobg"></td>
                         <td class="subtotal nobg"></td>
-                        <td class="gst">INR {{numberWithDecimal($totaltax/2)}}</td>
+                        <td class="gst">INR {{numberWithDecimal($order->cgst_tax)}}</td>
                         <td class="mrp nobg"></td>
                     </tr>
-                <?php } else { ?>
+                    @endif
+                    @if($order->igst_tax > 0)
                     <tr>
                         <td class="name text-right">IGST in inr</td>
                         <td class="quantity nobg"></td>
                         <td class="cost nobg"></td>
                         <td class="subtotal nobg"></td>
-                        <td class="gst">INR {{numberWithDecimal($totaltax)}}</td>
+                        <td class="gst">INR {{numberWithDecimal($order->igst_tax)}}</td>
                         <td class="mrp nobg"></td>
                     </tr>
-                <?php } ?>
+                    @endif
             </table>
             <div class="table-hr"></div>
             <table>
@@ -116,36 +119,38 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <td class="cost nobg"></td>
                     <td class="subtotal nobg"></td>
                     <td class="gst nobg"></td>
-                    <td class="mrp">INR {{numberWithDecimal($ps->shipping_state)}}</td>
+                    <td class="mrp">INR {{numberWithDecimal($order->shipping_charges)}}</td>
                 </tr>
-                <?php $shippingtax = (($ps->shipping_state * getProductItemHighestTax($ps->id)) / 100); ?>
-                <?php if (@$shipping_address->state == $ps->company->state) { ?>
+                    @if($order->sgst_shipping > 0)
                     <tr>
                         <td class="name text-right">SGST on shipping costs in inr</td>
                         <td class="quantity nobg"></td>
                         <td class="cost nobg"></td>
                         <td class="subtotal nobg"></td>
                         <td class="gst nobg"></td>
-                        <td class="mrp">INR {{numberWithDecimal($shippingtax/2)}}</td>
+                        <td class="mrp">INR {{numberWithDecimal($order->sgst_shipping)}}</td>
                     </tr>
+                    @endif
+                    @if($order->cgst_shipping > 0)
                     <tr>
                         <td class="name text-right">CGST on shipping costs in inr</td>
                         <td class="quantity nobg"></td>
                         <td class="cost nobg"></td>
                         <td class="subtotal nobg"></td>
                         <td class="gst nobg"></td>
-                        <td class="mrp">INR {{numberWithDecimal($shippingtax/2)}}</td>
+                        <td class="mrp">INR {{numberWithDecimal($order->cgst_shipping)}}</td>
                     </tr>
-                <?php } else { ?>
+                    @endif
+                    @if($order->igst_shipping > 0)
                     <tr>
                         <td class="name text-right">IGST on shipping costs in inr</td>
                         <td class="quantity nobg"></td>
                         <td class="cost nobg"></td>
                         <td class="subtotal nobg"></td>
                         <td class="gst nobg"></td>
-                        <td class="mrp">INR {{numberWithDecimal($shippingtax)}}</td>
+                        <td class="mrp">INR {{numberWithDecimal($order->igst_shipping)}}</td>
                     </tr>
-                <?php } ?>
+                    @endif
             </table>
             <div class="table-hr"></div>
             <table>
@@ -155,7 +160,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <td class="cost nobg"></td>
                     <td class="subtotal nobg"></td>
                     <td class="gst nobg"></td>
-                    <td class="mrp greybg">INR {{numberWithDecimal($shippingtax+$ps->shipping_state)}}</td>
+                    <td class="mrp greybg">INR {{numberWithDecimal($order->shipping)}}</td>
                 </tr>
             </table>
             <div class="table-hr"></div>
@@ -166,7 +171,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <td class="cost nobg"></td>
                     <td class="subtotal nobg"></td>
                     <td class="gst nobg"></td>
-                    <td class="mrp greybg">INR {{numberWithDecimal($ps->price)}}</td>
+                    <td class="mrp greybg">INR {{numberWithDecimal($order->total_amount)}}</td>
                 </tr>
             </table>
             <div class="table-hr"></div>

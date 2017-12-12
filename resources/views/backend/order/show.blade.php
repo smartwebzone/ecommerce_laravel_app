@@ -47,7 +47,9 @@
                         <div class="space12">
                             <div class="btn-group btn-group-lg">
                                 <a class="btn btn-default" href="{!! url(getLang() . '/admin/order') !!}"> Back</a>
+                                @if($order->status->name != 'Cancelled')
                                 <a class="btn btn-default" href="{!! route('admin.order.invoice', [$order->id]) !!}" target="_blank"> Print Order</a>
+                                @endif
                             </div>
                         </div>
 

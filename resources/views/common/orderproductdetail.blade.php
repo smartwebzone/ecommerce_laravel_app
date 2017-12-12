@@ -31,33 +31,36 @@
     <td class="gst nobg"></td>
     <td class="mrp nobg"></td>
 </tr>
-<?php if (@$shipping_address->state == $ps->company->state) { ?>
-    <tr>
-        <td class="name text-right">SGST in INR</td>
-        <td class="quantity nobg"></td>
-        <td class="cost nobg"></td>
-        <td class="subtotal nobg"></td>
-        <td class="gst text-center">INR {{numberWithDecimal($totaltax/2)}}</td>
-        <td class="mrp nobg"></td>
-    </tr>
-    <tr>
-        <td class="name text-right">CGST in INR</td>
-        <td class="quantity nobg"></td>
-        <td class="cost nobg"></td>
-        <td class="subtotal nobg"></td>
-        <td class="gst text-center">INR {{numberWithDecimal($totaltax/2)}}</td>
-        <td class="mrp nobg"></td>
-    </tr>
-<?php } else { ?>
-    <tr>
-        <td class="name text-right">IGST in INR</td>
-        <td class="quantity nobg"></td>
-        <td class="cost nobg"></td>
-        <td class="subtotal nobg"></td>
-        <td class="gst text-center">INR {{numberWithDecimal($totaltax)}}</td>
-        <td class="mrp nobg"></td>
-    </tr>
-<?php } ?>
+@if($order->sgst_tax > 0)
+<tr>
+    <td class="name text-right">SGST in INR</td>
+    <td class="quantity nobg"></td>
+    <td class="cost nobg"></td>
+    <td class="subtotal nobg"></td>
+    <td class="gst text-center">INR {{numberWithDecimal($order->sgst_tax)}}</td>
+    <td class="mrp nobg"></td>
+</tr>
+@endif
+@if($order->cgst_tax > 0)
+<tr>
+    <td class="name text-right">CGST in INR</td>
+    <td class="quantity nobg"></td>
+    <td class="cost nobg"></td>
+    <td class="subtotal nobg"></td>
+    <td class="gst text-center">INR {{numberWithDecimal($order->cgst_tax)}}</td>
+    <td class="mrp nobg"></td>
+</tr>
+@endif
+@if($order->igst_tax > 0)
+<tr>
+    <td class="name text-right">IGST in INR</td>
+    <td class="quantity nobg"></td>
+    <td class="cost nobg"></td>
+    <td class="subtotal nobg"></td>
+    <td class="gst text-center">INR {{numberWithDecimal($order->igst_tax)}}</td>
+    <td class="mrp nobg"></td>
+</tr>
+@endif
 <tr>
     <td class="name text-right greybg">Total MRP (A)</td>
     <td class="quantity nobg"></td>
@@ -72,43 +75,45 @@
     <td class="cost nobg"></td>
     <td class="subtotal nobg"></td>
     <td class="gst nobg"></td>
-    <td class="mrp text-center">INR {{numberWithDecimal($ps->shipping_state)}}</td>
+    <td class="mrp text-center">INR {{numberWithDecimal($order->shipping_charges)}}</td>
 </tr>
-<?php $shippingtax = (($ps->shipping_state * getProductItemHighestTax($ps->id)) / 100); ?>
-<?php if (@$shipping_address->state == $ps->company->state) { ?>
-    <tr>
-        <td class="name text-right">SGST on Shipping Costs in INR</td>
-        <td class="quantity nobg"></td>
-        <td class="cost nobg"></td>
-        <td class="subtotal nobg"></td>
-        <td class="gst nobg"></td>
-        <td class="mrp text-center">INR {{numberWithDecimal($shippingtax/2)}}</td>
-    </tr>
-    <tr>
-        <td class="name text-right">CGST on Shipping Costs in INR</td>
-        <td class="quantity nobg"></td>
-        <td class="cost nobg"></td>
-        <td class="subtotal nobg"></td>
-        <td class="gst nobg"></td>
-        <td class="mrp text-center">INR {{numberWithDecimal($shippingtax/2)}}</td>
-    </tr>
-<?php } else { ?>
-    <tr>
-        <td class="name text-right">IGST on Shipping Costs in INR</td>
-        <td class="quantity nobg"></td>
-        <td class="cost nobg"></td>
-        <td class="subtotal nobg"></td>
-        <td class="gst nobg"></td>
-        <td class="mrp text-center">INR {{numberWithDecimal($shippingtax)}}</td>
-    </tr>
-<?php } ?>
+@if($order->sgst_shipping > 0)
+<tr>
+    <td class="name text-right">SGST on Shipping Costs in INR</td>
+    <td class="quantity nobg"></td>
+    <td class="cost nobg"></td>
+    <td class="subtotal nobg"></td>
+    <td class="gst nobg"></td>
+    <td class="mrp text-center">INR {{numberWithDecimal($order->sgst_shipping)}}</td>
+</tr>
+@endif
+@if($order->cgst_shipping > 0)
+<tr>
+    <td class="name text-right">CGST on Shipping Costs in INR</td>
+    <td class="quantity nobg"></td>
+    <td class="cost nobg"></td>
+    <td class="subtotal nobg"></td>
+    <td class="gst nobg"></td>
+    <td class="mrp text-center">INR {{numberWithDecimal($order->cgst_shipping)}}</td>
+</tr>
+@endif
+@if($order->igst_shipping > 0)
+<tr>
+    <td class="name text-right">IGST on Shipping Costs in INR</td>
+    <td class="quantity nobg"></td>
+    <td class="cost nobg"></td>
+    <td class="subtotal nobg"></td>
+    <td class="gst nobg"></td>
+    <td class="mrp text-center">INR {{numberWithDecimal($order->igst_shipping)}}</td>
+</tr>
+@endif
 <tr>
     <td class="name text-right greybg">Total Shipping Costs (B)</td>
     <td class="quantity nobg"></td>
     <td class="cost nobg"></td>
     <td class="subtotal nobg"></td>
     <td class="gst nobg"></td>
-    <td class="mrp greybg text-center">INR {{numberWithDecimal($shippingtax+$ps->shipping_state)}}</td>
+    <td class="mrp greybg text-center">INR {{numberWithDecimal($order->shipping)}}</td>
 </tr>
 <tr>
     <td class="name text-right greybg">Total Payable (A+B)</td>
@@ -116,5 +121,5 @@
     <td class="cost nobg"></td>
     <td class="subtotal nobg"></td>
     <td class="gst nobg"></td>
-    <td class="mrp greybg text-center">INR {{numberWithDecimal($ps->price)}}</td>
+    <td class="mrp greybg text-center">INR {{numberWithDecimal($order->total_amount)}}</td>
 </tr>
