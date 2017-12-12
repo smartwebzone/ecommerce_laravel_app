@@ -11,8 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class OrderProductBook extends Model implements ModelInterface {
 
-
     protected $guarded = ['id'];
     public $table = 'order_product_book';
     public $timestamps = false;
+
+    public function company() {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+
 }

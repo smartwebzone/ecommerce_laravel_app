@@ -575,6 +575,9 @@ class AuthController extends Controller {
             return Redirect::route('my_orders')->with('error', 'Invalid request');
         }
         $order = $order[0];
+        if($order->status->name == 'Cancelled'){
+            dd("Invalid request");
+        }
         $option_added = [];
         $company_details = $order->product[0]->company;
         //dd($order->user);
