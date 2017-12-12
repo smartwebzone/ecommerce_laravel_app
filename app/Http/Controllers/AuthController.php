@@ -188,7 +188,7 @@ class AuthController extends Controller {
             'email_signup.unique' => 'Your email ID is already registered with us. If you have forgotten your password, please reset it. You can also contact us at enquiries@jeevandeep.in for further assistance.'
         ];
         $rules = array(
-            'email_signup' => 'required|email|unique:users,email',
+            'email_signup' => 'required|email|unique:users,email,NULL,id,is_active,1',
         );
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -201,12 +201,19 @@ class AuthController extends Controller {
             // Ooops.. something went wrong
             return Redirect::to(URL::previous() . '#toregister')->withInput()->withErrors($validator);
         }
-        $user = User::create(array(
-                    'isAdmin' => 0,
-                    'email' => $request->get('email_signup'),
-                    'password' => bcrypt('test123'),
-                    'verify' => str_random(16)
-        ));
+        $check = User::where('email',$request->get('email_signup'))->first();
+        if(!$check){
+            $user = User::create(array(
+                        'isAdmin' => 0,
+                        'email' => $request->get('email_signup'),
+                        'password' => bcrypt('test123'),
+                        'verify' => str_random(16),
+                        'is_active' => 0
+            ));
+        }else{
+            $user = $check;
+        }
+        
         $data = array(
             'link' => url('/confirmEmail?secret=' . $user->verify.'&key='. base64_encode($user->id))
         );
