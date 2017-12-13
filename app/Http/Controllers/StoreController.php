@@ -198,7 +198,7 @@ class StoreController extends Controller {
             }
             $posted = array('key' => $MERCHANT_KEY,
                 'txnid' => $txnid,
-                'amount' => 1,
+                'amount' => $ps->price,
                 'firstname' => $user->parent_first_name,
                 'lastname' => $user->parent_last_name,
                 'address1' => $billing->address1,
@@ -334,8 +334,10 @@ class StoreController extends Controller {
             $sgst_tax = $cgst_tax = $igst_tax = 0;
             if(@$shipping_address->state==$ps->company->state){
                 $sgst_tax = $cgst_tax = $totaltax/2;
+                $user_state = 'in_state';
             }else{
                 $igst_tax = $totaltax;
+                $user_state = 'out_state';
             }
             
             $shippingtax = (($ps->shipping_state * getProductItemHighestTax($product_id)) / 100);
@@ -354,6 +356,7 @@ class StoreController extends Controller {
             }
             $order = array('user_id' => Sentinel::getuser()->id,
                 'amount' => $subtotal,
+                'user_state' => $user_state,
                 'sgst_tax' => $sgst_tax,
                 'cgst_tax' => $cgst_tax,
                 'igst_tax' => $igst_tax,
