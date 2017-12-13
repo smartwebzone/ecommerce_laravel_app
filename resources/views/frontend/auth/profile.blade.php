@@ -114,7 +114,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                 <span class="errormsg">{{ $errors->first('last_name', ':message') }}</span>
             </li>
             <li class="form-group">
-                <label>MOBILE</label>
+                <label>MOBILE <font style='font-size: 12px'>(10 digits)</font></label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
                     <div class="icon-addon">
@@ -124,7 +124,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                 <span class="errormsg">{{ $errors->first('mobile', ':message') }}</span>
             </li>
             <li class="form-group">
-                <label>LANDLINE</label>
+                <label>LANDLINE <font style='font-size: 12px'>(STD code-Landline number)</font></label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                     <div class="icon-addon">
@@ -236,8 +236,6 @@ Jeevandeep Prakashan Pvt. Ltd.
                     minlength: 10,
                 },
                 landline: {
-                    digits: true,
-                    minlength: 10,
                 },
                 zip: {
                     required: true,

@@ -18,7 +18,7 @@ class Order extends Model implements ModelInterface {
     public $table = 'order_master';
     public $timestamps = false;
     private $order_start;
-    protected $fillable = ['user_id', 'status', 'amount', 'tax', 'shipping', 'total_amount', 'status_id', 'added_by', 'updated_by', 'preferred_delivery_date', 'shipping',
+    protected $fillable = ['user_id', 'status', 'amount', 'sgst_tax', 'cgst_tax', 'igst_tax', 'tax', 'shipping_charges', 'sgst_shipping', 'cgst_shipping', 'igst_shipping', 'shipping', 'total_amount', 'status_id', 'added_by', 'updated_by', 'preferred_delivery_date', 'shipping',
                 'total_amount',
                 'status_id',
                 'preferred_delivery_date',

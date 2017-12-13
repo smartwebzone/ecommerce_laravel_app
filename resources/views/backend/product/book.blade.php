@@ -67,7 +67,7 @@
                                 @foreach($product->books as $key=>$bk)
                                 <div class="form-group col-sm-12 books">
                                     <div class="form-group col-sm-9">
-                                        {!! Form::label('book', 'Item:') !!}
+                                        {!! Form::label('book', 'Item') !!}
 
                                         {!! Form::select('book_id[]', $book, $bk->id, array('class' => 'form-control select2 book', 'value'=>Input::old('book_id'),'required' => true)) !!}
 
@@ -76,7 +76,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group col-sm-1">
-                                        {!! Form::label('Quantity', 'Quantity:') !!}
+                                        {!! Form::label('Quantity', 'QTY') !!}
 
                                         {!! Form::text('quantity[]', $bk->pivot->quantity, ['class' => 'form-control', 'value' => old('quantity'),'required' => true]) !!}
 
@@ -98,7 +98,7 @@
 
                                 <div class="form-group col-sm-12 books">
                                     <div class="form-group col-sm-9">
-                                        {!! Form::label('book', 'Item:') !!}
+                                        {!! Form::label('book', 'Item') !!}
 
                                         {!! Form::select('book_id[]', $book, null, array('class' => 'form-control select2 book', 'value'=>Input::old('book_id'),'required' => true)) !!}
 
@@ -107,7 +107,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group col-sm-1">
-                                        {!! Form::label('Quantity', 'Quantity:') !!}
+                                        {!! Form::label('Quantity', 'QTY') !!}
 
                                         {!! Form::text('quantity[]', 1, ['class' => 'form-control', 'value' => old('quantity'),'required' => true]) !!}
 
@@ -125,7 +125,9 @@
 
                             </div>
                             <div class="form-group col-sm-12" style="margin-bottom:150px;">
+                                @if($product->order()->count() < 1)
                                 {!! Form::submit('Save', ['class' => 'btn btn-primary','required' => true]) !!}
+                                @endif
                                 <a class="btn btn-default" href="{{route('admin.product')}}">Back</a>
                             </div>
                             {!! Form::close() !!}
@@ -140,7 +142,7 @@
 <div class="hide" id="book-clone">
     <div class="form-group col-sm-12 books">
         <div class="form-group col-sm-9">
-            {!! Form::label('book', 'Item:') !!}
+            {!! Form::label('book', 'Item') !!}
 
             {!! Form::select('book_id[]', $book, null, array('class' => 'form-control select2 bookclone', 'value'=>Input::old('book_id'),'required' => true)) !!}
 
@@ -149,7 +151,7 @@
             @endif
         </div>
         <div class="form-group col-sm-1">
-            {!! Form::label('Quantity', 'Quantity:') !!}
+            {!! Form::label('Quantity', 'QTY') !!}
 
             {!! Form::text('quantity[]', 1, ['class' => 'form-control', 'value' => old('quantity'),'required' => true]) !!}
 

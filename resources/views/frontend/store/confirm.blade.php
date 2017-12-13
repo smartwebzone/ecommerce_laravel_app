@@ -47,7 +47,7 @@ Jeevandeep Prakashan Pvt. Ltd.
 
             @foreach($cart_data as $row)
             <tr>            
-            <td class="set"><a rel="group" class="thickbox" href="{!! route('store.product', [$row->product_id]) !!}?width=905&height=505" title="{!! $row->product()->find($row->product_id)->title !!}"><i class="fa fa-shopping-bag"></i>{{$row->product()->find($row->product_id)->title}}</a></td>
+            <td class="set"><a rel="group" class="thickbox underline" href="{!! route('store.product', [$row->product_id]) !!}?width=905&height=505" title="{!! $row->product()->find($row->product_id)->title !!}"><i class="fa fa-shopping-bag"></i>{{$row->product()->find($row->product_id)->title}}</a></td>
             <td class="set-price">INR {{$row->product()->find($row->product_id)->price}}</td>
             </tr>
             @endforeach

@@ -198,7 +198,7 @@ class StoreController extends Controller {
             }
             $posted = array('key' => $MERCHANT_KEY,
                 'txnid' => $txnid,
-                'amount' => $ps->price,
+                'amount' => 1,
                 'firstname' => $user->first_name,
                 'lastname' => $user->last_name,
                 'address1' => $billing->address1,
@@ -285,7 +285,7 @@ class StoreController extends Controller {
         if ($hash != $posted_hash) {
             return Redirect::route('store.cart', ['error' => 'Your transaction was unsuccessful. If your account has been debited, kindly send an email to solutions@jeevandeep.in. Please mention your account email, phone number, and details of the transaction. We  we will look into it immediately.']);
         } else if ($product_id) {
-            return Redirect::route('store.cart', ['error' => "Your order status is " . $status]);
+            return Redirect::route('store.cart', ['error' => 'Your transaction was unsuccessful. If your account has been debited, kindly send an email to solutions@jeevandeep.in. Please mention your account email, phone number, and details of the transaction. We  we will look into it immediately.']);
         }
     }
 
@@ -318,7 +318,8 @@ class StoreController extends Controller {
         if ($hash != $posted_hash) {
             return Redirect::route('store.cart', ['error' => 'Your transaction was unsuccessful. If your account has been debited, kindly send an email to solutions@jeevandeep.in. Please mention your account email, phone number, and details of the transaction. We  we will look into it immediately.']);
         } else if ($product_id) {
-
+            
+            $shipping_address = getUserAddress('shipping');
             $ps = \App\Models\Product::find($product_id);
             $subtotal = 0;
             $totaltax = 0;
@@ -328,9 +329,22 @@ class StoreController extends Controller {
                 $subtotal += $book->price;
                 $totalmrp += $book->price_after_tax;
                 $totaltax += $book->price_after_tax - $book->price;
-                
             endforeach;
+            
+            $sgst_tax = $cgst_tax = $igst_tax = 0;
+            if(@$shipping_address->state==$ps->company->state){
+                $sgst_tax = $cgst_tax = $totaltax/2;
+            }else{
+                $igst_tax = $totaltax;
+            }
+            
             $shippingtax = (($ps->shipping_state * getProductItemHighestTax($product_id)) / 100);
+            $sgst_shipping = $cgst_shipping = $igst_shipping = 0;
+            if(@$shipping_address->state==$ps->company->state){
+                $sgst_shipping = $cgst_shipping = $shippingtax/2;
+            }else{
+                $igst_shipping = $shippingtax;
+            }
             $totalshipping = $shippingtax + $ps->shipping_state;
             $user = \App\Models\User::find(Sentinel::getuser()->id);
             $billing = $user->address()->where('address_type', 'billing')->first();
@@ -340,7 +354,14 @@ class StoreController extends Controller {
             }
             $order = array('user_id' => Sentinel::getuser()->id,
                 'amount' => $subtotal,
+                'sgst_tax' => $sgst_tax,
+                'cgst_tax' => $cgst_tax,
+                'igst_tax' => $igst_tax,
                 'tax' => $totaltax,
+                'shipping_charges' => $ps->shipping_state,
+                'sgst_shipping' => $sgst_shipping,
+                'cgst_shipping' => $cgst_shipping,
+                'igst_shipping' => $igst_shipping,
                 'shipping' => $totalshipping,
                 'total_amount' => $ps->price,
                 'status_id' => 1,
@@ -376,6 +397,7 @@ class StoreController extends Controller {
             
             foreach ($ps->books as $book):
                 $ord_prod_book = \App\Models\OrderProductBook::Create(['order_product_id' => $ord_prod->id,
+                        'book_id' => $book->id,
                         'medium' => $book->medium,
                         'standard_id'=>$book->standard_id,
                         'company_id'=>$book->company_id,
@@ -398,8 +420,7 @@ class StoreController extends Controller {
             $template = \App\Models\Email::where(['template' => 'Order'])->get();
             // Send the welcome email
             if ($template) {
-                $body = str_replace('<<student_name>>', 'ds', $template[0]->body);
-
+                $body = str_replace('<<parent_name>>', $user->parent_first_name . ' ' . $user->parent_last_name, $template[0]->body);
 
                 $body = nl2br($body);
                 $body = explode("<<order_details>>", $body);
@@ -448,9 +469,9 @@ class StoreController extends Controller {
         return view('frontend.store.productdetail', compact('ps'));
     }
     public function orderproduct($order_id) {
-        $order=  \App\Models\Order::find($order_id);
+        $order = \App\Models\Order::find($order_id);
         $ps = $order->product->first();
-        return view('frontend.store.productdetail', compact('ps','order_id'));
+        return view('frontend.store.orderproductdetail', compact('ps','order_id','order'));
     }
 
 }

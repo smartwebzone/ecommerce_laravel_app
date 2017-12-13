@@ -70,14 +70,14 @@
 <div class="row">
     <div class="form-group col-sm-4">
         {!! Form::label('password', 'Password:') !!}
-        <input type="password" class="form-control" name="password" id="password" >
+        <input type="password" class="form-control" name="password" id="password" {{(empty($user['id']) ? 'required="true"' : '')}}>
         @if ($errors->has('password'))
         <div class="error">{{ $errors->first('password') }}</div>
         @endif
     </div>
     <div class="form-group col-sm-4">
         {!! Form::label('confirm-password', 'Confirm Password:') !!}
-        <input type="password" class="form-control" name="confirm-password" id="confirm-password" >
+        <input type="password" class="form-control" name="confirm-password" id="confirm-password"  {{(empty($user['id']) ? 'required="true"' : '')}}>
         @if ($errors->has('confirm-password'))
         <div class="error">{{ $errors->first('confirm-password') }}</div>
         @endif
