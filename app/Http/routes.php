@@ -76,7 +76,7 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
     
     Route::get('/information/create/ajax-school', function() {
         $state = Input::get('state');
-        $subcategories = \App\Models\School::where('state', $state)->get();
+        $subcategories = \App\Models\School::where('state', $state)->orderBy('name', 'asc')->get();
         return $subcategories;
     });
 
@@ -84,7 +84,7 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
         $school_id = Input::get('school_id');
         $subcategories = \App\Models\Standard::whereHas('school', function ($q) use($school_id) {
                     $q->where('school_id', $school_id);
-                })->get();
+                })->orderBy('position', 'asc')->orderBy('id', 'asc')->get();
         return $subcategories;
     });
 
@@ -323,7 +323,7 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale()], function () 
             $school_id = Input::get('school_id');
             $subcategories = \App\Models\Standard::whereHas('school', function ($q) use($school_id) {
                         $q->where('school_id', $school_id);
-                    })->get();
+                    })->orderBy('position', 'asc')->orderBy('id', 'asc')->get();
             return $subcategories;
         });
     });

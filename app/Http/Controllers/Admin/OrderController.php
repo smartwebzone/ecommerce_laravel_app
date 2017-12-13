@@ -292,6 +292,9 @@ class OrderController extends Controller {
     public function invoice($id) {
         error_reporting(0);
         $order = \App\Models\Order::find($id);
+        if($order->status->name == 'Cancelled'){
+            dd("Invalid request");
+        }
         $option_added = [];
         $company_details = $order->product[0]->company;
         //dd($order->user);

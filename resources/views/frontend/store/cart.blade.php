@@ -57,7 +57,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                 @foreach($cart_data as $row)
                 <tr>
                     <td class="text-center"><div><a href="{{route('store.cart.delete',$row->id)}}" onclick="return confirm('Are you sure want to delete this prodct from cart?')"><i class="fa fa-trash" style="margin-right:0px;"></i></a></div></td>
-                    <td><div><a rel="group" class="thickbox" href="{!! route('store.product', [$row->product_id]) !!}?width=905&height=505" title="{!! $row->product()->find($row->product_id)->title !!}"><i class="fa fa-shopping-bag"></i>{{$row->product()->find($row->product_id)->title}}</a></div></td>
+                    <td><div><a rel="group" class="thickbox underline" href="{!! route('store.product', [$row->product_id]) !!}?width=905&height=505" title="{!! $row->product()->find($row->product_id)->title !!}"><i class="fa fa-shopping-bag"></i>{{$row->product()->find($row->product_id)->title}}</a></div></td>
                     <td class="col-td-2"><div>INR {{$row->product()->find($row->product_id)->price}}</div></td>
                     <td class="col-td-pay">
                         {!! Form::open(['route' => 'store.pay',  'id' => '',  'name' => 'cart-form', 'class' => '',  'method' => 'post']) !!}
@@ -74,8 +74,8 @@ Jeevandeep Prakashan Pvt. Ltd.
                 @foreach($om->product as $op)
                 <tr>
                     <td class="text-center"><div><a href="javascript:;" class="disabled"><i class="fa fa-trash" style="margin-right:0px;"></i></a></div></td>
-                    <td><div><a rel="group" class="thickbox" href="{!! route('store.orderproduct', [$om->id]) !!}?width=905&height=505" title="{!! $op->title !!}"><i class="fa fa-shopping-bag"></i>{{$op->title}}</a></div></td>
-                    <td class="col-td-2"><div>INR {{$op->price}}</div></td>
+                    <td><div><a rel="group" class="thickbox underline" href="{!! route('store.orderproduct', [$om->id]) !!}?width=905&height=505" title="{!! $op->title !!}"><i class="fa fa-shopping-bag"></i>{{$op->title}}</a></div></td>
+                    <td class="col-td-2"><div>INR {{$om->total_amount}}</div></td>
                     <td class="col-td-pay">                        
                         <div style="padding:0px; background-color: #5cb85c;">
                             <button type="button" class="btn btnS" style="background-color:#5cb85c;cursor: not-allowed !important;"><i style="color:white" class="fa fa-check"></i>Paid</button>

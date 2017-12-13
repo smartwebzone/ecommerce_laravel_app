@@ -52,3 +52,6 @@ a.disabled {
     box-shadow: none !important;
     opacity: .65 !important;
 }
+.underline{
+    text-decoration: underline !important;
+}

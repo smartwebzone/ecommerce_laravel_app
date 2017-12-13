@@ -38,7 +38,7 @@
         
         {!! Form::text('book_code', null, ['class' => 'form-control','value' => old('book_code'),'required' => true]) !!}
         @if ($errors->has('book_code'))
-        <div class="error">{{ $errors->first('book_code') }}</div>
+        <div class="error">{{ str_replace("The book code has already been taken.","This item code and it's MRP combination already exists. Either change the Item Code or MRP to save the item.",$errors->first('book_code')) }}</div>
         @endif
     </div>
 </div>

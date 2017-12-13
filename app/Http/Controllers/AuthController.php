@@ -111,6 +111,24 @@ class AuthController extends Controller {
      * @return Redirect
      */
     public function postSignin(Request $request) {
+        
+        $rules = array(
+            'email' => 'required|email',
+            'password' => 'required'
+        );
+
+        $validator = Validator::make($request->all(), $rules);
+
+        $validator->setAttributeNames([
+            'email' => 'Email address',
+            'password' => 'Password']);
+
+        // If validation fails, we'll exit the operation now.
+        if ($validator->fails()) {
+            // Ooops.. something went wrong
+            return Redirect::to(URL::previous())->withInput()->withErrors($validator);
+        }
+        
         $cart_old = Session::get('cart');
 
         try {
@@ -139,14 +157,14 @@ class AuthController extends Controller {
             //dd($request->get('email'));
             $user = Sentinel::findByCredentials(['email' => $request->get('email')]);
             if ($user) {
-                $msg = 'Please enter a valid Email ID and Password';
+                $msg = 'Either your Email ID or Password is incorrect';
             } else {
                 $msg = 'The Email ID you have entered is not registered with us. Please contact the Jeevandeep Administrator at enquiries@jeevandeep.in for further assistance.';
             }
             if ($request->get('top-login')) {
                 $this->messageBag->add('top-login', Lang::get($msg));
             }
-            $this->messageBag->add('email', Lang::get($msg));
+            $this->messageBag->add('password', Lang::get($msg));
         } catch (NotActivatedException $e) {
             if ($request->get('top-login')) {
                 $this->messageBag->add('top-login', Lang::get('Account not activated'));
@@ -170,7 +188,7 @@ class AuthController extends Controller {
             'email_signup.unique' => 'Your email ID is already registered with us. If you have forgotten your password, please reset it. You can also contact us at enquiries@jeevandeep.in for further assistance.'
         ];
         $rules = array(
-            'email_signup' => 'required|email|unique:users,email',
+            'email_signup' => 'required|email|unique:users,email,NULL,id,is_active,1',
         );
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -183,12 +201,19 @@ class AuthController extends Controller {
             // Ooops.. something went wrong
             return Redirect::to(URL::previous() . '#toregister')->withInput()->withErrors($validator);
         }
-        $user = User::create(array(
-                    'isAdmin' => 0,
-                    'email' => $request->get('email_signup'),
-                    'password' => bcrypt('test123'),
-                    'verify' => str_random(16)
-        ));
+        $check = User::where('email',$request->get('email_signup'))->first();
+        if(!$check){
+            $user = User::create(array(
+                        'isAdmin' => 0,
+                        'email' => $request->get('email_signup'),
+                        'password' => bcrypt('test123'),
+                        'verify' => str_random(16),
+                        'is_active' => 0
+            ));
+        }else{
+            $user = $check;
+        }
+        
         $data = array(
             'link' => url('/confirmEmail?secret=' . $user->verify.'&key='. base64_encode($user->id))
         );
@@ -508,7 +533,7 @@ class AuthController extends Controller {
         }
 
         // Password successfully reseted
-        return Redirect::route('signin')->with('success', 'Password successfully reseted');
+        return Redirect::route('signin')->with('success', 'Your password has been reset successfully.');
     }
 
     /**
@@ -557,6 +582,9 @@ class AuthController extends Controller {
             return Redirect::route('my_orders')->with('error', 'Invalid request');
         }
         $order = $order[0];
+        if($order->status->name == 'Cancelled'){
+            dd("Invalid request");
+        }
         $option_added = [];
         $company_details = $order->product[0]->company;
         //dd($order->user);

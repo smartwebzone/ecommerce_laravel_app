@@ -176,9 +176,6 @@ class ProductController extends Controller {
      */
     public function edit($id) {
         $product = $this->product->find($id);
-        if ($product->order()->count() > 0) {
-            die("Action not allowed");
-        }
         $standard = \App\Models\Standard::orderBy('position', 'asc')->orderBy('id', 'asc')->lists('name', 'id')->toArray();
         $standard = [null => 'Please Select'] + $standard;
 
