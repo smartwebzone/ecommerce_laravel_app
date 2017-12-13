@@ -199,8 +199,8 @@ class StoreController extends Controller {
             $posted = array('key' => $MERCHANT_KEY,
                 'txnid' => $txnid,
                 'amount' => 1,
-                'firstname' => $user->first_name,
-                'lastname' => $user->last_name,
+                'firstname' => $user->parent_first_name,
+                'lastname' => $user->parent_last_name,
                 'address1' => $billing->address1,
                 'address2' => $billing->address2,
                 'city' => $billing->city,
@@ -465,8 +465,9 @@ class StoreController extends Controller {
         ]);
     }
     public function product($product_id) {
+        $shipping_address = getUserAddress('shipping');
         $ps = \App\Models\Product::find($product_id);
-        return view('frontend.store.productdetail', compact('ps'));
+        return view('frontend.store.productdetail', compact('ps','shipping_address'));
     }
     public function orderproduct($order_id) {
         $order = \App\Models\Order::find($order_id);
