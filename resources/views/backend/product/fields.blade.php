@@ -84,8 +84,9 @@
 </div>
 <div class="row">
     <div class="form-group col-sm-12">
-        @if($product->order()->count() < 1)
-        {!! Form::submit('Next', ['class' => 'btn btn-primary','required' => true]) !!}
+        @if(isset($product) && $product->order()->count() > 0)
+        @else
+        {!! Form::submit('Save & Next', ['class' => 'btn btn-primary','required' => true]) !!}
         @endif
         <a href="{!! route('admin.product') !!}" class="btn btn-default">Back</a>
     </div>

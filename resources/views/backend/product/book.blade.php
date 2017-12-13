@@ -125,7 +125,8 @@
 
                             </div>
                             <div class="form-group col-sm-12" style="margin-bottom:150px;">
-                                @if($product->order()->count() < 1)
+                                @if(isset($product) && $product->order()->count() > 0)
+                                @else
                                 {!! Form::submit('Save', ['class' => 'btn btn-primary','required' => true]) !!}
                                 @endif
                                 <a class="btn btn-default" href="{{route('admin.product')}}">Back</a>
