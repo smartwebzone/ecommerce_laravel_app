@@ -31,7 +31,7 @@
     <td class="gst nobg"></td>
     <td class="mrp nobg"></td>
 </tr>
-@if($order->user_state == 'in_state')
+@if($order->user_bill_state == 'in_state')
 <tr>
     <td class="name text-right">SGST in INR</td>
     <td class="quantity nobg"></td>
@@ -49,7 +49,7 @@
     <td class="mrp nobg"></td>
 </tr>
 @endif
-@if($order->user_state == 'out_state')
+@if($order->user_bill_state == 'out_state')
 <tr>
     <td class="name text-right">IGST in INR</td>
     <td class="quantity nobg"></td>
@@ -75,7 +75,7 @@
     <td class="gst nobg"></td>
     <td class="mrp text-center">INR {{numberWithDecimal($order->shipping_charges)}}</td>
 </tr>
-@if($order->user_state == 'in_state')
+@if($order->user_ship_state == 'in_state')
 <tr>
     <td class="name text-right">SGST on Shipping Costs in INR</td>
     <td class="quantity nobg"></td>
@@ -93,7 +93,7 @@
     <td class="mrp text-center">INR {{numberWithDecimal($order->cgst_shipping)}}</td>
 </tr>
 @endif
-@if($order->user_state == 'out_state')
+@if($order->user_ship_state == 'out_state')
 <tr>
     <td class="name text-right">IGST on Shipping Costs in INR</td>
     <td class="quantity nobg"></td>
