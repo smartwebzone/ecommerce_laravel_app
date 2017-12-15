@@ -69,9 +69,9 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <td class="gst nobg"></td>
                     <td class="mrp nobg"></td>
                 </tr>
-                    @if($order->user_state == 'in_state')
+                    @if($order->user_bill_state == 'in_state')
                     <tr>
-                        <td class="name text-right">SGST in inr</td>
+                        <td class="name text-right">SGST in INR</td>
                         <td class="quantity nobg"></td>
                         <td class="cost nobg"></td>
                         <td class="subtotal nobg"></td>
@@ -79,7 +79,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                         <td class="mrp nobg"></td>
                     </tr>
                     <tr>
-                        <td class="name text-right">CGST in inr</td>
+                        <td class="name text-right">CGST in INR</td>
                         <td class="quantity nobg"></td>
                         <td class="cost nobg"></td>
                         <td class="subtotal nobg"></td>
@@ -87,9 +87,9 @@ Jeevandeep Prakashan Pvt. Ltd.
                         <td class="mrp nobg"></td>
                     </tr>
                     @endif
-                    @if($order->user_state == 'out_state')
+                    @if($order->user_bill_state == 'out_state')
                     <tr>
-                        <td class="name text-right">IGST in inr</td>
+                        <td class="name text-right">IGST in INR</td>
                         <td class="quantity nobg"></td>
                         <td class="cost nobg"></td>
                         <td class="subtotal nobg"></td>
@@ -119,7 +119,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <td class="gst nobg"></td>
                     <td class="mrp">INR {{numberWithDecimal($order->shipping_charges)}}</td>
                 </tr>
-                    @if($order->user_state == 'in_state')
+                    @if($order->user_ship_state == 'in_state')
                     <tr>
                         <td class="name text-right">SGST on shipping costs in inr</td>
                         <td class="quantity nobg"></td>
@@ -137,7 +137,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                         <td class="mrp">INR {{numberWithDecimal($order->cgst_shipping)}}</td>
                     </tr>
                     @endif
-                    @if($order->user_state == 'out_state')
+                    @if($order->user_ship_state == 'out_state')
                     <tr>
                         <td class="name text-right">IGST on shipping costs in inr</td>
                         <td class="quantity nobg"></td>

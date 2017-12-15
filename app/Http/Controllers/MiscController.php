@@ -57,11 +57,13 @@ class MiscController extends Controller {
 
     public function run_query() {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        DB::statement("ALTER TABLE `order_master` ADD `user_state` ENUM('in_state','out_state') NULL AFTER `amount`");
-        DB::statement('TRUNCATE table order_product_book');
-        DB::statement('TRUNCATE table order_product');
-        DB::statement('TRUNCATE table order_master');
-        DB::statement('TRUNCATE table cart');
+        DB::statement("ALTER TABLE `order_master` CHANGE `user_state` `user_ship_state` ENUM('in_state','out_state') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'in_state'");
+        DB::statement("ALTER TABLE `order_master` ADD `user_bill_state` ENUM('in_state','out_state') NOT NULL DEFAULT 'in_state' AFTER `amount`");
+        DB::statement("update order_master set user_bill_state = user_ship_state");
+//        DB::statement('TRUNCATE table order_product_book');
+//        DB::statement('TRUNCATE table order_product');
+//        DB::statement('TRUNCATE table order_master');
+//        DB::statement('TRUNCATE table cart');
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
         dd("All query run successfully");
     }
