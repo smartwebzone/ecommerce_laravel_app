@@ -248,6 +248,18 @@ function getUserShippingState() {
     return $shipping_state;
 }
 
+function userState($address_type = 'shipping') {
+    $state = '';
+    if (Sentinel::check()) {
+        $user = \App\Models\User::find(Sentinel::getUser()->id);
+        if ($user->address()->where('address_type', $address_type)->count() > 0) {
+            $address = $user->address()->where('address_type', $address_type)->get();
+            $state = @$address[0]->state;
+        }
+    }
+    return $state;
+}
+
 function getUserAddress($address_type) {
     $address = array();
     if (Sentinel::check()) {

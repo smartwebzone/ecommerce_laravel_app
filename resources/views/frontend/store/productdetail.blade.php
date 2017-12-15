@@ -69,9 +69,9 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <td class="gst nobg"></td>
                     <td class="mrp nobg"></td>
                 </tr>
-                <?php if (@$shipping_address->state == $ps->company->state) { ?>
+                <?php if (userState('billing') == $ps->company->state) { ?>
                     <tr>
-                        <td class="name text-right">SGST in inr</td>
+                        <td class="name text-right">SGST in INR</td>
                         <td class="quantity nobg"></td>
                         <td class="cost nobg"></td>
                         <td class="subtotal nobg"></td>
@@ -79,7 +79,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                         <td class="mrp nobg"></td>
                     </tr>
                     <tr>
-                        <td class="name text-right">CGST in inr</td>
+                        <td class="name text-right">CGST in INR</td>
                         <td class="quantity nobg"></td>
                         <td class="cost nobg"></td>
                         <td class="subtotal nobg"></td>
@@ -88,7 +88,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                     </tr>
                 <?php } else { ?>
                     <tr>
-                        <td class="name text-right">IGST in inr</td>
+                        <td class="name text-right">IGST in INR</td>
                         <td class="quantity nobg"></td>
                         <td class="cost nobg"></td>
                         <td class="subtotal nobg"></td>
@@ -119,7 +119,7 @@ Jeevandeep Prakashan Pvt. Ltd.
                     <td class="mrp">INR {{numberWithDecimal($ps->shipping_state)}}</td>
                 </tr>
                 <?php $shippingtax = (($ps->shipping_state * getProductItemHighestTax($ps->id)) / 100); ?>
-                <?php if (@$shipping_address->state == $ps->company->state) { ?>
+                <?php if (userState('shipping') == $ps->company->state) { ?>
                     <tr>
                         <td class="name text-right">SGST on shipping costs in inr</td>
                         <td class="quantity nobg"></td>
