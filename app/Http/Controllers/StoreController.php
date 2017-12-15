@@ -67,13 +67,10 @@ class StoreController extends Controller {
         $school = Session::get('school');
         $standard = Session::get('standard');
         if ($state && $school && $standard) {
-            $shipping_address = getUserAddress('shipping');
-
             $product = \App\Models\Product::where(['school_id' => $school, 'standard_id' => $standard])->active()->get();
-            //dd($shipping_address->state,$product[0]->company->state);
             $school = \App\Models\School::find($school);
             $standard = \App\Models\Standard::find($standard);
-            return view('frontend.store.selectproduct', compact('school', 'standard', 'product', 'shipping_address'))->with('cart', 'total');
+            return view('frontend.store.selectproduct', compact('school', 'standard', 'product'))->with('cart', 'total');
         } else {
             return Redirect::route('store.selectSchool');
         }
@@ -319,7 +316,6 @@ class StoreController extends Controller {
             return Redirect::route('store.cart', ['error' => 'Your transaction was unsuccessful. If your account has been debited, kindly send an email to solutions@jeevandeep.in. Please mention your account email, phone number, and details of the transaction. We  we will look into it immediately.']);
         } else if ($product_id) {
             
-            $shipping_address = getUserAddress('shipping');
             $ps = \App\Models\Product::find($product_id);
             $subtotal = 0;
             $totaltax = 0;
@@ -332,20 +328,22 @@ class StoreController extends Controller {
             endforeach;
             
             $sgst_tax = $cgst_tax = $igst_tax = 0;
-            if(@$shipping_address->state==$ps->company->state){
+            if(userState('billing') == $ps->company->state){
                 $sgst_tax = $cgst_tax = $totaltax/2;
-                $user_state = 'in_state';
+                $user_bill_state = 'in_state';
             }else{
                 $igst_tax = $totaltax;
-                $user_state = 'out_state';
+                $user_bill_state = 'out_state';
             }
             
             $shippingtax = (($ps->shipping_state * getProductItemHighestTax($product_id)) / 100);
             $sgst_shipping = $cgst_shipping = $igst_shipping = 0;
-            if(@$shipping_address->state==$ps->company->state){
+            if(userState('shipping') == $ps->company->state){
                 $sgst_shipping = $cgst_shipping = $shippingtax/2;
+                $user_ship_state = 'in_state';
             }else{
                 $igst_shipping = $shippingtax;
+                $user_ship_state = 'out_state';
             }
             $totalshipping = $shippingtax + $ps->shipping_state;
             $user = \App\Models\User::find(Sentinel::getuser()->id);
@@ -356,7 +354,8 @@ class StoreController extends Controller {
             }
             $order = array('user_id' => Sentinel::getuser()->id,
                 'amount' => $subtotal,
-                'user_state' => $user_state,
+                'user_bill_state' => $user_bill_state,
+                'user_ship_state' => $user_ship_state,
                 'sgst_tax' => $sgst_tax,
                 'cgst_tax' => $cgst_tax,
                 'igst_tax' => $igst_tax,
