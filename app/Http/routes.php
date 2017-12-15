@@ -51,7 +51,7 @@ Route::group(['prefix' => LaravelLocalization::getCurrentLocale(), 'before' => [
 
 
     // frontend dashboard  
-    Route::get('/', ['as' => 'dashboard', 'uses' => 'HomeController@index']);
+    Route::get('/', ['as' => 'dashboard', 'uses' => 'StoreController@index']);
     //Route::get('store', ['as' => 'store', 'uses' => 'ProductController@index']);
     Route::get('store', function () {
         return View::make('frontend/page/store');
