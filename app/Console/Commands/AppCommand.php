@@ -279,10 +279,7 @@ class AppCommand extends Command
 	{
 		$this->sentinelCreateDefaultGroups();
 		$this->sentinelCreateUser();
-		// $this->sentinelCreateRobUser();
-		// $this->sentinelCreateBrienUser();
-		// $this->sentinelCreateChrisUser();
-		// $this->sentinelCreateGraceUser();
+		// $this->sentinelCreateAdminUser();
 	}
 
 	/**
@@ -324,7 +321,7 @@ class AppCommand extends Command
 			'user_id'      => $user->id,
 			'display_name' => $this->userData['first_name'].' '.$this->userData['last_name'],
 			'is_active'    => 1,
-			'website'      => 'www.grace.com',
+			'website'      => '',
 		]);
 
 		$this->role->users()->attach($user);
@@ -334,18 +331,18 @@ class AppCommand extends Command
 		$this->info('Your user was created successfully.');
 	}
 
-	protected function sentinelCreateRobUser()
+	protected function sentinelCreateAdminUser()
 	{
-		$robdata = array_merge($this->userData, [
-			'first_name'  => 'Rob',
-			'last_name'   => 'Modi',
+		$admindata = array_merge($this->userData, [
+			'first_name'  => 'Admin',
+			'last_name'   => 'Admin',
 			'username'    => 'Admin',
-			'slug'        => str_slug(('rob modi'),'-'),
+			'slug'        => str_slug(('admin'),'-'),
 			'isAdmin'     => '1',
-			'email'       => 'rob@devsimplify.com',
+			'email'       => '',
 			'password'    => bcrypt('test123'),
 			'activated'   => '1',
-			'uuid'        => \Uuid::generate(3, 'robmodi', Uuid::NS_DNS),
+			'uuid'        => \Uuid::generate(3, 'admin', Uuid::NS_DNS),
 			'referral_id' => null,
 			'is_online'   => '0',
 			'referred_by' => null,
@@ -354,20 +351,20 @@ class AppCommand extends Command
 			'updated_at'  => Carbon::now(),
 		]);
 
-		$user = Sentinel::registerAndActivate($robdata );
+		$user = Sentinel::registerAndActivate($admindata );
 
 		$userInfo = UserInfo::create([
 			'user_id'      => $user->id,
-			'display_name' => 'Rob'.' '.'Modi',
+			'display_name' => 'Admin',
 			'is_active'    => 1,
-			'website'      => 'www.grace.com',
+			'website'      => '',
 		]);
 
 		$this->role->users()->attach($user);
 
 
 		$this->comment('');
-		$this->info('Robs user was created successfully.');
+		$this->info('Admin user was created successfully.');
 		$this->comment('');
 	}
 }
